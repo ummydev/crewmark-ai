@@ -7,6 +7,8 @@ import { routing } from "./routing";
  * copy lives in content/blog/<slug>.ts; this list stays small because proxy.ts imports it.
  */
 export const posts = [
+  { slug: "claude-code-vs-codex", published: "2026-11-05", locales: routing.locales },
+  { slug: "claude-md", published: "2026-11-05", locales: routing.locales },
   { slug: "claude-duet", published: "2026-11-05", locales: routing.locales },
   { slug: "claude-message-threads", published: "2026-11-04", locales: routing.locales },
   { slug: "deepseek-super-agent", published: "2026-11-03", locales: routing.locales },

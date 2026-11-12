@@ -95,6 +95,22 @@ import { copy as esClaudeDuet } from "./es/blog-claude-duet";
 import { copy as ptBRClaudeDuet } from "./pt-BR/blog-claude-duet";
 import { copy as frClaudeDuet } from "./fr/blog-claude-duet";
 import { copy as deClaudeDuet } from "./de/blog-claude-duet";
+import { copy as zhClaudeMd } from "./zh/blog-claude-md";
+import { copy as zhTWClaudeMd } from "./zh-TW/blog-claude-md";
+import { copy as jaClaudeMd } from "./ja/blog-claude-md";
+import { copy as koClaudeMd } from "./ko/blog-claude-md";
+import { copy as esClaudeMd } from "./es/blog-claude-md";
+import { copy as ptBRClaudeMd } from "./pt-BR/blog-claude-md";
+import { copy as frClaudeMd } from "./fr/blog-claude-md";
+import { copy as deClaudeMd } from "./de/blog-claude-md";
+import { copy as zhClaudeCodeVsCodex } from "./zh/blog-claude-code-vs-codex";
+import { copy as zhTWClaudeCodeVsCodex } from "./zh-TW/blog-claude-code-vs-codex";
+import { copy as jaClaudeCodeVsCodex } from "./ja/blog-claude-code-vs-codex";
+import { copy as koClaudeCodeVsCodex } from "./ko/blog-claude-code-vs-codex";
+import { copy as esClaudeCodeVsCodex } from "./es/blog-claude-code-vs-codex";
+import { copy as ptBRClaudeCodeVsCodex } from "./pt-BR/blog-claude-code-vs-codex";
+import { copy as frClaudeCodeVsCodex } from "./fr/blog-claude-code-vs-codex";
+import { copy as deClaudeCodeVsCodex } from "./de/blog-claude-code-vs-codex";
 
 export const aiEmployeesTranslations = {
   "zh-TW": zhTWAiEmployees,
@@ -222,4 +238,26 @@ export const claudeDuetTranslations = {
   "pt-BR": ptBRClaudeDuet,
   fr: frClaudeDuet,
   de: deClaudeDuet,
+};
+
+export const claudeMdTranslations = {
+  zh: zhClaudeMd,
+  "zh-TW": zhTWClaudeMd,
+  ja: jaClaudeMd,
+  ko: koClaudeMd,
+  es: esClaudeMd,
+  "pt-BR": ptBRClaudeMd,
+  fr: frClaudeMd,
+  de: deClaudeMd,
+};
+
+export const claudeCodeVsCodexTranslations = {
+  zh: zhClaudeCodeVsCodex,
+  "zh-TW": zhTWClaudeCodeVsCodex,
+  ja: jaClaudeCodeVsCodex,
+  ko: koClaudeCodeVsCodex,
+  es: esClaudeCodeVsCodex,
+  "pt-BR": ptBRClaudeCodeVsCodex,
+  fr: frClaudeCodeVsCodex,
+  de: deClaudeCodeVsCodex,
 };

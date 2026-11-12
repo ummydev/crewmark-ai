@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 
 import { EarlyAccess } from "@/components/landing/early-access";
 import { LandingIcons } from "@/components/landing/landing-icons";
+import { LatestPosts } from "@/components/landing/latest-posts";
 import { guideLocale, guides } from "@/i18n/guides";
 import { getPathname, Link } from "@/i18n/navigation";
 import { localeNames } from "@/i18n/routing";
@@ -81,6 +82,12 @@ export async function GuideShell({
                 </li>
               );
             })}
+          </ul>
+        </nav>
+        <nav className="guide-links" aria-label={t("footer.latestPosts")}>
+          <h4>{t("footer.latestPosts")}</h4>
+          <ul>
+            <LatestPosts locale={locale} current={href} />
           </ul>
         </nav>
         <div className="foot-bottom">

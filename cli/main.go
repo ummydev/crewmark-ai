@@ -14,7 +14,7 @@ import (
 )
 
 // version is bumped for every release of the binaries.
-var version = "0.5.1"
+var version = "0.6.0"
 
 const defaultURL = "https://crewmark.ai"
 

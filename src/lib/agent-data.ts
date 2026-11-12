@@ -10,6 +10,7 @@ import {
   ISSUE_STATUSES,
   defaultHeartbeatPrompt,
   type Employee,
+  type Heartbeat,
   type Issue,
   type IssueActivity,
   type User,
@@ -22,11 +23,12 @@ export function toAgentEmployee(employee: Employee, data: OrganizationData): Age
   const projects = data.projects
     .filter((p) => employee.projectIds.includes(p.id))
     .map((p) => ({ id: p.id, name: p.name }));
-  const heartbeat = employee.heartbeat && {
-    ...employee.heartbeat,
-    prompt: employee.heartbeat.prompt || defaultHeartbeatPrompt(employee.heartbeat.language),
-  };
-  return { id, name, role, description, kpi, status, runtime, projects, heartbeat };
+  return { id, name, role, description, kpi, status, runtime, projects, heartbeat: toAgentHeartbeat(employee.heartbeat) };
+}
+
+/** Heartbeat settings as the agent gets them: with the default prompt filled in when none was written. */
+export function toAgentHeartbeat(heartbeat: Heartbeat | null): Heartbeat | null {
+  return heartbeat && { ...heartbeat, prompt: heartbeat.prompt || defaultHeartbeatPrompt(heartbeat.language) };
 }
 
 /** A person's name as agents see it: the Google account's full name, else the username. */

@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"time"
 )
@@ -15,9 +16,11 @@ import (
 // Delivering a message into the employee's agent conversation, so the agent reads it as a new message and acts:
 //   - Claude Code (the app, a terminal or VS Code): every open conversation has an inbox socket, listed with the
 //     session in ~/.claude/sessions/<pid>.json. A message there starts a turn when the conversation is idle and is read
-//     between tool calls when it's busy. Claude Code shows it as a message from another session. A conversation that
-//     isn't open is resumed with `claude -p --resume` in auto mode, when the claude command here is logged in; an open
-//     one can't be, or two processes would write the conversation and split it in two.
+//     between tool calls when it's busy. Claude Code shows it as a message from another session. The Claude app closes
+//     a Code tab conversation that's been idle for a few hours; the daemon opens it there again with its claude://
+//     link, as clicking it in the sidebar would, and delivers once it's open. Any other conversation that isn't open is
+//     resumed with `claude -p --resume` in auto mode, when the claude command here is logged in; an open one can't be,
+//     or two processes would write the conversation and split it in two.
 //   - Codex (the CLI or the app): `codex queue --resume` puts the message in the conversation's queue on Codex's local
 //     app-server daemon and starts it.
 
@@ -67,13 +70,73 @@ func openClaudeSession(sessionID string) (*claudeSession, error) {
 		}
 		return &session, nil
 	}
-	return nil, errors.New("the conversation isn't open; it gets the message once it's open in Claude Code again")
+	return nil, errors.New("the conversation isn't open")
+}
+
+// wakeClaude gets a conversation that isn't open ready for the message: the Claude app opens one of its own, and the
+// message goes in on a later round; any other is resumed in the background with the message.
+func wakeClaude(employeeID string, profile employeeProfile, text string) error {
+	if runtime.GOOS == "darwin" {
+		link, err := claudeAppLink(*profile.SessionID)
+		if err != nil {
+			return err
+		}
+		if link != "" {
+			return openInClaudeApp(employeeID, link)
+		}
+	}
+	return resumeClaude(employeeID, profile, text)
+}
+
+// claudeAppSessions is where the Claude app keeps its Code tab conversations, a file each, under account and organization.
+func claudeAppSessions() string {
+	dir, _ := os.UserConfigDir()
+	return filepath.Join(dir, "Claude", "claude-code-sessions")
+}
+
+// claudeAppLink is the claude:// link that opens the conversation in the Claude app, or "" when it isn't one of the
+// app's. The app knows a conversation by an id of its own (local_…) and keeps Claude Code's next to it.
+func claudeAppLink(sessionID string) (string, error) {
+	files, _ := filepath.Glob(filepath.Join(claudeAppSessions(), "*", "*", "local_*.json"))
+	for _, file := range files {
+		var session struct {
+			SessionID    string `json:"sessionId"`
+			CLISessionID string `json:"cliSessionId"`
+			IsArchived   bool   `json:"isArchived"`
+		}
+		if readJSON(file, &session) != nil || session.CLISessionID != sessionID || session.SessionID == "" {
+			continue
+		}
+		if session.IsArchived {
+			return "", errors.New("the conversation is archived in the Claude app; unarchive it there to wake it")
+		}
+		return "claude://claude.ai/epitaxy/" + session.SessionID, nil
+	}
+	return "", nil
+}
+
+// claudeAppOpened is when the daemon last asked the Claude app to open each employee's conversation; it asks again
+// only after claudeAppRetry, so a conversation that doesn't come up doesn't pull the app's window to it every round.
+var claudeAppOpened = map[string]time.Time{}
+
+const claudeAppRetry = 5 * time.Minute
+
+func openInClaudeApp(employeeID, link string) error {
+	opening := errors.New("opening the conversation in the Claude app; the message goes in once it's open")
+	if time.Since(claudeAppOpened[employeeID]) < claudeAppRetry {
+		return opening
+	}
+	claudeAppOpened[employeeID] = time.Now()
+	if out, err := exec.Command("open", link).CombinedOutput(); err != nil {
+		return fmt.Errorf("couldn't open the conversation in the Claude app: %v: %s", err, strings.TrimSpace(string(out)))
+	}
+	return opening
 }
 
 func deliverClaude(employeeID string, profile employeeProfile, text string, whenIdle bool) error {
 	session, err := openClaudeSession(*profile.SessionID)
 	if err != nil {
-		return resumeClaude(employeeID, profile, text, err)
+		return wakeClaude(employeeID, profile, text)
 	}
 	// Heartbeats and news wait for an idle agent; one that's working (or waiting on a permission prompt) is left alone.
 	if whenIdle && session.Status != "" && session.Status != "idle" {
@@ -109,8 +172,11 @@ func claudePath() (string, error) {
 // resumeClaude wakes a conversation that isn't open by running it headless: `claude -p --resume` in its folder, in
 // auto mode since nobody is there to answer permission prompts. It returns once the run has started; the run's output
 // goes to the employee's claude.log. Without a signed-in claude command the message waits for the conversation to
-// open (notOpen says why).
-func resumeClaude(employeeID string, profile employeeProfile, text string, notOpen error) error {
+// be opened.
+func resumeClaude(employeeID string, profile employeeProfile, text string) error {
+	notOpen := errors.New("the conversation isn't open and can't be woken from here: it isn't in the Claude app, " +
+		"and there's no claude command to resume it with; open it in Claude Code, or install Claude Code's command " +
+		"line and log in")
 	claude, err := claudePath()
 	if err != nil {
 		return notOpen
@@ -120,7 +186,8 @@ func resumeClaude(employeeID string, profile employeeProfile, text string, notOp
 	}
 	status, err := exec.Command(claude, "auth", "status").Output()
 	if err != nil || json.Unmarshal(status, &auth) != nil || !auth.LoggedIn {
-		return fmt.Errorf("%v (the claude command here isn't logged in, so it can't be resumed in the background)", notOpen)
+		return errors.New("the conversation isn't open, and the claude command here isn't logged in, so it can't be " +
+			"resumed in the background: run `claude` once and log in, or open the conversation in Claude Code")
 	}
 	logFile, err := os.OpenFile(filepath.Join(home, "employees", employeeID, "claude.log"),
 		os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0o600)

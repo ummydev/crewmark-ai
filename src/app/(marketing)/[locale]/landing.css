@@ -348,7 +348,7 @@ h2 { font-size: clamp(32px, 3.7vw, 48px); font-weight: 650; line-height: 1.06; l
 .cta .btn-line:hover { border-color: #8a8a86; }
 .cta-mark { position: absolute; right: -40px; bottom: -70px; width: 300px; opacity: 0.08; }
 footer.foot { padding: 72px 0 40px; }
-.foot-grid { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 32px; }
+.foot-grid { display: grid; grid-template-columns: 1.4fr repeat(5, 1fr); gap: 32px; }
 .foot-grid p { color: var(--muted); font-size: 14.5px; margin-top: 14px; max-width: 300px; }
 .foot-grid h4 { font-size: 14px; font-weight: 600; margin-bottom: 14px; }
 .foot-grid ul { display: grid; gap: 10px; font-size: 14.5px; color: var(--muted); }

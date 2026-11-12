@@ -18,6 +18,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // The Cloudflare Worker, checked with its own tsconfig.
+    "realtime/**",
   ]),
 ]);
 

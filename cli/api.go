@@ -47,6 +47,10 @@ type agentEvent struct {
 	CreatedAt string `json:"createdAt"`
 }
 
+type heartbeatResponse struct {
+	Heartbeat *heartbeat `json:"heartbeat"`
+}
+
 type eventsResponse struct {
 	Events []agentEvent `json:"events"`
 	Cursor int64        `json:"cursor"`

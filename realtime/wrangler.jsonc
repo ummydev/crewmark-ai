@@ -1,0 +1,15 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "crewmark-realtime",
+  "main": "src/index.ts",
+  // On or after 2026-04-07 the runtime answers WebSocket Close frames itself.
+  "compatibility_date": "2026-10-15",
+  "routes": [{ "pattern": "rt.crewmark.ai", "custom_domain": true }],
+  "durable_objects": {
+    "bindings": [{ "name": "ORGANIZATIONS", "class_name": "Organization" }]
+  },
+  // SQLite-backed, which the Workers Free plan needs; the objects keep nothing in storage.
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Organization"] }],
+  "observability": { "enabled": true }
+  // REALTIME_SECRET is a secret (wrangler secret put REALTIME_SECRET), the same as the web app's; locally, .dev.vars.
+}

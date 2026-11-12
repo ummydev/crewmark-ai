@@ -13,7 +13,8 @@ import (
 
 // The daemon: a background process the operating system keeps running (see service.go), which passes things on to
 // the employees' agent conversations on this computer:
-//   - Crewmark events, e.g. an issue assigned to the employee, polled from /api/agent/events;
+//   - Crewmark events, e.g. an issue assigned to the employee, from /api/agent/events: fetched when Crewmark says
+//     there are some (realtime.go), or every round where it can't;
 //   - heartbeats: the employee's prompt every so often during its working hours, when someone turned that on.
 // It delivers each message into the conversation the employee is linked to (see deliver.go) and keeps what it can't
 // deliver yet, e.g. while the conversation isn't open, for the next round.
@@ -45,13 +46,16 @@ var deliverMessage = deliver
 // daemonState is what the daemon remembers about one employee, in ~/.crewmark/employees/<id>/daemon.json.
 type daemonState struct {
 	// The last event id seen; nil until the first poll, which only learns where to start.
-	EventsCursor  *int64           `json:"eventsCursor"`
-	LastHeartbeat time.Time        `json:"lastHeartbeat"`
-	Heartbeat     *heartbeat       `json:"heartbeat"`
-	CheckedAt     time.Time        `json:"checkedAt"`
-	Pending       []pendingMessage `json:"pending"`
-	LastDelivery  time.Time        `json:"lastDelivery"`
-	LastProblem   string           `json:"lastProblem,omitempty"`
+	EventsCursor  *int64     `json:"eventsCursor"`
+	LastHeartbeat time.Time  `json:"lastHeartbeat"`
+	Heartbeat     *heartbeat `json:"heartbeat"`
+	CheckedAt     time.Time  `json:"checkedAt"`
+	// When events and heartbeat settings were last fetched on the daemon's own account, once an hour while
+	// Crewmark pushes, in case a push went missing.
+	SyncedAt     time.Time        `json:"syncedAt"`
+	Pending      []pendingMessage `json:"pending"`
+	LastDelivery time.Time        `json:"lastDelivery"`
+	LastProblem  string           `json:"lastProblem,omitempty"`
 }
 
 func statePath(employeeID string) string {
@@ -82,7 +86,7 @@ func daemon(args []string) error {
 	case "once":
 		// One round, then exit: for trying things out.
 		for id, profile := range mustProfiles() {
-			daemonRound(id, profile, time.Now())
+			daemonRound(id, profile, time.Now(), "")
 		}
 		return nil
 	case "install":
@@ -114,29 +118,65 @@ func daemonRun() error {
 	defer unlock()
 	log.SetFlags(log.LstdFlags)
 	log.Printf("crewmark %s daemon started", version)
+	pushes := newRealtime()
+	var profiles map[string]employeeProfile
+	ticker := time.NewTicker(daemonTick)
+	defer ticker.Stop()
 	for {
 		// Profiles are read every round, so employees set up later are picked up without a restart.
-		for id, profile := range mustProfiles() {
-			daemonRound(id, profile, time.Now())
+		if latest, err := readProfiles(); err == nil {
+			profiles = latest
+			pushes.sync(profiles)
+		} else {
+			log.Printf("%v", err)
 		}
-		time.Sleep(daemonTick)
+		for id, profile := range profiles {
+			daemonRound(id, profile, time.Now(), pushKind(pushes.isOpen(id), ""))
+		}
+		// Until the next round, act on pushes as they come.
+		for waiting := true; waiting; {
+			select {
+			case <-ticker.C:
+				waiting = false
+			case p := <-pushes.pushes:
+				if profile, ok := profiles[p.employeeID]; ok {
+					daemonRound(p.employeeID, profile, time.Now(), p.kind)
+				}
+			}
+		}
 	}
 }
 
-// daemonRound does one round for one employee: new events, the heartbeat if one is due, then delivery.
-func daemonRound(employeeID string, profile employeeProfile, now time.Time) {
+// pushKind is daemonRound's pushed for a round on the clock: "open" while the employee's push channel is, else "".
+func pushKind(open bool, kind string) string {
+	if open && kind == "" {
+		return "open"
+	}
+	return kind
+}
+
+// daemonRound does one round for one employee: new events, the heartbeat if one is due, then delivery. pushed says
+// what Crewmark told the daemon: "" when the employee has no push channel (fetch everything, as before), "open"
+// on a round on the clock while it has one (fetch nothing, unless it's the hourly check), or the push itself.
+func daemonRound(employeeID string, profile employeeProfile, now time.Time, pushed string) {
 	state := readState(employeeID)
 	name := logName(employeeID, profile)
 
-	pollEvents(profile, name, &state, now)
-
-	if now.Sub(state.CheckedAt) >= heartbeatRefresh {
-		var data meResponse
-		if err := api(profile, "GET", "/api/agent/me", nil, &data); err == nil {
-			state.Heartbeat, state.CheckedAt = data.Employee.Heartbeat, now
+	// The first round after each hour on the clock: the same moment for every employee, so Crewmark wakes once.
+	hourly := now.Truncate(time.Hour).After(state.SyncedAt)
+	if pushed == "" || pushed == "events" || pushed == "connected" || hourly {
+		pollEvents(profile, name, &state, now)
+	}
+	if (pushed == "" && now.Sub(state.CheckedAt) >= heartbeatRefresh) || pushed == "heartbeat" ||
+		pushed == "connected" || hourly {
+		if hb, err := fetchHeartbeat(profile); err == nil {
+			state.Heartbeat, state.CheckedAt = hb, now
 		} else {
 			log.Printf("%s: couldn't read the heartbeat settings: %v", name, err)
 		}
+	}
+	if hourly {
+		state.SyncedAt = now
 	}
 	if heartbeatDue(state.Heartbeat, state.LastHeartbeat, now) && !hasHeartbeat(state.Pending) {
 		state.Pending = append(state.Pending, pendingMessage{
@@ -149,6 +189,21 @@ func daemonRound(employeeID string, profile employeeProfile, now time.Time) {
 	if err := writeState(employeeID, state); err != nil {
 		log.Printf("%s: couldn't save the daemon state: %v", name, err)
 	}
+}
+
+// fetchHeartbeat reads the employee's heartbeat settings, from /api/agent/me on Crewmark servers older than
+// /api/agent/heartbeat.
+func fetchHeartbeat(profile employeeProfile) (*heartbeat, error) {
+	var res heartbeatResponse
+	err := api(profile, "GET", "/api/agent/heartbeat", nil, &res)
+	if err == nil {
+		return res.Heartbeat, nil
+	}
+	var me meResponse
+	if api(profile, "GET", "/api/agent/me", nil, &me) == nil {
+		return me.Employee.Heartbeat, nil
+	}
+	return nil, err
 }
 
 // logName tells employees with the same name apart in the daemon's log, e.g. "程序员 (9cf44e99)".

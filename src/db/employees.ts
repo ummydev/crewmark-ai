@@ -6,7 +6,8 @@ import { db } from "@/db";
 import { assertInOrganization, found } from "@/db/issues";
 import { toEmployee } from "@/db/queries";
 import { employeeProjects, employees, projects } from "@/db/schema";
-import type { Employee } from "@/lib/types";
+import { pushToDaemons } from "@/lib/realtime";
+import type { Employee, Heartbeat } from "@/lib/types";
 import { EMPLOYEE_STATUS_VALUES, heartbeat, oneOf, text } from "@/lib/validate";
 
 // Writing employees, shared by the dashboard's Server Functions and the CLI's API. Callers check that whoever asks
@@ -59,6 +60,14 @@ export async function saveEmployee(organizationId: string, id: string, patch: Em
       .where(and(eq(employees.id, text(id, "id", { required: true })), eq(employees.organizationId, organizationId)))
       .returning({ id: employees.id }),
   );
+  // The daemon wakes the agent by these settings: it fetches them again.
+  if ("heartbeat" in values) pushToDaemons(organizationId, [id], "heartbeat");
+}
+
+/** The employee's heartbeat settings, read on their own for the daemon (the full employee needs its organization). */
+export async function getHeartbeat(employeeId: string): Promise<Heartbeat | null> {
+  const [row] = await db.select({ heartbeat: employees.heartbeat }).from(employees).where(eq(employees.id, employeeId));
+  return row?.heartbeat ?? null;
 }
 
 /** Puts the employee on exactly these projects. */

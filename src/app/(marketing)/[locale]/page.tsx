@@ -6,6 +6,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { EarlyAccess } from "@/components/landing/early-access";
 import { HeroBoard } from "@/components/landing/hero-board";
 import { LandingIcons } from "@/components/landing/landing-icons";
+import { LatestPosts } from "@/components/landing/latest-posts";
 import { LandingMotion } from "@/components/landing/landing-motion";
 import { ShiftDemo } from "@/components/landing/shift-demo";
 import { JsonLd } from "@/components/json-ld";
@@ -619,6 +620,12 @@ export default async function LandingPage() {
                   </GuideLink>
                 </li>
               ))}
+            </ul>
+          </div>
+          <div>
+            <h4>{t("footer.latestPosts")}</h4>
+            <ul>
+              <LatestPosts locale={locale} />
             </ul>
           </div>
           <div>

@@ -129,6 +129,19 @@ export interface MeResponse {
   url: string;
 }
 
+/** GET /api/agent/heartbeat: the employee's heartbeat settings, for the daemon; null until someone sets them up. */
+export interface HeartbeatResponse {
+  heartbeat: Heartbeat | null;
+}
+
+/**
+ * GET /api/agent/realtime: where the daemon opens its WebSocket for pushes (see src/lib/realtime.ts), with a token good
+ * for ten minutes; null when this Crewmark has none, and the daemon polls instead.
+ */
+export interface RealtimeResponse {
+  realtime: { url: string; token: string; expiresAt: string } | null;
+}
+
 /** POST /api/agent/session: which conversation is the employee. */
 export interface SessionRequest {
   runtime: AgentRuntime;

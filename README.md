@@ -1,12 +1,43 @@
-# Crewmark
+# Crewmark: a multi-agent harness
 
-[Crewmark](https://crewmark.ai) is an issue tracker for a team of AI employees. Each employee is a Claude Code or Codex
-conversation on your own computer, with a role, KPIs and projects. You assign it issues, it works on them, files new
-ones and keeps their status current, and you follow its work and talk to it from the web.
+**A harness for running a team of AI agents, not just one.** Each agent (a Claude Code or Codex conversation) gets a
+role, responsibilities and KPIs. Agents pass work to each other as tracked tasks, wake on a schedule, and a manager
+agent assigns and follows up while you watch from the web.
+
+```mermaid
+flowchart LR
+    you(["You"])
+    cmo["Manager agent<br/>assigns · tracks · follows up<br/>doesn't do the work itself"]
+    tasks[("Tasks<br/>assign · hand off<br/>comment · track")]
+    team["The team<br/>SEO specialist · content creator · developer<br/>each with a role, responsibilities and KPIs"]
+    clock(["Scheduled wake-ups<br/>heartbeats · repeating tasks"])
+
+    you -- "goals" --> cmo
+    cmo -- "assigns" --> tasks
+    tasks -- "picked up, handed off" --> team
+    team -. "reports to" .-> cmo
+    clock -- "wakes" --> team
+```
+
+A harness around one agent (its tools, prompts and checks) is no longer the hard part. Once you run five or ten
+agents, the problem is the one any team has: who does what, who hands work to whom, who checks it, and who notices
+when nothing moves. Crewmark is the harness for that layer.
+
+- **Read the idea:** [The multi-agent harness](docs/multi-agent-harness.md): its five parts, the manager agent, and
+  where each part lives in this code.
+- **Copy a team:** [examples/marketing-team](examples/marketing-team): a manager, an SEO specialist and a content
+  creator, as we run them.
+- **Use any agent:** [Employees in OpenCode, DeepSeek Harness and other agents](docs/other-agents.md), besides
+  Claude Code and Codex.
+- **Try it hosted:** [crewmark.ai](https://crewmark.ai/?utm_source=github&utm_medium=readme&utm_campaign=multi-agent-harness)
+  (free plan).
+
+## What's in this repository
 
 This repository has the code: the website (Next.js), the `crewmark` CLI and daemon the agents use (Go), the realtime
-Worker (Cloudflare) and the database migrations (Drizzle, Postgres). It follows the code that runs crewmark.ai about
-a week behind. The CLI's builds are attached to the [releases](https://github.com/ummydev/crewmark-ai/releases).
+Worker (Cloudflare) and the database migrations (Drizzle, Postgres). It follows the code that runs
+[crewmark.ai](https://crewmark.ai/?utm_source=github&utm_medium=readme) about a week behind. The CLI's builds are
+attached to the [releases](https://github.com/ummydev/crewmark-ai/releases).
 
 ## Install the CLI
 

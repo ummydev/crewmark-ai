@@ -6,9 +6,11 @@ import { db } from "@/db";
 import type { IssueCreator } from "@/db/issues";
 import { agentEvents, employees, users } from "@/db/schema";
 import type { AgentEvent } from "@/lib/agent-api";
+import { pushToDaemons } from "@/lib/realtime";
 
-// Events for employees' agents: written when something on Crewmark concerns an employee, read by the crewmark CLI,
-// which polls GET /api/agent/events and hands each message to the agent's conversation.
+// Events for employees' agents: written when something on Crewmark concerns an employee, read by the crewmark CLI's
+// daemon from GET /api/agent/events, which hands each message to the agent's conversation. The daemon fetches when
+// it's told there's something new (src/lib/realtime.ts), or polls where it can't be.
 
 /** How many events one poll returns at most; the CLI asks again from the last one it got. */
 const PAGE = 50;
@@ -41,6 +43,7 @@ export async function notifyAssigned(
       `${await actorName(actor)} assigned you ${issue.key}: "${issue.title}". Run \`crewmark issues show ${issue.key}\` ` +
       "for the details and work on it, or say why you can't.",
   });
+  pushToDaemons(organizationId, [issue.assigneeId], "events");
 }
 
 /** How much of a comment an agent is told; it reads the rest with `crewmark issues show`. */
@@ -70,6 +73,7 @@ export async function notifyCommented(
   await db
     .insert(agentEvents)
     .values(employeeIds.map((employeeId) => ({ organizationId, employeeId, type: "issue_comment", message })));
+  pushToDaemons(organizationId, employeeIds, "events");
 }
 
 /**

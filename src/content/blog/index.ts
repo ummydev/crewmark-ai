@@ -4,7 +4,9 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 import type { PostSlug } from "@/i18n/blog";
 import { chatgptDots } from "./chatgpt-dots";
 import { claudeCodeBackgroundAgents } from "./claude-code-background-agents";
+import { claudeCodeVsCodex } from "./claude-code-vs-codex";
 import { claudeDuet } from "./claude-duet";
+import { claudeMd } from "./claude-md";
 import { claudeMessageThreads } from "./claude-message-threads";
 import { deepseekSuperAgent } from "./deepseek-super-agent";
 import { multipleClaudeCodeAgents } from "./multiple-claude-code-agents";
@@ -12,7 +14,9 @@ import {
   blogIndexTranslations,
   chatgptDotsTranslations,
   claudeCodeBackgroundAgentsTranslations,
+  claudeCodeVsCodexTranslations,
   claudeDuetTranslations,
+  claudeMdTranslations,
   claudeMessageThreadsTranslations,
   deepseekSuperAgentTranslations,
   multipleClaudeCodeAgentsTranslations,
@@ -22,6 +26,8 @@ import {
 // Each post answers one search question with steps that work; see docs/seo/launch-checklist.md before publishing.
 
 export const postCopy: Record<PostSlug, Partial<Record<Locale, GuideCopy>>> = {
+  "claude-code-vs-codex": { ...claudeCodeVsCodexTranslations, ...claudeCodeVsCodex },
+  "claude-md": { ...claudeMdTranslations, ...claudeMd },
   "claude-duet": { ...claudeDuetTranslations, ...claudeDuet },
   "claude-message-threads": { ...claudeMessageThreadsTranslations, ...claudeMessageThreads },
   "deepseek-super-agent": { ...deepseekSuperAgentTranslations, ...deepseekSuperAgent },
