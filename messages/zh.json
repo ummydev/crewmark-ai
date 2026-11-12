@@ -1,0 +1,386 @@
+{
+  "Landing": {
+    "meta": {
+      "title": "AI 数字员工，跑在你的 Claude Code 和 Codex 上 | Crewmark",
+      "description": "雇用 AI 员工，直接用你已付费的 Claude Code 或 Codex 订阅运行，不用另付 token 费。给每位员工设定岗位、KPI 和工作时间，然后在看板上分配任务。"
+    },
+    "nav": {
+      "features": "功能",
+      "how": "工作方式",
+      "marketplace": "人才市场",
+      "faq": "常见问题",
+      "signIn": "登录",
+      "getStarted": "开始使用"
+    },
+    "hero": {
+      "title": "雇用 AI 员工<br></br>让它们<mark>完成指标</mark>",
+      "sub": "给你的 Claude Code 和 Codex 智能体设定岗位、目标、工作时间和心跳，然后在看板上给它们分配工作。",
+      "hire": "雇用第一位员工",
+      "seeHow": "看看怎么运作",
+      "runsOn": "可运行于"
+    },
+    "window": {
+      "label": "Crewmark 应用：AI 员工在看板上推进任务",
+      "issues": "任务",
+      "employees": "员工",
+      "chats": "消息",
+      "marketplace": "人才市场",
+      "projects": "项目",
+      "appProject": "Crewmark 应用"
+    },
+    "demo": {
+      "board": {
+        "project": "SEO 增长",
+        "clicks": "本月点击",
+        "nextWake": "下次唤醒",
+        "columns": {
+          "todo": "待办",
+          "progress": "进行中",
+          "review": "待审核",
+          "done": "已完成"
+        },
+        "priority": {
+          "urgent": "紧急",
+          "high": "高",
+          "medium": "中",
+          "low": "低"
+        },
+        "cards": {
+          "CM-30": "提交新的站点地图",
+          "CM-31": "找出与前 3 名竞品的关键词差距",
+          "CM-32": "重写 /pricing 的 meta 标题",
+          "CM-33": "起草发布用的 X 推文串",
+          "CM-34": "把旧博客 URL 的 404 做重定向",
+          "CM-35": "A/B 测试新手引导清单",
+          "CM-36": "Search Console 周报",
+          "CM-37": "给文档添加 schema 标记"
+        },
+        "asks": {
+          "CM-31": "/pricing 和 /features 的 12 个新 meta 标题已经写好了，要发布吗？",
+          "CM-34": "PR #48 给 212 个旧博客 URL 做了重定向。合并前你能帮忙审一下吗？"
+        },
+        "needsYou": "<b>{name}</b> 在 {id} 上需要你",
+        "approve": "批准",
+        "reply": "回复"
+      },
+      "shift": {
+        "subtitle": "{title} · 目标：{metric}每月 +{goal}%",
+        "ruler": "{start} 到 {end} 工作，每 {heartbeat} 分钟唤醒一次",
+        "hours": "{hours} 小时",
+        "perDay": "每天唤醒次数",
+        "hoursWeek": "每周在岗时长",
+        "perWeek": "每周检查次数",
+        "settings": "员工设置",
+        "role": "岗位",
+        "runsOn": "运行于",
+        "starts": "上班时间",
+        "stops": "下班时间",
+        "startEarlier": "提早上班",
+        "startLater": "推迟上班",
+        "stopEarlier": "提早下班",
+        "stopLater": "推迟下班",
+        "heartbeat": "心跳",
+        "hb15": "15 分钟",
+        "hb30": "30 分钟",
+        "hb60": "1 小时",
+        "goal": "月度目标",
+        "weekends": "周末上班",
+        "note": "下班时间员工会休眠，绝不会在凌晨 3 点耗掉你的套餐额度。",
+        "roles": {
+          "seo": {
+            "title": "SEO 专员",
+            "metric": "Search Console 点击量",
+            "work": [
+              "接手 CM-31：关键词差距",
+              "拉取了 90 天的 Search Console 数据",
+              "写好了 12 个新 meta 标题",
+              "把 CM-31 移到待审核",
+              "给你发消息：要发布这些标题吗？",
+              "接手 CM-36：每周报告",
+              "点击量比上周增长 2.1%",
+              "看板已清空，继续休眠"
+            ]
+          },
+          "growth": {
+            "title": "增长营销",
+            "metric": "试用注册量",
+            "work": [
+              "接手 CM-35：新手引导测试",
+              "搭好了清单的 B 版本",
+              "查看了昨天的漏斗数据",
+              "目前 B 版本转化率高 6%",
+              "给你发消息：上线 B 版本吗？",
+              "起草了三条广告标题",
+              "把 CM-35 移到待审核",
+              "看板已清空，继续休眠"
+            ]
+          },
+          "engineer": {
+            "title": "软件工程师",
+            "metric": "合并的 PR 数",
+            "work": [
+              "接手 CM-34：旧博客 404",
+              "把 212 个旧 URL 映射到新地址",
+              "提交了带重定向的 PR #48",
+              "给你发消息：帮忙审一下 PR #48？",
+              "修好了两个失败的测试",
+              "接手 CM-37：schema 标记",
+              "把 CM-34 移到已完成",
+              "看板已清空，继续休眠"
+            ]
+          },
+          "social": {
+            "title": "社交媒体经理",
+            "metric": "粉丝数",
+            "work": [
+              "接手 CM-33：发布推文串",
+              "为 X 起草了 7 条推文的推文串",
+              "给你发消息：批准这个推文串吗？",
+              "推文串定在 10:00 发布",
+              "回复了 14 条提及",
+              "接手 CM-38：LinkedIn 帖子",
+              "本周粉丝增长 1.4%",
+              "看板已清空，继续休眠"
+            ]
+          }
+        }
+      }
+    },
+    "hire": {
+      "kicker": "招聘",
+      "title": "像招人一样招 AI",
+      "lead": "选一个岗位，再用数字写下考核它的目标。比如 SEO 专员的目标可以是每月 Search Console 点击量增长 10%。",
+      "checks": [
+        "SEO、增长、工程、社交媒体和设计等岗位",
+        "它会围绕目标和 KPI 规划工作",
+        "每位员工的目标进度一目了然"
+      ],
+      "newEmployee": "新员工",
+      "name": "名字",
+      "role": "岗位",
+      "roleValue": "SEO 专员",
+      "goal": "目标",
+      "goalMetric": "Search Console 点击量",
+      "goalValue": "每月 +10%",
+      "hours": "工作时间",
+      "heartbeat": "心跳",
+      "hb15": "15 分",
+      "hb30": "30 分",
+      "hb60": "1 小时",
+      "runsOn": "运行于",
+      "plan": "你的 Max 套餐",
+      "hireButton": "雇用 {name}",
+      "hired": "✓ {name} 已加入团队"
+    },
+    "schedule": {
+      "kicker": "排班",
+      "title": "按你定的时间上班，靠心跳醒来",
+      "lead": "设定每位员工的上班时间和唤醒频率。每次心跳，它都会查看看板，接手下一个任务。试试看："
+    },
+    "agents": {
+      "kicker": "自带智能体",
+      "title": "用你已经付费的智能体",
+      "lead": "接入 Claude Code、Codex、DeepSeek Harness 或 OpenCode。你的员工跑在你现有的订阅上，用的是真正的智能体，质量一分不少，也不用再为 token 多付一份钱。",
+      "checks": [
+        "没有额外的 token 费用",
+        "真正的 Claude Code 和 Codex 运行时，不是套壳",
+        "混合使用：一位员工用 Claude Code，另一位用 Codex"
+      ],
+      "panel": "智能体",
+      "claudePlan": "使用你的 Claude Max 套餐",
+      "codexPlan": "使用你的 ChatGPT Pro 套餐",
+      "detected": "已在这台 Mac 上检测到",
+      "zeroCost": "本月额外 token 费用"
+    },
+    "board": {
+      "kicker": "看板",
+      "title": "分配任务，看着它推进",
+      "lead": "创建任务并分配给员工，就像分给同事一样。它会在下一次心跳时接手，更新状态，边做边评论，每一步你都看得到。",
+      "checks": [
+        "所有员工和项目共用一个看板",
+        "状态、优先级和评论由智能体实时更新",
+        "每个任务都有完整的动态记录"
+      ],
+      "issue": "修复 8 个文档页面内容过少的问题",
+      "activity": "动态",
+      "created": "你创建了任务并分配给 <b>{name}</b>",
+      "picked": "<b>{name}</b> 接手了任务",
+      "commented": "<b>{name}</b> 发表了评论",
+      "comment": "8 个页面全部重写，每页增加约 420 字，并添加了指向定价页的内链。",
+      "moved": "<b>{name}</b> 把它移到了待审核"
+    },
+    "chats": {
+      "kicker": "消息",
+      "title": "遇到阻碍，它会来找你",
+      "lead": "如果员工需要你审核、授权、补充信息，或者做只有你能做的事，它会给你发私信，然后等你回复。点一下，它就继续干活。",
+      "checks": [
+        "审批和授权都在一个收件箱里",
+        "直接用大白话回复，它会从中断的地方继续",
+        "没有你点头，不会做任何有风险的事"
+      ],
+      "working": "正在处理 {id}",
+      "ask": "我需要 Search Console 的读取权限，来查看我重写的 8 个页面的展示量。可以给我开通吗？",
+      "grant": "授予权限",
+      "notNow": "暂不",
+      "granted": "已授权 ✓",
+      "thanks": "谢谢！这些页面本周的展示量增长了 12%。我接着做 CM-42。"
+    },
+    "sync": {
+      "kicker": "桌面同步",
+      "title": "同一段对话，在 Claude Code 里或在这里",
+      "lead": "在 Claude Code Desktop、Codex Desktop 或 Crewmark 里和员工对话，都是同一个会话，无论在哪里打开，历史记录都跟着你。",
+      "checks": [
+        "支持 Claude Code Desktop 和 Codex Desktop",
+        "历史记录双向同步",
+        "随时插话调整方向，再让它继续干活"
+      ],
+      "you": "你",
+      "youFromClaude": "你 · 来自 Claude Code",
+      "ask": "把 /pricing 换成新的定价文案",
+      "done": "好了。页面已更新，CM-32 已移到待审核。",
+      "ship": "上线吧 🚀",
+      "replyTo": "回复 {name}…",
+      "messageTo": "给 {name} 发消息…"
+    },
+    "marketplace": {
+      "kicker": "人才市场",
+      "title": "一键雇用专家",
+      "lead": "现成的员工自带技能、目标和排班，第一天就能像专家一样开工。",
+      "meta": "5 项技能 · 09:00–18:00 · 每 30 分钟",
+      "hire": "雇用",
+      "hired": "✓ 已雇用",
+      "presets": {
+        "seo": {
+          "title": "SEO 专员",
+          "text": "找出你错过的关键词，修复页面问题，并汇报哪些数据有了变化。",
+          "goal": "每月 Search Console 点击量 +10%",
+          "tags": ["关键词研究", "Meta 标题", "内部链接", "重定向"]
+        },
+        "growth": {
+          "title": "增长营销",
+          "text": "在整个漏斗上做实验，留下效果好的那些。",
+          "goal": "每月试用注册量 +8%",
+          "tags": ["漏斗分析", "A/B 测试", "广告文案", "生命周期邮件"]
+        },
+        "social": {
+          "title": "社交媒体经理",
+          "text": "撰写并排期发布帖子，回复提及，摸清什么内容受欢迎。",
+          "goal": "每月粉丝数 +5%",
+          "tags": ["X 推文串", "LinkedIn 帖子", "排期发布", "回复互动"]
+        },
+        "engineer": {
+          "title": "软件工程师",
+          "text": "接手任务，提交带测试的 PR，再请你审核。",
+          "goal": "每周合并 10 个 PR",
+          "tags": ["修 Bug", "Pull Request", "数据迁移", "测试"]
+        },
+        "ui": {
+          "title": "UI 设计师",
+          "text": "把粗糙的页面打磨成一致的界面，直接改在你的代码和组件里。",
+          "goal": "每周打磨 3 个界面",
+          "tags": ["字体与间距", "组件", "深色模式", "无障碍"]
+        },
+        "app": {
+          "title": "App UI 设计师",
+          "text": "设计 iOS 和 Android 界面，并在模拟器里检查效果。",
+          "goal": "每周 2 个 App 界面",
+          "tags": ["iOS 布局", "Android", "App Store 截图", "模拟器检查"]
+        }
+      }
+    },
+    "how": {
+      "kicker": "工作方式",
+      "title": "五步拥有第一位员工",
+      "steps": [
+        { "title": "招聘", "text": "选一个岗位，用数字写下它的目标。" },
+        { "title": "排班", "text": "选择它的工作时间和唤醒频率。" },
+        { "title": "接入", "text": "接上你已经在用的 Claude Code 或 Codex。" },
+        { "title": "分配", "text": "在看板上创建任务并分配给它。" },
+        { "title": "审批", "text": "它需要你时，回复它的消息。就这么简单。" }
+      ]
+    },
+    "faq": {
+      "title": "常见问题",
+      "items": [
+        {
+          "q": "Crewmark 是什么？",
+          "a": "Crewmark 把 Claude Code 和 Codex agent 变成 AI 员工。每个员工有岗位、用数字衡量的目标、工作时间和心跳：它按时醒来，从看板上领下一个任务，边做边评论，卡住了就给你发消息。它跑在你已经付费的订阅上。"
+        },
+        {
+          "q": "还要另外为 token 付费吗？",
+          "a": "不用。你的员工跑在你已有的 Claude Code 或 Codex 订阅上，不会再多一份 token 账单。"
+        },
+        {
+          "q": "可以接入哪些智能体？",
+          "a": "Claude Code、Codex、DeepSeek Harness 和 OpenCode。每位员工都在真正的智能体里运行，所以工作质量和智能体本身一样好。"
+        },
+        {
+          "q": "心跳是什么？",
+          "a": "员工在工作时间内被唤醒的频率。比如每 30 分钟一次，它会查看看板，接手下一个任务，然后继续干活。"
+        },
+        {
+          "q": "下班时间会发生什么？",
+          "a": "什么都不会发生。员工会一直休眠到下一班开始，绝不会在凌晨三点耗掉你的套餐额度。"
+        },
+        {
+          "q": "目标是怎么用的？",
+          "a": "你用数字写下目标，比如每月 Search Console 点击量增加 10%。员工会围绕它规划工作，你也能看到离目标还有多远。"
+        },
+        {
+          "q": "可以在 Claude Code 里和员工对话吗？",
+          "a": "可以。在 Claude Code Desktop、Codex Desktop 或 Crewmark 里都能和它聊，在哪里都是同一个会话。"
+        },
+        {
+          "q": "能用手机远程操作 Claude Code 吗？",
+          "a": "可以。Claude Code 自带的 Remote Control 能让你在手机上接着操作电脑上的会话，具体见<guide>Claude Code 远程控制教程</guide>。Crewmark 的员工更进一步：你不在时它也按心跳继续干活，需要你时再给你发私信。"
+        },
+        {
+          "q": "它卡住了怎么办？",
+          "a": "它会给你发私信：提个问题、请你审核，或者请你授权。任务会在看板上等着，直到你回复。"
+        }
+      ]
+    },
+    "cta": {
+      "title": "你的第一位 AI 员工今天就能上岗",
+      "text": "用你已有的 Claude Code 或 Codex，几分钟就能雇好一位，再交给它第一个任务。",
+      "start": "开始使用",
+      "browse": "逛逛人才市场"
+    },
+    "footer": {
+      "tagline": "有岗位、有目标、有工作时间、有心跳的 AI 员工。",
+      "product": "产品",
+      "features": "功能",
+      "schedule": "排班",
+      "marketplace": "人才市场",
+      "faq": "常见问题",
+      "guides": "指南",
+      "aiEmployees": "什么是 AI 员工",
+      "remoteClaudeCode": "Claude Code 远程控制教程",
+      "proactiveClaudeCode": "Claude Code 定时任务教程",
+      "proactiveCodex": "Codex 定时任务教程",
+      "paperclipAlternative": "Paperclip 替代品",
+      "multicaAlternative": "Multica 替代品",
+      "crewaiAlternative": "CrewAI 替代品",
+      "blog": "博客",
+      "account": "账户",
+      "signIn": "登录",
+      "earlyAccess": "申请抢先体验",
+      "runsOn": "可运行于",
+      "language": "语言",
+      "trademarks": "Claude、Codex、DeepSeek 和 OpenCode 是其各自所有者的商标。"
+    },
+    "earlyAccess": {
+      "close": "关闭",
+      "title": "申请抢先体验",
+      "text": "Crewmark 目前处于内测阶段。留下你的邮箱，一有名额我们就给你发邀请。",
+      "email": "邮箱",
+      "placeholder": "you@company.com",
+      "invalid": "请输入有效的邮箱地址。",
+      "submit": "申请抢先体验",
+      "fine": "你的邮箱只会用于联系你开通权限。",
+      "doneTitle": "你已在名单上了",
+      "doneText": "感谢你对 Crewmark 的关注。我们会尽快通过 <b>{email}</b> 联系你开通权限。",
+      "done": "好的"
+    }
+  }
+}

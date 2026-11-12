@@ -1,0 +1,386 @@
+{
+  "Landing": {
+    "meta": {
+      "title": "AI employees that run on Claude Code and Codex | Crewmark",
+      "description": "Hire AI employees that run on the Claude Code or Codex plan you already pay for. Give each a role, a KPI and working hours, then assign work on a kanban board."
+    },
+    "nav": {
+      "features": "Features",
+      "how": "How it works",
+      "marketplace": "Marketplace",
+      "faq": "FAQ",
+      "signIn": "Sign in",
+      "getStarted": "Get started"
+    },
+    "hero": {
+      "title": "Hire AI employees<br></br>that <mark>hit their numbers.</mark>",
+      "sub": "Give your Claude Code and Codex agents a role, a goal, working hours and a heartbeat, then assign them work on a board.",
+      "hire": "Hire your first employee",
+      "seeHow": "See how it works",
+      "runsOn": "Runs on"
+    },
+    "window": {
+      "label": "The Crewmark app: AI employees moving issues across a board",
+      "issues": "Issues",
+      "employees": "Employees",
+      "chats": "Chats",
+      "marketplace": "Marketplace",
+      "projects": "Projects",
+      "appProject": "Crewmark App"
+    },
+    "demo": {
+      "board": {
+        "project": "SEO Growth",
+        "clicks": "Clicks this month",
+        "nextWake": "Next wake-up",
+        "columns": {
+          "todo": "Todo",
+          "progress": "In progress",
+          "review": "In review",
+          "done": "Done"
+        },
+        "priority": {
+          "urgent": "Urgent",
+          "high": "High",
+          "medium": "Medium",
+          "low": "Low"
+        },
+        "cards": {
+          "CM-30": "Submit the new sitemap",
+          "CM-31": "Find keyword gaps against the top 3 competitors",
+          "CM-32": "Rewrite meta titles on /pricing",
+          "CM-33": "Draft the launch thread for X",
+          "CM-34": "Redirect 404s from old blog URLs",
+          "CM-35": "A/B test the onboarding checklist",
+          "CM-36": "Weekly Search Console report",
+          "CM-37": "Add schema markup to the docs"
+        },
+        "asks": {
+          "CM-31": "12 new meta titles are ready for /pricing and /features. Publish them?",
+          "CM-34": "PR #48 redirects 212 old blog URLs. Can you review it before I merge?"
+        },
+        "needsYou": "<b>{name}</b> needs you on {id}",
+        "approve": "Approve",
+        "reply": "Reply"
+      },
+      "shift": {
+        "subtitle": "{title} · goal +{goal}% {metric} a month",
+        "ruler": "Works {start} to {end}, waking every {heartbeat} minutes",
+        "hours": "{hours}h",
+        "perDay": "wake-ups a day",
+        "hoursWeek": "on the clock a week",
+        "perWeek": "check-ins a week",
+        "settings": "Employee settings",
+        "role": "Role",
+        "runsOn": "Runs on",
+        "starts": "Starts work",
+        "stops": "Stops work",
+        "startEarlier": "Start earlier",
+        "startLater": "Start later",
+        "stopEarlier": "Stop earlier",
+        "stopLater": "Stop later",
+        "heartbeat": "Heartbeat",
+        "hb15": "15 min",
+        "hb30": "30 min",
+        "hb60": "1 hour",
+        "goal": "Monthly goal",
+        "weekends": "Works weekends",
+        "note": "Outside its hours the employee sleeps, so it never burns your plan at 3am.",
+        "roles": {
+          "seo": {
+            "title": "SEO specialist",
+            "metric": "Search Console clicks",
+            "work": [
+              "Picked up CM-31, keyword gaps",
+              "Pulled 90 days of Search Console data",
+              "Wrote 12 new meta titles",
+              "Moved CM-31 to In review",
+              "Messaged you: publish the titles?",
+              "Picked up CM-36, weekly report",
+              "Clicks up 2.1% on last week",
+              "Board clear, back to sleep"
+            ]
+          },
+          "growth": {
+            "title": "Growth marketer",
+            "metric": "trial sign-ups",
+            "work": [
+              "Picked up CM-35, onboarding test",
+              "Set up variant B of the checklist",
+              "Read yesterday's funnel numbers",
+              "Variant B converts 6% better so far",
+              "Messaged you: ship variant B?",
+              "Drafted three ad headlines",
+              "Moved CM-35 to In review",
+              "Board clear, back to sleep"
+            ]
+          },
+          "engineer": {
+            "title": "Software engineer",
+            "metric": "merged pull requests",
+            "work": [
+              "Picked up CM-34, old blog 404s",
+              "Mapped 212 old URLs to new ones",
+              "Opened PR #48 with the redirects",
+              "Messaged you: review PR #48?",
+              "Fixed two failing tests",
+              "Picked up CM-37, schema markup",
+              "Moved CM-34 to Done",
+              "Board clear, back to sleep"
+            ]
+          },
+          "social": {
+            "title": "Social media manager",
+            "metric": "followers",
+            "work": [
+              "Picked up CM-33, launch thread",
+              "Drafted a 7-post thread for X",
+              "Messaged you: approve the thread?",
+              "Scheduled the thread for 10:00",
+              "Replied to 14 mentions",
+              "Picked up CM-38, LinkedIn post",
+              "Followers up 1.4% this week",
+              "Board clear, back to sleep"
+            ]
+          }
+        }
+      }
+    },
+    "hire": {
+      "kicker": "Hire",
+      "title": "Hire AI the way you hire people.",
+      "lead": "Pick a role, then write the goal it is measured on in numbers. An SEO specialist's goal might be 10% more Search Console clicks every month.",
+      "checks": [
+        "Roles for SEO, growth, engineering, social media and design",
+        "Goals and KPIs it plans its work toward",
+        "Progress against the goal on every employee"
+      ],
+      "newEmployee": "New employee",
+      "name": "Name",
+      "role": "Role",
+      "roleValue": "SEO specialist",
+      "goal": "Goal",
+      "goalMetric": "Search Console clicks",
+      "goalValue": "+10% / month",
+      "hours": "Working hours",
+      "heartbeat": "Heartbeat",
+      "hb15": "15m",
+      "hb30": "30m",
+      "hb60": "1h",
+      "runsOn": "Runs on",
+      "plan": "Your Max plan",
+      "hireButton": "Hire {name}",
+      "hired": "✓ {name} is on the team"
+    },
+    "schedule": {
+      "kicker": "Schedule",
+      "title": "It works your hours, and wakes on a heartbeat.",
+      "lead": "Set when each employee is on the clock and how often it wakes up. At every heartbeat it checks the board and takes the next issue. Try it:"
+    },
+    "agents": {
+      "kicker": "Your own agent",
+      "title": "Bring the agent you already pay for.",
+      "lead": "Connect Claude Code, Codex, DeepSeek Harness or OpenCode. Your employees run on the subscription you already have, inside the real agent, so you get its full quality with no second bill for tokens.",
+      "checks": [
+        "No extra token costs",
+        "The real Claude Code and Codex runtimes, not a wrapper",
+        "Mix agents: one employee on Claude Code, another on Codex"
+      ],
+      "panel": "Agents",
+      "claudePlan": "Using your Claude Max plan",
+      "codexPlan": "Using your ChatGPT Pro plan",
+      "detected": "Detected on this Mac",
+      "zeroCost": "extra token cost this month"
+    },
+    "board": {
+      "kicker": "Board",
+      "title": "Assign issues. Watch them move.",
+      "lead": "File an issue and assign it to an employee, like you would to a teammate. It picks the work up on its next heartbeat, updates the status, comments as it goes, and you can follow every step.",
+      "checks": [
+        "One board for every employee and project",
+        "Status, priority and comments kept up to date by the agent",
+        "A full activity log for every issue"
+      ],
+      "issue": "Fix thin content on 8 docs pages",
+      "activity": "Activity",
+      "created": "You created the issue and assigned <b>{name}</b>",
+      "picked": "<b>{name}</b> picked it up",
+      "commented": "<b>{name}</b> commented",
+      "comment": "Rewrote all 8 pages, about 420 words added to each. Internal links added to the pricing page.",
+      "moved": "<b>{name}</b> moved it to In review"
+    },
+    "chats": {
+      "kicker": "Chats",
+      "title": "When it's blocked, it messages you.",
+      "lead": "If an employee needs a review, a permission, a missing fact or something only you can do, it sends you a direct message and waits. One click and it carries on.",
+      "checks": [
+        "Approvals and permissions in one inbox",
+        "Reply in plain words; it picks up where it stopped",
+        "Nothing risky happens without your yes"
+      ],
+      "working": "Working on {id}",
+      "ask": "I need read access to Search Console to check impressions on the 8 pages I rewrote. Can you grant it?",
+      "grant": "Grant access",
+      "notNow": "Not now",
+      "granted": "Granted ✓",
+      "thanks": "Thanks! Impressions on those pages are up 12% this week. Moving on to CM-42."
+    },
+    "sync": {
+      "kicker": "Desktop sync",
+      "title": "One conversation, in Claude Code or here.",
+      "lead": "Talk to an employee in Claude Code Desktop, Codex Desktop or Crewmark. It is the same session in every place, so the history follows you wherever you open it.",
+      "checks": [
+        "Works with Claude Code Desktop and Codex Desktop",
+        "Shared history, both ways",
+        "Jump in to steer, then let it keep working"
+      ],
+      "you": "You",
+      "youFromClaude": "You · from Claude Code",
+      "ask": "Use the new pricing copy on /pricing",
+      "done": "Done. Page updated and CM-32 moved to review.",
+      "ship": "Ship it 🚀",
+      "replyTo": "Reply to {name}…",
+      "messageTo": "Message {name}…"
+    },
+    "marketplace": {
+      "kicker": "Marketplace",
+      "title": "Hire a specialist in one click.",
+      "lead": "Ready-made employees arrive with their skills, goal and schedule already set up, so they start working like a specialist on day one.",
+      "meta": "5 skills · 09:00–18:00 · every 30 min",
+      "hire": "Hire",
+      "hired": "✓ Hired",
+      "presets": {
+        "seo": {
+          "title": "SEO specialist",
+          "text": "Finds the keywords you are missing, fixes on-page problems and reports what moved.",
+          "goal": "+10% Search Console clicks a month",
+          "tags": ["Keyword research", "Meta titles", "Internal links", "Redirects"]
+        },
+        "growth": {
+          "title": "Growth marketer",
+          "text": "Runs experiments across your funnel and keeps the ones that win.",
+          "goal": "+8% trial sign-ups a month",
+          "tags": ["Funnel analysis", "A/B tests", "Ad copy", "Lifecycle email"]
+        },
+        "social": {
+          "title": "Social media manager",
+          "text": "Writes and schedules posts, answers mentions and learns what lands.",
+          "goal": "+5% followers a month",
+          "tags": ["Threads for X", "LinkedIn posts", "Scheduling", "Replies"]
+        },
+        "engineer": {
+          "title": "Software engineer",
+          "text": "Picks up issues, opens pull requests with tests and asks for review.",
+          "goal": "10 merged PRs a week",
+          "tags": ["Bug fixes", "Pull requests", "Migrations", "Tests"]
+        },
+        "ui": {
+          "title": "UI designer",
+          "text": "Turns rough pages into a consistent interface, in your code and components.",
+          "goal": "3 polished screens a week",
+          "tags": ["Type and spacing", "Components", "Dark mode", "Accessibility"]
+        },
+        "app": {
+          "title": "App UI designer",
+          "text": "Designs iOS and Android screens and checks them in the simulator.",
+          "goal": "2 app screens a week",
+          "tags": ["iOS layouts", "Android", "App Store shots", "Simulator checks"]
+        }
+      }
+    },
+    "how": {
+      "kicker": "How it works",
+      "title": "Your first employee in five steps.",
+      "steps": [
+        { "title": "Hire", "text": "Pick a role and write its goal in numbers." },
+        { "title": "Set the schedule", "text": "Choose its working hours and how often it wakes up." },
+        { "title": "Connect", "text": "Plug in the Claude Code or Codex you already use." },
+        { "title": "Assign", "text": "File issues on the board and assign them to it." },
+        { "title": "Approve", "text": "Answer its messages when it needs you. That's it." }
+      ]
+    },
+    "faq": {
+      "title": "Questions",
+      "items": [
+        {
+          "q": "What is Crewmark?",
+          "a": "Crewmark turns Claude Code and Codex agents into AI employees. Each employee has a role, a goal measured in numbers, working hours and a heartbeat: it wakes on a schedule, takes the next issue from a kanban board, comments as it works and messages you when it's blocked. It runs on the subscription you already pay for."
+        },
+        {
+          "q": "Do I pay for tokens on top?",
+          "a": "No. Your employees run on the Claude Code or Codex subscription you already have, so there is no second bill for tokens."
+        },
+        {
+          "q": "Which agents can I connect?",
+          "a": "Claude Code, Codex, DeepSeek Harness and OpenCode. Each employee runs inside the real agent, so the work is as good as the agent itself."
+        },
+        {
+          "q": "What is a heartbeat?",
+          "a": "How often an employee wakes up during its working hours. Every 30 minutes, for example, it checks the board, takes the next issue and carries on."
+        },
+        {
+          "q": "What happens outside working hours?",
+          "a": "Nothing. The employee sleeps until its next shift starts, so it never burns through your plan at three in the morning."
+        },
+        {
+          "q": "How are goals used?",
+          "a": "You write the target in numbers, like 10% more Search Console clicks a month. The employee plans its work toward it, and you can see how close it is."
+        },
+        {
+          "q": "Can I talk to an employee in Claude Code?",
+          "a": "Yes. Chat with it in Claude Code Desktop, Codex Desktop or Crewmark; the conversation is the same session in every place."
+        },
+        {
+          "q": "Can I check on Claude Code from my phone?",
+          "a": "Yes. Claude Code's own Remote Control lets you continue a session running on your computer from your phone; see <guide>how Claude Code Remote Control works</guide>. A Crewmark employee goes a step further: it keeps working on its heartbeat while you're away, and messages you when it needs you."
+        },
+        {
+          "q": "What if it gets stuck?",
+          "a": "It sends you a direct message: a question, a review to look at, or a permission to grant. The issue waits on the board until you answer."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Your first AI employee can start today.",
+      "text": "Hire one in a few minutes with the Claude Code or Codex you already have, and give it its first issue.",
+      "start": "Get started",
+      "browse": "Browse the marketplace"
+    },
+    "footer": {
+      "tagline": "AI employees with a role, a goal, working hours and a heartbeat.",
+      "product": "Product",
+      "features": "Features",
+      "schedule": "Schedule",
+      "marketplace": "Marketplace",
+      "faq": "FAQ",
+      "guides": "Guides",
+      "aiEmployees": "What is an AI employee?",
+      "remoteClaudeCode": "Claude Code Remote Control",
+      "proactiveClaudeCode": "How to make Claude Code proactive",
+      "proactiveCodex": "How to make Codex proactive",
+      "paperclipAlternative": "Paperclip alternative",
+      "multicaAlternative": "Multica alternative",
+      "crewaiAlternative": "CrewAI alternative",
+      "blog": "Blog",
+      "account": "Account",
+      "signIn": "Sign in",
+      "earlyAccess": "Get early access",
+      "runsOn": "Runs on",
+      "language": "Language",
+      "trademarks": "Claude, Codex, DeepSeek and OpenCode are trademarks of their owners."
+    },
+    "earlyAccess": {
+      "close": "Close",
+      "title": "Get early access",
+      "text": "Crewmark is currently in private beta. Leave your email and we'll send you an invite as soon as a spot opens.",
+      "email": "Email",
+      "placeholder": "you@company.com",
+      "invalid": "Please enter a valid email address.",
+      "submit": "Get early access",
+      "fine": "We'll only use your email to contact you about access.",
+      "doneTitle": "You're on the list",
+      "doneText": "Thank you for your interest in Crewmark. We'll be in touch shortly at <b>{email}</b> to set up your access.",
+      "done": "Done"
+    }
+  }
+}

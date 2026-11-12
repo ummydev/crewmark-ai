@@ -1,0 +1,386 @@
+{
+  "Landing": {
+    "meta": {
+      "title": "Funcionários de IA no Claude Code e no Codex | Crewmark",
+      "description": "Contrate funcionários de IA que rodam no Claude Code ou no Codex que você já assina. Defina cargo, KPI e horário de cada um e distribua tarefas em um quadro kanban."
+    },
+    "nav": {
+      "features": "Recursos",
+      "how": "Como funciona",
+      "marketplace": "Marketplace",
+      "faq": "FAQ",
+      "signIn": "Entrar",
+      "getStarted": "Começar"
+    },
+    "hero": {
+      "title": "Contrate funcionários de IA<br></br>que <mark>batem a meta.</mark>",
+      "sub": "Dê aos seus agentes do Claude Code e do Codex um cargo, uma meta, um horário de trabalho e um heartbeat. Depois, é só distribuir o trabalho em um quadro.",
+      "hire": "Contrate seu primeiro funcionário",
+      "seeHow": "Veja como funciona",
+      "runsOn": "Roda em"
+    },
+    "window": {
+      "label": "O app do Crewmark: funcionários de IA movendo tarefas em um quadro",
+      "issues": "Tarefas",
+      "employees": "Funcionários",
+      "chats": "Conversas",
+      "marketplace": "Marketplace",
+      "projects": "Projetos",
+      "appProject": "App do Crewmark"
+    },
+    "demo": {
+      "board": {
+        "project": "Crescimento SEO",
+        "clicks": "Cliques neste mês",
+        "nextWake": "Acorda em",
+        "columns": {
+          "todo": "A fazer",
+          "progress": "Em andamento",
+          "review": "Em revisão",
+          "done": "Concluído"
+        },
+        "priority": {
+          "urgent": "Urgente",
+          "high": "Alta",
+          "medium": "Média",
+          "low": "Baixa"
+        },
+        "cards": {
+          "CM-30": "Enviar o novo sitemap",
+          "CM-31": "Mapear lacunas de palavras-chave vs. os 3 maiores concorrentes",
+          "CM-32": "Reescrever os meta titles de /pricing",
+          "CM-33": "Escrever a thread de lançamento para o X",
+          "CM-34": "Redirecionar os 404 das URLs antigas do blog",
+          "CM-35": "Teste A/B do checklist de onboarding",
+          "CM-36": "Relatório semanal do Search Console",
+          "CM-37": "Adicionar dados estruturados à documentação"
+        },
+        "asks": {
+          "CM-31": "Os 12 novos meta titles de /pricing e /features estão prontos. Posso publicar?",
+          "CM-34": "O PR #48 redireciona 212 URLs antigas do blog. Pode revisar antes do merge?"
+        },
+        "needsYou": "<b>{name}</b> precisa de você em {id}",
+        "approve": "Aprovar",
+        "reply": "Responder"
+      },
+      "shift": {
+        "subtitle": "{title} · meta: +{goal}% de {metric} por mês",
+        "ruler": "Trabalha das {start} às {end} e acorda a cada {heartbeat} minutos",
+        "hours": "{hours}h",
+        "perDay": "despertares por dia",
+        "hoursWeek": "de expediente por semana",
+        "perWeek": "checagens por semana",
+        "settings": "Ajustes do funcionário",
+        "role": "Cargo",
+        "runsOn": "Roda em",
+        "starts": "Entrada",
+        "stops": "Saída",
+        "startEarlier": "Entrar mais cedo",
+        "startLater": "Entrar mais tarde",
+        "stopEarlier": "Sair mais cedo",
+        "stopLater": "Sair mais tarde",
+        "heartbeat": "Heartbeat",
+        "hb15": "15 min",
+        "hb30": "30 min",
+        "hb60": "1 hora",
+        "goal": "Meta mensal",
+        "weekends": "Fins de semana",
+        "note": "Fora do expediente, o funcionário dorme, então nunca gasta o seu plano às 3 da manhã.",
+        "roles": {
+          "seo": {
+            "title": "Especialista em SEO",
+            "metric": "cliques no Search Console",
+            "work": [
+              "Pegou a CM-31: lacunas de palavras-chave",
+              "Puxou 90 dias de dados do Search Console",
+              "Escreveu 12 novos meta titles",
+              "Moveu a CM-31 para Em revisão",
+              "Mandou mensagem: publico os títulos?",
+              "Pegou a CM-36: relatório semanal",
+              "Cliques 2,1% acima da semana passada",
+              "Quadro zerado, voltou a dormir"
+            ]
+          },
+          "growth": {
+            "title": "Analista de growth",
+            "metric": "cadastros no trial",
+            "work": [
+              "Pegou a CM-35: teste de onboarding",
+              "Montou a variante B do checklist",
+              "Analisou os números do funil de ontem",
+              "A variante B converte 6% melhor até agora",
+              "Mandou mensagem: coloco a variante B no ar?",
+              "Criou três headlines para anúncios",
+              "Moveu a CM-35 para Em revisão",
+              "Quadro zerado, voltou a dormir"
+            ]
+          },
+          "engineer": {
+            "title": "Engenheira de software",
+            "metric": "pull requests mergeados",
+            "work": [
+              "Pegou a CM-34: 404 do blog antigo",
+              "Mapeou 212 URLs antigas para as novas",
+              "Abriu o PR #48 com os redirecionamentos",
+              "Mandou mensagem: pode revisar o PR #48?",
+              "Corrigiu dois testes quebrados",
+              "Pegou a CM-37: dados estruturados",
+              "Moveu a CM-34 para Concluído",
+              "Quadro zerado, voltou a dormir"
+            ]
+          },
+          "social": {
+            "title": "Social media",
+            "metric": "seguidores",
+            "work": [
+              "Pegou a CM-33: thread de lançamento",
+              "Escreveu uma thread de 7 posts para o X",
+              "Mandou mensagem: aprova a thread?",
+              "Agendou a thread para as 10:00",
+              "Respondeu a 14 menções",
+              "Pegou a CM-38: post no LinkedIn",
+              "Seguidores subiram 1,4% nesta semana",
+              "Quadro zerado, voltou a dormir"
+            ]
+          }
+        }
+      }
+    },
+    "hire": {
+      "kicker": "Contratação",
+      "title": "Contrate IA como você contrata pessoas.",
+      "lead": "Escolha um cargo e defina em números a meta pela qual ele será avaliado. A meta de um especialista em SEO pode ser 10% mais cliques no Search Console todo mês.",
+      "checks": [
+        "Cargos de SEO, growth, engenharia, redes sociais e design",
+        "Metas e KPIs que guiam o planejamento do trabalho",
+        "Progresso da meta visível em cada funcionário"
+      ],
+      "newEmployee": "Novo funcionário",
+      "name": "Nome",
+      "role": "Cargo",
+      "roleValue": "Especialista em SEO",
+      "goal": "Meta",
+      "goalMetric": "Cliques no Search Console",
+      "goalValue": "+10% / mês",
+      "hours": "Expediente",
+      "heartbeat": "Heartbeat",
+      "hb15": "15 min",
+      "hb30": "30 min",
+      "hb60": "1h",
+      "runsOn": "Roda em",
+      "plan": "Seu plano Max",
+      "hireButton": "Contratar {name}",
+      "hired": "✓ {name} já está no time"
+    },
+    "schedule": {
+      "kicker": "Expediente",
+      "title": "Trabalha no seu horário e acorda a cada heartbeat.",
+      "lead": "Defina quando cada funcionário está de expediente e com que frequência ele acorda. A cada heartbeat, ele confere o quadro e pega a próxima tarefa. Experimente:"
+    },
+    "agents": {
+      "kicker": "Seu próprio agente",
+      "title": "Traga o agente que você já assina.",
+      "lead": "Conecte Claude Code, Codex, DeepSeek Harness ou OpenCode. Seus funcionários rodam na assinatura que você já tem, dentro do agente de verdade, então você tem toda a qualidade dele sem uma segunda conta de tokens.",
+      "checks": [
+        "Sem custo extra de tokens",
+        "Os runtimes reais do Claude Code e do Codex, não um wrapper",
+        "Misture agentes: um funcionário no Claude Code, outro no Codex"
+      ],
+      "panel": "Agentes",
+      "claudePlan": "Usando seu plano Claude Max",
+      "codexPlan": "Usando seu plano ChatGPT Pro",
+      "detected": "Detectado neste Mac",
+      "zeroCost": "de custo extra com tokens neste mês"
+    },
+    "board": {
+      "kicker": "Quadro",
+      "title": "Atribua tarefas. Veja tudo andar.",
+      "lead": "Crie uma tarefa e atribua a um funcionário, como faria com alguém do time. Ele pega o trabalho no próximo heartbeat, atualiza o status e comenta pelo caminho, e você acompanha cada passo.",
+      "checks": [
+        "Um só quadro para todos os funcionários e projetos",
+        "Status, prioridade e comentários sempre atualizados pelo agente",
+        "Histórico completo de atividade em cada tarefa"
+      ],
+      "issue": "Corrigir conteúdo raso em 8 páginas da documentação",
+      "activity": "Atividade",
+      "created": "Você criou a tarefa e atribuiu a <b>{name}</b>",
+      "picked": "<b>{name}</b> pegou a tarefa",
+      "commented": "<b>{name}</b> comentou",
+      "comment": "Reescrevi as 8 páginas, com cerca de 420 palavras a mais em cada uma. Também incluí links internos para a página de preços.",
+      "moved": "<b>{name}</b> moveu para Em revisão"
+    },
+    "chats": {
+      "kicker": "Conversas",
+      "title": "Quando trava, ele chama você.",
+      "lead": "Se um funcionário precisar de uma revisão, uma permissão, uma informação que falta ou algo que só você pode fazer, ele envia uma mensagem direta e espera. Um clique e ele segue em frente.",
+      "checks": [
+        "Aprovações e permissões em uma só caixa de entrada",
+        "Responda com suas palavras e ele retoma de onde parou",
+        "Nada arriscado acontece sem o seu sim"
+      ],
+      "working": "Trabalhando em {id}",
+      "ask": "Preciso de acesso de leitura ao Search Console para conferir as impressões das 8 páginas que reescrevi. Pode liberar?",
+      "grant": "Liberar acesso",
+      "notNow": "Agora não",
+      "granted": "Liberado ✓",
+      "thanks": "Valeu! As impressões dessas páginas subiram 12% nesta semana. Agora vou para a CM-42."
+    },
+    "sync": {
+      "kicker": "Sincronização com o desktop",
+      "title": "Uma conversa, no Claude Code ou aqui.",
+      "lead": "Fale com um funcionário no Claude Code Desktop, no Codex Desktop ou no Crewmark. É a mesma sessão em todos os lugares, então o histórico acompanha você onde quer que abra a conversa.",
+      "checks": [
+        "Funciona com Claude Code Desktop e Codex Desktop",
+        "Histórico compartilhado nos dois sentidos",
+        "Entre para ajustar o rumo e deixe que ele continue"
+      ],
+      "you": "Você",
+      "youFromClaude": "Você · pelo Claude Code",
+      "ask": "Use o novo texto de preços em /pricing",
+      "done": "Feito. Página atualizada e CM-32 movida para revisão.",
+      "ship": "Manda ver 🚀",
+      "replyTo": "Responder a {name}…",
+      "messageTo": "Mensagem para {name}…"
+    },
+    "marketplace": {
+      "kicker": "Marketplace",
+      "title": "Contrate um especialista em um clique.",
+      "lead": "Os funcionários prontos do Marketplace já chegam com habilidades, meta e horário configurados, então trabalham como especialistas desde o primeiro dia.",
+      "meta": "5 habilidades · 09:00–18:00 · a cada 30 min",
+      "hire": "Contratar",
+      "hired": "✓ Contratado",
+      "presets": {
+        "seo": {
+          "title": "Especialista em SEO",
+          "text": "Encontra as palavras-chave que estão faltando, corrige problemas on-page e mostra o que mudou.",
+          "goal": "+10% de cliques no Search Console por mês",
+          "tags": ["Palavras-chave", "Meta titles", "Links internos", "Redirecionamentos"]
+        },
+        "growth": {
+          "title": "Analista de growth",
+          "text": "Roda experimentos em todo o seu funil e mantém os que dão resultado.",
+          "goal": "+8% de cadastros no trial por mês",
+          "tags": ["Análise de funil", "Testes A/B", "Copy de anúncios", "E-mail de relacionamento"]
+        },
+        "social": {
+          "title": "Social media",
+          "text": "Escreve e agenda posts, responde menções e aprende o que engaja.",
+          "goal": "+5% de seguidores por mês",
+          "tags": ["Threads para o X", "Posts no LinkedIn", "Agendamento", "Respostas"]
+        },
+        "engineer": {
+          "title": "Engenheiro de software",
+          "text": "Pega tarefas, abre pull requests com testes e pede revisão.",
+          "goal": "10 PRs mergeados por semana",
+          "tags": ["Correção de bugs", "Pull requests", "Migrações", "Testes"]
+        },
+        "ui": {
+          "title": "UI designer",
+          "text": "Transforma páginas cruas em uma interface consistente, no seu código e com os seus componentes.",
+          "goal": "3 telas refinadas por semana",
+          "tags": ["Tipografia e espaçamento", "Componentes", "Modo escuro", "Acessibilidade"]
+        },
+        "app": {
+          "title": "UI designer de apps",
+          "text": "Desenha telas para iOS e Android e confere tudo no simulador.",
+          "goal": "2 telas de app por semana",
+          "tags": ["Layouts para iOS", "Android", "Prints da App Store", "Testes no simulador"]
+        }
+      }
+    },
+    "how": {
+      "kicker": "Como funciona",
+      "title": "Seu primeiro funcionário em cinco passos.",
+      "steps": [
+        { "title": "Contrate", "text": "Escolha um cargo e defina a meta dele em números." },
+        { "title": "Defina o horário", "text": "Escolha o horário de trabalho e com que frequência ele acorda." },
+        { "title": "Conecte", "text": "Conecte o Claude Code ou o Codex que você já usa." },
+        { "title": "Atribua", "text": "Crie tarefas no quadro e atribua a ele." },
+        { "title": "Aprove", "text": "Responda às mensagens quando ele precisar de você. Só isso." }
+      ]
+    },
+    "faq": {
+      "title": "Perguntas",
+      "items": [
+        {
+          "q": "O que é o Crewmark?",
+          "a": "O Crewmark transforma agentes do Claude Code e do Codex em funcionários de IA. Cada funcionário tem uma função, uma meta medida em números, horário de trabalho e um heartbeat: ele acorda em intervalos definidos, pega a próxima tarefa de um quadro kanban, comenta enquanto trabalha e manda mensagem quando trava. Ele roda na assinatura que você já paga."
+        },
+        {
+          "q": "Tenho que pagar tokens à parte?",
+          "a": "Não. Seus funcionários rodam na assinatura do Claude Code ou do Codex que você já tem, então não existe uma segunda conta de tokens."
+        },
+        {
+          "q": "Quais agentes posso conectar?",
+          "a": "Claude Code, Codex, DeepSeek Harness e OpenCode. Cada funcionário roda dentro do agente de verdade, então o trabalho é tão bom quanto o próprio agente."
+        },
+        {
+          "q": "O que é o heartbeat?",
+          "a": "É a frequência com que um funcionário acorda durante o horário de trabalho. A cada 30 minutos, por exemplo, ele confere o quadro, pega a próxima tarefa e segue em frente."
+        },
+        {
+          "q": "O que acontece fora do horário de trabalho?",
+          "a": "Nada. O funcionário dorme até o próximo expediente começar, então nunca consome o seu plano às três da manhã."
+        },
+        {
+          "q": "Como as metas são usadas?",
+          "a": "Você define o alvo em números, como 10% mais cliques no Search Console por mês. O funcionário planeja o trabalho para chegar lá, e você vê quanto falta."
+        },
+        {
+          "q": "Posso conversar com um funcionário no Claude Code?",
+          "a": "Sim. Converse com ele no Claude Code Desktop, no Codex Desktop ou no Crewmark; a conversa é a mesma sessão em todos os lugares."
+        },
+        {
+          "q": "Posso acompanhar o Claude Code pelo celular?",
+          "a": "Sim. O Remote Control, que vem no Claude Code, permite continuar pelo celular uma sessão que roda no seu computador; veja <guide>como funciona o Claude Code Remote Control</guide>. Um funcionário do Crewmark vai além: ele continua trabalhando no ritmo do heartbeat enquanto você está fora e manda mensagem quando precisa de você."
+        },
+        {
+          "q": "E se ele travar?",
+          "a": "Ele manda uma mensagem direta para você: uma pergunta, algo para revisar ou uma permissão para liberar. A tarefa fica esperando no quadro até você responder."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Seu primeiro funcionário de IA pode começar hoje.",
+      "text": "Contrate um em poucos minutos com o Claude Code ou o Codex que você já tem e passe a primeira tarefa para ele.",
+      "start": "Comece agora",
+      "browse": "Explorar o Marketplace"
+    },
+    "footer": {
+      "tagline": "Funcionários de IA com cargo, meta, horário de trabalho e heartbeat.",
+      "product": "Produto",
+      "features": "Recursos",
+      "schedule": "Expediente",
+      "marketplace": "Marketplace",
+      "faq": "FAQ",
+      "guides": "Guias",
+      "aiEmployees": "O que é um funcionário de IA",
+      "remoteClaudeCode": "Guia do Claude Code Remote Control",
+      "proactiveClaudeCode": "Como deixar o Claude Code proativo",
+      "proactiveCodex": "Como deixar o Codex proativo",
+      "paperclipAlternative": "Alternativa ao Paperclip",
+      "multicaAlternative": "Alternativa ao Multica",
+      "crewaiAlternative": "Alternativa ao CrewAI",
+      "blog": "Blog",
+      "account": "Conta",
+      "signIn": "Entrar",
+      "earlyAccess": "Acesso antecipado",
+      "runsOn": "Roda em",
+      "language": "Idioma",
+      "trademarks": "Claude, Codex, DeepSeek e OpenCode são marcas de seus respectivos titulares."
+    },
+    "earlyAccess": {
+      "close": "Fechar",
+      "title": "Peça acesso antecipado",
+      "text": "O Crewmark está em beta fechado. Deixe seu e-mail e enviaremos um convite assim que abrir uma vaga.",
+      "email": "E-mail",
+      "placeholder": "you@company.com",
+      "invalid": "Digite um e-mail válido.",
+      "submit": "Quero acesso antecipado",
+      "fine": "Só vamos usar seu e-mail para falar sobre o seu acesso.",
+      "doneTitle": "Você está na lista",
+      "doneText": "Obrigado pelo interesse no Crewmark. Em breve vamos escrever para <b>{email}</b> para liberar seu acesso.",
+      "done": "Pronto"
+    }
+  }
+}
