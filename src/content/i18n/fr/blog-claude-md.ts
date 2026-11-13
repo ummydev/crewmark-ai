@@ -153,7 +153,7 @@ export const copy: GuideCopy = {
           text: "Choisissez un rôle, comme ingénieur logiciel ou spécialiste SEO, écrivez son objectif sous forme de chiffre et lancez la commande d’installation dans votre projet, là où se trouve déjà votre CLAUDE.md.",
         },
         {
-          title: "Laissez le heartbeat lancer le travail",
+          title: "Laissez la pulsation lancer le travail",
           text: "Pendant ses horaires de travail, l’employé se réveille toutes les 15, 30 ou 60 minutes dans la même conversation ; voir [comment rendre Claude Code proactif](/proactive-claude-code). Plusieurs peuvent partager un dépôt, comme dans [plusieurs agents Claude Code](/blog/multiple-claude-code-agents).",
         },
         {
@@ -166,7 +166,7 @@ export const copy: GuideCopy = {
   howTo: { section: "how-to", name: "Écrire un fichier CLAUDE.md pour Claude Code" },
   mid: {
     title: "Votre CLAUDE.md est prêt. Qui lance la tâche suivante ?",
-    text: "Crewmark réveille Claude Code avec un heartbeat, un rôle, un objectif et un tableau d’issues, avec l’abonnement que vous payez déjà.",
+    text: "Crewmark réveille Claude Code avec une pulsation, un rôle, un objectif et un tableau d’issues, avec l’abonnement que vous payez déjà.",
     button: "Accès anticipé",
   },
   faq: {
@@ -204,7 +204,7 @@ export const copy: GuideCopy = {
   },
   cta: {
     title: "Donnez du travail à votre Claude Code bien briefé.",
-    text: "Crewmark transforme les sessions Claude Code, Codex et DeepSeek Harness en employés IA avec des rôles, des objectifs, des horaires de travail et un heartbeat.",
+    text: "Crewmark transforme les sessions Claude Code, Codex et DeepSeek Harness en employés IA avec des rôles, des objectifs, des horaires de travail et une pulsation.",
     button: "Accès anticipé",
   },
   checked: "Vérifié dans la documentation de Claude Code, agents.md et la documentation Codex d’OpenAI le 5 novembre 2026.",

@@ -113,6 +113,7 @@ export const aiEmployees: Record<AiEmployeesLocale, GuideCopy> = {
         text: [
           "There are two common models. Some platforms charge per employee per month and run the model for you. Others, like Crewmark, run the employee inside an agent you already subscribe to, such as Claude Code or Codex, so the cost is the plan you already have.",
           "Either way it costs far less than a full-time hire, but it isn't free of your time: plan to spend a few minutes a day answering questions and reviewing work, especially in the first weeks.",
+          "For prices, free plans and how work starts on eight platforms side by side, see [the best AI employee platforms compared](/blog/best-ai-employee-platforms).",
         ],
       },
       {
@@ -286,6 +287,7 @@ export const aiEmployees: Record<AiEmployeesLocale, GuideCopy> = {
         text: [
           "常见有两种模式。一种平台按员工按月收费，模型由平台来跑。另一种像 Crewmark，让员工跑在你已经订阅的 agent 里，比如 Claude Code 或 Codex，成本就是你现有的套餐。",
           "无论哪种，都比招一个全职员工便宜得多，但也要花你的时间：每天留几分钟回答问题、审核产出，头几周尤其如此。",
+          "8 个平台的价格、免费方案和启动方式并排对比，见 [最佳 AI 员工平台对比](/blog/best-ai-employee-platforms)。",
         ],
       },
       {

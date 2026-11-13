@@ -101,6 +101,7 @@ export const copy: GuideCopy = {
       text: [
         "Es gibt zwei gängige Modelle. Manche Plattformen berechnen pro Mitarbeiter und Monat und betreiben das Modell für dich. Andere, wie Crewmark, lassen den Mitarbeiter in einem Agenten laufen, den du schon abonniert hast, etwa Claude Code oder Codex. Die Kosten sind dann das Abo, das du ohnehin hast.",
         "So oder so kostet er weit weniger als eine Vollzeitstelle, aber nicht ohne deine Zeit: Rechne mit ein paar Minuten am Tag, um Fragen zu beantworten und Arbeit zu prüfen, besonders in den ersten Wochen.",
+        "Preise, Gratis-Pläne und wie die Arbeit startet, für acht Plattformen nebeneinander: [die besten Plattformen für KI-Mitarbeiter im Vergleich](/blog/best-ai-employee-platforms).",
       ],
     },
     {

@@ -3,10 +3,11 @@ import "server-only";
 import { and, asc, eq } from "drizzle-orm";
 
 import { db } from "@/db";
-import { notifyCommented } from "@/db/agent-events";
+import { notifyCommented, notifyMentioned } from "@/db/agent-events";
 import type { IssueCreator } from "@/db/issues";
 import { issueKey } from "@/db/queries";
 import { issueActivity, issues } from "@/db/schema";
+import { pushActivity } from "@/lib/realtime";
 import { TRACKED_ISSUE_PROPERTIES, type IssueActivity } from "@/lib/types";
 import { NotFoundError, text } from "@/lib/validate";
 
@@ -65,10 +66,12 @@ export async function recordChanges(
       toValue: after[COLUMNS[kind]],
     }),
   );
-  if (rows.length > 0) await tx.insert(issueActivity).values(rows);
+  if (rows.length === 0) return;
+  await tx.insert(issueActivity).values(rows);
+  pushActivity(organizationId, issueId);
 }
 
-/** Adds a comment, and tells the agents it concerns (see notifyCommented). */
+/** Adds a comment, and tells the agents of the assignee and of the employees it mentions (@name). */
 export async function addComment(
   organizationId: string,
   issueId: string,
@@ -82,7 +85,6 @@ export async function addComment(
       title: issues.title,
       // A person assigned to it has no agent to tell.
       assigneeId: issues.assigneeEmployeeId,
-      createdByEmployeeId: issues.createdByEmployeeId,
     })
     .from(issues)
     .where(and(eq(issues.id, text(issueId, "issueId", { required: true })), eq(issues.organizationId, organizationId)));
@@ -91,6 +93,9 @@ export async function addComment(
     .insert(issueActivity)
     .values({ organizationId, issueId, kind: "comment", ...actorColumns(actor), body: markdown })
     .returning();
-  await notifyCommented(organizationId, { ...issue, key: issueKey(issue.number) }, markdown, actor);
+  const commented = { ...issue, key: issueKey(issue.number) };
+  await notifyCommented(organizationId, commented, markdown, actor);
+  await notifyMentioned(organizationId, commented, markdown, actor);
+  pushActivity(organizationId, issueId);
   return toActivity(row);
 }

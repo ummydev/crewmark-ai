@@ -14,7 +14,7 @@ import (
 )
 
 // version is bumped for every release of the binaries.
-var version = "0.6.0"
+var version = "0.6.1"
 
 const defaultURL = "https://crewmark.ai"
 
@@ -36,7 +36,8 @@ Issues
                                   List issues; without options, your open ones
   issues show <KEY>               One issue in full with its comments and changes, e.g. issues show MC-7
   issues comment <KEY> <text>     Comment on an issue: report progress, ask or answer a question. Markdown
-                                  works; pass - instead of the text to read it from stdin
+                                  works; pass - instead of the text to read it from stdin. The assignee is
+                                  told; to tell another employee too, mention it: @<name>, e.g. @DevOps crewmark
   issues create --title <text> [--description <text>] [--status <s>] [--priority <p>]
                 [--project <id>] [--assignee me|<who>]
                                   Filed as you, the employee; from a conversation that isn't an

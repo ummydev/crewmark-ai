@@ -101,6 +101,7 @@ export const copy: GuideCopy = {
       text: [
         "Il existe deux modèles courants. Certaines plateformes facturent par employé et par mois, et font tourner le modèle pour vous. D’autres, comme Crewmark, font tourner l’employé dans un agent auquel vous êtes déjà abonné, comme Claude Code ou Codex : le coût est celui du forfait que vous avez déjà.",
         "Dans les deux cas, il coûte bien moins cher qu’un recrutement à temps plein, mais il vous prend un peu de temps : comptez quelques minutes par jour pour répondre à ses questions et relire son travail, surtout les premières semaines.",
+        "Pour comparer côte à côte les prix, les offres gratuites et le démarrage du travail sur huit plateformes, consultez [les meilleures plateformes d’employés IA comparées](/blog/best-ai-employee-platforms).",
       ],
     },
     {

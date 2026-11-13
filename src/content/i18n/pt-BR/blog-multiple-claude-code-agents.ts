@@ -68,6 +68,9 @@ export const copy: GuideCopy = {
       kind: "steps",
       id: "how-to",
       title: "Rode sessões paralelas do Claude Code em git worktrees",
+      text: [
+        "Para todas as opções, configurações e soluções, veja o [guia completo de worktrees no Claude Code](/blog/claude-code-worktree).",
+      ],
       steps: [
         {
           title: "Ignore a pasta das worktrees",

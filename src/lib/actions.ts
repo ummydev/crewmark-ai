@@ -25,6 +25,7 @@ import { createSetupToken, getConnection } from "@/lib/agent-auth";
 import { storage, uploadTarget } from "@/lib/attachments";
 import { auth, freeOrganizationSlug, requireMember, requireUserId } from "@/lib/auth";
 import { answerCliLogin, revokeCliKey } from "@/lib/cli-auth";
+import { realtimeConnection } from "@/lib/realtime";
 import type { AgentConnection, Employee, ImageUpload, Issue, IssueActivity, Project } from "@/lib/types";
 import { text } from "@/lib/validate";
 
@@ -78,6 +79,12 @@ export async function deleteIssue(organizationId: string, id: string): Promise<v
 export async function getIssueActivity(organizationId: string, issueId: string): Promise<IssueActivity[]> {
   await requireMember(organizationId);
   return listActivity(organizationId, text(issueId, "issueId", { required: true }));
+}
+
+/** Where this tab opens its socket for pushes, or null when Crewmark has none (see src/lib/realtime.ts). */
+export async function getRealtimeConnection(organizationId: string) {
+  await requireMember(organizationId);
+  return realtimeConnection(organizationId);
 }
 
 /** Comments on the issue as the signed-in person. */

@@ -96,6 +96,7 @@ export const copy: GuideCopy = {
       text: [
         "常見有兩種模式。一種是平台按員工、按月收費，由平台執行模型。另一種像 Crewmark，讓員工在你已經訂閱的 agent 裡執行，例如 Claude Code 或 Codex，成本就是你現有的方案。",
         "不論哪一種，都比聘用一位全職員工便宜得多，但也要花你的時間：每天留幾分鐘回答問題、審核產出，前幾週尤其如此。",
+        "8 個平台的價格、免費方案和啟動方式並排比較，請見 [最佳 AI 員工平台比較](/blog/best-ai-employee-platforms)。",
       ],
     },
     {

@@ -73,6 +73,9 @@ export const multipleClaudeCodeAgents: Partial<Record<"en", GuideCopy>> = {
         kind: "steps",
         id: "how-to",
         title: "Run parallel Claude Code sessions in git worktrees",
+        text: [
+          "For every option, setting and fix, see the full [Claude Code worktree guide](/blog/claude-code-worktree).",
+        ],
         steps: [
           {
             title: "Ignore the worktrees folder",

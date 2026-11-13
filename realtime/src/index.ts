@@ -1,15 +1,18 @@
 import { DurableObject } from "cloudflare:workers";
 
-// Crewmark's push channel to the crewmark daemons on people's computers, so they needn't keep asking Crewmark whether
-// anything happened (which kept its database awake around the clock). A daemon keeps a WebSocket open here for each
-// employee it runs, through the Durable Object of the employee's organization. When something on Crewmark concerns an
-// employee (an event for its agent, new heartbeat settings), the web app tells the organization's object, which says
-// so down that employee's sockets, and the daemon fetches what's new with its API key. Only the kind of news goes
-// through here, never its content. Sockets hibernate while idle and pings are answered without waking the object, so
-// an idle daemon costs next to nothing.
+// Crewmark's push channel, so nobody needs to keep asking Crewmark whether anything happened (which kept its database
+// awake around the clock). Sockets go through the Durable Object of their organization:
+//   - the crewmark daemon on someone's computer keeps one open per employee it runs, and hears when the employee has
+//     events for its agent or new heartbeat settings;
+//   - the dashboard keeps one open per browser tab, and hears when an issue's Activity changed.
+// The web app tells the organization's object, which says so down the sockets concerned, and they fetch what's new
+// from the web app as themselves. Only the kind of news goes through here, never its content. Sockets hibernate while
+// idle and pings are answered without waking the object, so an open socket costs next to nothing.
 //
-//   GET  /connect?token=…  a daemon's WebSocket; the token comes from the web app's /api/agent/realtime
-//   POST /notify           the web app: {organizationId, employeeIds, kind}, with Authorization: Bearer REALTIME_SECRET
+//   GET  /connect?token=…  a socket; the token comes from the web app (/api/agent/realtime for daemons, an action for
+//                          the dashboard)
+//   POST /notify           the web app: {organizationId, kind, employeeIds} for daemons, or {organizationId, kind:
+//                          "activity", issueId} for the dashboard, with Authorization: Bearer REALTIME_SECRET
 
 interface Env {
   ORGANIZATIONS: DurableObjectNamespace<Organization>;
@@ -18,7 +21,10 @@ interface Env {
 }
 
 /** What a daemon is told: new events for its agent, or new heartbeat settings. */
-const KINDS = ["events", "heartbeat"];
+const DAEMON_KINDS = ["events", "heartbeat"];
+
+/** The tag of the dashboard's sockets: every member's tab hears about every issue, as they can all see them. */
+const PEOPLE = "people";
 
 export class Organization extends DurableObject<Env> {
   constructor(ctx: DurableObjectState, env: Env) {
@@ -27,27 +33,34 @@ export class Organization extends DurableObject<Env> {
     ctx.setWebSocketAutoResponse(new WebSocketRequestResponsePair("ping", "pong"));
   }
 
-  /** A daemon's socket for one employee, tagged with it so notify finds it. */
+  /** A socket, tagged with what it hears about: one employee's news (a daemon's), or the people's (a dashboard's). */
   async fetch(request: Request) {
-    const employeeId = new URL(request.url).searchParams.get("employee");
-    if (!employeeId) return new Response("No employee", { status: 400 });
+    const tag = new URL(request.url).searchParams.get("tag");
+    if (!tag) return new Response("No tag", { status: 400 });
     const [client, server] = Object.values(new WebSocketPair());
-    this.ctx.acceptWebSocket(server, [employeeId]);
+    this.ctx.acceptWebSocket(server, [tag]);
     return new Response(null, { status: 101, webSocket: client });
   }
 
   /** Tells the employees' daemons there's news of this kind; how many sockets were told. */
   notify(employeeIds: string[], kind: string) {
-    const message = JSON.stringify({ type: kind });
+    return [...new Set(employeeIds)].reduce((told, id) => told + this.send(id, { type: kind }), 0);
+  }
+
+  /** Tells the dashboard's tabs that the issue's Activity changed. */
+  notifyActivity(issueId: string) {
+    return this.send(PEOPLE, { type: "activity", issueId });
+  }
+
+  private send(tag: string, message: object) {
+    const text = JSON.stringify(message);
     let told = 0;
-    for (const employeeId of new Set(employeeIds)) {
-      for (const socket of this.ctx.getWebSockets(employeeId)) {
-        try {
-          socket.send(message);
-          told++;
-        } catch {
-          // Closing as we speak; the daemon catches up when it reconnects.
-        }
+    for (const socket of this.ctx.getWebSockets(tag)) {
+      try {
+        socket.send(text);
+        told++;
+      } catch {
+        // Closing as we speak; it catches up when it reconnects.
       }
     }
     return told;
@@ -68,7 +81,7 @@ export default {
       const claims = await verifyToken(url.searchParams.get("token") ?? "", env.REALTIME_SECRET);
       if (!claims) return new Response("Invalid or expired token", { status: 401 });
       const target = new URL(request.url);
-      target.search = new URLSearchParams({ employee: claims.e }).toString();
+      target.search = new URLSearchParams({ tag: claims.e ?? PEOPLE }).toString();
       return env.ORGANIZATIONS.getByName(claims.o).fetch(new Request(target, request));
     }
     if (url.pathname === "/notify" && request.method === "POST") {
@@ -77,30 +90,36 @@ export default {
       }
       const body = (await request.json().catch(() => null)) as {
         organizationId?: unknown;
-        employeeIds?: unknown;
         kind?: unknown;
+        employeeIds?: unknown;
+        issueId?: unknown;
       } | null;
-      const employeeIds = body?.employeeIds;
-      if (
-        typeof body?.organizationId !== "string" ||
-        !Array.isArray(employeeIds) ||
-        !employeeIds.every((id) => typeof id === "string") ||
-        typeof body.kind !== "string" ||
-        !KINDS.includes(body.kind)
-      ) {
-        return new Response("Expected {organizationId, employeeIds, kind}", { status: 400 });
+      if (typeof body?.organizationId !== "string") return new Response("Expected an organizationId", { status: 400 });
+      const organization = env.ORGANIZATIONS.getByName(body.organizationId);
+      const { kind, employeeIds, issueId } = body;
+      if (kind === "activity" && typeof issueId === "string") {
+        return Response.json({ told: await organization.notifyActivity(issueId) });
       }
-      const told = await env.ORGANIZATIONS.getByName(body.organizationId).notify(employeeIds, body.kind);
-      return Response.json({ told });
+      if (
+        typeof kind === "string" &&
+        DAEMON_KINDS.includes(kind) &&
+        Array.isArray(employeeIds) &&
+        employeeIds.every((id) => typeof id === "string")
+      ) {
+        return Response.json({ told: await organization.notify(employeeIds, kind) });
+      }
+      return new Response("Expected {organizationId, kind, employeeIds} or {organizationId, kind: activity, issueId}", {
+        status: 400,
+      });
     }
     return new Response("Not found", { status: 404 });
   },
 } satisfies ExportedHandler<Env>;
 
-/** A connect token's claims: organization, employee, and when it expires (seconds). */
+/** A connect token's claims: organization, the employee for a daemon (none for the dashboard), when it expires (seconds). */
 interface Claims {
   o: string;
-  e: string;
+  e?: string;
   x: number;
 }
 
@@ -139,7 +158,8 @@ async function verifyToken(token: string, secret: string): Promise<Claims | null
   if (!valid) return null;
   try {
     const claims = JSON.parse(new TextDecoder().decode(fromBase64Url(payload))) as Claims;
-    if (typeof claims.o !== "string" || typeof claims.e !== "string" || typeof claims.x !== "number") return null;
+    if (typeof claims.o !== "string" || typeof claims.x !== "number") return null;
+    if (claims.e !== undefined && typeof claims.e !== "string") return null;
     return claims.x > Date.now() / 1000 ? claims : null;
   } catch {
     return null;

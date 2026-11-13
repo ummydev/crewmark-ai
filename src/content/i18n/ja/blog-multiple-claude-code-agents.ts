@@ -68,6 +68,9 @@ export const copy: GuideCopy = {
       kind: "steps",
       id: "how-to",
       title: "git worktree で Claude Code のセッションを並列に動かす",
+      text: [
+        "オプション、設定、トラブル対処のすべては [Claude Code worktree ガイド](/blog/claude-code-worktree) にまとめています。",
+      ],
       steps: [
         {
           title: "worktree のフォルダーを無視する",

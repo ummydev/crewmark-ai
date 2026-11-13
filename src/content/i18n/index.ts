@@ -103,6 +103,110 @@ import { copy as esClaudeMd } from "./es/blog-claude-md";
 import { copy as ptBRClaudeMd } from "./pt-BR/blog-claude-md";
 import { copy as frClaudeMd } from "./fr/blog-claude-md";
 import { copy as deClaudeMd } from "./de/blog-claude-md";
+import { copy as zhClaudeCodeWorktree } from "./zh/blog-claude-code-worktree";
+import { copy as zhTWClaudeCodeWorktree } from "./zh-TW/blog-claude-code-worktree";
+import { copy as jaClaudeCodeWorktree } from "./ja/blog-claude-code-worktree";
+import { copy as koClaudeCodeWorktree } from "./ko/blog-claude-code-worktree";
+import { copy as esClaudeCodeWorktree } from "./es/blog-claude-code-worktree";
+import { copy as ptBRClaudeCodeWorktree } from "./pt-BR/blog-claude-code-worktree";
+import { copy as frClaudeCodeWorktree } from "./fr/blog-claude-code-worktree";
+import { copy as deClaudeCodeWorktree } from "./de/blog-claude-code-worktree";
+import { copy as zhConductorAlternatives } from "./zh/blog-conductor-alternatives";
+import { copy as zhTWConductorAlternatives } from "./zh-TW/blog-conductor-alternatives";
+import { copy as jaConductorAlternatives } from "./ja/blog-conductor-alternatives";
+import { copy as koConductorAlternatives } from "./ko/blog-conductor-alternatives";
+import { copy as esConductorAlternatives } from "./es/blog-conductor-alternatives";
+import { copy as ptBRConductorAlternatives } from "./pt-BR/blog-conductor-alternatives";
+import { copy as frConductorAlternatives } from "./fr/blog-conductor-alternatives";
+import { copy as deConductorAlternatives } from "./de/blog-conductor-alternatives";
+import { copy as zhClaudeCodeSlashCommands } from "./zh/blog-claude-code-slash-commands";
+import { copy as zhTWClaudeCodeSlashCommands } from "./zh-TW/blog-claude-code-slash-commands";
+import { copy as jaClaudeCodeSlashCommands } from "./ja/blog-claude-code-slash-commands";
+import { copy as koClaudeCodeSlashCommands } from "./ko/blog-claude-code-slash-commands";
+import { copy as esClaudeCodeSlashCommands } from "./es/blog-claude-code-slash-commands";
+import { copy as ptBRClaudeCodeSlashCommands } from "./pt-BR/blog-claude-code-slash-commands";
+import { copy as frClaudeCodeSlashCommands } from "./fr/blog-claude-code-slash-commands";
+import { copy as deClaudeCodeSlashCommands } from "./de/blog-claude-code-slash-commands";
+import { copy as zhClaudeCodeSkills } from "./zh/blog-claude-code-skills";
+import { copy as zhTWClaudeCodeSkills } from "./zh-TW/blog-claude-code-skills";
+import { copy as jaClaudeCodeSkills } from "./ja/blog-claude-code-skills";
+import { copy as koClaudeCodeSkills } from "./ko/blog-claude-code-skills";
+import { copy as esClaudeCodeSkills } from "./es/blog-claude-code-skills";
+import { copy as ptBRClaudeCodeSkills } from "./pt-BR/blog-claude-code-skills";
+import { copy as frClaudeCodeSkills } from "./fr/blog-claude-code-skills";
+import { copy as deClaudeCodeSkills } from "./de/blog-claude-code-skills";
+import { copy as zhClaudeCodePlanMode } from "./zh/blog-claude-code-plan-mode";
+import { copy as zhTWClaudeCodePlanMode } from "./zh-TW/blog-claude-code-plan-mode";
+import { copy as jaClaudeCodePlanMode } from "./ja/blog-claude-code-plan-mode";
+import { copy as koClaudeCodePlanMode } from "./ko/blog-claude-code-plan-mode";
+import { copy as esClaudeCodePlanMode } from "./es/blog-claude-code-plan-mode";
+import { copy as ptBRClaudeCodePlanMode } from "./pt-BR/blog-claude-code-plan-mode";
+import { copy as frClaudeCodePlanMode } from "./fr/blog-claude-code-plan-mode";
+import { copy as deClaudeCodePlanMode } from "./de/blog-claude-code-plan-mode";
+import { copy as zhBestAiEmployeePlatforms } from "./zh/blog-best-ai-employee-platforms";
+import { copy as zhTWBestAiEmployeePlatforms } from "./zh-TW/blog-best-ai-employee-platforms";
+import { copy as jaBestAiEmployeePlatforms } from "./ja/blog-best-ai-employee-platforms";
+import { copy as koBestAiEmployeePlatforms } from "./ko/blog-best-ai-employee-platforms";
+import { copy as esBestAiEmployeePlatforms } from "./es/blog-best-ai-employee-platforms";
+import { copy as ptBRBestAiEmployeePlatforms } from "./pt-BR/blog-best-ai-employee-platforms";
+import { copy as frBestAiEmployeePlatforms } from "./fr/blog-best-ai-employee-platforms";
+import { copy as deBestAiEmployeePlatforms } from "./de/blog-best-ai-employee-platforms";
+import { copy as zhClaudeInferenceHooks } from "./zh/blog-claude-inference-hooks";
+import { copy as zhTWClaudeInferenceHooks } from "./zh-TW/blog-claude-inference-hooks";
+import { copy as jaClaudeInferenceHooks } from "./ja/blog-claude-inference-hooks";
+import { copy as koClaudeInferenceHooks } from "./ko/blog-claude-inference-hooks";
+import { copy as esClaudeInferenceHooks } from "./es/blog-claude-inference-hooks";
+import { copy as ptBRClaudeInferenceHooks } from "./pt-BR/blog-claude-inference-hooks";
+import { copy as frClaudeInferenceHooks } from "./fr/blog-claude-inference-hooks";
+import { copy as deClaudeInferenceHooks } from "./de/blog-claude-inference-hooks";
+import { copy as zhClaudeCodeOrchestrationTools } from "./zh/blog-claude-code-orchestration-tools";
+import { copy as zhTWClaudeCodeOrchestrationTools } from "./zh-TW/blog-claude-code-orchestration-tools";
+import { copy as jaClaudeCodeOrchestrationTools } from "./ja/blog-claude-code-orchestration-tools";
+import { copy as koClaudeCodeOrchestrationTools } from "./ko/blog-claude-code-orchestration-tools";
+import { copy as esClaudeCodeOrchestrationTools } from "./es/blog-claude-code-orchestration-tools";
+import { copy as ptBRClaudeCodeOrchestrationTools } from "./pt-BR/blog-claude-code-orchestration-tools";
+import { copy as frClaudeCodeOrchestrationTools } from "./fr/blog-claude-code-orchestration-tools";
+import { copy as deClaudeCodeOrchestrationTools } from "./de/blog-claude-code-orchestration-tools";
+import { copy as zhReduceClaudeCodeTokenUsage } from "./zh/blog-reduce-claude-code-token-usage";
+import { copy as zhTWReduceClaudeCodeTokenUsage } from "./zh-TW/blog-reduce-claude-code-token-usage";
+import { copy as jaReduceClaudeCodeTokenUsage } from "./ja/blog-reduce-claude-code-token-usage";
+import { copy as koReduceClaudeCodeTokenUsage } from "./ko/blog-reduce-claude-code-token-usage";
+import { copy as esReduceClaudeCodeTokenUsage } from "./es/blog-reduce-claude-code-token-usage";
+import { copy as ptBRReduceClaudeCodeTokenUsage } from "./pt-BR/blog-reduce-claude-code-token-usage";
+import { copy as frReduceClaudeCodeTokenUsage } from "./fr/blog-reduce-claude-code-token-usage";
+import { copy as deReduceClaudeCodeTokenUsage } from "./de/blog-reduce-claude-code-token-usage";
+import { copy as zhClaudeCodeHooks } from "./zh/blog-claude-code-hooks";
+import { copy as zhTWClaudeCodeHooks } from "./zh-TW/blog-claude-code-hooks";
+import { copy as jaClaudeCodeHooks } from "./ja/blog-claude-code-hooks";
+import { copy as koClaudeCodeHooks } from "./ko/blog-claude-code-hooks";
+import { copy as esClaudeCodeHooks } from "./es/blog-claude-code-hooks";
+import { copy as ptBRClaudeCodeHooks } from "./pt-BR/blog-claude-code-hooks";
+import { copy as frClaudeCodeHooks } from "./fr/blog-claude-code-hooks";
+import { copy as deClaudeCodeHooks } from "./de/blog-claude-code-hooks";
+import { copy as zhClaudeCodeMcp } from "./zh/blog-claude-code-mcp";
+import { copy as zhTWClaudeCodeMcp } from "./zh-TW/blog-claude-code-mcp";
+import { copy as jaClaudeCodeMcp } from "./ja/blog-claude-code-mcp";
+import { copy as koClaudeCodeMcp } from "./ko/blog-claude-code-mcp";
+import { copy as esClaudeCodeMcp } from "./es/blog-claude-code-mcp";
+import { copy as ptBRClaudeCodeMcp } from "./pt-BR/blog-claude-code-mcp";
+import { copy as frClaudeCodeMcp } from "./fr/blog-claude-code-mcp";
+import { copy as deClaudeCodeMcp } from "./de/blog-claude-code-mcp";
+import { copy as zhClaudeCodeVsCursor } from "./zh/blog-claude-code-vs-cursor";
+import { copy as zhTWClaudeCodeVsCursor } from "./zh-TW/blog-claude-code-vs-cursor";
+import { copy as jaClaudeCodeVsCursor } from "./ja/blog-claude-code-vs-cursor";
+import { copy as koClaudeCodeVsCursor } from "./ko/blog-claude-code-vs-cursor";
+import { copy as esClaudeCodeVsCursor } from "./es/blog-claude-code-vs-cursor";
+import { copy as ptBRClaudeCodeVsCursor } from "./pt-BR/blog-claude-code-vs-cursor";
+import { copy as frClaudeCodeVsCursor } from "./fr/blog-claude-code-vs-cursor";
+import { copy as deClaudeCodeVsCursor } from "./de/blog-claude-code-vs-cursor";
+import { copy as zhCursorAlternatives } from "./zh/blog-cursor-alternatives";
+import { copy as zhTWCursorAlternatives } from "./zh-TW/blog-cursor-alternatives";
+import { copy as jaCursorAlternatives } from "./ja/blog-cursor-alternatives";
+import { copy as koCursorAlternatives } from "./ko/blog-cursor-alternatives";
+import { copy as esCursorAlternatives } from "./es/blog-cursor-alternatives";
+import { copy as ptBRCursorAlternatives } from "./pt-BR/blog-cursor-alternatives";
+import { copy as frCursorAlternatives } from "./fr/blog-cursor-alternatives";
+import { copy as deCursorAlternatives } from "./de/blog-cursor-alternatives";
 import { copy as zhClaudeCodeVsCodex } from "./zh/blog-claude-code-vs-codex";
 import { copy as zhTWClaudeCodeVsCodex } from "./zh-TW/blog-claude-code-vs-codex";
 import { copy as jaClaudeCodeVsCodex } from "./ja/blog-claude-code-vs-codex";
@@ -260,4 +364,147 @@ export const claudeCodeVsCodexTranslations = {
   "pt-BR": ptBRClaudeCodeVsCodex,
   fr: frClaudeCodeVsCodex,
   de: deClaudeCodeVsCodex,
+};
+
+export const claudeCodeWorktreeTranslations = {
+  zh: zhClaudeCodeWorktree,
+  "zh-TW": zhTWClaudeCodeWorktree,
+  ja: jaClaudeCodeWorktree,
+  ko: koClaudeCodeWorktree,
+  es: esClaudeCodeWorktree,
+  "pt-BR": ptBRClaudeCodeWorktree,
+  fr: frClaudeCodeWorktree,
+  de: deClaudeCodeWorktree,
+};
+
+export const conductorAlternativesTranslations = {
+  zh: zhConductorAlternatives,
+  "zh-TW": zhTWConductorAlternatives,
+  ja: jaConductorAlternatives,
+  ko: koConductorAlternatives,
+  es: esConductorAlternatives,
+  "pt-BR": ptBRConductorAlternatives,
+  fr: frConductorAlternatives,
+  de: deConductorAlternatives,
+};
+
+export const claudeCodeSlashCommandsTranslations = {
+  zh: zhClaudeCodeSlashCommands,
+  "zh-TW": zhTWClaudeCodeSlashCommands,
+  ja: jaClaudeCodeSlashCommands,
+  ko: koClaudeCodeSlashCommands,
+  es: esClaudeCodeSlashCommands,
+  "pt-BR": ptBRClaudeCodeSlashCommands,
+  fr: frClaudeCodeSlashCommands,
+  de: deClaudeCodeSlashCommands,
+};
+
+export const claudeCodeSkillsTranslations = {
+  zh: zhClaudeCodeSkills,
+  "zh-TW": zhTWClaudeCodeSkills,
+  ja: jaClaudeCodeSkills,
+  ko: koClaudeCodeSkills,
+  es: esClaudeCodeSkills,
+  "pt-BR": ptBRClaudeCodeSkills,
+  fr: frClaudeCodeSkills,
+  de: deClaudeCodeSkills,
+};
+
+export const claudeCodePlanModeTranslations = {
+  zh: zhClaudeCodePlanMode,
+  "zh-TW": zhTWClaudeCodePlanMode,
+  ja: jaClaudeCodePlanMode,
+  ko: koClaudeCodePlanMode,
+  es: esClaudeCodePlanMode,
+  "pt-BR": ptBRClaudeCodePlanMode,
+  fr: frClaudeCodePlanMode,
+  de: deClaudeCodePlanMode,
+};
+
+export const bestAiEmployeePlatformsTranslations = {
+  zh: zhBestAiEmployeePlatforms,
+  "zh-TW": zhTWBestAiEmployeePlatforms,
+  ja: jaBestAiEmployeePlatforms,
+  ko: koBestAiEmployeePlatforms,
+  es: esBestAiEmployeePlatforms,
+  "pt-BR": ptBRBestAiEmployeePlatforms,
+  fr: frBestAiEmployeePlatforms,
+  de: deBestAiEmployeePlatforms,
+};
+
+export const claudeInferenceHooksTranslations = {
+  zh: zhClaudeInferenceHooks,
+  "zh-TW": zhTWClaudeInferenceHooks,
+  ja: jaClaudeInferenceHooks,
+  ko: koClaudeInferenceHooks,
+  es: esClaudeInferenceHooks,
+  "pt-BR": ptBRClaudeInferenceHooks,
+  fr: frClaudeInferenceHooks,
+  de: deClaudeInferenceHooks,
+};
+
+export const claudeCodeOrchestrationToolsTranslations = {
+  zh: zhClaudeCodeOrchestrationTools,
+  "zh-TW": zhTWClaudeCodeOrchestrationTools,
+  ja: jaClaudeCodeOrchestrationTools,
+  ko: koClaudeCodeOrchestrationTools,
+  es: esClaudeCodeOrchestrationTools,
+  "pt-BR": ptBRClaudeCodeOrchestrationTools,
+  fr: frClaudeCodeOrchestrationTools,
+  de: deClaudeCodeOrchestrationTools,
+};
+
+export const reduceClaudeCodeTokenUsageTranslations = {
+  zh: zhReduceClaudeCodeTokenUsage,
+  "zh-TW": zhTWReduceClaudeCodeTokenUsage,
+  ja: jaReduceClaudeCodeTokenUsage,
+  ko: koReduceClaudeCodeTokenUsage,
+  es: esReduceClaudeCodeTokenUsage,
+  "pt-BR": ptBRReduceClaudeCodeTokenUsage,
+  fr: frReduceClaudeCodeTokenUsage,
+  de: deReduceClaudeCodeTokenUsage,
+};
+
+export const claudeCodeHooksTranslations = {
+  zh: zhClaudeCodeHooks,
+  "zh-TW": zhTWClaudeCodeHooks,
+  ja: jaClaudeCodeHooks,
+  ko: koClaudeCodeHooks,
+  es: esClaudeCodeHooks,
+  "pt-BR": ptBRClaudeCodeHooks,
+  fr: frClaudeCodeHooks,
+  de: deClaudeCodeHooks,
+};
+
+export const claudeCodeMcpTranslations = {
+  zh: zhClaudeCodeMcp,
+  "zh-TW": zhTWClaudeCodeMcp,
+  ja: jaClaudeCodeMcp,
+  ko: koClaudeCodeMcp,
+  es: esClaudeCodeMcp,
+  "pt-BR": ptBRClaudeCodeMcp,
+  fr: frClaudeCodeMcp,
+  de: deClaudeCodeMcp,
+};
+
+export const claudeCodeVsCursorTranslations = {
+  zh: zhClaudeCodeVsCursor,
+  "zh-TW": zhTWClaudeCodeVsCursor,
+  ja: jaClaudeCodeVsCursor,
+  ko: koClaudeCodeVsCursor,
+  es: esClaudeCodeVsCursor,
+  "pt-BR": ptBRClaudeCodeVsCursor,
+  fr: frClaudeCodeVsCursor,
+  de: deClaudeCodeVsCursor,
+};
+
+export const cursorAlternativesTranslations = {
+  zh: zhCursorAlternatives,
+  "zh-TW": zhTWCursorAlternatives,
+  ja: jaCursorAlternatives,
+  ko: koCursorAlternatives,
+  es: esCursorAlternatives,
+  "pt-BR": ptBRCursorAlternatives,
+  fr: frCursorAlternatives,
+  de: deCursorAlternatives,
 };

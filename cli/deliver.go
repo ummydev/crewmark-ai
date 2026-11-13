@@ -8,8 +8,10 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"regexp"
 	"runtime"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -18,9 +20,12 @@ import (
 //     session in ~/.claude/sessions/<pid>.json. A message there starts a turn when the conversation is idle and is read
 //     between tool calls when it's busy. Claude Code shows it as a message from another session. The Claude app closes
 //     a Code tab conversation that's been idle for a few hours; the daemon opens it there again with its claude://
-//     link, as clicking it in the sidebar would, and delivers once it's open. Any other conversation that isn't open is
-//     resumed with `claude -p --resume` in auto mode, when the claude command here is logged in; an open one can't be,
-//     or two processes would write the conversation and split it in two.
+//     link, as clicking it in the sidebar would, and delivers once it's open. The app only starts it on an unlocked
+//     screen, though, so while the Mac is locked, or when the app hasn't started it within claudeAppWait, the daemon
+//     resumes it in the background instead, as it does any other conversation that isn't open: `claude -p --resume`
+//     in auto mode, when the claude command here is logged in. That run writes to the same conversation, so it goes
+//     on in the app afterwards. An open conversation is never resumed, nor one already running in the background, or
+//     two processes would write it and split it in two.
 //   - Codex (the CLI or the app): `codex queue --resume` puts the message in the conversation's queue on Codex's local
 //     app-server daemon and starts it.
 
@@ -73,19 +78,56 @@ func openClaudeSession(sessionID string) (*claudeSession, error) {
 	return nil, errors.New("the conversation isn't open")
 }
 
-// wakeClaude gets a conversation that isn't open ready for the message: the Claude app opens one of its own, and the
-// message goes in on a later round; any other is resumed in the background with the message.
+// wakeClaude gets a conversation that isn't open ready for the message: the Claude app opens one of its own and the
+// message goes in on a later round, unless the screen is locked or the app hasn't opened it in time; then, as any
+// other conversation, it's resumed in the background with the message.
 func wakeClaude(employeeID string, profile employeeProfile, text string) error {
-	if runtime.GOOS == "darwin" {
-		link, err := claudeAppLink(*profile.SessionID)
-		if err != nil {
-			return err
+	if runtime.GOOS != "darwin" {
+		return resumeClaude(employeeID, profile, text, claudeAppConversation{})
+	}
+	app, err := claudeAppSession(*profile.SessionID)
+	if err != nil {
+		return err
+	}
+	if app == nil {
+		return resumeClaude(employeeID, profile, text, claudeAppConversation{})
+	}
+	locked := screenLocked()
+	asked, ok := claudeAppAsked[employeeID]
+	if !locked && (!ok || time.Since(asked) < claudeAppWait) {
+		return openInClaudeApp(employeeID, app.link)
+	}
+	if err := resumeClaude(employeeID, profile, text, *app); err != nil {
+		// Nothing to resume it with: the app opens it, once the screen's unlocked if it isn't.
+		opened := openInClaudeApp(employeeID, app.link)
+		if locked {
+			return fmt.Errorf("the screen is locked, so the Claude app won't open the conversation, and %v", err)
 		}
-		if link != "" {
-			return openInClaudeApp(employeeID, link)
+		if !errors.Is(opened, errOpening) {
+			return opened
+		}
+		return fmt.Errorf("the Claude app hasn't opened the conversation, and %v", err)
+	}
+	delete(claudeAppAsked, employeeID)
+	return nil
+}
+
+// screenLocked says whether this Mac's screen is locked for the person the daemon runs as: macOS then lists
+// CGSSessionScreenIsLocked=Yes on their console session in the I/O Registry. Swapped out in tests.
+var screenLocked = func() bool {
+	out, err := exec.Command("ioreg", "-n", "Root", "-d1").Output()
+	return err == nil && consoleLocked(string(out), os.Getuid())
+}
+
+var consoleSession = regexp.MustCompile(`\{[^{}]*\}`)
+
+func consoleLocked(ioreg string, uid int) bool {
+	for _, session := range consoleSession.FindAllString(ioreg, -1) {
+		if strings.Contains(session, fmt.Sprintf(`"kCGSSessionUserIDKey"=%d`, uid)) {
+			return strings.Contains(session, `"CGSSessionScreenIsLocked"=Yes`)
 		}
 	}
-	return resumeClaude(employeeID, profile, text)
+	return false
 }
 
 // claudeAppSessions is where the Claude app keeps its Code tab conversations, a file each, under account and organization.
@@ -94,50 +136,107 @@ func claudeAppSessions() string {
 	return filepath.Join(dir, "Claude", "claude-code-sessions")
 }
 
-// claudeAppLink is the claude:// link that opens the conversation in the Claude app, or "" when it isn't one of the
-// app's. The app knows a conversation by an id of its own (local_…) and keeps Claude Code's next to it.
-func claudeAppLink(sessionID string) (string, error) {
+// claudeAppConversation is a conversation the Claude app has: the claude:// link that opens it there, and the model
+// and effort it runs with, which a background run keeps.
+type claudeAppConversation struct {
+	link, model, effort string
+}
+
+// claudeAppSession is the conversation as the Claude app has it, or nil when it isn't one of the app's. The app knows
+// a conversation by an id of its own (local_…) and keeps Claude Code's next to it.
+func claudeAppSession(sessionID string) (*claudeAppConversation, error) {
 	files, _ := filepath.Glob(filepath.Join(claudeAppSessions(), "*", "*", "local_*.json"))
 	for _, file := range files {
 		var session struct {
-			SessionID    string `json:"sessionId"`
-			CLISessionID string `json:"cliSessionId"`
-			IsArchived   bool   `json:"isArchived"`
+			SessionID       string `json:"sessionId"`
+			CLISessionID    string `json:"cliSessionId"`
+			IsArchived      bool   `json:"isArchived"`
+			Model           string `json:"model"`
+			Effort          string `json:"effort"`
+			EffortInherited bool   `json:"effortInherited"`
 		}
 		if readJSON(file, &session) != nil || session.CLISessionID != sessionID || session.SessionID == "" {
 			continue
 		}
 		if session.IsArchived {
-			return "", errors.New("the conversation is archived in the Claude app; unarchive it there to wake it")
+			return nil, errors.New("the conversation is archived in the Claude app; unarchive it there to wake it")
 		}
-		return "claude://claude.ai/epitaxy/" + session.SessionID, nil
+		app := &claudeAppConversation{link: "claude://claude.ai/epitaxy/" + session.SessionID, model: session.Model}
+		if !session.EffortInherited {
+			app.effort = session.Effort
+		}
+		return app, nil
 	}
-	return "", nil
+	return nil, nil
 }
 
-// claudeAppOpened is when the daemon last asked the Claude app to open each employee's conversation; it asks again
-// only after claudeAppRetry, so a conversation that doesn't come up doesn't pull the app's window to it every round.
-var claudeAppOpened = map[string]time.Time{}
+var (
+	// claudeAppAsked is when the daemon first asked the Claude app to open each employee's conversation, until it
+	// opens or runs in the background; after claudeAppWait without it opening, it's run in the background instead.
+	claudeAppAsked = map[string]time.Time{}
+	// claudeAppOpened is when the daemon last asked; it asks again only after claudeAppRetry, so a conversation that
+	// doesn't come up doesn't pull the app's window to it every round.
+	claudeAppOpened = map[string]time.Time{}
+)
 
-const claudeAppRetry = 5 * time.Minute
+const (
+	claudeAppWait  = 2 * time.Minute
+	claudeAppRetry = 5 * time.Minute
+)
+
+var errOpening = errors.New("opening the conversation in the Claude app; the message goes in once it's open")
 
 func openInClaudeApp(employeeID, link string) error {
-	opening := errors.New("opening the conversation in the Claude app; the message goes in once it's open")
+	if _, ok := claudeAppAsked[employeeID]; !ok {
+		claudeAppAsked[employeeID] = time.Now()
+	}
 	if time.Since(claudeAppOpened[employeeID]) < claudeAppRetry {
-		return opening
+		return errOpening
 	}
 	claudeAppOpened[employeeID] = time.Now()
-	if out, err := exec.Command("open", link).CombinedOutput(); err != nil {
+	if out, err := openURL(link); err != nil {
 		return fmt.Errorf("couldn't open the conversation in the Claude app: %v: %s", err, strings.TrimSpace(string(out)))
 	}
-	return opening
+	return errOpening
+}
+
+// openURL opens a link with macOS's open; swapped out in tests.
+var openURL = func(link string) ([]byte, error) { return exec.Command("open", link).CombinedOutput() }
+
+// backgroundRuns are the employees whose conversations run in the background (claude -p) right now. Their runs end
+// on goroutines of their own, hence the lock.
+var backgroundRuns = &runningSet{running: map[string]bool{}}
+
+type runningSet struct {
+	mu      sync.Mutex
+	running map[string]bool
+}
+
+func (r *runningSet) has(id string) bool {
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	return r.running[id]
+}
+
+func (r *runningSet) set(id string, running bool) {
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	if running {
+		r.running[id] = true
+	} else {
+		delete(r.running, id)
+	}
 }
 
 func deliverClaude(employeeID string, profile employeeProfile, text string, whenIdle bool) error {
+	if backgroundRuns.has(employeeID) {
+		return errors.New("the conversation is running in the background (claude -p); messages wait until it's done")
+	}
 	session, err := openClaudeSession(*profile.SessionID)
 	if err != nil {
 		return wakeClaude(employeeID, profile, text)
 	}
+	delete(claudeAppAsked, employeeID)
 	// Heartbeats and news wait for an idle agent; one that's working (or waiting on a permission prompt) is left alone.
 	if whenIdle && session.Status != "" && session.Status != "idle" {
 		return fmt.Errorf("the conversation is %s; messages wait until it's idle", session.Status)
@@ -170,40 +269,47 @@ func claudePath() (string, error) {
 }
 
 // resumeClaude wakes a conversation that isn't open by running it headless: `claude -p --resume` in its folder, in
-// auto mode since nobody is there to answer permission prompts. It returns once the run has started; the run's output
-// goes to the employee's claude.log. Without a signed-in claude command the message waits for the conversation to
-// be opened.
-func resumeClaude(employeeID string, profile employeeProfile, text string) error {
-	notOpen := errors.New("the conversation isn't open and can't be woken from here: it isn't in the Claude app, " +
-		"and there's no claude command to resume it with; open it in Claude Code, or install Claude Code's command " +
-		"line and log in")
+// auto mode since nobody is there to answer permission prompts, with the model and effort the Claude app runs it with
+// (if it's one of the app's). It returns once the run has started; the run's output goes to the employee's
+// claude.log. Without a signed-in claude command the message waits for the conversation to be opened.
+func resumeClaude(employeeID string, profile employeeProfile, text string, app claudeAppConversation) error {
 	claude, err := claudePath()
 	if err != nil {
-		return notOpen
+		return errors.New("there's no claude command to resume the conversation in the background with: open it in " +
+			"Claude Code, or install Claude Code's command line and log in")
 	}
 	var auth struct {
 		LoggedIn bool `json:"loggedIn"`
 	}
 	status, err := exec.Command(claude, "auth", "status").Output()
 	if err != nil || json.Unmarshal(status, &auth) != nil || !auth.LoggedIn {
-		return errors.New("the conversation isn't open, and the claude command here isn't logged in, so it can't be " +
-			"resumed in the background: run `claude` once and log in, or open the conversation in Claude Code")
+		return errors.New("the claude command here isn't logged in, so the conversation can't be resumed in the " +
+			"background: run `claude` once and log in, or open the conversation in Claude Code")
 	}
 	logFile, err := os.OpenFile(filepath.Join(home, "employees", employeeID, "claude.log"),
 		os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0o600)
 	if err != nil {
 		return err
 	}
-	run := exec.Command(claude, "-p", "--resume", *profile.SessionID, "--permission-mode", "auto", text)
+	args := []string{"-p", "--resume", *profile.SessionID, "--permission-mode", "auto"}
+	if app.model != "" {
+		args = append(args, "--model", app.model)
+	}
+	if app.effort != "" {
+		args = append(args, "--effort", app.effort)
+	}
+	run := exec.Command(claude, append(args, text)...)
 	run.Dir, run.Stdout, run.Stderr = profile.Workdir, logFile, logFile
 	if err := run.Start(); err != nil {
 		logFile.Close()
 		return fmt.Errorf("couldn't resume the conversation: %v", err)
 	}
-	// While it runs, the conversation counts as open, so later messages go to its inbox.
+	// Until it's done, later messages wait rather than start a second run on the same conversation.
+	backgroundRuns.set(employeeID, true)
 	go func() {
 		_ = run.Wait()
 		logFile.Close()
+		backgroundRuns.set(employeeID, false)
 	}()
 	return nil
 }

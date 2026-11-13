@@ -7,6 +7,19 @@ import { routing } from "./routing";
  * copy lives in content/blog/<slug>.ts; this list stays small because proxy.ts imports it.
  */
 export const posts = [
+  { slug: "cursor-alternatives", published: "2026-11-06", locales: routing.locales },
+  { slug: "claude-code-vs-cursor", published: "2026-11-06", locales: routing.locales },
+  { slug: "claude-code-mcp", published: "2026-11-06", locales: routing.locales },
+  { slug: "claude-code-hooks", published: "2026-11-06", locales: routing.locales },
+  { slug: "reduce-claude-code-token-usage", published: "2026-11-06", locales: routing.locales },
+  { slug: "claude-code-orchestration-tools", published: "2026-11-06", locales: routing.locales },
+  { slug: "claude-inference-hooks", published: "2026-11-06", locales: routing.locales },
+  { slug: "best-ai-employee-platforms", published: "2026-11-06", locales: routing.locales },
+  { slug: "claude-code-plan-mode", published: "2026-11-06", locales: routing.locales },
+  { slug: "claude-code-skills", published: "2026-11-06", locales: routing.locales },
+  { slug: "claude-code-slash-commands", published: "2026-11-06", locales: routing.locales },
+  { slug: "conductor-alternatives", published: "2026-11-06", locales: routing.locales },
+  { slug: "claude-code-worktree", published: "2026-11-06", locales: routing.locales },
   { slug: "claude-code-vs-codex", published: "2026-11-05", locales: routing.locales },
   { slug: "claude-md", published: "2026-11-05", locales: routing.locales },
   { slug: "claude-duet", published: "2026-11-05", locales: routing.locales },

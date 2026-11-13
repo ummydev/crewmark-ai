@@ -74,7 +74,10 @@ export interface IssueResponse {
   activity: AgentActivity[];
 }
 
-/** POST /api/agent/issues/<key>/comments: comments on the issue as the employee. */
+/**
+ * POST /api/agent/issues/<key>/comments: comments on the issue as the employee. The assignee's agent hears about it;
+ * so does any other employee the body mentions with @ and its name, e.g. "@DevOps crewmark ready to ship".
+ */
 export interface CommentRequest {
   body: string;
 }

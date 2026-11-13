@@ -65,6 +65,9 @@ specific, actionable feedback on quality, security and best practices.`,
       kind: "steps",
       id: "how-to",
       title: "Parallele Claude-Code-Sessions in git worktrees ausführen",
+      text: [
+        "Alle Optionen, Einstellungen und Lösungen findest du im [ausführlichen Guide zu Claude Code Worktrees](/blog/claude-code-worktree).",
+      ],
       steps: [
         {
           title: "Den Worktree-Ordner ignorieren",

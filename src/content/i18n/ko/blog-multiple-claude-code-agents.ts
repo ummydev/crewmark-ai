@@ -68,6 +68,9 @@ export const copy: GuideCopy = {
       kind: "steps",
       id: "how-to",
       title: "git worktree에서 Claude Code 세션을 병렬로 실행하기",
+      text: [
+        "모든 옵션, 설정, 문제 해결은 [Claude Code worktree 가이드](/blog/claude-code-worktree)에 정리했습니다.",
+      ],
       steps: [
         {
           title: "worktree 폴더를 무시 목록에 넣기",

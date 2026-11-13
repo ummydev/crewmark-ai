@@ -8,6 +8,7 @@ import { EmployeeAvatar } from "@/components/employee-avatar";
 import { useFindAssignee } from "@/components/issues/assignee";
 import { MarkdownEditor, MarkdownView } from "@/components/markdown-editor";
 import { useImageUpload } from "@/components/use-image-upload";
+import { useRealtime } from "@/components/use-realtime";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -17,8 +18,20 @@ import { track } from "@/lib/analytics";
 import { fullDate, timeAgo } from "@/lib/format";
 import { ISSUE_PRIORITIES, ISSUE_STATUSES, type Issue, type IssueActivity } from "@/lib/types";
 
-/** How often the Activity checks for news while the page is visible: agents comment from their own computers. */
+/**
+ * How often the Activity checks for news while someone's looking, when Crewmark can't push it (agents comment from
+ * their own computers). Usually it's pushed, and the page never asks on its own.
+ */
 const POLL_MS = 15_000;
+
+/**
+ * How long after the person last did anything on the page it stops checking. A tab left open overnight still counts
+ * as visible, and its checks kept the database from ever sleeping. It checks again as soon as they're back.
+ */
+const IDLE_MS = 10 * 60_000;
+
+/** What counts as the person being at the page. */
+const ACTIVITY_EVENTS = ["pointermove", "pointerdown", "keydown", "wheel", "touchstart", "focus"] as const;
 
 /** After the person changes a property, when to show it: the store saves a moment later. */
 const AFTER_SAVE_MS = 1500;
@@ -45,15 +58,41 @@ function useActivity(issue: Issue) {
   React.useEffect(() => {
     // Async so the state updates land after the effect, not during it.
     void Promise.resolve().then(load);
+  }, [load]);
+
+  // Crewmark says when the Activity changed; on connecting, catch up on what came before.
+  const pushed = useRealtime(
+    organization.id,
+    (push) => push.type === "activity" && push.issueId === issue.id && void load(),
+    load,
+  );
+
+  // Without pushes, check every so often while someone's at the page.
+  React.useEffect(() => {
+    if (pushed) return;
+    let lastActive = Date.now();
     const visible = () => document.visibilityState === "visible";
-    const timer = setInterval(() => visible() && void load(), POLL_MS);
-    const onVisible = () => visible() && void load();
+    const idle = () => Date.now() - lastActive >= IDLE_MS;
+    const timer = setInterval(() => visible() && !idle() && void load(), POLL_MS);
+    // Back after a while: catch up at once rather than at the next check.
+    const onActive = () => {
+      const wasIdle = idle();
+      lastActive = Date.now();
+      if (wasIdle && visible()) void load();
+    };
+    const onVisible = () => {
+      if (!visible()) return;
+      lastActive = Date.now();
+      void load();
+    };
+    for (const event of ACTIVITY_EVENTS) window.addEventListener(event, onActive, { passive: true });
     document.addEventListener("visibilitychange", onVisible);
     return () => {
       clearInterval(timer);
+      for (const event of ACTIVITY_EVENTS) window.removeEventListener(event, onActive);
       document.removeEventListener("visibilitychange", onVisible);
     };
-  }, [load]);
+  }, [load, pushed]);
 
   // The person's own changes to the properties show up once saved.
   const properties = `${issue.status} ${issue.priority} ${issue.assigneeId} ${issue.projectId}`;

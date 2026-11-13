@@ -101,6 +101,7 @@ export const copy: GuideCopy = {
       text: [
         "Há dois modelos comuns. Algumas plataformas cobram por funcionário por mês e rodam o modelo para você. Outras, como o Crewmark, rodam o funcionário dentro de um agente que você já assina, como o Claude Code ou o Codex, então o custo é o plano que você já tem.",
         "De um jeito ou de outro, custa muito menos que uma contratação em tempo integral, mas não dispensa o seu tempo: reserve alguns minutos por dia para responder perguntas e revisar o trabalho, principalmente nas primeiras semanas.",
+        "Para ver preços, planos gratuitos e como o trabalho começa em oito plataformas lado a lado, veja [as melhores plataformas de funcionários de IA comparadas](/blog/best-ai-employee-platforms).",
       ],
     },
     {

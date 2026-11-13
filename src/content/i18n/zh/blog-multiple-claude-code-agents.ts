@@ -69,6 +69,9 @@ export const copy: GuideCopy = {
       kind: "steps",
       id: "how-to",
       title: "在 git worktree 里并行运行 Claude Code 会话",
+      text: [
+        "所有选项、设置和常见问题，见完整的 [Claude Code worktree 指南](/blog/claude-code-worktree)。",
+      ],
       steps: [
         {
           title: "忽略 worktree 文件夹",

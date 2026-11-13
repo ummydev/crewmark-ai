@@ -4,6 +4,8 @@ import * as React from "react"
 import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar"
 import { cn } from "cn"
 
+// The ring is a translucent border, not a blended one: a blend mode makes each avatar its own compositing layer, and
+// a board of avatars ran out of GPU memory and painted blank while scrolling fast (MC-105).
 function Avatar({
   className,
   size = "default",
@@ -16,7 +18,7 @@ function Avatar({
       data-slot="avatar"
       data-size={size}
       className={cn(
-        "group/avatar relative flex size-8 shrink-0 rounded-full select-none after:absolute after:inset-0 after:rounded-full after:border after:border-border after:mix-blend-darken data-[size=lg]:size-10 data-[size=sm]:size-6 dark:after:mix-blend-lighten",
+        "group/avatar relative flex size-8 shrink-0 rounded-full select-none after:absolute after:inset-0 after:rounded-full after:border after:border-black/10 data-[size=lg]:size-10 data-[size=sm]:size-6 dark:after:border-white/10",
         className
       )}
       {...props}

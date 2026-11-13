@@ -6,6 +6,7 @@ import { db } from "@/db";
 import type { IssueCreator } from "@/db/issues";
 import { agentEvents, employees, users } from "@/db/schema";
 import type { AgentEvent } from "@/lib/agent-api";
+import { mentionedEmployees } from "@/lib/mentions";
 import { pushToDaemons } from "@/lib/realtime";
 
 // Events for employees' agents: written when something on Crewmark concerns an employee, read by the crewmark CLI's
@@ -49,30 +50,49 @@ export async function notifyAssigned(
 /** How much of a comment an agent is told; it reads the rest with `crewmark issues show`. */
 const COMMENT_PREVIEW = 1500;
 
-/**
- * Tells the agents of the issue's assignee and of the employee who filed it that someone commented on it, except the
- * one who wrote the comment.
- */
-export async function notifyCommented(
-  organizationId: string,
-  issue: { key: string; title: string; assigneeId: string | null; createdByEmployeeId: string | null },
-  body: string,
-  actor: IssueCreator,
-) {
-  const author = "employeeId" in actor ? actor.employeeId : null;
-  const employeeIds = [...new Set([issue.assigneeId, issue.createdByEmployeeId])].filter(
-    (id): id is string => id !== null && id !== author,
-  );
-  if (employeeIds.length === 0) return;
+type CommentedIssue = { key: string; title: string; assigneeId: string | null };
+
+/** What an agent is told about a comment: who wrote it, how it concerns the agent ("commented on", "mentioned you
+ * in a comment on"), the comment, and what to do about it. */
+async function commentMessage(issue: CommentedIssue, body: string, actor: IssueCreator, how: string) {
   const preview = body.length > COMMENT_PREVIEW ? `${body.slice(0, COMMENT_PREVIEW)}…` : body;
-  const message =
-    `${await actorName(actor)} commented on ${issue.key} "${issue.title}":\n\n` +
+  return (
+    `${await actorName(actor)} ${how} ${issue.key} "${issue.title}":\n\n` +
     `${preview.replace(/^/gm, "> ")}\n\n` +
     `Run \`crewmark issues show ${issue.key}\` for the issue and its whole conversation. Act on the comment, and ` +
-    `answer with \`crewmark issues comment ${issue.key} "<your reply>"\` when it asks you something or you have news.`;
+    `answer with \`crewmark issues comment ${issue.key} "<your reply>"\` when it asks you something or you have news.`
+  );
+}
+
+/**
+ * Tells the agent of the issue's assignee that someone else commented on it. Only the assignee's: the employee who
+ * filed the issue has handed the work over, and isn't told about every comment on it unless it's mentioned.
+ */
+export async function notifyCommented(organizationId: string, issue: CommentedIssue, body: string, actor: IssueCreator) {
+  const employeeId = issue.assigneeId;
+  if (!employeeId || ("employeeId" in actor && actor.employeeId === employeeId)) return;
+  const message = await commentMessage(issue, body, actor, "commented on");
+  await db.insert(agentEvents).values({ organizationId, employeeId, type: "issue_comment", message });
+  pushToDaemons(organizationId, [employeeId], "events");
+}
+
+/**
+ * Tells the agents of the employees a comment mentions (@name, see mentionedEmployees) that it did, besides the
+ * assignee's, which notifyCommented tells, and the author's.
+ */
+export async function notifyMentioned(organizationId: string, issue: CommentedIssue, body: string, actor: IssueCreator) {
+  if (!body.includes("@")) return;
+  const staff = await db
+    .select({ id: employees.id, name: employees.name })
+    .from(employees)
+    .where(eq(employees.organizationId, organizationId));
+  const author = "employeeId" in actor ? actor.employeeId : null;
+  const employeeIds = mentionedEmployees(body, staff).filter((id) => id !== author && id !== issue.assigneeId);
+  if (employeeIds.length === 0) return;
+  const message = await commentMessage(issue, body, actor, "mentioned you in a comment on");
   await db
     .insert(agentEvents)
-    .values(employeeIds.map((employeeId) => ({ organizationId, employeeId, type: "issue_comment", message })));
+    .values(employeeIds.map((employeeId) => ({ organizationId, employeeId, type: "issue_mention", message })));
   pushToDaemons(organizationId, employeeIds, "events");
 }
 
