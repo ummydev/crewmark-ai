@@ -24,6 +24,7 @@ export const MOCK_EMPLOYEES: Omit<Employee, "runtime" | "heartbeat">[] = [
   {
     id: "emp-1",
     name: "Ada",
+    emoji: "🐵",
     role: "Software Engineer",
     description: "Full-stack engineer working on the Crewmark web app.",
     status: "working",
@@ -34,6 +35,7 @@ export const MOCK_EMPLOYEES: Omit<Employee, "runtime" | "heartbeat">[] = [
   {
     id: "emp-2",
     name: "Sage",
+    emoji: "🦉",
     role: "SEO Specialist",
     description: "Owns organic search: keyword research, on-page SEO and content briefs.",
     status: "idle",
@@ -44,6 +46,7 @@ export const MOCK_EMPLOYEES: Omit<Employee, "runtime" | "heartbeat">[] = [
   {
     id: "emp-3",
     name: "Gus",
+    emoji: "🐼",
     role: "Growth Marketer",
     description: "Runs growth experiments on onboarding and referral loops.",
     status: "paused",
@@ -73,6 +76,8 @@ export const MOCK_ISSUES: Issue[] = [
     createdByUserId: "user-1",
     createdByEmployeeId: null,
     createdAt: "2026-10-20T09:12:00Z",
+    recurrence: null,
+    nextRecurAt: null,
   },
   {
     id: "iss-2",
@@ -93,6 +98,8 @@ For each keyword, record:
     createdByUserId: "user-1",
     createdByEmployeeId: null,
     createdAt: "2026-10-22T14:30:00Z",
+    recurrence: null,
+    nextRecurAt: null,
   },
   {
     id: "iss-3",
@@ -107,6 +114,8 @@ For each keyword, record:
     createdByUserId: null,
     createdByEmployeeId: "emp-2",
     createdAt: "2026-10-24T08:05:00Z",
+    recurrence: null,
+    nextRecurAt: null,
   },
   {
     id: "iss-4",
@@ -121,6 +130,8 @@ For each keyword, record:
     createdByUserId: "user-1",
     createdByEmployeeId: null,
     createdAt: "2026-10-25T16:45:00Z",
+    recurrence: null,
+    nextRecurAt: null,
   },
   {
     id: "iss-5",
@@ -135,6 +146,8 @@ For each keyword, record:
     createdByUserId: "user-1",
     createdByEmployeeId: null,
     createdAt: "2026-10-18T11:00:00Z",
+    recurrence: null,
+    nextRecurAt: null,
   },
   {
     id: "iss-6",
@@ -149,5 +162,7 @@ For each keyword, record:
     createdByUserId: null,
     createdByEmployeeId: "emp-2",
     createdAt: "2026-10-27T10:20:00Z",
+    recurrence: null,
+    nextRecurAt: null,
   },
 ];

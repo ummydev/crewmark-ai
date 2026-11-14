@@ -8,8 +8,10 @@
   "durable_objects": {
     "bindings": [{ "name": "ORGANIZATIONS", "class_name": "Organization" }]
   },
-  // SQLite-backed, which the Workers Free plan needs; the objects keep nothing in storage.
+  // SQLite-backed, which the Workers Free plan needs. The objects keep only the timer for repeating issues.
   "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Organization"] }],
-  "observability": { "enabled": true }
+  "observability": { "enabled": true },
+  // The web app the timer for repeating issues calls; .dev.vars can point it at a local one.
+  "vars": { "APP_URL": "https://crewmark.ai" }
   // REALTIME_SECRET is a secret (wrangler secret put REALTIME_SECRET), the same as the web app's; locally, .dev.vars.
 }

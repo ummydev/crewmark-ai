@@ -4,7 +4,7 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 // src/content/blog/claude-code-background-agents.ts.
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code en segundo plano: headless y --bg | Crewmark",
+    title: "Claude Code en segundo plano: headless y --bg | Crewmark AI",
     description:
       "Claude Code en segundo plano: tareas en segundo plano, agent view con --bg, claude -p headless con cron, sesiones en la nube y los permisos de cada uno.",
   },
@@ -15,7 +15,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "Cómo ejecutar agentes de Claude Code en segundo plano",
     lead: "Un agente en segundo plano sigue trabajando mientras tú haces otra cosa: una larga ejecución de tests que mandaste al segundo plano, una sesión que iniciaste con --bg antes de cerrar el terminal o un trabajo headless con claude -p que cron lanza cada mañana. Claude Code tiene una herramienta para cada caso. Esta guía muestra cómo usarlas, qué mantiene en marcha a cada una y qué permisos necesita una ejecución sin supervisión.",
-    cta: "Acceso anticipado",
+    cta: "Empezar",
     secondary: "Ir al modo headless",
     secondaryHref: "#how-to",
   },
@@ -134,7 +134,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "¿Quieres que elija su siguiente tarea él solo?",
     text: "Crewmark despierta tu sesión de Claude Code con un latido y le pasa la siguiente tarea de un tablero, dentro del horario que definas.",
-    button: "Acceso anticipado",
+    button: "Empezar",
   },
   faq: {
     title: "Preguntas frecuentes sobre agentes de Claude Code en segundo plano",
@@ -168,7 +168,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Dale a Claude Code un trabajo fijo.",
     text: "Crewmark convierte una sesión de Claude Code en un empleado de IA con un rol, un objetivo, un horario y un latido.",
-    button: "Acceso anticipado",
+    button: "Empezar",
   },
   checked: "Comprobado con la documentación de Claude Code de Anthropic el 2 de noviembre de 2026.",
   disclaimer:

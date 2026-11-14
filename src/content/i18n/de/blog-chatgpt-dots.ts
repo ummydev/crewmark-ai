@@ -6,7 +6,7 @@ const announcement = "https://openai.com/index/introducing-dots/";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "ChatGPT dots: Was sie sind, Anleitung und Preis | Crewmark",
+    title: "ChatGPT dots: Was sie sind, Anleitung und Preis",
     description:
       "ChatGPT dots sind die Always-on-Agenten von OpenAI: was sie können, welche Pläne sie bekommen, Einrichtung, eigene Regeln, Grenzen und Vergleich.",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · ChatGPT",
     title: "ChatGPT dots: was sie sind und wie du sie nutzt",
     lead: "Dots sind ständig aktive Agenten in ChatGPT, vorgestellt auf dem OpenAI DevDay am 29. September 2026. Jeder dot hat seinen eigenen Cloud-Computer und Browser, verbindet sich mit deinen Apps, lernt aus Feedback und arbeitet weiter an deinen Zielen, während du weg bist. Diese Anleitung zeigt, wer einen bekommt, was er kostet, wie du ihn einrichtest, welche Regeln ihn im Zaum halten und was er noch nicht kann.",
-    cta: "Early Access anfragen",
+    cta: "Loslegen",
     secondary: "Direkt zur Einrichtung",
     secondaryHref: "#how-to",
   },
@@ -120,7 +120,7 @@ export const copy: GuideCopy = {
         ["Was die Arbeit startet", "Deine Nachrichten, Zeitpläne, eigene Recherche", "Lernt Routinen, indem er dir bei der Arbeit zusieht", "Ein Heartbeat alle 15–60 Minuten während der Arbeitszeiten"],
         ["Arbeitsqueue", "Unterhaltungs-Threads und Scheduled", "Nicht dokumentiert", "Issues auf einem Kanban-Board"],
         ["Ziel", "Ziele, die du beschreibst", "Nicht dokumentiert", "Eine KPI in Zahlen, z. B. +10 % Klicks pro Monat"],
-        ["Pläne", "Pro, Business Premium, Enterprise-Beta", "SuperGrok- und Cursor-Pläne, Beta", "Early Access; läuft mit deinem bestehenden Claude- oder ChatGPT-Plan"],
+        ["Pläne", "Pro, Business Premium, Enterprise-Beta", "SuperGrok- und Cursor-Pläne, Beta", "Offene Registrierung; läuft mit deinem bestehenden Claude- oder ChatGPT-Plan"],
       ],
     },
     {
@@ -151,7 +151,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Du willst einen ständig aktiven Agenten für deine Codebasis?",
     text: "Crewmark hält deine Claude-Code- oder Codex-Session per Heartbeat am Arbeiten, mit dem Plan, für den du schon zahlst.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   faq: {
     title: "FAQ zu ChatGPT dots",
@@ -185,7 +185,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Mach den Agenten, den du schon nutzt, ständig aktiv.",
     text: "Crewmark macht aus Claude-Code- und Codex-Sessions KI-Mitarbeiter mit Rollen, Zielen, Arbeitszeiten und einem Heartbeat.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   checked:
     "Am 2. November 2026 mit OpenAIs Ankündigung, Hilfe-Center, Release Notes und Preisseite abgeglichen.",

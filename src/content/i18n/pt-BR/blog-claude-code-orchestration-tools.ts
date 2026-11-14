@@ -6,7 +6,7 @@ const docs = "https://code.claude.com/docs/en/agents";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Melhores ferramentas de orquestração para Claude Code em 2026 | Crewmark",
+    title: "Melhores ferramentas de orquestração do Claude Code",
     description:
       "Como rodar vários agentes do Claude Code ao mesmo tempo: as opções nativas (subagents, agent view, agent teams, workflows) e 10 ferramentas de orquestração comparadas, do Claude Squad e Orca ao Paperclip, Multica e Crewmark.",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "As melhores ferramentas de orquestração para Claude Code em 2026",
     lead: "Orquestrar o Claude Code significa rodar vários agentes do Claude Code ao mesmo tempo e coordená-los: dar a cada um sua própria cópia do código, uma tarefa e um jeito de reportar o que fez. O Claude Code já faz boa parte disso sozinho, e uma leva de ferramentas open source e comerciais acrescenta interfaces, quadros e agendamentos por cima. Este guia mostra primeiro as opções nativas e depois compara dez ferramentas por interface, isolamento, agentes suportados e a pergunta que mais importa: o agente começa a trabalhar sozinho ou fica esperando você?",
-    cta: "Acesso antecipado",
+    cta: "Começar",
     secondary: "Ir para a comparação",
     secondaryHref: "#compare",
   },
@@ -57,7 +57,7 @@ export const copy: GuideCopy = {
         ["Conductor", "App para Mac", "Um workspace e uma branch por tarefa", "Claude Code, Codex, Cursor, OpenCode", "Não. Vai para a Meta; a nuvem é desligada em 20 de novembro de 2026", "Código fechado"],
         ["Paperclip", "Interface web: uma \"empresa de IA\" com organograma, metas e orçamentos", "Worktrees e sandboxes opcionais", "Claude Code, Codex, Gemini CLI, Cursor, OpenCode e outros", "Sim: heartbeats agendados, além de atribuições e @menções", "MIT, ~111k"],
         ["Multica", "Web, desktop, CLI e API", "Um daemon na sua máquina", "Claude Code, Codex, Cursor, Copilot, OpenCode e outros", "Sim: os agentes pegam as issues atribuídas; Autopilots via cron", "Multica License (source-available), ~55k"],
-        ["Crewmark", "Quadro web, CLI e um daemon na sua máquina", "Cada funcionário na própria sessão e no próprio checkout", "Claude Code, Codex, DeepSeek Harness, OpenCode", "Sim: um heartbeat durante o horário de trabalho pega a próxima issue", "Acesso antecipado"],
+        ["Crewmark", "Quadro web, CLI e um daemon na sua máquina", "Cada funcionário na própria sessão e no próprio checkout", "Claude Code, Codex, DeepSeek Harness, OpenCode", "Sim: um heartbeat durante o horário de trabalho pega a próxima issue", "Cadastro aberto"],
       ],
     },
     {
@@ -131,7 +131,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Cinco agentes rodando e você ainda digita cada prompt?",
     text: "O Crewmark dá a cada sessão do Claude Code um papel, uma meta e um heartbeat, para ela pegar a próxima issue sem você.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   faq: {
     title: "Perguntas frequentes sobre orquestração do Claude Code",
@@ -169,7 +169,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Deixe seus agentes do Claude Code pegarem sozinhos a próxima tarefa.",
     text: "O Crewmark transforma sessões do Claude Code, Codex e DeepSeek Harness em funcionários de IA com papéis, metas, horários de trabalho e um heartbeat.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   checked: "Conferido com a documentação do Claude Code, o README ou site de cada projeto e a API do GitHub em 6 de novembro de 2026.",
   disclaimer:

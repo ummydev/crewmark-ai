@@ -15,7 +15,7 @@ specific, actionable feedback on quality, security and best practices.`;
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code multiagente: subagentes e worktrees | Crewmark",
+    title: "Claude Code multiagente: subagentes, worktrees | Crewmark AI",
     description:
       "Rode vários agentes do Claude Code de uma vez: subagentes, sessões paralelas em git worktrees, sessões com --bg e agent teams, sem conflitos de edição.",
   },
@@ -26,7 +26,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "Como rodar vários agentes do Claude Code ao mesmo tempo",
     lead: "O Claude Code consegue trabalhar em várias coisas ao mesmo tempo, de quatro jeitos diferentes: subagentes dentro de uma conversa, sessões separadas cada uma na sua git worktree, sessões em background que você inicia com --bg e os agent teams experimentais, em que os agentes trocam mensagens entre si. Este guia mostra como configurar cada um, qual escolher e como evitar que agentes em paralelo sobrescrevam o trabalho uns dos outros.",
-    cta: "Acesso antecipado",
+    cta: "Começar",
     secondary: "Ir para as worktrees",
     secondaryHref: "#how-to",
   },
@@ -156,7 +156,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Roda vários agentes todo dia?",
     text: "O Crewmark dá a cada sessão do Claude Code um cargo, uma meta e horário de trabalho, e coloca todo o trabalho delas em um único quadro.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   faq: {
     title: "Perguntas sobre vários agentes do Claude Code",
@@ -190,7 +190,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Rode um time de agentes do Claude Code com cargos.",
     text: "O Crewmark transforma sessões do Claude Code e do Codex em funcionários de IA com cargos, metas e horário de trabalho, em um único quadro.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   checked: "Conferido com a documentação do Claude Code da Anthropic em 2 de novembro de 2026.",
   disclaimer:

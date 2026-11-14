@@ -7,14 +7,15 @@ import { assertInOrganization, found } from "@/db/issues";
 import { toEmployee } from "@/db/queries";
 import { employeeProjects, employees, projects } from "@/db/schema";
 import { pushToDaemons } from "@/lib/realtime";
-import type { Employee, Heartbeat } from "@/lib/types";
+import { EMPLOYEE_EMOJIS, type Employee, type Heartbeat } from "@/lib/types";
 import { EMPLOYEE_STATUS_VALUES, heartbeat, oneOf, text } from "@/lib/validate";
 
 // Writing employees, shared by the dashboard's Server Functions and the CLI's API. Callers check that whoever asks
 // belongs to the organization; these only touch that organization's rows.
 
-// runtime comes from the agent that connects, and lastActiveAt from its runs, not from people.
-export type NewEmployeeInput = Omit<Employee, "id" | "runtime" | "lastActiveAt">;
+// runtime comes from the agent that connects, and lastActiveAt from its runs, not from people. Without an emoji, a new
+// employee gets one nobody in the organization wears.
+export type NewEmployeeInput = Omit<Employee, "id" | "runtime" | "lastActiveAt" | "emoji"> & { emoji?: string };
 export type EmployeePatch = Partial<Omit<Employee, "id" | "runtime" | "projectIds" | "lastActiveAt">>;
 
 function projectIdList(value: unknown): string[] {
@@ -25,11 +26,21 @@ export async function insertEmployee(organizationId: string, input: NewEmployeeI
   const projectIds = projectIdList(input.projectIds);
   await assertInOrganization(projects, projectIds, organizationId);
   return db.transaction(async (tx) => {
+    let emoji = input.emoji === undefined ? undefined : oneOf(input.emoji, EMPLOYEE_EMOJIS, "emoji");
+    if (!emoji) {
+      const worn = await tx
+        .select({ emoji: employees.emoji })
+        .from(employees)
+        .where(eq(employees.organizationId, organizationId));
+      const taken = new Set(worn.map((e) => e.emoji));
+      emoji = EMPLOYEE_EMOJIS.find((e) => !taken.has(e)) ?? EMPLOYEE_EMOJIS[worn.length % EMPLOYEE_EMOJIS.length];
+    }
     const [row] = await tx
       .insert(employees)
       .values({
         organizationId,
         name: text(input.name, "name", { required: true }).trim(),
+        emoji,
         role: text(input.role ?? "", "role").trim(),
         description: text(input.description ?? "", "description").trim(),
         kpi: text(input.kpi ?? "", "kpi").trim(),
@@ -47,6 +58,7 @@ export async function insertEmployee(organizationId: string, input: NewEmployeeI
 export async function saveEmployee(organizationId: string, id: string, patch: EmployeePatch): Promise<void> {
   const values: Partial<typeof employees.$inferInsert> = {};
   if ("name" in patch) values.name = text(patch.name, "name");
+  if ("emoji" in patch) values.emoji = oneOf(patch.emoji, EMPLOYEE_EMOJIS, "emoji");
   if ("role" in patch) values.role = text(patch.role, "role");
   if ("description" in patch) values.description = text(patch.description, "description");
   if ("kpi" in patch) values.kpi = text(patch.kpi, "kpi");

@@ -3,6 +3,7 @@
 import * as React from "react";
 
 import { Button } from "@/components/ui/button";
+import { track } from "@/lib/analytics";
 import { authClient } from "@/lib/auth-client";
 
 /** Sends the visitor to Google, then back to `callbackURL` (a path on this site) once they're signed in. */
@@ -13,6 +14,8 @@ export function GoogleSignInButton({ callbackURL, disabled }: { callbackURL: str
   async function signIn() {
     setPending(true);
     setError(null);
+    // The browser leaves for Google next, so the event is sent now rather than with the next batch.
+    track("google sign in clicked", {}, { send_instantly: true });
     const result = await authClient.signIn.social({ provider: "google", callbackURL, errorCallbackURL: "/login" });
     // On success the browser is already on its way to Google, so only a failure lands here.
     if (result.error) {

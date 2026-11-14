@@ -6,7 +6,7 @@ const announcement = "https://claude.com/resources/articles/claude-duet";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Duet: Anthropics proaktiver Agent, Warteliste, Zugang und Grenzen | Crewmark",
+    title: "Claude Duet: proaktiver Agent, Warteliste und Zugang",
     description:
       "Claude Duet ist Anthropics App für einen proaktiven Agenten, seit dem 21. Oktober 2026 in der Research Preview. Was sie kann, wer sie bekommt, wie du dich auf die Warteliste setzt, was sie kostet, ihre Sicherheitsgrenzen und der Vergleich.",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude",
     title: "Claude Duet: was es ist, wer es bekommt und wie es funktioniert",
     lead: "Claude Duet ist eine neue App von Anthropic, in der Claude als proaktiver Agent arbeitet: Er meldet sich mit dem, was deine Aufmerksamkeit braucht, erledigt die Aufgaben, die du ihm übergibst, arbeitet weiter, wenn du weg bist, und fragt nach, bevor er in deinem Namen handelt. Am 21. Oktober 2026 startete er als Research Preview mit Warteliste für Abonnenten von Pro, Max und Ultra in den USA. Diese Anleitung zeigt, was er kann, wie du Zugang bekommst, was er kostet, welche Sicherheitsgrenzen er hat und wie er im Vergleich abschneidet.",
-    cta: "Early Access anfragen",
+    cta: "Loslegen",
     secondary: "So bekommst du Zugang",
     secondaryHref: "#how-to",
   },
@@ -108,8 +108,8 @@ export const copy: GuideCopy = {
         ["Startet die Arbeit", "Deine Nachrichten und Prüfungen alle paar Stunden", "Deine Nachrichten, Zeitpläne und eigene Recherche", "Ein Heartbeat alle 15 bis 60 Minuten in den Arbeitszeiten"],
         ["Am besten bei", "Posteingang, Kalender, Rechnungen, Übersichten und Dashboards", "Recherche und Aufgaben in deinen verbundenen Apps", "Code, SEO und andere Arbeit in einem Repository, ein Mitarbeiter pro Rolle"],
         ["Arbeitswarteschlange", "Ein fortlaufender Thread", "Konversations-Threads und Scheduled", "Issues auf einem Kanban-Board"],
-        ["Kosten", "In Pro, Max und Ultra enthalten (USA)", "Pro- und Business-Premium-Pläne", "Early Access; läuft mit dem Agenten und Plan, die du schon hast"],
-        ["Status", "Research Preview, Warteliste", "Wird schrittweise ausgerollt", "Early Access"],
+        ["Kosten", "In Pro, Max und Ultra enthalten (USA)", "Pro- und Business-Premium-Pläne", "Offene Registrierung; läuft mit dem Agenten und Plan, die du schon hast"],
+        ["Status", "Research Preview, Warteliste", "Wird schrittweise ausgerollt", "Registrierung offen"],
       ],
     },
     {
@@ -140,7 +140,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Gefällt dir die Idee eines Agenten, der sich zuerst meldet?",
     text: "Crewmark macht das für Claude Code und Codex: ein Heartbeat, Arbeitszeiten und ein Board mit Issues, mit dem Plan, für den du schon zahlst.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   faq: {
     title: "FAQ zu Claude Duet",
@@ -178,7 +178,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Mach auch deine Claude-Code-Sessions proaktiv.",
     text: "Crewmark macht aus Sessions in Claude Code, Codex und DeepSeek Harness KI-Mitarbeiter mit Rollen, Zielen, Arbeitszeiten und einem Heartbeat.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   checked: "Am 5. November 2026 mit Anthropics Ankündigung zu Claude Duet, der Produktseite und dem Sicherheitsartikel abgeglichen.",
   disclaimer:

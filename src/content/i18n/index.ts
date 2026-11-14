@@ -207,6 +207,110 @@ import { copy as esCursorAlternatives } from "./es/blog-cursor-alternatives";
 import { copy as ptBRCursorAlternatives } from "./pt-BR/blog-cursor-alternatives";
 import { copy as frCursorAlternatives } from "./fr/blog-cursor-alternatives";
 import { copy as deCursorAlternatives } from "./de/blog-cursor-alternatives";
+import { copy as zhCodexAgentsMd } from "./zh/blog-codex-agents-md";
+import { copy as zhTWCodexAgentsMd } from "./zh-TW/blog-codex-agents-md";
+import { copy as jaCodexAgentsMd } from "./ja/blog-codex-agents-md";
+import { copy as koCodexAgentsMd } from "./ko/blog-codex-agents-md";
+import { copy as esCodexAgentsMd } from "./es/blog-codex-agents-md";
+import { copy as ptBRCodexAgentsMd } from "./pt-BR/blog-codex-agents-md";
+import { copy as frCodexAgentsMd } from "./fr/blog-codex-agents-md";
+import { copy as deCodexAgentsMd } from "./de/blog-codex-agents-md";
+import { copy as zhSuperagent } from "./zh/blog-superagent";
+import { copy as zhTWSuperagent } from "./zh-TW/blog-superagent";
+import { copy as jaSuperagent } from "./ja/blog-superagent";
+import { copy as koSuperagent } from "./ko/blog-superagent";
+import { copy as esSuperagent } from "./es/blog-superagent";
+import { copy as ptBRSuperagent } from "./pt-BR/blog-superagent";
+import { copy as frSuperagent } from "./fr/blog-superagent";
+import { copy as deSuperagent } from "./de/blog-superagent";
+import { copy as zhDeepseekHarness } from "./zh/blog-deepseek-harness";
+import { copy as zhTWDeepseekHarness } from "./zh-TW/blog-deepseek-harness";
+import { copy as jaDeepseekHarness } from "./ja/blog-deepseek-harness";
+import { copy as koDeepseekHarness } from "./ko/blog-deepseek-harness";
+import { copy as esDeepseekHarness } from "./es/blog-deepseek-harness";
+import { copy as ptBRDeepseekHarness } from "./pt-BR/blog-deepseek-harness";
+import { copy as frDeepseekHarness } from "./fr/blog-deepseek-harness";
+import { copy as deDeepseekHarness } from "./de/blog-deepseek-harness";
+import { copy as zhClaudeCodeDeepseek } from "./zh/blog-claude-code-deepseek";
+import { copy as zhTWClaudeCodeDeepseek } from "./zh-TW/blog-claude-code-deepseek";
+import { copy as jaClaudeCodeDeepseek } from "./ja/blog-claude-code-deepseek";
+import { copy as koClaudeCodeDeepseek } from "./ko/blog-claude-code-deepseek";
+import { copy as esClaudeCodeDeepseek } from "./es/blog-claude-code-deepseek";
+import { copy as ptBRClaudeCodeDeepseek } from "./pt-BR/blog-claude-code-deepseek";
+import { copy as frClaudeCodeDeepseek } from "./fr/blog-claude-code-deepseek";
+import { copy as deClaudeCodeDeepseek } from "./de/blog-claude-code-deepseek";
+import { copy as zhDeepseekV41Flash } from "./zh/blog-deepseek-v4-1-flash";
+import { copy as zhTWDeepseekV41Flash } from "./zh-TW/blog-deepseek-v4-1-flash";
+import { copy as jaDeepseekV41Flash } from "./ja/blog-deepseek-v4-1-flash";
+import { copy as koDeepseekV41Flash } from "./ko/blog-deepseek-v4-1-flash";
+import { copy as esDeepseekV41Flash } from "./es/blog-deepseek-v4-1-flash";
+import { copy as ptBRDeepseekV41Flash } from "./pt-BR/blog-deepseek-v4-1-flash";
+import { copy as frDeepseekV41Flash } from "./fr/blog-deepseek-v4-1-flash";
+import { copy as deDeepseekV41Flash } from "./de/blog-deepseek-v4-1-flash";
+import { copy as zhAiSeoAgent } from "./zh/blog-ai-seo-agent";
+import { copy as zhTWAiSeoAgent } from "./zh-TW/blog-ai-seo-agent";
+import { copy as jaAiSeoAgent } from "./ja/blog-ai-seo-agent";
+import { copy as koAiSeoAgent } from "./ko/blog-ai-seo-agent";
+import { copy as esAiSeoAgent } from "./es/blog-ai-seo-agent";
+import { copy as ptBRAiSeoAgent } from "./pt-BR/blog-ai-seo-agent";
+import { copy as frAiSeoAgent } from "./fr/blog-ai-seo-agent";
+import { copy as deAiSeoAgent } from "./de/blog-ai-seo-agent";
+import { copy as zhGithubCopilotSlack } from "./zh/blog-github-copilot-slack";
+import { copy as zhTWGithubCopilotSlack } from "./zh-TW/blog-github-copilot-slack";
+import { copy as jaGithubCopilotSlack } from "./ja/blog-github-copilot-slack";
+import { copy as koGithubCopilotSlack } from "./ko/blog-github-copilot-slack";
+import { copy as esGithubCopilotSlack } from "./es/blog-github-copilot-slack";
+import { copy as ptBRGithubCopilotSlack } from "./pt-BR/blog-github-copilot-slack";
+import { copy as frGithubCopilotSlack } from "./fr/blog-github-copilot-slack";
+import { copy as deGithubCopilotSlack } from "./de/blog-github-copilot-slack";
+import { copy as zhVibeKanbanAlternatives } from "./zh/blog-vibe-kanban-alternatives";
+import { copy as zhTWVibeKanbanAlternatives } from "./zh-TW/blog-vibe-kanban-alternatives";
+import { copy as jaVibeKanbanAlternatives } from "./ja/blog-vibe-kanban-alternatives";
+import { copy as koVibeKanbanAlternatives } from "./ko/blog-vibe-kanban-alternatives";
+import { copy as esVibeKanbanAlternatives } from "./es/blog-vibe-kanban-alternatives";
+import { copy as ptBRVibeKanbanAlternatives } from "./pt-BR/blog-vibe-kanban-alternatives";
+import { copy as frVibeKanbanAlternatives } from "./fr/blog-vibe-kanban-alternatives";
+import { copy as deVibeKanbanAlternatives } from "./de/blog-vibe-kanban-alternatives";
+import { copy as zhClaudeCodeKanban } from "./zh/blog-claude-code-kanban";
+import { copy as zhTWClaudeCodeKanban } from "./zh-TW/blog-claude-code-kanban";
+import { copy as jaClaudeCodeKanban } from "./ja/blog-claude-code-kanban";
+import { copy as koClaudeCodeKanban } from "./ko/blog-claude-code-kanban";
+import { copy as esClaudeCodeKanban } from "./es/blog-claude-code-kanban";
+import { copy as ptBRClaudeCodeKanban } from "./pt-BR/blog-claude-code-kanban";
+import { copy as frClaudeCodeKanban } from "./fr/blog-claude-code-kanban";
+import { copy as deClaudeCodeKanban } from "./de/blog-claude-code-kanban";
+import { copy as zhClaudeSquadAlternatives } from "./zh/blog-claude-squad-alternatives";
+import { copy as zhTWClaudeSquadAlternatives } from "./zh-TW/blog-claude-squad-alternatives";
+import { copy as jaClaudeSquadAlternatives } from "./ja/blog-claude-squad-alternatives";
+import { copy as koClaudeSquadAlternatives } from "./ko/blog-claude-squad-alternatives";
+import { copy as esClaudeSquadAlternatives } from "./es/blog-claude-squad-alternatives";
+import { copy as ptBRClaudeSquadAlternatives } from "./pt-BR/blog-claude-squad-alternatives";
+import { copy as frClaudeSquadAlternatives } from "./fr/blog-claude-squad-alternatives";
+import { copy as deClaudeSquadAlternatives } from "./de/blog-claude-squad-alternatives";
+import { copy as zhOpenclawAlternatives } from "./zh/blog-openclaw-alternatives";
+import { copy as zhTWOpenclawAlternatives } from "./zh-TW/blog-openclaw-alternatives";
+import { copy as jaOpenclawAlternatives } from "./ja/blog-openclaw-alternatives";
+import { copy as koOpenclawAlternatives } from "./ko/blog-openclaw-alternatives";
+import { copy as esOpenclawAlternatives } from "./es/blog-openclaw-alternatives";
+import { copy as ptBROpenclawAlternatives } from "./pt-BR/blog-openclaw-alternatives";
+import { copy as frOpenclawAlternatives } from "./fr/blog-openclaw-alternatives";
+import { copy as deOpenclawAlternatives } from "./de/blog-openclaw-alternatives";
+import { copy as zhHermesAgentVsOpenclaw } from "./zh/blog-hermes-agent-vs-openclaw";
+import { copy as zhTWHermesAgentVsOpenclaw } from "./zh-TW/blog-hermes-agent-vs-openclaw";
+import { copy as jaHermesAgentVsOpenclaw } from "./ja/blog-hermes-agent-vs-openclaw";
+import { copy as koHermesAgentVsOpenclaw } from "./ko/blog-hermes-agent-vs-openclaw";
+import { copy as esHermesAgentVsOpenclaw } from "./es/blog-hermes-agent-vs-openclaw";
+import { copy as ptBRHermesAgentVsOpenclaw } from "./pt-BR/blog-hermes-agent-vs-openclaw";
+import { copy as frHermesAgentVsOpenclaw } from "./fr/blog-hermes-agent-vs-openclaw";
+import { copy as deHermesAgentVsOpenclaw } from "./de/blog-hermes-agent-vs-openclaw";
+import { copy as zhClaudeCodeAgentTeams } from "./zh/blog-claude-code-agent-teams";
+import { copy as zhTWClaudeCodeAgentTeams } from "./zh-TW/blog-claude-code-agent-teams";
+import { copy as jaClaudeCodeAgentTeams } from "./ja/blog-claude-code-agent-teams";
+import { copy as koClaudeCodeAgentTeams } from "./ko/blog-claude-code-agent-teams";
+import { copy as esClaudeCodeAgentTeams } from "./es/blog-claude-code-agent-teams";
+import { copy as ptBRClaudeCodeAgentTeams } from "./pt-BR/blog-claude-code-agent-teams";
+import { copy as frClaudeCodeAgentTeams } from "./fr/blog-claude-code-agent-teams";
+import { copy as deClaudeCodeAgentTeams } from "./de/blog-claude-code-agent-teams";
 import { copy as zhClaudeCodeVsCodex } from "./zh/blog-claude-code-vs-codex";
 import { copy as zhTWClaudeCodeVsCodex } from "./zh-TW/blog-claude-code-vs-codex";
 import { copy as jaClaudeCodeVsCodex } from "./ja/blog-claude-code-vs-codex";
@@ -507,4 +611,147 @@ export const cursorAlternativesTranslations = {
   "pt-BR": ptBRCursorAlternatives,
   fr: frCursorAlternatives,
   de: deCursorAlternatives,
+};
+
+export const codexAgentsMdTranslations = {
+  zh: zhCodexAgentsMd,
+  "zh-TW": zhTWCodexAgentsMd,
+  ja: jaCodexAgentsMd,
+  ko: koCodexAgentsMd,
+  es: esCodexAgentsMd,
+  "pt-BR": ptBRCodexAgentsMd,
+  fr: frCodexAgentsMd,
+  de: deCodexAgentsMd,
+};
+
+export const superagentTranslations = {
+  zh: zhSuperagent,
+  "zh-TW": zhTWSuperagent,
+  ja: jaSuperagent,
+  ko: koSuperagent,
+  es: esSuperagent,
+  "pt-BR": ptBRSuperagent,
+  fr: frSuperagent,
+  de: deSuperagent,
+};
+
+export const deepseekHarnessTranslations = {
+  zh: zhDeepseekHarness,
+  "zh-TW": zhTWDeepseekHarness,
+  ja: jaDeepseekHarness,
+  ko: koDeepseekHarness,
+  es: esDeepseekHarness,
+  "pt-BR": ptBRDeepseekHarness,
+  fr: frDeepseekHarness,
+  de: deDeepseekHarness,
+};
+
+export const claudeCodeDeepseekTranslations = {
+  zh: zhClaudeCodeDeepseek,
+  "zh-TW": zhTWClaudeCodeDeepseek,
+  ja: jaClaudeCodeDeepseek,
+  ko: koClaudeCodeDeepseek,
+  es: esClaudeCodeDeepseek,
+  "pt-BR": ptBRClaudeCodeDeepseek,
+  fr: frClaudeCodeDeepseek,
+  de: deClaudeCodeDeepseek,
+};
+
+export const deepseekV41FlashTranslations = {
+  zh: zhDeepseekV41Flash,
+  "zh-TW": zhTWDeepseekV41Flash,
+  ja: jaDeepseekV41Flash,
+  ko: koDeepseekV41Flash,
+  es: esDeepseekV41Flash,
+  "pt-BR": ptBRDeepseekV41Flash,
+  fr: frDeepseekV41Flash,
+  de: deDeepseekV41Flash,
+};
+
+export const aiSeoAgentTranslations = {
+  zh: zhAiSeoAgent,
+  "zh-TW": zhTWAiSeoAgent,
+  ja: jaAiSeoAgent,
+  ko: koAiSeoAgent,
+  es: esAiSeoAgent,
+  "pt-BR": ptBRAiSeoAgent,
+  fr: frAiSeoAgent,
+  de: deAiSeoAgent,
+};
+
+export const githubCopilotSlackTranslations = {
+  zh: zhGithubCopilotSlack,
+  "zh-TW": zhTWGithubCopilotSlack,
+  ja: jaGithubCopilotSlack,
+  ko: koGithubCopilotSlack,
+  es: esGithubCopilotSlack,
+  "pt-BR": ptBRGithubCopilotSlack,
+  fr: frGithubCopilotSlack,
+  de: deGithubCopilotSlack,
+};
+
+export const vibeKanbanAlternativesTranslations = {
+  zh: zhVibeKanbanAlternatives,
+  "zh-TW": zhTWVibeKanbanAlternatives,
+  ja: jaVibeKanbanAlternatives,
+  ko: koVibeKanbanAlternatives,
+  es: esVibeKanbanAlternatives,
+  "pt-BR": ptBRVibeKanbanAlternatives,
+  fr: frVibeKanbanAlternatives,
+  de: deVibeKanbanAlternatives,
+};
+
+export const claudeCodeKanbanTranslations = {
+  zh: zhClaudeCodeKanban,
+  "zh-TW": zhTWClaudeCodeKanban,
+  ja: jaClaudeCodeKanban,
+  ko: koClaudeCodeKanban,
+  es: esClaudeCodeKanban,
+  "pt-BR": ptBRClaudeCodeKanban,
+  fr: frClaudeCodeKanban,
+  de: deClaudeCodeKanban,
+};
+
+export const claudeSquadAlternativesTranslations = {
+  zh: zhClaudeSquadAlternatives,
+  "zh-TW": zhTWClaudeSquadAlternatives,
+  ja: jaClaudeSquadAlternatives,
+  ko: koClaudeSquadAlternatives,
+  es: esClaudeSquadAlternatives,
+  "pt-BR": ptBRClaudeSquadAlternatives,
+  fr: frClaudeSquadAlternatives,
+  de: deClaudeSquadAlternatives,
+};
+
+export const openclawAlternativesTranslations = {
+  zh: zhOpenclawAlternatives,
+  "zh-TW": zhTWOpenclawAlternatives,
+  ja: jaOpenclawAlternatives,
+  ko: koOpenclawAlternatives,
+  es: esOpenclawAlternatives,
+  "pt-BR": ptBROpenclawAlternatives,
+  fr: frOpenclawAlternatives,
+  de: deOpenclawAlternatives,
+};
+
+export const hermesAgentVsOpenclawTranslations = {
+  zh: zhHermesAgentVsOpenclaw,
+  "zh-TW": zhTWHermesAgentVsOpenclaw,
+  ja: jaHermesAgentVsOpenclaw,
+  ko: koHermesAgentVsOpenclaw,
+  es: esHermesAgentVsOpenclaw,
+  "pt-BR": ptBRHermesAgentVsOpenclaw,
+  fr: frHermesAgentVsOpenclaw,
+  de: deHermesAgentVsOpenclaw,
+};
+
+export const claudeCodeAgentTeamsTranslations = {
+  zh: zhClaudeCodeAgentTeams,
+  "zh-TW": zhTWClaudeCodeAgentTeams,
+  ja: jaClaudeCodeAgentTeams,
+  ko: koClaudeCodeAgentTeams,
+  es: esClaudeCodeAgentTeams,
+  "pt-BR": ptBRClaudeCodeAgentTeams,
+  fr: frClaudeCodeAgentTeams,
+  de: deClaudeCodeAgentTeams,
 };

@@ -3,7 +3,7 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 // es translation of /ai-employees; the English master is src/content/ai-employees.ts.
 export const copy: GuideCopy = {
   meta: {
-    title: "¿Qué es un empleado de IA? Definición y ejemplos | Crewmark",
+    title: "¿Qué es un empleado de IA? Ejemplos | Crewmark AI",
     description:
       "Un empleado de IA es un agente con rol, objetivo y horario que toma trabajo de un tablero. Diferencias con un agente de IA, ejemplos y cómo contratarlo.",
   },
@@ -12,7 +12,7 @@ export const copy: GuideCopy = {
     kicker: "Empleados de IA",
     title: "¿Qué es un empleado de IA?",
     lead: "Un empleado de IA es un agente de IA al que le das un trabajo en lugar de un prompt: un rol, un objetivo medido en cifras, un horario y un sitio donde recibir tareas. Se despierta solo, toma la siguiente tarea, informa de su progreso y te pregunta cuando se atasca, como haría una persona recién contratada. Esta guía explica en qué se diferencia de un agente de IA o de un chatbot, muestra ejemplos por rol y te acompaña paso a paso para contratar el primero.",
-    cta: "Acceso anticipado",
+    cta: "Empezar",
     secondary: "Ver ejemplos",
     secondaryHref: "#examples",
   },
@@ -56,12 +56,12 @@ export const copy: GuideCopy = {
         "Los empleados de IA funcionan mejor en trabajos cuyo resultado se puede comprobar y cuyo objetivo se puede contar. Seis roles que funcionan bien hoy:",
       ],
       points: [
-        "Especialista SEO: encuentra palabras clave que faltan, corrige títulos y enlaces internos, envía sitemaps e informa de qué ha cambiado. Objetivo: clics en Search Console.",
-        "Especialista en crecimiento: analiza el embudo, monta tests A/B, redacta textos de anuncios y se queda con las variantes que ganan. Objetivo: registros de prueba.",
-        "Community manager: redacta y programa publicaciones, responde a las menciones y aprende qué publicaciones funcionan. Objetivo: seguidores o interacción.",
-        "Ingeniero de software: toma bugs, abre pull requests con tests y pide revisión. Objetivo: pull requests fusionadas.",
-        "Diseñador de UI: ordena tipografía, espaciado y componentes en tu código real y revisa el modo oscuro y la accesibilidad. Objetivo: pantallas entregadas.",
-        "Diseñador de UI de apps: diseña pantallas para iOS y Android y las comprueba en el simulador. Objetivo: pantallas de app entregadas.",
+        "[Especialista SEO](/ai-employees/seo-specialist): encuentra palabras clave que faltan, corrige títulos y enlaces internos, envía sitemaps e informa de qué ha cambiado. Objetivo: clics en Search Console.",
+        "[Especialista en crecimiento](/ai-employees/marketing-agent): analiza el embudo, monta tests A/B, redacta textos de anuncios y se queda con las variantes que ganan. Objetivo: registros de prueba.",
+        "[Community manager](/ai-employees/social-media-manager): redacta y programa publicaciones, responde a las menciones y aprende qué publicaciones funcionan. Objetivo: seguidores o interacción.",
+        "[Ingeniero de software](/ai-employees/software-engineer): toma bugs, abre pull requests con tests y pide revisión. Objetivo: pull requests fusionadas.",
+        "[Diseñador de UI](/ai-employees/ui-designer): ordena tipografía, espaciado y componentes en tu código real y revisa el modo oscuro y la accesibilidad. Objetivo: pantallas entregadas.",
+        "[Diseñador de UI de apps](/ai-employees/app-designer): diseña pantallas para iOS y Android y las comprueba en el simulador. Objetivo: pantallas de app entregadas.",
       ],
     },
     {
@@ -141,7 +141,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Contrata uno sin una nueva factura de tokens",
     text: "Crewmark le da a tu agente de Claude Code o Codex un rol, un objetivo y un horario, y lo hace funcionar con el plan que ya pagas.",
-    button: "Acceso anticipado",
+    button: "Empezar",
   },
   faq: {
     title: "Preguntas frecuentes sobre empleados de IA",
@@ -175,7 +175,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Contrata a tu primer empleado de IA.",
     text: "Dale a tu agente de Claude Code o Codex un rol, un objetivo y un horario, y asígnale trabajo en un tablero.",
-    button: "Acceso anticipado",
+    button: "Empezar",
   },
   checked: "Última revisión: 2 de noviembre de 2026.",
   disclaimer:

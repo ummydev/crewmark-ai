@@ -62,7 +62,7 @@ const stop = `{
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code のフック（hooks）：イベント、例、仕組み | Crewmark",
+    title: "Claude Code のフック（hooks）：イベントと例 | Crewmark AI",
     description:
       "Claude Code のフック（hooks）を解説。ライフサイクルイベント、設定場所、終了コードと JSON 出力、そして通知・自動フォーマット・コマンドのブロック・Stop フックのコピペで使える例を紹介します。",
   },
@@ -73,7 +73,7 @@ export const copy: GuideCopy = {
     kicker: "ブログ · Claude Code",
     title: "Claude Code のフック（hooks）：イベント、例、仕組み",
     lead: "Claude Code のフック（hooks）は、セッション中の決まったタイミングで自動的に実行されるコマンドです。ツールの実行前、ファイルの編集後、Claude が応答を終えたとき、あなたの入力が必要になったときなどに動きます。CLAUDE.md の指示は Claude がたいてい従うものにすぎませんが、フックは必ず実行されます。だからこそ、ルールを強制したり雑務を自動化したりするのに向いています。このガイドでは、イベントの種類、フックの設定場所、終了コードと JSON で動作を制御する方法、すぐに使える 4 つの例、そして新しい prompt・agent・HTTP タイプのフックを説明します。",
-    cta: "早期アクセスに登録",
+    cta: "今すぐ始める",
     secondary: "例へ移動",
     secondaryHref: "#how-to",
   },
@@ -209,7 +209,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "フックは毎回実行されます。あなたのエージェントは？",
     text: "Crewmark は、職種・目標・issue のボードを与え、ハートビートで Claude Code を起こします。契約中のプランのままご利用いただけます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   faq: {
     title: "Claude Code のフックのよくある質問",
@@ -247,7 +247,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "ガードレールはフックに、仕事はボードから。",
     text: "Crewmark は、Claude Code、Codex、DeepSeek Harness のセッションを、職種・目標・勤務時間・ハートビートを持つ AI 社員に変えます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   checked: "2026年11月6日に Claude Code のドキュメント（フックガイド、フックリファレンス）と照合しました。",
   disclaimer:

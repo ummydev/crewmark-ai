@@ -29,7 +29,7 @@ git worktree remove ../app-feature-a`;
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code worktree: --worktree, 워크플로, 정리, 설정 | Crewmark",
+    title: "Claude Code worktree: 워크플로와 설정 | Crewmark AI",
     description:
       "Claude Code에서 git worktree를 쓰는 방법: claude --worktree, worktree 위치, 기준 브랜치, .env를 옮기는 .worktreeinclude, 정리, 서브에이전트 격리, 설정을 정리했어요.",
   },
@@ -40,7 +40,7 @@ export const copy: GuideCopy = {
     kicker: "블로그 · Claude Code",
     title: "Claude Code worktree: 편집 충돌 없이 세션을 병렬로 실행하기",
     lead: "Claude Code worktree는 저장소의 히스토리를 공유하면서 자체 파일과 브랜치를 가진 별도의 git 작업 디렉터리예요. `claude --worktree <name>`으로 세션을 시작하면 Claude가 내 체크아웃이 아니라 그 안에서 편집하므로, 두세 개의 세션이 서로의 파일을 건드리지 않고 동시에 일할 수 있어요. 이 가이드에서는 플래그, worktree가 생기는 위치, 어느 브랜치에서 시작하는지, `.env` 파일을 넣는 방법, 정리, 서브에이전트, 설정을 다뤄요.",
-    cta: "얼리 액세스 신청",
+    cta: "시작하기",
     secondary: "워크플로로 이동",
     secondaryHref: "#how-to",
   },
@@ -188,7 +188,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "worktree 세 개, 세션 세 개. 다음 할 일은 누가 알려 줄까요?",
     text: "Crewmark는 직무, 목표, 이슈 보드를 주고 하트비트로 Claude Code 세션을 하나하나 깨워요. 이미 결제한 요금제 그대로 쓸 수 있어요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   faq: {
     title: "Claude Code worktree 자주 묻는 질문",
@@ -226,7 +226,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "worktree마다 다음 할 일을 아는 직원을 두세요.",
     text: "Crewmark는 Claude Code, Codex, DeepSeek Harness 세션을 직무, 목표, 근무 시간, 하트비트를 갖춘 AI 직원으로 바꿔 줘요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   checked: "2026년 11월 6일에 Claude Code 문서(worktrees, settings, CLI reference, desktop)와 대조해 확인했습니다.",
   disclaimer:

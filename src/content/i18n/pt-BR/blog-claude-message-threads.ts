@@ -33,7 +33,7 @@ anthropic-beta: message-threads-2026-08-12`;
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude message threads: sessões longas de agente mais rápidas | Crewmark",
+    title: "Claude message threads: sessões de agente mais rápidas",
     description:
       "Os message threads da Anthropic enviam uma conversa do Claude uma vez e depois só o que é novo. O que muda no Claude Code, como usar a API beta, a expiração de 5 minutos e os limites.",
   },
@@ -44,7 +44,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude",
     title: "Claude message threads: o que são e como usar",
     lead: "Os message threads são um recurso da API do Claude em beta pública desde 2 de novembro de 2026. Em vez de enviar a conversa inteira a cada turno, o agente a envia uma vez e depois só as mensagens novas. A Anthropic diz que ativou o recurso para a maioria dos usuários do Claude Code e que a mediana do tempo até o primeiro token cai cerca de 35% em requisições de 500 mil a 1 milhão de tokens. Este guia explica o que muda, o que não muda, como usar no seu próprio agente e quais são os limites.",
-    cta: "Acesso antecipado",
+    cta: "Começar",
     secondary: "Ir para a configuração",
     secondaryHref: "#how-to",
   },
@@ -157,7 +157,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Roda sessões longas do Claude Code?",
     text: "O Crewmark as acorda com um heartbeat, com um cargo, uma meta e um quadro de issues, no plano que você já paga.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   faq: {
     title: "Perguntas frequentes sobre Claude message threads",
@@ -195,7 +195,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Deixe proativas as suas sessões longas do Claude Code.",
     text: "O Crewmark transforma sessões do Claude Code, do Codex e do DeepSeek Harness em funcionários de IA com cargos, metas, horário de trabalho e um heartbeat.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   checked: "Conferido com o anúncio da Anthropic e a documentação do Claude Platform em 4 de novembro de 2026.",
   disclaimer:

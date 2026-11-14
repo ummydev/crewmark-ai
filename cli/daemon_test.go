@@ -2,6 +2,8 @@ package main
 
 import (
 	"errors"
+	"net/http"
+	"net/http/httptest"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -143,5 +145,26 @@ func TestDeliverPending(t *testing.T) {
 	deliverMessage = func(string, employeeProfile, string, bool) error { return undeliverable{"no inbox"} }
 	if kept := deliverPending("emp", employeeProfile{Name: "Test"}, []pendingMessage{{Text: "x", Queued: now}}, &state, now); len(kept) != 0 {
 		t.Fatalf("kept %d undeliverable messages", len(kept))
+	}
+}
+
+// TestPollEventsUrgent: what the server marks urgent (a person's comment) is queued to go in even while the agent works.
+func TestPollEventsUrgent(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(`{"events":[` +
+			`{"id":5,"type":"person_comment","message":"Alex commented","createdAt":"","urgent":true},` +
+			`{"id":6,"type":"issue_comment","message":"DevOps commented","createdAt":"","urgent":false},` +
+			`{"id":7,"type":"direct_message","message":"from an older server","createdAt":""}` +
+			`],"cursor":7}`))
+	}))
+	defer server.Close()
+	cursor := int64(4)
+	state := daemonState{EventsCursor: &cursor}
+	pollEvents(employeeProfile{URL: server.URL, APIKey: "cmk_test"}, "Test", &state, time.Now())
+	if len(state.Pending) != 3 || !state.Pending[0].Urgent || state.Pending[1].Urgent || !state.Pending[2].Urgent {
+		t.Fatalf("pending %+v; want the person's comment and the direct message urgent, the employee's comment not", state.Pending)
+	}
+	if *state.EventsCursor != 7 {
+		t.Fatalf("cursor %d, want 7", *state.EventsCursor)
 	}
 }

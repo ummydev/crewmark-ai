@@ -39,7 +39,7 @@ const project = `{
 export const claudeCodeMcp: Partial<Record<"en", GuideCopy>> = {
   en: {
     meta: {
-      title: "Claude Code MCP: Add Servers, Config File Location, .mcp.json and Scopes | Crewmark",
+      title: "Claude Code MCP: Servers, Config and .mcp.json | Crewmark AI",
       description:
         "How to set up MCP servers in Claude Code: claude mcp add for HTTP and stdio servers, local, project and user scopes, where the config file lives, .mcp.json with environment variables, OAuth and troubleshooting.",
     },
@@ -50,7 +50,7 @@ export const claudeCodeMcp: Partial<Record<"en", GuideCopy>> = {
       kicker: "Blog · Claude Code",
       title: "Claude Code MCP: how to add servers and where the config lives",
       lead: "MCP (Model Context Protocol) servers connect Claude Code to outside tools and data, such as Notion, GitHub, Sentry, a database or your own API. You add them with `claude mcp add`, choose whether each one is just for you or shared with the team, and Claude can then call their tools. This guide covers adding HTTP and stdio servers, the three scopes and the config files behind them, `.mcp.json` with environment variables, signing in with OAuth, and what to check when a server won't connect.",
-      cta: "Get early access",
+      cta: "Get started",
       secondary: "Jump to the setup",
       secondaryHref: "#how-to",
     },
@@ -174,7 +174,7 @@ export const claudeCodeMcp: Partial<Record<"en", GuideCopy>> = {
     mid: {
       title: "Connected the tools. Who uses them while you're away?",
       text: "Crewmark wakes Claude Code on a heartbeat with a role, a goal and a board of issues, on the plan you already pay for.",
-      button: "Get early access",
+      button: "Get started",
     },
     faq: {
       title: "Claude Code MCP FAQ",
@@ -212,7 +212,7 @@ export const claudeCodeMcp: Partial<Record<"en", GuideCopy>> = {
     cta: {
       title: "Connected tools, plus an employee to use them.",
       text: "Crewmark turns Claude Code, Codex and DeepSeek Harness sessions into AI employees with roles, goals, working hours and a heartbeat.",
-      button: "Get early access",
+      button: "Get started",
     },
     checked: "Checked against the Claude Code docs (MCP and costs) on November 6, 2026.",
     disclaimer:

@@ -29,7 +29,7 @@ git worktree remove ../app-feature-a`;
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code の worktree：--worktree、ワークフロー、後片付け、設定 | Crewmark",
+    title: "Claude Code の worktree：使い方と設定 | Crewmark AI",
     description:
       "Claude Code で git worktree を使う方法：claude --worktree、worktree の作成場所、ベースブランチ、.env を渡す .worktreeinclude、後片付け、サブエージェントの分離、設定を解説します。",
   },
@@ -40,7 +40,7 @@ export const copy: GuideCopy = {
     kicker: "ブログ · Claude Code",
     title: "Claude Code の worktree：編集の衝突なしに並列セッションを動かす",
     lead: "Claude Code の worktree は、リポジトリの履歴を共有しながら、独自のファイルとブランチを持つ別の git 作業ディレクトリです。`claude --worktree <name>` でセッションを始めると、Claude はあなたのチェックアウトではなくそこで編集するので、2つ、3つのセッションが互いのファイルに触れずに同時に作業できます。このガイドでは、フラグ、worktree の作成場所、起点になるブランチ、`.env` ファイルの持ち込み方、後片付け、サブエージェント、設定を説明します。",
-    cta: "早期アクセスに登録",
+    cta: "今すぐ始める",
     secondary: "ワークフローへ移動",
     secondaryHref: "#how-to",
   },
@@ -188,7 +188,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "worktree が3つ、セッションが3つ。次の仕事は誰が指示しますか？",
     text: "Crewmark は、職種・目標・issue のボードを与え、ハートビートで Claude Code の各セッションを起こします。契約中のプランのままご利用いただけます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   faq: {
     title: "Claude Code の worktree のよくある質問",
@@ -226,7 +226,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "worktree ごとに、次にやることがわかっている社員を。",
     text: "Crewmark は、Claude Code、Codex、DeepSeek Harness のセッションを、職種・目標・勤務時間・ハートビートを持つ AI 社員に変えます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   checked: "2026年11月6日に Claude Code のドキュメント（worktrees、settings、CLI reference、desktop）と照合しました。",
   disclaimer:

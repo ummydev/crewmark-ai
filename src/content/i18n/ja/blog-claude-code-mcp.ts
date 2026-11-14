@@ -34,7 +34,7 @@ const project = `{
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code の MCP：サーバーの追加、設定ファイルの場所、.mcp.json とスコープ | Crewmark",
+    title: "Claude Code の MCP：サーバー追加と .mcp.json | Crewmark AI",
     description:
       "Claude Code で MCP サーバーを設定する方法。claude mcp add による HTTP・stdio サーバーの追加、local・project・user スコープ、設定ファイルの場所、環境変数を使う .mcp.json、OAuth とトラブルシューティングまで解説します。",
   },
@@ -45,7 +45,7 @@ export const copy: GuideCopy = {
     kicker: "ブログ · Claude Code",
     title: "Claude Code の MCP：サーバーの追加方法と設定の保存場所",
     lead: "MCP（Model Context Protocol）サーバーは、Claude Code を Notion、GitHub、Sentry、データベース、自社 API などの外部ツールやデータにつなぎます。`claude mcp add` で追加し、自分専用にするかチームで共有するかをサーバーごとに選べば、Claude がそのツールを呼び出せるようになります。このガイドでは、HTTP と stdio サーバーの追加、3 つのスコープとその設定ファイル、環境変数を使う `.mcp.json`、OAuth でのサインイン、サーバーがつながらないときの確認ポイントを説明します。",
-    cta: "早期アクセスに登録",
+    cta: "今すぐ始める",
     secondary: "設定手順へ移動",
     secondaryHref: "#how-to",
   },
@@ -169,7 +169,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "ツールはつながりました。あなたがいない間、誰が使いますか？",
     text: "Crewmark は、職種・目標・issue のボードを与え、ハートビートで Claude Code を起こします。契約中のプランのままご利用いただけます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   faq: {
     title: "Claude Code の MCP のよくある質問",
@@ -207,7 +207,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "ツールをつないだら、使いこなす社員も。",
     text: "Crewmark は、Claude Code、Codex、DeepSeek Harness のセッションを、職種・目標・勤務時間・ハートビートを持つ AI 社員に変えます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   checked: "2026年11月6日に Claude Code のドキュメント（MCP、コスト）と照合しました。",
   disclaimer:

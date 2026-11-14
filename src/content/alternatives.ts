@@ -24,13 +24,13 @@ const others = (except: Alternative) =>
 const closing = (product: string) => ({
   title: `Try Crewmark as your ${product} alternative.`,
   text: "Give your Claude Code or Codex agent a role, a goal and working hours, and assign it work on a board.",
-  button: "Get early access",
+  button: "Get started",
 });
 
 const mid = {
   title: "Hire an AI employee on the plan you already pay for",
   text: "Crewmark wakes your Claude Code or Codex session on a heartbeat and hands it the next issue from a board.",
-  button: "Get early access",
+  button: "Get started",
 };
 
 const disclaimer = (owner: string) =>
@@ -41,7 +41,7 @@ export const alternatives: Record<Alternative, { card: { product: string; taglin
     card: { product: "Paperclip", tagline: "Hosted board  ·  heartbeats  ·  KPIs" },
     en: {
       meta: {
-        title: "Paperclip AI Alternative: Crewmark vs Paperclip Compared | Crewmark",
+        title: "Paperclip AI Alternative: Crewmark vs Paperclip",
         description:
           "Looking for a Paperclip alternative? Compare Crewmark and Paperclip on hosting, agents, heartbeats, goals and setup, and see which fits your team.",
       },
@@ -50,7 +50,7 @@ export const alternatives: Record<Alternative, { card: { product: string; taglin
         kicker: "Paperclip alternative",
         title: "Crewmark vs Paperclip",
         lead: "Paperclip and Crewmark both turn coding agents like Claude Code and Codex into a team that takes work on a schedule. Paperclip is an open-source server you run yourself to orchestrate a whole company of agents; Crewmark is a hosted board where each agent is an employee with a role, a numeric goal and working hours. Here's how they compare.",
-        cta: "Get early access",
+        cta: "Get started",
         secondary: "See the comparison",
         secondaryHref: "#compare",
       },
@@ -70,7 +70,7 @@ export const alternatives: Record<Alternative, { card: { product: string; taglin
           headers: ["", "Paperclip", "Crewmark"],
           rows: [
             ["Hosting", "Self-hosted (Node.js 24+ or Docker); cloud on a waitlist", "Hosted web app, plus a small daemon on your computer"],
-            ["License", "Open source, MIT", "Commercial, in early access"],
+            ["License", "Open source, MIT", "Commercial, open to sign-ups"],
             ["Agents", "Claude Code, Codex, Cursor, Gemini CLI, OpenCode, OpenClaw and more, or API keys", "Claude Code, Codex, DeepSeek Harness and OpenCode"],
             ["Unit of work", "Issues linked to company and project goals", "Issues on a kanban board"],
             ["Structure", "Org chart: roles, reporting lines, budgets", "Employees: role, numeric KPI, working hours"],
@@ -133,6 +133,10 @@ export const alternatives: Record<Alternative, { card: { product: string; taglin
             q: "Can I self-host Crewmark?",
             a: "No. Crewmark is a hosted app; only the daemon that wakes your agents runs on your computer.",
           },
+          {
+            q: "Paperclip vs OpenClaw or Hermes Agent?",
+            a: "Paperclip describes itself as the company and OpenClaw as an employee: OpenClaw and Hermes are personal agents, and Paperclip organizes agents like them into an org chart with goals and budgets. Compare the two agents in [Hermes Agent vs OpenClaw](/blog/hermes-agent-vs-openclaw).",
+          },
         ],
       },
       cta: closing("Paperclip"),
@@ -144,7 +148,7 @@ export const alternatives: Record<Alternative, { card: { product: string; taglin
     card: { product: "Multica", tagline: "KPIs  ·  working hours  ·  heartbeats" },
     en: {
       meta: {
-        title: "Multica Alternative: Crewmark vs Multica Compared | Crewmark",
+        title: "Multica Alternative: Crewmark vs Multica | Crewmark AI",
         description:
           "Looking for a Multica alternative? Compare Crewmark and Multica on agents, scheduling, goals, licensing and setup, and see which fits your team.",
       },
@@ -153,7 +157,7 @@ export const alternatives: Record<Alternative, { card: { product: string; taglin
         kicker: "Multica alternative",
         title: "Crewmark vs Multica",
         lead: "Multica and Crewmark both let you assign issues to coding agents like Claude Code and Codex as if they were teammates. Multica is a workspace for software teams, available in the cloud or self-hosted; Crewmark treats each agent as an employee with a numeric goal, working hours and a heartbeat that wakes it on its own. Here's how they compare.",
-        cta: "Get early access",
+        cta: "Get started",
         secondary: "See the comparison",
         secondaryHref: "#compare",
       },
@@ -173,7 +177,7 @@ export const alternatives: Record<Alternative, { card: { product: string; taglin
           headers: ["", "Multica", "Crewmark"],
           rows: [
             ["Hosting", "Cloud, or self-hosted with Docker or Helm", "Hosted web app, plus a small daemon on your computer"],
-            ["License", "Source-available (Apache 2.0 with conditions); hosting it for others needs a commercial license", "Commercial, in early access"],
+            ["License", "Source-available (Apache 2.0 with conditions); hosting it for others needs a commercial license", "Commercial, open to sign-ups"],
             ["Agents", "26 agent CLIs, including Claude Code, Codex, Cursor and DeepSeek Harness", "Claude Code, Codex, DeepSeek Harness and OpenCode"],
             ["Unit of work", "Issues on a board, squads, chat and channels", "Issues on a kanban board"],
             ["Scheduled work", "Autopilots create issues on cron or webhooks", "A heartbeat wakes each employee every 15, 30 or 60 minutes"],
@@ -236,6 +240,18 @@ export const alternatives: Record<Alternative, { card: { product: string; taglin
             q: "Can I self-host Crewmark?",
             a: "No. Crewmark is a hosted app; only the daemon that wakes your agents runs on your computer.",
           },
+          {
+            q: "Is Multica free?",
+            a: "Multica is source-available: self-hosting is free for use inside your own organization, and offering it to others needs a commercial license. Its cloud has a free trial; it hasn't published plan prices.",
+          },
+          {
+            q: "Multica vs Linear: what's the difference?",
+            a: "Linear is an issue tracker for people. Multica is a board where coding agents are teammates: you assign them issues and they claim, work and report on them through a daemon on your machine or a cloud runtime.",
+          },
+          {
+            q: "Multica vs Hermes Agent?",
+            a: "They're different layers. Hermes Agent is a personal agent from Nous Research; Multica can run Hermes, along with Claude Code, Codex, OpenClaw and more than 20 other agent CLIs, as runtimes on its board. See [Hermes Agent vs OpenClaw](/blog/hermes-agent-vs-openclaw).",
+          },
         ],
       },
       cta: closing("Multica"),
@@ -247,7 +263,7 @@ export const alternatives: Record<Alternative, { card: { product: string; taglin
     card: { product: "CrewAI", tagline: "No code  ·  your Claude or ChatGPT plan  ·  a board" },
     en: {
       meta: {
-        title: "CrewAI Alternative for Non-Coders: Crewmark vs CrewAI | Crewmark",
+        title: "CrewAI Alternative for Non-Coders: Crewmark vs CrewAI",
         description:
           "Looking for a CrewAI alternative? Compare Crewmark and CrewAI on coding, models, pricing and how work is assigned, and see which fits your team.",
       },
@@ -256,7 +272,7 @@ export const alternatives: Record<Alternative, { card: { product: string; taglin
         kicker: "CrewAI alternative",
         title: "Crewmark vs CrewAI",
         lead: "CrewAI is a Python framework for building multi-agent workflows, with a commercial platform on top. Crewmark isn't a framework: it turns the Claude Code or Codex agent you already use into an AI employee and gives it work on a board, with no code to write and no API bill. Here's how they compare.",
-        cta: "Get early access",
+        cta: "Get started",
         secondary: "See the comparison",
         secondaryHref: "#compare",
       },
@@ -282,7 +298,7 @@ export const alternatives: Record<Alternative, { card: { product: string; taglin
             ["Unit of work", "Tasks inside a crew or flow", "Issues on a kanban board"],
             ["Scheduling", "Cron scheduling on the platform", "A heartbeat every 15, 30 or 60 minutes during working hours"],
             ["Goals", "A goal field in each agent's prompt", "A numeric KPI per employee, tracked over time"],
-            ["Pricing", "Free plan with 50 executions a month; Enterprise is custom", "Early access; no extra token cost on top of your plan"],
+            ["Pricing", "Free plan with 50 executions a month; Enterprise is custom", "Open sign-up; no extra token cost on top of your plan"],
           ],
         },
         {

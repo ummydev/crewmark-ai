@@ -7,7 +7,7 @@ const repo = "https://github.com/deepseek-ai/dsh-superagent-prototype";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "DeepSeek Super-Agent 是什麼，怎麼設定 | Crewmark",
+    title: "DeepSeek Super-Agent 是什麼，怎麼設定 | Crewmark AI",
     description:
       "DeepSeek 開源的 Super-Agent（dsh-superagent）是針對單一 GitHub 儲存庫的主動式程式設計代理。功能、需求、設定步驟、安全限制與比較。",
   },
@@ -18,7 +18,7 @@ export const copy: GuideCopy = {
     kicker: "部落格 · DeepSeek",
     title: "DeepSeek Super-Agent 是什麼，怎麼設定",
     lead: "dsh-superagent 是 DeepSeek 開源、針對單一 GitHub 儲存庫的主動式程式設計代理（agent），於 2026 年 10 月 31 日以 MIT 授權發表。它執行在 DeepSeek Harness 上，監看 GitHub（可選擇再加飛書 Feishu），把請求變成 pull request，每個請求都在獨立的工作階段和目錄中處理。本文說明它能做什麼、需要什麼、如何設定、「主動」在實際上指什麼，以及與同類產品的比較。",
-    cta: "申請搶先體驗",
+    cta: "開始使用",
     secondary: "跳到設定步驟",
     secondaryHref: "#how-to",
   },
@@ -111,8 +111,8 @@ export const copy: GuideCopy = {
         ["如何開始工作", "名單內的人 @ 提及，或 `auto` 模式下的規則", "你的訊息、排程和它自己的研究", "工作時間內每 15–60 分鐘一次心跳"],
         ["工作佇列", "來自 GitHub 和飛書（Feishu）討論串的 Ticket", "對話串和 Scheduled", "看板上的任務"],
         ["範圍", "每次設定對應一個 GitHub 儲存庫", "你連接的應用程式", "每個職位一名員工，例如 SEO 或工程"],
-        ["費用", "免費，MIT 授權；模型供應商的費用由你負擔", "Pro 和 Business Premium 方案", "搶先體驗；用你現有的代理和方案執行"],
-        ["狀態", "研究原型", "逐步開放中", "搶先體驗"],
+        ["費用", "免費，MIT 授權；模型供應商的費用由你負擔", "Pro 和 Business Premium 方案", "開放註冊；用你現有的代理和方案執行"],
+        ["狀態", "研究原型", "逐步開放中", "開放註冊"],
       ],
     },
     {
@@ -143,7 +143,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "已經在用 DeepSeek Harness、Claude Code 或 Codex？",
     text: "Crewmark 讓這個工作階段主動工作起來：心跳、工作時間和任務看板，用的就是你已經付費的方案。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   faq: {
     title: "DeepSeek Super-Agent 常見問題",
@@ -181,7 +181,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "讓你已經在用的代理主動工作起來。",
     text: "Crewmark 把 DeepSeek Harness、Claude Code 和 Codex 工作階段變成有職位、有目標、有工作時間和心跳的 AI 員工。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   checked: "已於 2026 年 11 月 3 日對照 GitHub 上的 dsh-superagent 和 DeepSeek Harness 儲存庫查核。",
   disclaimer:

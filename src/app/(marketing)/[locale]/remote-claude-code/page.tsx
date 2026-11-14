@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getLocale } from "next-intl/server";
+import NextLink from "next/link";
 
 import { GuideMidCta } from "@/components/landing/guide-article";
 import { GuideShell } from "@/components/landing/guide-shell";
@@ -52,9 +53,9 @@ export default async function RemoteClaudeCodePage() {
         <h1>{c.hero.title}</h1>
         <p className="sub">{c.hero.lead}</p>
         <div className="actions">
-          <button type="button" className="btn btn-dark" data-early-access="remote-claude-code-hero">
+          <NextLink className="btn btn-dark" href="/login" prefetch={false} data-signup="remote-claude-code-hero">
             {c.hero.cta} <Arrow />
-          </button>
+          </NextLink>
           <a className="btn btn-line" href="#how-to">
             {c.hero.secondary}
           </a>
@@ -182,9 +183,9 @@ export default async function RemoteClaudeCodePage() {
           <h2>{c.cta.title}</h2>
           <p>{c.cta.text}</p>
           <div className="actions">
-            <button type="button" className="btn btn-yellow" data-early-access="remote-claude-code-cta">
+            <NextLink className="btn btn-yellow" href="/login" prefetch={false} data-signup="remote-claude-code-cta">
               {c.cta.button} <Arrow />
-            </button>
+            </NextLink>
           </div>
         </section>
       </div>

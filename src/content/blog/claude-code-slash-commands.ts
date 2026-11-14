@@ -33,7 +33,7 @@ Keep every existing behavior and test passing.`;
 export const claudeCodeSlashCommands: Partial<Record<"en", GuideCopy>> = {
   en: {
     meta: {
-      title: "Claude Code Slash Commands: Cheat Sheet, Custom Commands and Skills | Crewmark",
+      title: "Claude Code Slash Commands: Cheat Sheet | Crewmark AI",
       description:
         "A cheat sheet of the Claude Code slash commands worth knowing, how to write your own custom slash commands with arguments, and how commands relate to skills.",
     },
@@ -44,7 +44,7 @@ export const claudeCodeSlashCommands: Partial<Record<"en", GuideCopy>> = {
       kicker: "Blog · Claude Code",
       title: "Claude Code slash commands: the cheat sheet, and how to write your own",
       lead: "Slash commands are the shortcuts you type at the start of a Claude Code message, such as `/init`, `/compact` or `/code-review`, to control the session or run a saved prompt. This guide has a cheat sheet of the commands worth knowing, grouped by when you need them, then shows how to create custom slash commands with arguments, and how they relate to skills.",
-      cta: "Get early access",
+      cta: "Get started",
       secondary: "Jump to custom commands",
       secondaryHref: "#how-to",
     },
@@ -196,7 +196,7 @@ export const claudeCodeSlashCommands: Partial<Record<"en", GuideCopy>> = {
     mid: {
       title: "You've automated the typing. Who decides what to type next?",
       text: "Crewmark wakes Claude Code on a heartbeat with a role, a goal and a board of issues, on the plan you already pay for.",
-      button: "Get early access",
+      button: "Get started",
     },
     faq: {
       title: "Claude Code slash commands FAQ",
@@ -234,7 +234,7 @@ export const claudeCodeSlashCommands: Partial<Record<"en", GuideCopy>> = {
     cta: {
       title: "Give your Claude Code skills an employee to run them.",
       text: "Crewmark turns Claude Code, Codex and DeepSeek Harness sessions into AI employees with roles, goals, working hours and a heartbeat.",
-      button: "Get early access",
+      button: "Get started",
     },
     checked: "Checked against the Claude Code docs (commands and skills) on November 6, 2026.",
     disclaimer:

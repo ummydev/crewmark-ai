@@ -6,7 +6,7 @@ const announcement = "https://claude.com/resources/articles/claude-duet";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Duet 是什麼：Anthropic 主動式代理的候補名單、使用資格與限制 | Crewmark",
+    title: "Claude Duet 是什麼：候補名單、使用資格與限制 | Crewmark AI",
     description:
       "Claude Duet 是 Anthropic 的主動式代理應用程式，自 2026 年 10 月 21 日起進入研究預覽。它能做什麼、誰能用、如何加入候補名單、費用、安全限制，以及與同類產品的比較。",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "部落格 · Claude",
     title: "Claude Duet 是什麼，誰能用，怎麼用",
     lead: "Claude Duet 是 Anthropic 推出的新應用程式，讓 Claude 成為一個主動式代理（agent）：它會主動告訴你哪些事需要關注，完成你交給它的任務，在你離開時繼續工作，並在代你行動之前先徵得你的同意。它於 2026 年 10 月 21 日以需要候補的研究預覽形式上線，對象為美國的 Pro、Max 和 Ultra 訂閱用戶。本文介紹它能做什麼、如何取得使用資格、費用、安全限制，以及與同類產品的比較。",
-    cta: "申請搶先體驗",
+    cta: "開始使用",
     secondary: "如何取得使用資格",
     secondaryHref: "#how-to",
   },
@@ -108,8 +108,8 @@ export const copy: GuideCopy = {
         ["如何開始工作", "你的訊息，以及每隔幾小時的檢查", "你的訊息、排程和它自己的研究", "工作時間內每 15 到 60 分鐘一次心跳"],
         ["最擅長", "收件匣、行事曆、發票、簡報和儀表板", "跨已連接應用程式的研究和任務", "程式碼、SEO 等程式碼儲存庫中的工作，一個職位一名員工"],
         ["工作佇列", "單一持續的對話串", "對話串和 Scheduled", "看板上的 issue"],
-        ["費用", "包含在 Pro、Max 和 Ultra 內（美國）", "Pro 和 Business Premium 方案", "搶先體驗；使用你已有的代理和方案"],
-        ["狀態", "研究預覽，需候補", "逐步開放中", "搶先體驗"],
+        ["費用", "包含在 Pro、Max 和 Ultra 內（美國）", "Pro 和 Business Premium 方案", "開放註冊；使用你已有的代理和方案"],
+        ["狀態", "研究預覽，需候補", "逐步開放中", "開放註冊"],
       ],
     },
     {
@@ -140,7 +140,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "喜歡會主動傳訊息給你的代理嗎？",
     text: "Crewmark 為 Claude Code 和 Codex 做到了這一點：心跳、工作時間和 issue 看板，用的就是你已經在付費的方案。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   faq: {
     title: "Claude Duet 常見問題",
@@ -178,7 +178,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "也讓你的 Claude Code 工作階段主動工作起來。",
     text: "Crewmark 把 Claude Code、Codex 和 DeepSeek Harness 工作階段變成有職位、目標、工作時間和心跳的 AI 員工。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   checked: "已於 2026 年 11 月 5 日對照 Anthropic 的 Claude Duet 公告、產品頁和安全文章查證。",
   disclaimer:

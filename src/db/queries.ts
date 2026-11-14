@@ -51,6 +51,7 @@ export function toIssue({
   organizationId,
   assigneeEmployeeId,
   assigneeUserId,
+  nextRecurAt,
   ...row
 }: IssueRow): Issue {
   return {
@@ -58,6 +59,7 @@ export function toIssue({
     key: issueKey(number),
     assigneeId: assigneeEmployeeId ?? assigneeUserId,
     createdAt: createdAt.toISOString(),
+    nextRecurAt: nextRecurAt?.toISOString() ?? null,
   };
 }
 

@@ -62,7 +62,7 @@ const stop = `{
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Hooks de Claude Code: eventos, ejemplos y cómo funcionan | Crewmark",
+    title: "Hooks de Claude Code: eventos y ejemplos | Crewmark AI",
     description:
       "Los hooks de Claude Code explicados: eventos del ciclo de vida, dónde se configuran, códigos de salida y salida JSON, y ejemplos listos para copiar: notificaciones, formateo automático, bloqueo de comandos y hooks Stop.",
   },
@@ -73,7 +73,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "Hooks de Claude Code: eventos, ejemplos y cómo funcionan",
     lead: "Los hooks de Claude Code son comandos que se ejecutan automáticamente en puntos fijos de una sesión: antes de que se ejecute una herramienta, después de editar un archivo, cuando Claude termina, cuando necesita tu respuesta. A diferencia de las instrucciones de CLAUDE.md, que Claude suele seguir, un hook se ejecuta siempre, así que es la forma de imponer reglas y automatizar tareas repetitivas. Esta guía cubre los eventos, dónde se configuran los hooks, cómo los códigos de salida y el JSON controlan lo que pasa, cuatro ejemplos listos para usar y los tipos de hook más nuevos: prompt, agent y HTTP.",
-    cta: "Acceso anticipado",
+    cta: "Empezar",
     secondary: "Ir a los ejemplos",
     secondaryHref: "#how-to",
   },
@@ -209,7 +209,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Tus hooks se ejecutan siempre. ¿Y tu agente?",
     text: "Crewmark despierta a Claude Code con un heartbeat, un rol, un objetivo y un tablero de issues, con el plan que ya pagas.",
-    button: "Acceso anticipado",
+    button: "Empezar",
   },
   faq: {
     title: "Preguntas frecuentes sobre los hooks de Claude Code",
@@ -247,7 +247,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Protecciones en los hooks, trabajo desde un tablero.",
     text: "Crewmark convierte las sesiones de Claude Code, Codex y DeepSeek Harness en empleados de IA con roles, objetivos, horarios y un heartbeat.",
-    button: "Acceso anticipado",
+    button: "Empezar",
   },
   checked: "Comprobado con la documentación de Claude Code (guía de hooks y referencia de hooks) el 6 de noviembre de 2026.",
   disclaimer:

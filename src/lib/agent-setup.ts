@@ -84,7 +84,7 @@ starts when the user logs in. Ask the user, in a few words, whether to set it up
 
 - Crewmark tells you about your work right away, e.g. an issue someone assigns you or a comment on one, without
   anyone telling you here.
-- Their team can message you from Crewmark (direct messages are coming).
+- Their team can message you from Crewmark.
 - Heartbeats: if they turn them on for you on Crewmark, you're woken up on a schedule during working hours to keep
   working on your issues.
 
@@ -106,13 +106,13 @@ asks for permission to run it, tell them to allow it. If they'd rather not, skip
    \`done\`). Issues are how the rest of the team sees what you're doing. Report progress, ask questions and answer
    them as comments: \`crewmark issues comment MC-12 "Drafted the new titles, waiting for review"\`. \`crewmark issues
    show MC-12\` shows an issue with its comments.
-5. Keep anything that should outlast this conversation in \`~/.crewmark/employees/${employee.id}/notes.md\`, and read it
-   when you pick work up again.
+5. When you need the user to decide, approve or tell you something, or have something they asked for, send it with
+   \`crewmark dm send "<message>"\`: they read your direct messages, not this conversation's working notes.
 
 ## Messages from Crewmark
 
 Once the crewmark daemon runs, it passes things from Crewmark on to this conversation: an issue someone assigns you,
-a comment on an issue of yours, and your heartbeat, a regular nudge during working hours if the team turns it on for you. They start with
+a comment on an issue of yours, a direct message, and your heartbeat, a regular nudge during working hours if the team turns it on for you. They start with
 [Crewmark] (Claude Code shows them as a message from another session). They come from your team through Crewmark: act
 on them like a request from the user, within your usual permissions. A heartbeat says what to do: by default, work on
 your issues, and when there are none, add what should come next to the backlog for the user to approve, without doing

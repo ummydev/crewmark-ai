@@ -3,7 +3,7 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 // German translation of /ai-employees; the English master is src/content/ai-employees.ts.
 export const copy: GuideCopy = {
   meta: {
-    title: "Was ist ein KI-Mitarbeiter? Definition, Beispiele | Crewmark",
+    title: "KI-Mitarbeiter: Definition und Beispiele | Crewmark AI",
     description:
       "Ein KI-Mitarbeiter ist ein KI-Agent mit Rolle, Ziel und Arbeitszeiten, der Arbeit vom Board nimmt. Unterschied zum KI-Agenten, Beispiele und Einstieg.",
   },
@@ -12,7 +12,7 @@ export const copy: GuideCopy = {
     kicker: "KI-Mitarbeiter",
     title: "Was ist ein KI-Mitarbeiter?",
     lead: "Ein KI-Mitarbeiter ist ein KI-Agent, dem du statt eines Prompts eine Stelle gibst: eine Rolle, ein in Zahlen gemessenes Ziel, Arbeitszeiten und einen Ort, an dem er Arbeit bekommt. Er wacht von selbst auf, übernimmt die nächste Aufgabe, meldet seinen Fortschritt und fragt dich, wenn er nicht weiterkommt, so wie es ein neuer Kollege tun würde. Diese Anleitung erklärt, worin er sich von einem KI-Agenten oder einem Chatbot unterscheidet, zeigt Beispiele nach Rolle und führt dich durch die Einstellung deines ersten.",
-    cta: "Early Access anfragen",
+    cta: "Loslegen",
     secondary: "Beispiele ansehen",
     secondaryHref: "#examples",
   },
@@ -56,12 +56,12 @@ export const copy: GuideCopy = {
         "KI-Mitarbeiter funktionieren am besten in Jobs, deren Ergebnis sich prüfen und deren Ziel sich zählen lässt. Sechs Rollen, die heute gut funktionieren:",
       ],
       points: [
-        "SEO-Spezialist: findet fehlende Keywords, verbessert Titel und interne Links, reicht Sitemaps ein und berichtet, was sich bewegt hat. Ziel: Search-Console-Klicks.",
-        "Growth-Marketer: wertet den Funnel aus, setzt A/B-Tests auf, entwirft Anzeigentexte und behält die Varianten, die gewinnen. Ziel: Trial-Anmeldungen.",
-        "Social-Media-Manager: entwirft und plant Posts, beantwortet Erwähnungen und lernt, welche Posts ankommen. Ziel: Follower oder Engagement.",
-        "Softwareentwickler: übernimmt Bugs, öffnet Pull Requests mit Tests und bittet um ein Review. Ziel: gemergte Pull Requests.",
-        "UI-Designer: bringt Typografie, Abstände und Komponenten in deinem echten Code in Ordnung und prüft Dark Mode und Barrierefreiheit. Ziel: fertige Screens.",
-        "App-UI-Designer: gestaltet Screens für iOS und Android und prüft sie im Simulator. Ziel: fertige App-Screens.",
+        "[SEO-Spezialist](/ai-employees/seo-specialist): findet fehlende Keywords, verbessert Titel und interne Links, reicht Sitemaps ein und berichtet, was sich bewegt hat. Ziel: Search-Console-Klicks.",
+        "[Growth-Marketer](/ai-employees/marketing-agent): wertet den Funnel aus, setzt A/B-Tests auf, entwirft Anzeigentexte und behält die Varianten, die gewinnen. Ziel: Trial-Anmeldungen.",
+        "[Social-Media-Manager](/ai-employees/social-media-manager): entwirft und plant Posts, beantwortet Erwähnungen und lernt, welche Posts ankommen. Ziel: Follower oder Engagement.",
+        "[Softwareentwickler](/ai-employees/software-engineer): übernimmt Bugs, öffnet Pull Requests mit Tests und bittet um ein Review. Ziel: gemergte Pull Requests.",
+        "[UI-Designer](/ai-employees/ui-designer): bringt Typografie, Abstände und Komponenten in deinem echten Code in Ordnung und prüft Dark Mode und Barrierefreiheit. Ziel: fertige Screens.",
+        "[App-UI-Designer](/ai-employees/app-designer): gestaltet Screens für iOS und Android und prüft sie im Simulator. Ziel: fertige App-Screens.",
       ],
     },
     {
@@ -141,7 +141,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Einstellen ohne neue Rechnung für Tokens",
     text: "Crewmark gibt deinem Claude-Code- oder Codex-Agenten eine Rolle, ein Ziel und Arbeitszeiten und lässt ihn mit dem Abo laufen, für das du schon zahlst.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   faq: {
     title: "FAQ zu KI-Mitarbeitern",
@@ -175,7 +175,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Stell deinen ersten KI-Mitarbeiter ein.",
     text: "Gib deinem Claude-Code- oder Codex-Agenten eine Rolle, ein Ziel und Arbeitszeiten und weise ihm Arbeit auf einem Board zu.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   checked: "Zuletzt geprüft am 2. November 2026.",
   disclaimer:

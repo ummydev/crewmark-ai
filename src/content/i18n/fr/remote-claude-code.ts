@@ -3,7 +3,7 @@ import type { RemoteClaudeCodeCopy } from "@/content/remote-claude-code";
 // French translation of /remote-claude-code; the English master is src/content/remote-claude-code.ts.
 export const copy: RemoteClaudeCodeCopy = {
   meta: {
-    title: "Claude Code Remote Control depuis votre téléphone | Crewmark",
+    title: "Claude Code Remote Control depuis le téléphone | Crewmark AI",
     description:
       "Reprendre une session Claude Code locale depuis votre téléphone ou un navigateur avec Remote Control, ses limites, et faire travailler Claude Code sans vous.",
   },
@@ -12,7 +12,7 @@ export const copy: RemoteClaudeCodeCopy = {
     kicker: "Claude Code à distance",
     title: "Pilotez Claude Code depuis votre téléphone, puis laissez-le travailler sans vous",
     lead: "Claude Code Remote Control est la fonctionnalité d’Anthropic qui permet de poursuivre, depuis votre téléphone, une tablette ou n’importe quel navigateur, une session Claude Code qui tourne sur votre ordinateur. Ce guide explique comment la configurer, où elle s’arrête, et comment Crewmark transforme ce même Claude Code en employé qui continue de travailler selon ses propres horaires.",
-    cta: "Accès anticipé",
+    cta: "Commencer",
     secondary: "Configurer Remote Control",
   },
   official: {
@@ -51,7 +51,7 @@ export const copy: RemoteClaudeCodeCopy = {
   mid: {
     title: "Vous voulez qu’il continue pendant votre absence ?",
     text: "Remote Control vous permet de piloter une session depuis votre téléphone. Un employé Crewmark continue de travailler au rythme de sa pulsation et vous écrit quand il a besoin de vous.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   limits: {
     title: "Ce que Remote Control ne fait pas",
@@ -118,6 +118,22 @@ export const copy: RemoteClaudeCodeCopy = {
         a: "Non. D’après la documentation d’Anthropic, il faut un forfait Pro, Max, Ultra, Team ou Enterprise avec une connexion via claude.ai. Il ne fonctionne pas avec les clés API, Amazon Bedrock, Google Cloud, Microsoft Foundry ni avec une ANTHROPIC_BASE_URL personnalisée.",
       },
       {
+        q: "Pourquoi Claude Code Remote Control ne fonctionne-t-il pas ?",
+        a: "Le plus souvent, c’est la connexion. Exécutez claude auth login et choisissez l’option claude.ai ; supprimez ANTHROPIC_API_KEY ou ANTHROPIC_AUTH_TOKEN s’ils sont définis, car ils sont prioritaires ; et n’utilisez pas un jeton longue durée issu de claude setup-token, qui ne peut pas démarrer Remote Control. Sur Team et Enterprise, un Owner doit d’abord activer Remote Control. CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC ou DISABLE_GROWTHBOOK le désactivent aussi. claude doctor indique quelle vérification a échoué.",
+      },
+      {
+        q: "Pourquoi Remote Control se déconnecte-t-il sans arrêt ?",
+        a: "\"Remote Control disconnected\" ou \"Can't reach\" signifie que votre téléphone ou votre navigateur a perdu le contact avec Claude Code sur votre ordinateur. Une session interactive se reconnecte d’elle-même une fois l’ordinateur réveillé et en ligne ; si le processus claude s’est arrêté, relancez-le et reprenez la session. Sur une machine distante, lancez claude dans tmux ou screen pour qu’il survive à la fermeture du terminal, et s’il indique qu’il n’a pas pu joindre le serveur pendant environ 30 minutes, exécutez à nouveau /remote-control.",
+      },
+      {
+        q: "Remote Control ou Dispatch : quelle différence ?",
+        a: "Remote Control vous permet de piloter une session Claude Code qui tourne déjà sur votre ordinateur, depuis claude.ai/code ou l’app Claude. Dispatch vous permet d’envoyer une nouvelle tâche depuis l’app mobile Claude, et l’app de bureau sur votre ordinateur démarre une session pour elle ; il faut que l’app mobile soit associée à Claude Desktop.",
+      },
+      {
+        q: "Puis-je utiliser Remote Control avec DeepSeek ou un autre fournisseur de modèles ?",
+        a: "Non. Remote Control ne fonctionne que lorsque Claude Code communique avec api.anthropic.com. Si ANTHROPIC_BASE_URL pointe vers DeepSeek, une passerelle ou un proxy, ou si vous utilisez Bedrock, Google Cloud ou Foundry, supprimez ce réglage et connectez-vous avec claude.ai pour l’utiliser.",
+      },
+      {
         q: "Claude Code peut-il continuer à travailler quand je ferme mon portable ?",
         a: "Pas tout seul : une session Remote Control a besoin que l’ordinateur soit allumé et que le processus claude tourne, et après une tâche elle attend votre prochain message. Les employés Crewmark tournent eux aussi sur votre ordinateur, mais une pulsation les réveille pendant leurs heures de travail pour qu’ils continuent d’avancer sur leurs tickets.",
       },
@@ -129,10 +145,10 @@ export const copy: RemoteClaudeCodeCopy = {
   },
   cta: {
     title: "Laissez Claude Code travailler pendant votre absence",
-    text: "Crewmark est en bêta privée. Demandez un accès anticipé et nous vous aiderons à recruter votre premier employé.",
-    button: "Accès anticipé",
+    text: "Inscrivez-vous avec Google et recrutez votre premier employé sur l’agent que vous utilisez déjà.",
+    button: "Commencer",
   },
-  checked: "Informations sur Remote Control vérifiées dans la documentation d’Anthropic le 1er novembre 2026.",
+  checked: "Informations sur Remote Control vérifiées dans la documentation d’Anthropic le 7 novembre 2026.",
   disclaimer:
     "Claude et Claude Code sont des marques d’Anthropic, PBC. Crewmark est un produit indépendant, sans lien avec Anthropic, qui n’est ni approuvé ni sponsorisé par Anthropic.",
 };

@@ -1,5 +1,6 @@
 import type { Locale } from "next-intl";
 import { Fragment, type ReactNode } from "react";
+import NextLink from "next/link";
 
 import { JsonLd } from "@/components/json-ld";
 import { pageLocales } from "@/i18n/guides";
@@ -98,7 +99,7 @@ export function GuideArticle({
   href: string;
   locale: Locale;
   locales: readonly Locale[];
-  /** Names the early-access buttons in analytics: `${name}-hero`, `${name}-cta`. */
+  /** Names the sign-up links in analytics: `${name}-hero`, `${name}-cta`. */
   name: string;
   c: GuideCopy;
 }) {
@@ -133,9 +134,9 @@ export function GuideArticle({
           <RichText text={c.hero.lead} locale={locale} />
         </p>
         <div className="actions">
-          <button type="button" className="btn btn-dark" data-early-access={`${name}-hero`}>
+          <NextLink className="btn btn-dark" href="/login" prefetch={false} data-signup={`${name}-hero`}>
             {c.hero.cta} <Arrow />
-          </button>
+          </NextLink>
           <a className="btn btn-line" href={c.hero.secondaryHref}>
             {c.hero.secondary}
           </a>
@@ -252,9 +253,9 @@ export function GuideArticle({
           <h2>{c.cta.title}</h2>
           <p>{c.cta.text}</p>
           <div className="actions">
-            <button type="button" className="btn btn-yellow" data-early-access={`${name}-cta`}>
+            <NextLink className="btn btn-yellow" href="/login" prefetch={false} data-signup={`${name}-cta`}>
               {c.cta.button} <Arrow />
-            </button>
+            </NextLink>
           </div>
         </section>
       </div>
@@ -270,9 +271,9 @@ export function GuideMidCta({ name, c }: { name: string; c: GuideMidCopy }) {
         <h2>{c.title}</h2>
         <p>{c.text}</p>
       </div>
-      <button type="button" className="btn btn-dark" data-early-access={`${name}-mid`}>
+      <NextLink className="btn btn-dark" href="/login" prefetch={false} data-signup={`${name}-mid`}>
         {c.button} <Arrow />
-      </button>
+      </NextLink>
     </aside>
   );
 }

@@ -14,7 +14,7 @@ git push -u origin HEAD`;
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Conductor 加入 Meta：停服时间表与最佳 Conductor 替代方案 | Crewmark",
+    title: "Conductor 加入 Meta：停服时间表与最佳 Conductor 替代方案",
     description:
       "Conductor 这款并行运行 Claude Code 和 Codex agent 的 Mac 应用即将加入 Meta。停服时间表、如何保存你的 workspace，以及适用于 Mac、Windows 和 Linux 的 Conductor 替代方案。",
   },
@@ -25,7 +25,7 @@ export const copy: GuideCopy = {
     kicker: "博客 · AI 编程 agent",
     title: "Conductor 加入 Meta：接下来会怎样，你的 agent 该搬去哪里",
     lead: "Conductor 是一款在并行 workspace 里运行 Claude Code、Codex、Cursor 和 OpenCode agent 的 Mac 应用，它于 2026 年 11 月 4 日宣布加入 Meta。新用户注册已关闭，Conductor Cloud 将于 11 月 13 日变为只读、11 月 20 日关停，本地应用的更新只持续到 2027 年初。本文介绍关键日期、如何保住你的工作，以及能做同样事情的替代方案。",
-    cta: "申请抢先体验",
+    cta: "开始使用",
     secondary: "保存你的 workspace",
     secondaryHref: "#how-to",
   },
@@ -90,7 +90,7 @@ export const copy: GuideCopy = {
         ["隔离方式", "每个 workspace 一个 git worktree", "每个会话或 subagent 一个 git worktree", "worktree", "每名员工有自己的会话和检出目录"],
         ["谁来启动下一个任务", "你", "你（或定时任务）", "你（或定时任务）", "心跳：每名员工醒来后自己接下一个 issue"],
         ["任务看板", "workspace 列表", "无", "无", "有，包括 issue、评论和发给你的消息"],
-        ["状态", "云端 11 月 20 日结束；本地版到 2027 年初", "持续维护", "持续维护", "抢先体验"],
+        ["状态", "云端 11 月 20 日结束；本地版到 2027 年初", "持续维护", "持续维护", "持续维护"],
       ],
     },
     {
@@ -131,7 +131,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "要从 Conductor 迁走？别只是替换，顺便升级。",
     text: "Crewmark 把 Claude Code、Codex 和 OpenCode 变成 AI 员工，它们按心跳醒来，自己接下一个 issue。",
-    button: "申请抢先体验",
+    button: "开始使用",
   },
   faq: {
     title: "Conductor 停服常见问题",
@@ -169,7 +169,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "你的 agent 需要一个新家，也顺便给它们一份工作。",
     text: "Crewmark 把 Claude Code、Codex、DeepSeek Harness 和 OpenCode 会话变成有岗位、目标、工作时间和心跳的 AI 员工。",
-    button: "申请抢先体验",
+    button: "开始使用",
   },
   checked: "已于 2026 年 11 月 6 日对照 Conductor 的公告、更新日志和文档，以及 TechCrunch 的报道查证。",
   disclaimer:

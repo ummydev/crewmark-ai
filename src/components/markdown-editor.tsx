@@ -20,6 +20,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
+import { IssueRefs, useIssueRefs } from "@/components/issue-refs";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
@@ -84,6 +85,7 @@ export function MarkdownEditor({
       StarterKit,
       Markdown,
       Image,
+      IssueRefs,
       Placeholder.configure({ placeholder }),
       Extension.create({
         name: "submitShortcut",
@@ -102,6 +104,7 @@ export function MarkdownEditor({
     immediatelyRender: false,
     onUpdate: ({ editor }) => onChange(editor.getMarkdown()),
   });
+  const refs = useIssueRefs(editor, { editable: true });
 
   React.useImperativeHandle(
     ref,
@@ -135,7 +138,9 @@ export function MarkdownEditor({
         className={contentClassName}
         onPasteCapture={(event) => catchImages(event, event.clipboardData)}
         onDropCapture={(event) => catchImages(event, event.dataTransfer, { left: event.clientX, top: event.clientY })}
+        {...refs.handlers}
       />
+      {refs.card}
     </div>
   );
 }
@@ -143,13 +148,19 @@ export function MarkdownEditor({
 /** Markdown shown read-only, styled like the editor, e.g. a comment. */
 export function MarkdownView({ value, className }: { value: string; className?: string }) {
   const editor = useEditor({
-    extensions: [StarterKit, Markdown, Image],
+    extensions: [StarterKit, Markdown, Image, IssueRefs],
     content: value,
     contentType: "markdown",
     editable: false,
     immediatelyRender: false,
   });
-  return <EditorContent editor={editor} className={className} />;
+  const refs = useIssueRefs(editor, { editable: false });
+  return (
+    <>
+      <EditorContent editor={editor} className={className} {...refs.handlers} />
+      {refs.card}
+    </>
+  );
 }
 
 interface ToolbarAction {

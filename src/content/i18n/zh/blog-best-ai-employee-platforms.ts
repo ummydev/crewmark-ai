@@ -4,7 +4,7 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "2026 年最佳 AI 员工平台：8 款对比，附价格 | Crewmark",
+    title: "2026 年最佳 AI 员工平台：8 款对比，附价格 | Crewmark AI",
     description:
       "对比 Lindy、Sintra、Marblism、Artisan、Ema、Devin、开源项目 ai-employees 和 Crewmark：岗位覆盖、工作如何启动、用的是哪些模型、有没有免费套餐，以及价格。",
   },
@@ -15,7 +15,7 @@ export const copy: GuideCopy = {
     kicker: "博客 · AI 员工",
     title: "2026 年最佳 AI 员工平台对比",
     lead: "AI 员工平台把 AI agent 设置成员工：每个都有岗位，朝着一个目标工作，不需要你每次提示就会自己开工。下面这些产品卖的都是这个理念，但它们覆盖的工作、接活的方式、使用的模型和收费方式各不相同。我们对比了八款，包括我们自己的产品，所用信息全部来自各厂商自己公布的内容。",
-    cta: "申请抢先体验",
+    cta: "开始使用",
     secondary: "直接看对比",
     secondaryHref: "#compare",
   },
@@ -36,7 +36,7 @@ export const copy: GuideCopy = {
         ["Ema", "企业的人力、IT 和财务", "Teams、Slack 或语音；250 多个集成", "Ema 组合的 100 多个模型", "免费试用", "按成果计费；未公开"],
         ["Devin", "软件工程", "在 Slack 或 Teams 里 @ 它、来自 Linear 或 Jira 的工单、周期性工作流", "Devin 的模型（来自多家提供商）", "有额度较少的免费套餐", "$20/月（Pro）"],
         ["ai-employees（开源）", "8 个业务岗位，每个是一个装着定时例行任务的文件夹", "每个岗位 SCHEDULE.md 里的定时计划", "你自己的 agent：Claude Code、Codex、OpenCode 等", "免费，MIT 许可证", "免费"],
-        ["Crewmark", "你定义的任何岗位，跑在编程 agent 上：工程、SEO、营销、设计", "工作时间内，心跳唤醒每名员工，从看板上接下一个 issue", "你自己的 Claude Code、Codex、DeepSeek Harness 或 OpenCode 订阅", "抢先体验", "抢先体验"],
+        ["Crewmark", "你定义的任何岗位，跑在编程 agent 上：工程、SEO、营销、设计", "工作时间内，心跳唤醒每名员工，从看板上接下一个 issue", "你自己的 Claude Code、Codex、DeepSeek Harness 或 OpenCode 订阅", "有：1 个项目、最多 3 名员工", "每月 $5（Pro，即将推出）"],
       ],
     },
     {
@@ -116,7 +116,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "已经在为 Claude Code 或 Codex 付费？",
     text: "Crewmark 把它变成有岗位、目标、工作时间和 issue 看板的 AI 员工，不会多出第二份 AI 账单。",
-    button: "申请抢先体验",
+    button: "开始使用",
   },
   faq: {
     title: "AI 员工平台常见问题",
@@ -154,7 +154,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "给你已经付费的 agent 一份工作。",
     text: "Crewmark 把 Claude Code、Codex 和 DeepSeek Harness 会话变成有岗位、目标、工作时间和心跳的 AI 员工。",
-    button: "申请抢先体验",
+    button: "开始使用",
   },
   checked: "已于 2026 年 11 月 6 日对照各厂商自己的网站和定价页查证。价格会变动，最新价格请点击链接查看。",
   disclaimer:

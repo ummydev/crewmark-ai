@@ -7,6 +7,19 @@ import { routing } from "./routing";
  * copy lives in content/blog/<slug>.ts; this list stays small because proxy.ts imports it.
  */
 export const posts = [
+  { slug: "claude-code-agent-teams", published: "2026-11-07", locales: routing.locales },
+  { slug: "hermes-agent-vs-openclaw", published: "2026-11-07", locales: routing.locales },
+  { slug: "openclaw-alternatives", published: "2026-11-07", locales: routing.locales },
+  { slug: "claude-squad-alternatives", published: "2026-11-07", locales: routing.locales },
+  { slug: "claude-code-kanban", published: "2026-11-07", locales: routing.locales },
+  { slug: "vibe-kanban-alternatives", published: "2026-11-07", locales: routing.locales },
+  { slug: "github-copilot-slack", published: "2026-11-07", locales: routing.locales },
+  { slug: "ai-seo-agent", published: "2026-11-07", locales: routing.locales },
+  { slug: "deepseek-v4-1-flash", published: "2026-11-06", locales: routing.locales },
+  { slug: "claude-code-deepseek", published: "2026-11-06", locales: routing.locales },
+  { slug: "deepseek-harness", published: "2026-11-06", locales: routing.locales },
+  { slug: "superagent", published: "2026-11-06", locales: routing.locales },
+  { slug: "codex-agents-md", published: "2026-11-06", locales: routing.locales },
   { slug: "cursor-alternatives", published: "2026-11-06", locales: routing.locales },
   { slug: "claude-code-vs-cursor", published: "2026-11-06", locales: routing.locales },
   { slug: "claude-code-mcp", published: "2026-11-06", locales: routing.locales },

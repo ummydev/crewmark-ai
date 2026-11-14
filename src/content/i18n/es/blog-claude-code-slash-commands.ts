@@ -28,7 +28,7 @@ Conserva todo el comportamiento actual y que todos los tests sigan pasando.`;
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Comandos de barra de Claude Code: guía rápida, comandos propios y skills | Crewmark",
+    title: "Comandos de barra de Claude Code: guía y comandos propios",
     description:
       "Una guía rápida de los comandos de barra (slash commands) de Claude Code que vale la pena conocer, cómo crear los tuyos con argumentos y cómo se relacionan los comandos con las skills.",
   },
@@ -39,7 +39,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "Comandos de barra de Claude Code: la guía rápida y cómo crear los tuyos",
     lead: "Los comandos de barra (slash commands) son los atajos que escribes al principio de un mensaje de Claude Code, como `/init`, `/compact` o `/code-review`, para controlar la sesión o ejecutar un prompt guardado. Aquí tienes un resumen de los comandos que vale la pena conocer, agrupados según cuándo los necesitas, y después explica cómo crear comandos de barra propios con argumentos y cómo se relacionan con las skills.",
-    cta: "Acceso anticipado",
+    cta: "Empezar",
     secondary: "Ir a los comandos propios",
     secondaryHref: "#how-to",
   },
@@ -191,7 +191,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Ya automatizaste lo que escribes. ¿Quién decide qué escribir después?",
     text: "Crewmark despierta a Claude Code con un heartbeat, un rol, un objetivo y un tablero de issues, con el plan que ya pagas.",
-    button: "Acceso anticipado",
+    button: "Empezar",
   },
   faq: {
     title: "Preguntas frecuentes sobre los comandos de barra de Claude Code",
@@ -229,7 +229,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Dale a tus skills de Claude Code un empleado que las ejecute.",
     text: "Crewmark convierte las sesiones de Claude Code, Codex y DeepSeek Harness en empleados de IA con roles, objetivos, horarios y un heartbeat.",
-    button: "Acceso anticipado",
+    button: "Empezar",
   },
   checked: "Comprobado con la documentación de Claude Code (commands y skills) el 6 de noviembre de 2026.",
   disclaimer:

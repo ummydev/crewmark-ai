@@ -14,7 +14,7 @@ const cron =
 export const claudeCodeBackgroundAgents: Partial<Record<"en", GuideCopy>> = {
   en: {
     meta: {
-      title: "Claude Code Background Agents: Headless Mode, --bg and Scheduled Runs | Crewmark",
+      title: "Claude Code Background Agents: Headless Mode | Crewmark AI",
       description:
         "Run Claude Code in the background: background tasks, agent view with --bg, headless claude -p with cron, cloud sessions, scheduled tasks and the permissions each needs.",
     },
@@ -25,7 +25,7 @@ export const claudeCodeBackgroundAgents: Partial<Record<"en", GuideCopy>> = {
       kicker: "Blog · Claude Code",
       title: "How to run Claude Code background agents",
       lead: "A background agent keeps working while you do something else: a long test run you sent to the background, a session you started with --bg and closed the terminal on, or a headless claude -p job that cron starts every morning. Claude Code has a tool for each of these. This guide shows how to use them, what keeps each one running, and the permissions an unattended run needs.",
-      cta: "Get early access",
+      cta: "Get started",
       secondary: "Jump to headless mode",
       secondaryHref: "#how-to",
     },
@@ -144,7 +144,7 @@ export const claudeCodeBackgroundAgents: Partial<Record<"en", GuideCopy>> = {
     mid: {
       title: "Want it to pick its own next task?",
       text: "Crewmark wakes your Claude Code session on a heartbeat and hands it the next issue from a board, during working hours you set.",
-      button: "Get early access",
+      button: "Get started",
     },
     faq: {
       title: "Claude Code background agent FAQ",
@@ -178,7 +178,7 @@ export const claudeCodeBackgroundAgents: Partial<Record<"en", GuideCopy>> = {
     cta: {
       title: "Give Claude Code a standing job.",
       text: "Crewmark turns a Claude Code session into an AI employee with a role, a goal, working hours and a heartbeat.",
-      button: "Get early access",
+      button: "Get started",
     },
     checked: "Checked against Anthropic's Claude Code documentation on November 2, 2026.",
     disclaimer:

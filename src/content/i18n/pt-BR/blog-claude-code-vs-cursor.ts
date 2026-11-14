@@ -6,7 +6,7 @@ const cursorPricing = "https://cursor.com/pricing";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code vs Cursor (2026): preços, modelos, limites e qual escolher | Crewmark",
+    title: "Claude Code vs Cursor (2026): preços e qual escolher",
     description:
       "Claude Code vs Cursor em novembro de 2026: os novos planos do Cursor focados no Grok após a entrada na SpaceX, quanto custam os modelos Claude em cada um, agentes, CLI, regras, MCP, hooks e como escolher.",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "Claude Code vs Cursor em 2026: o que mudou e qual escolher",
     lead: "O Claude Code é o agente de programação da Anthropic: ele roda no seu terminal, na sua IDE, no aplicativo de desktop ou no navegador, com uma assinatura do Claude. O Cursor é um editor de código com IA que tem agente próprio, CLI e agentes na nuvem. A comparação mudou este ano: o Cursor passou a fazer parte da SpaceX em agosto de 2026, os planos agora giram em torno dos modelos Grok e os modelos Claude no Cursor são cobrados à parte, pelo preço de tabela da API. Este guia compara preços, modelos, limites e recursos em 6 de novembro de 2026 e mostra como escolher, ou como usar os dois.",
-    cta: "Acesso antecipado",
+    cta: "Começar",
     secondary: "Ir para a comparação",
     secondaryHref: "#compare",
   },
@@ -141,7 +141,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Já escolheu o seu agente? Agora deixe-o trabalhar sem esperar por você.",
     text: "O Crewmark acorda o Claude Code ou o Codex com um heartbeat, um papel, uma meta e um quadro de issues.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   faq: {
     title: "Perguntas frequentes sobre Claude Code vs Cursor",
@@ -179,7 +179,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Transforme o seu agente de programação em um colega que não para.",
     text: "O Crewmark transforma sessões do Claude Code, Codex e DeepSeek Harness em funcionários de IA com papéis, metas, horários de trabalho e um heartbeat.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   checked: "Conferido com a documentação do Claude Code, o claude.com/pricing e o cursor.com (preços, documentação, changelog e blog) em 6 de novembro de 2026.",
   disclaimer:

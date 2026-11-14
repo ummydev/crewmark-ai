@@ -23,7 +23,7 @@ const settings = `{
 export const claudeCodePlanMode: Partial<Record<"en", GuideCopy>> = {
   en: {
     meta: {
-      title: "Claude Code Plan Mode: Shortcut, How It Works, vs Auto Mode | Crewmark",
+      title: "Claude Code Plan Mode: Shortcut, vs Auto Mode | Crewmark AI",
       description:
         "How plan mode works in Claude Code: the Shift+Tab shortcut and /plan, what Claude can do while planning, approving a plan, making it the default, and plan mode vs auto, accept edits and manual.",
     },
@@ -34,7 +34,7 @@ export const claudeCodePlanMode: Partial<Record<"en", GuideCopy>> = {
       kicker: "Blog · Claude Code",
       title: "Claude Code plan mode: how it works, and when to use it",
       lead: "Plan mode is the Claude Code permission mode where Claude researches and proposes changes without making them: it reads files, runs commands to explore, and writes a plan, but doesn't edit your source until you approve. Press `Shift+Tab` to cycle into it, or start a prompt with `/plan`. This guide covers every way in and out, what's allowed while planning, the approve options, how to make it the default, and how it compares with auto, accept edits and manual mode.",
-      cta: "Get early access",
+      cta: "Get started",
       secondary: "Jump to the steps",
       secondaryHref: "#how-to",
     },
@@ -150,7 +150,7 @@ export const claudeCodePlanMode: Partial<Record<"en", GuideCopy>> = {
     mid: {
       title: "You approved the plan. Who picks up the next task?",
       text: "Crewmark wakes Claude Code on a heartbeat with a role, a goal and a board of issues, on the plan you already pay for.",
-      button: "Get early access",
+      button: "Get started",
     },
     faq: {
       title: "Claude Code plan mode FAQ",
@@ -188,7 +188,7 @@ export const claudeCodePlanMode: Partial<Record<"en", GuideCopy>> = {
     cta: {
       title: "Let Claude Code plan, build and pick up the next issue.",
       text: "Crewmark turns Claude Code, Codex and DeepSeek Harness sessions into AI employees with roles, goals, working hours and a heartbeat.",
-      button: "Get early access",
+      button: "Get started",
     },
     checked: "Checked against the Claude Code docs (permission modes and settings) on November 6, 2026.",
     disclaimer:

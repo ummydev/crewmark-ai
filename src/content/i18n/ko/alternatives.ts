@@ -18,13 +18,13 @@ const newToIdea = "처음이신가요? [AI 직원이란 무엇인지](/ai-employ
 const closing = (product: string) => ({
   title: `${product} 대안으로 Crewmark를 써 보세요.`,
   text: "Claude Code나 Codex 에이전트에게 직무, 목표, 근무 시간을 주고, 보드에서 업무를 맡기세요.",
-  button: "얼리 액세스 신청",
+  button: "시작하기",
 });
 
 const mid = {
   title: "이미 결제 중인 요금제로 AI 직원을 채용하세요",
   text: "Crewmark는 하트비트에 맞춰 Claude Code나 Codex 세션을 깨우고, 보드에서 다음 이슈를 넘겨줘요.",
-  button: "얼리 액세스 신청",
+  button: "시작하기",
 };
 
 const disclaimer = (owner: string) =>
@@ -33,7 +33,7 @@ const disclaimer = (owner: string) =>
 export const copy: Record<Alternative, GuideCopy> = {
   paperclip: {
     meta: {
-      title: "Paperclip AI 대안: Crewmark vs Paperclip | Crewmark",
+      title: "Paperclip AI 대안: Crewmark vs Paperclip | Crewmark AI",
       description:
         "Paperclip 대안을 찾나요? 호스팅, 에이전트, 하트비트, 목표, 설정으로 Crewmark와 Paperclip을 비교해 보세요.",
     },
@@ -42,7 +42,7 @@ export const copy: Record<Alternative, GuideCopy> = {
       kicker: "Paperclip 대안",
       title: "Crewmark vs Paperclip",
       lead: "Paperclip과 Crewmark는 둘 다 Claude Code나 Codex 같은 코딩 에이전트를 일정에 맞춰 일을 받는 팀으로 바꿔 줘요. Paperclip은 회사 하나 규모의 에이전트를 오케스트레이션하기 위해 직접 운영하는 오픈 소스 서버예요. Crewmark는 호스팅되는 보드로, 각 에이전트가 직무, 숫자로 된 목표, 근무 시간을 가진 직원이에요. 두 제품을 비교해 볼게요.",
-      cta: "얼리 액세스 신청",
+      cta: "시작하기",
       secondary: "비교 보기",
       secondaryHref: "#compare",
     },
@@ -62,7 +62,7 @@ export const copy: Record<Alternative, GuideCopy> = {
         headers: ["", "Paperclip", "Crewmark"],
         rows: [
           ["호스팅", "셀프 호스팅(Node.js 24+ 또는 Docker), 클라우드는 대기자 명단", "호스팅 웹 앱 + 내 컴퓨터의 작은 데몬"],
-          ["라이선스", "오픈 소스, MIT", "상용, 얼리 액세스 중"],
+          ["라이선스", "오픈 소스, MIT", "상용, 누구나 가입 가능"],
           ["에이전트", "Claude Code, Codex, Cursor, Gemini CLI, OpenCode, OpenClaw 등, 또는 API 키", "Claude Code, Codex, DeepSeek Harness, OpenCode"],
           ["작업 단위", "회사·프로젝트 목표에 연결된 이슈", "칸반 보드의 이슈"],
           ["구조", "조직도: 역할, 보고 체계, 예산", "직원: 직무, 숫자로 된 KPI, 근무 시간"],
@@ -125,6 +125,10 @@ export const copy: Record<Alternative, GuideCopy> = {
           q: "Crewmark를 셀프 호스팅할 수 있나요?",
           a: "아니요. Crewmark는 호스팅 앱이에요. 에이전트를 깨우는 데몬만 내 컴퓨터에서 실행돼요.",
         },
+        {
+          q: "Paperclip과 OpenClaw, Hermes Agent는 어떻게 다른가요?",
+          a: "Paperclip은 스스로를 회사로, OpenClaw를 직원으로 설명해요. OpenClaw와 Hermes는 개인 에이전트이고, Paperclip은 이런 에이전트를 목표와 예산이 있는 조직도로 묶어요. 두 에이전트 비교는 [Hermes Agent vs OpenClaw](/blog/hermes-agent-vs-openclaw)에서 볼 수 있어요.",
+        },
       ],
     },
     cta: closing("Paperclip"),
@@ -133,7 +137,7 @@ export const copy: Record<Alternative, GuideCopy> = {
   },
   multica: {
     meta: {
-      title: "Multica 대안: Crewmark vs Multica | Crewmark",
+      title: "Multica 대안: Crewmark vs Multica | Crewmark AI",
       description:
         "Multica 대안을 찾나요? 에이전트, 스케줄링, 목표, 라이선스, 설정으로 Crewmark와 Multica를 비교해 보세요.",
     },
@@ -142,7 +146,7 @@ export const copy: Record<Alternative, GuideCopy> = {
       kicker: "Multica 대안",
       title: "Crewmark vs Multica",
       lead: "Multica와 Crewmark는 둘 다 Claude Code나 Codex 같은 코딩 에이전트에게 팀원처럼 이슈를 배정할 수 있게 해 줘요. Multica는 소프트웨어 팀을 위한 워크스페이스로, 클라우드나 셀프 호스팅으로 쓸 수 있어요. Crewmark는 각 에이전트를 숫자로 된 목표, 근무 시간, 그리고 스스로 깨우는 하트비트를 가진 직원으로 다뤄요. 두 제품을 비교해 볼게요.",
-      cta: "얼리 액세스 신청",
+      cta: "시작하기",
       secondary: "비교 보기",
       secondaryHref: "#compare",
     },
@@ -162,7 +166,7 @@ export const copy: Record<Alternative, GuideCopy> = {
         headers: ["", "Multica", "Crewmark"],
         rows: [
           ["호스팅", "클라우드, 또는 Docker나 Helm으로 셀프 호스팅", "호스팅 웹 앱 + 내 컴퓨터의 작은 데몬"],
-          ["라이선스", "소스 공개(조건이 붙은 Apache 2.0), 타인에게 호스팅 제공 시 상용 라이선스 필요", "상용, 얼리 액세스 중"],
+          ["라이선스", "소스 공개(조건이 붙은 Apache 2.0), 타인에게 호스팅 제공 시 상용 라이선스 필요", "상용, 누구나 가입 가능"],
           ["에이전트", "Claude Code, Codex, Cursor, DeepSeek Harness 등 에이전트 CLI 26개", "Claude Code, Codex, DeepSeek Harness, OpenCode"],
           ["작업 단위", "보드의 이슈, squads, 채팅, 채널", "칸반 보드의 이슈"],
           ["예약 작업", "Autopilots가 cron이나 웹훅으로 이슈 생성", "하트비트가 15, 30, 60분마다 각 직원을 깨움"],
@@ -225,6 +229,18 @@ export const copy: Record<Alternative, GuideCopy> = {
           q: "Crewmark를 셀프 호스팅할 수 있나요?",
           a: "아니요. Crewmark는 호스팅 앱이에요. 에이전트를 깨우는 데몬만 내 컴퓨터에서 실행돼요.",
         },
+        {
+          q: "Multica는 무료인가요?",
+          a: "Multica는 소스 공개(source-available)예요. 자기 조직 안에서 셀프 호스팅해 쓰는 것은 무료지만, 다른 사람에게 제공하려면 상용 라이선스가 필요해요. 클라우드는 무료 체험을 제공하지만 요금제 가격은 아직 공개하지 않았어요.",
+        },
+        {
+          q: "Multica와 Linear는 어떻게 다른가요?",
+          a: "Linear는 사람을 위한 이슈 트래커예요. Multica는 코딩 에이전트가 팀원이 되는 보드예요. 이슈를 배정하면 에이전트가 내 컴퓨터의 데몬이나 클라우드 런타임을 통해 이슈를 가져가 작업하고 보고해요.",
+        },
+        {
+          q: "Multica와 Hermes Agent는 어떻게 다른가요?",
+          a: "서로 다른 계층이에요. Hermes Agent는 Nous Research의 개인 에이전트이고, Multica는 Hermes를 Claude Code, Codex, OpenClaw 등 20개가 넘는 에이전트 CLI와 함께 보드의 런타임으로 실행할 수 있어요. [Hermes Agent vs OpenClaw](/blog/hermes-agent-vs-openclaw)도 참고하세요.",
+        },
       ],
     },
     cta: closing("Multica"),
@@ -233,7 +249,7 @@ export const copy: Record<Alternative, GuideCopy> = {
   },
   crewai: {
     meta: {
-      title: "비개발자용 CrewAI 대안: Crewmark vs CrewAI | Crewmark",
+      title: "비개발자용 CrewAI 대안: Crewmark vs CrewAI | Crewmark AI",
       description:
         "CrewAI 대안을 찾나요? 코딩 여부, 모델, 가격, 업무 배정 방식으로 Crewmark와 CrewAI를 비교해 보세요.",
     },
@@ -242,7 +258,7 @@ export const copy: Record<Alternative, GuideCopy> = {
       kicker: "CrewAI 대안",
       title: "Crewmark vs CrewAI",
       lead: "CrewAI는 멀티 에이전트 워크플로를 만드는 Python 프레임워크이고, 그 위에 상용 플랫폼이 있어요. Crewmark는 프레임워크가 아니에요. 이미 쓰고 있는 Claude Code나 Codex 에이전트를 AI 직원으로 바꾸고 보드에서 업무를 줘요. 작성할 코드도, API 비용도 없어요. 두 제품을 비교해 볼게요.",
-      cta: "얼리 액세스 신청",
+      cta: "시작하기",
       secondary: "비교 보기",
       secondaryHref: "#compare",
     },
@@ -268,7 +284,7 @@ export const copy: Record<Alternative, GuideCopy> = {
           ["작업 단위", "crew나 flow 안의 작업", "칸반 보드의 이슈"],
           ["스케줄링", "플랫폼의 cron 스케줄링", "근무 시간 중 15, 30, 60분마다 하트비트"],
           ["목표", "각 에이전트 프롬프트의 goal 필드", "직원마다 숫자로 된 KPI를 시간에 따라 추적"],
-          ["가격", "월 50회 실행 무료 플랜, Enterprise는 별도 협의", "얼리 액세스, 요금제 외 토큰 비용 추가 없음"],
+          ["가격", "월 50회 실행 무료 플랜, Enterprise는 별도 협의", "누구나 가입 가능, 요금제 외 토큰 비용 추가 없음"],
         ],
       },
       {

@@ -15,7 +15,7 @@ export const aiEmployees: Record<AiEmployeesLocale, GuideCopy> = {
   ...aiEmployeesTranslations,
   en: {
     meta: {
-      title: "What Is an AI Employee? Definition, Examples and How to Hire One | Crewmark",
+      title: "What Is an AI Employee? Examples & How to Hire | Crewmark AI",
       description:
         "An AI employee is an AI agent with a role, a goal and working hours that takes work from a board. See how it differs from an AI agent, examples and how to hire one.",
     },
@@ -24,7 +24,7 @@ export const aiEmployees: Record<AiEmployeesLocale, GuideCopy> = {
       kicker: "AI employees",
       title: "What is an AI employee?",
       lead: "An AI employee is an AI agent that you give a job instead of a prompt: a role, a goal measured in numbers, working hours and a place to receive work. It wakes up on its own, picks up the next task, reports progress and asks you when it's stuck, the way a new hire would. This guide explains how that differs from an AI agent or a chatbot, shows examples by role, and walks through hiring your first one.",
-      cta: "Get early access",
+      cta: "Get started",
       secondary: "See examples",
       secondaryHref: "#examples",
     },
@@ -68,12 +68,12 @@ export const aiEmployees: Record<AiEmployeesLocale, GuideCopy> = {
           "AI employees work best in jobs where the output can be checked and the goal can be counted. Six roles that work well today:",
         ],
         points: [
-          "SEO specialist: finds missing keywords, fixes titles and internal links, submits sitemaps and reports what moved. Goal: Search Console clicks.",
-          "Growth marketer: reads the funnel, sets up A/B tests, drafts ad copy and keeps the variants that win. Goal: trial sign-ups.",
-          "Social media manager: drafts and schedules posts, answers mentions and learns which posts land. Goal: followers or engagement.",
-          "Software engineer: picks up bugs, opens pull requests with tests and asks for review. Goal: merged pull requests.",
-          "UI designer: tidies type, spacing and components in your real code and checks dark mode and accessibility. Goal: screens shipped.",
-          "App UI designer: designs iOS and Android screens and checks them in the simulator. Goal: app screens shipped.",
+          "[SEO specialist](/ai-employees/seo-specialist): finds missing keywords, fixes titles and internal links, submits sitemaps and reports what moved. Goal: Search Console clicks.",
+          "[Growth marketer](/ai-employees/marketing-agent): reads the funnel, sets up A/B tests, drafts ad copy and keeps the variants that win. Goal: trial sign-ups.",
+          "[Social media manager](/ai-employees/social-media-manager): drafts and schedules posts, answers mentions and learns which posts land. Goal: followers or engagement.",
+          "[Software engineer](/ai-employees/software-engineer): picks up bugs, opens pull requests with tests and asks for review. Goal: merged pull requests.",
+          "[UI designer](/ai-employees/ui-designer): tidies type, spacing and components in your real code and checks dark mode and accessibility. Goal: screens shipped.",
+          "[App UI designer](/ai-employees/app-designer): designs iOS and Android screens and checks them in the simulator. Goal: app screens shipped.",
         ],
       },
       {
@@ -153,7 +153,7 @@ export const aiEmployees: Record<AiEmployeesLocale, GuideCopy> = {
     mid: {
       title: "Hire one without a new token bill",
       text: "Crewmark gives your Claude Code or Codex agent a role, a goal and working hours, and runs it on the plan you already pay for.",
-      button: "Get early access",
+      button: "Get started",
     },
     faq: {
       title: "AI employee FAQ",
@@ -187,7 +187,7 @@ export const aiEmployees: Record<AiEmployeesLocale, GuideCopy> = {
     cta: {
       title: "Hire your first AI employee.",
       text: "Give your Claude Code or Codex agent a role, a goal and working hours, and assign it work on a board.",
-      button: "Get early access",
+      button: "Get started",
     },
     checked: "Last reviewed November 2, 2026.",
     disclaimer:
@@ -195,7 +195,7 @@ export const aiEmployees: Record<AiEmployeesLocale, GuideCopy> = {
   },
   zh: {
     meta: {
-      title: "什么是 AI 员工？定义、岗位例子和招聘方法 | Crewmark",
+      title: "什么是 AI 员工？定义、岗位例子和招聘方法 | Crewmark AI",
       description:
         "AI 员工是有岗位、有目标、有工作时间、从看板领活的 AI agent。看它和 AI agent、聊天机器人有什么不同，有哪些岗位例子，怎么招第一个 AI 员工。",
     },
@@ -204,7 +204,7 @@ export const aiEmployees: Record<AiEmployeesLocale, GuideCopy> = {
       kicker: "AI 员工",
       title: "什么是 AI 员工？",
       lead: "AI 员工是你交给它一份工作、而不是一句提示词的 AI agent：有岗位，有用数字衡量的目标，有工作时间，有接活的地方。它会自己醒来，领下一个任务，汇报进度，卡住了就来问你，就像一个新同事。这篇讲清楚它和 AI agent、聊天机器人的区别，按岗位举例，并一步步带你招第一个 AI 员工。",
-      cta: "申请抢先体验",
+      cta: "开始使用",
       secondary: "看岗位例子",
       secondaryHref: "#examples",
     },
@@ -242,12 +242,12 @@ export const aiEmployees: Record<AiEmployeesLocale, GuideCopy> = {
         title: "AI 员工岗位例子",
         text: ["产出能检查、目标能计数的工作，最适合交给 AI 员工。目前效果好的六个岗位："],
         points: [
-          "SEO 专员：找缺的关键词，改标题和内链，提交 sitemap，汇报变化。目标：Search Console 点击。",
-          "增长营销：看漏斗，做 A/B 测试，写广告文案，留下效果好的版本。目标：试用注册数。",
-          "社媒运营：写帖子、排期发布、回复提及，摸清什么内容受欢迎。目标：粉丝或互动。",
-          "软件工程师：领 bug，提带测试的 PR，请你审核。目标：合并的 PR 数。",
-          "UI 设计师：在真实代码里统一字体、间距和组件，检查深色模式和无障碍。目标：交付的页面数。",
-          "App UI 设计师：设计 iOS 和 Android 界面，在模拟器里检查。目标：交付的 App 页面数。",
+          "[SEO 专员](/ai-employees/seo-specialist)：找缺的关键词，改标题和内链，提交 sitemap，汇报变化。目标：Search Console 点击。",
+          "[增长营销](/ai-employees/marketing-agent)：看漏斗，做 A/B 测试，写广告文案，留下效果好的版本。目标：试用注册数。",
+          "[社媒运营](/ai-employees/social-media-manager)：写帖子、排期发布、回复提及，摸清什么内容受欢迎。目标：粉丝或互动。",
+          "[软件工程师](/ai-employees/software-engineer)：领 bug，提带测试的 PR，请你审核。目标：合并的 PR 数。",
+          "[UI 设计师](/ai-employees/ui-designer)：在真实代码里统一字体、间距和组件，检查深色模式和无障碍。目标：交付的页面数。",
+          "[App UI 设计师](/ai-employees/app-designer)：设计 iOS 和 Android 界面，在模拟器里检查。目标：交付的 App 页面数。",
         ],
       },
       {
@@ -325,7 +325,7 @@ export const aiEmployees: Record<AiEmployeesLocale, GuideCopy> = {
     mid: {
       title: "招一个 AI 员工，不用另付 token 费",
       text: "Crewmark 给你的 Claude Code 或 Codex agent 一个岗位、一个目标和工作时间，跑在你已经付费的套餐上。",
-      button: "申请抢先体验",
+      button: "开始使用",
     },
     faq: {
       title: "AI 员工常见问题",
@@ -359,7 +359,7 @@ export const aiEmployees: Record<AiEmployeesLocale, GuideCopy> = {
     cta: {
       title: "招你的第一个 AI 员工。",
       text: "给你的 Claude Code 或 Codex agent 一个岗位、一个目标和工作时间，在看板上给它派活。",
-      button: "申请抢先体验",
+      button: "开始使用",
     },
     checked: "最后核对：2026 年 11 月 2 日。",
     disclaimer:

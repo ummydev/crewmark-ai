@@ -3,7 +3,7 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 // French translation of /ai-employees; the English master is src/content/ai-employees.ts.
 export const copy: GuideCopy = {
   meta: {
-    title: "Employé IA : définition, exemples et recrutement | Crewmark",
+    title: "Employé IA : définition, exemples, recrutement | Crewmark AI",
     description:
       "L’employé IA est un agent IA avec rôle, objectif et horaires, qui prend son travail sur un tableau. Différence avec un agent IA, exemples et recrutement.",
   },
@@ -12,7 +12,7 @@ export const copy: GuideCopy = {
     kicker: "Employés IA",
     title: "Qu’est-ce qu’un employé IA ?",
     lead: "Un employé IA est un agent IA à qui vous confiez un poste plutôt qu’un prompt : un rôle, un objectif chiffré, des horaires de travail et un endroit où recevoir du travail. Il se réveille tout seul, prend la tâche suivante, rend compte de son avancement et vous sollicite quand il est bloqué, comme le ferait une nouvelle recrue. Ce guide explique ce qui le distingue d’un agent IA ou d’un chatbot, donne des exemples par rôle et détaille le recrutement de votre premier employé IA.",
-    cta: "Accès anticipé",
+    cta: "Commencer",
     secondary: "Voir des exemples",
     secondaryHref: "#examples",
   },
@@ -56,12 +56,12 @@ export const copy: GuideCopy = {
         "Les employés IA sont les plus efficaces sur des postes dont le résultat se vérifie et dont l’objectif se compte. Six rôles qui fonctionnent bien aujourd’hui :",
       ],
       points: [
-        "Spécialiste SEO : repère les mots-clés manquants, corrige les balises title et le maillage interne, soumet les sitemaps et rend compte de ce qui a bougé. Objectif : clics Search Console.",
-        "Growth marketer : analyse le tunnel, met en place des tests A/B, rédige des textes d’annonces et garde les variantes gagnantes. Objectif : inscriptions à l’essai.",
-        "Responsable réseaux sociaux : rédige et programme les posts, répond aux mentions et apprend quels posts fonctionnent. Objectif : abonnés ou engagement.",
-        "Ingénieur logiciel : prend en charge les bugs, ouvre des pull requests avec tests et demande une revue. Objectif : pull requests fusionnées.",
-        "Designer UI : harmonise la typographie, les espacements et les composants dans votre vrai code, et vérifie le mode sombre et l’accessibilité. Objectif : écrans livrés.",
-        "Designer UI mobile : conçoit des écrans iOS et Android et les vérifie dans le simulateur. Objectif : écrans d’app livrés.",
+        "[Spécialiste SEO](/ai-employees/seo-specialist) : repère les mots-clés manquants, corrige les balises title et le maillage interne, soumet les sitemaps et rend compte de ce qui a bougé. Objectif : clics Search Console.",
+        "[Growth marketer](/ai-employees/marketing-agent) : analyse le tunnel, met en place des tests A/B, rédige des textes d’annonces et garde les variantes gagnantes. Objectif : inscriptions à l’essai.",
+        "[Responsable réseaux sociaux](/ai-employees/social-media-manager) : rédige et programme les posts, répond aux mentions et apprend quels posts fonctionnent. Objectif : abonnés ou engagement.",
+        "[Ingénieur logiciel](/ai-employees/software-engineer) : prend en charge les bugs, ouvre des pull requests avec tests et demande une revue. Objectif : pull requests fusionnées.",
+        "[Designer UI](/ai-employees/ui-designer) : harmonise la typographie, les espacements et les composants dans votre vrai code, et vérifie le mode sombre et l’accessibilité. Objectif : écrans livrés.",
+        "[Designer UI mobile](/ai-employees/app-designer) : conçoit des écrans iOS et Android et les vérifie dans le simulateur. Objectif : écrans d’app livrés.",
       ],
     },
     {
@@ -141,7 +141,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Recrutez-en un sans nouvelle facture de tokens",
     text: "Crewmark donne à votre agent Claude Code ou Codex un rôle, un objectif et des horaires de travail, et le fait tourner sur le forfait que vous payez déjà.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   faq: {
     title: "FAQ sur les employés IA",
@@ -175,7 +175,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Recrutez votre premier employé IA.",
     text: "Donnez à votre agent Claude Code ou Codex un rôle, un objectif et des horaires de travail, et assignez-lui du travail sur un tableau.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   checked: "Dernière vérification le 2 novembre 2026.",
   disclaimer:

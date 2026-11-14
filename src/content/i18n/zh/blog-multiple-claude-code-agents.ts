@@ -16,7 +16,7 @@ specific, actionable feedback on quality, security and best practices.`;
 
 export const copy: GuideCopy = {
   meta: {
-    title: "多个 Claude Code agent 并行：subagent 与 worktree | Crewmark",
+    title: "多个 Claude Code agent 并行：subagent 与 worktree",
     description:
       "同时运行多个 Claude Code agent：subagent、git worktree 里的并行会话、--bg 后台会话和实验性的 agent teams，还不会互相改坏文件。",
   },
@@ -27,7 +27,7 @@ export const copy: GuideCopy = {
     kicker: "博客 · Claude Code",
     title: "怎么同时运行多个 Claude Code agent",
     lead: "Claude Code 有四种方式可以同时做好几件事：一个对话里的 subagent、各自在独立 git worktree 里的会话、用 --bg 启动的后台会话，以及能互相发消息的实验性 agent teams。这篇教程讲怎么设置每一种、该选哪一种，以及怎么避免并行的 agent 互相覆盖对方的工作。",
-    cta: "申请抢先体验",
+    cta: "开始使用",
     secondary: "直接看 worktree",
     secondaryHref: "#how-to",
   },
@@ -157,7 +157,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "每天都要跑好几个 agent？",
     text: "Crewmark 给每个 Claude Code 会话一个岗位、一个目标和工作时间，把它们的工作都放在同一块看板上。",
-    button: "申请抢先体验",
+    button: "开始使用",
   },
   faq: {
     title: "多个 Claude Code agent 常见问题",
@@ -191,7 +191,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "运行一支各有分工的 Claude Code agent 团队。",
     text: "Crewmark 把 Claude Code 和 Codex 会话变成有岗位、有目标、有工作时间的 AI 员工，都在同一块看板上。",
-    button: "申请抢先体验",
+    button: "开始使用",
   },
   checked: "已于 2026 年 11 月 2 日对照 Anthropic 的 Claude Code 官方文档核对。",
   disclaimer: "Crewmark 是独立产品，与 Anthropic 无关，也未获其背书。Claude 和 Claude Code 是 Anthropic 的商标。",

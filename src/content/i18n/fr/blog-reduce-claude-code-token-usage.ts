@@ -23,7 +23,7 @@ const hook = `{
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Réduire la consommation de tokens de Claude Code : 12 astuces | Crewmark",
+    title: "Réduire les tokens de Claude Code : 12 astuces | Crewmark AI",
     description:
       "Pourquoi Claude Code consomme autant de tokens et comment réduire la note : suivez l’usage avec /usage et /context, utilisez clear et compact, choisissez modèle et effort, allégez CLAUDE.md et MCP, et misez sur hooks, skills et sous-agents.",
   },
@@ -34,7 +34,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "Comment réduire la consommation de tokens de Claude Code (et ne plus buter sur les limites)",
     lead: "Claude Code envoie toute la conversation à chaque requête : la consommation de tokens grandit donc avec le contexte, et une question d’une ligne en fin de longue session coûte bien plus que la même question dans une session neuve. Ce guide montre comment voir où partent vos tokens, puis douze changements tirés de la documentation d’Anthropic elle-même pour réduire la consommation, de `/clear` et `/compact` au choix du modèle et de l’effort, en passant par l’allègement de CLAUDE.md et des serveurs MCP, jusqu’au transfert du travail bruyant vers les hooks, les skills et les sous-agents.",
-    cta: "Accès anticipé",
+    cta: "Commencer",
     secondary: "Aller aux astuces",
     secondaryHref: "#how-to",
   },
@@ -157,7 +157,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Dépensez vos tokens pour du travail, pas pour de l’attente.",
     text: "Crewmark réveille Claude Code pendant les horaires de travail avec un rôle, un objectif et la prochaine issue d’un tableau.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   faq: {
     title: "FAQ consommation de tokens Claude Code",
@@ -195,7 +195,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Faites travailler Claude Code selon un horaire que vous maîtrisez.",
     text: "Crewmark transforme les sessions Claude Code, Codex et DeepSeek Harness en employés IA avec des rôles, des objectifs, des horaires de travail et une pulsation.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   checked: "Vérifié dans la documentation de Claude Code (Manage costs effectively) le 6 novembre 2026.",
   disclaimer:

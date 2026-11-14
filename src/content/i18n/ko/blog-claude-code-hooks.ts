@@ -62,7 +62,7 @@ const stop = `{
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code 훅(hooks): 이벤트, 예시, 작동 방식 | Crewmark",
+    title: "Claude Code 훅(hooks): 이벤트, 예시, 작동 방식 | Crewmark AI",
     description:
       "Claude Code 훅(hooks) 총정리: 라이프사이클 이벤트, 훅 설정 위치, 종료 코드와 JSON 출력, 그리고 알림, 자동 포맷팅, 명령 차단, Stop 훅을 바로 복사해 쓸 수 있는 예시까지.",
   },
@@ -73,7 +73,7 @@ export const copy: GuideCopy = {
     kicker: "블로그 · Claude Code",
     title: "Claude Code 훅(hooks): 이벤트, 예시, 작동 방식",
     lead: "Claude Code 훅(hooks)은 세션의 정해진 시점에 자동으로 실행되는 명령이에요. 도구가 실행되기 전, 파일을 편집한 뒤, Claude가 응답을 마쳤을 때, 내 입력이 필요할 때 실행돼요. CLAUDE.md의 지시는 Claude가 대체로 따르는 정도지만, 훅은 항상 실행돼요. 그래서 규칙을 강제하고 귀찮은 일을 자동화하는 데 딱 맞아요. 이 가이드에서는 이벤트 종류, 훅을 설정하는 위치, 종료 코드와 JSON으로 동작을 제어하는 법, 바로 쓸 수 있는 예시 4가지, 그리고 새로 나온 prompt, agent, HTTP 유형의 훅을 다뤄요.",
-    cta: "얼리 액세스 신청",
+    cta: "시작하기",
     secondary: "예시로 바로 가기",
     secondaryHref: "#how-to",
   },
@@ -209,7 +209,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "훅은 매번 실행돼요. 에이전트는 어떤가요?",
     text: "Crewmark는 직무, 목표, 이슈 보드를 주고 하트비트로 Claude Code를 깨워요. 이미 결제한 요금제 그대로 쓸 수 있어요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   faq: {
     title: "Claude Code 훅 자주 묻는 질문",
@@ -247,7 +247,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "가드레일은 훅에, 일은 보드에서.",
     text: "Crewmark는 Claude Code, Codex, DeepSeek Harness 세션을 직무, 목표, 근무 시간, 하트비트를 갖춘 AI 직원으로 바꿔 줘요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   checked: "2026년 11월 6일에 Claude Code 문서(훅 가이드, 훅 레퍼런스)와 대조해 확인했습니다.",
   disclaimer:

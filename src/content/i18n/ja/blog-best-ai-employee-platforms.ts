@@ -4,7 +4,7 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "AI 社員プラットフォームおすすめ比較 2026：8 製品と料金 | Crewmark",
+    title: "AI 社員プラットフォームおすすめ比較 2026 | Crewmark AI",
     description:
       "Lindy、Sintra、Marblism、Artisan、Ema、Devin、オープンソースの ai-employees、Crewmark を比較。対応する職種、仕事の始まり方、使うモデル、無料プラン、料金をまとめました。",
   },
@@ -15,7 +15,7 @@ export const copy: GuideCopy = {
     kicker: "ブログ · AI 社員",
     title: "2026年のおすすめ AI 社員プラットフォームを比較",
     lead: "AI 社員プラットフォームは、AI エージェントをスタッフとして設定するサービスです。それぞれが職種を持ち、目標に向かって働き、毎回指示されなくても自分で仕事を始めます。以下の製品はどれもこの考え方を売りにしていますが、担当できる仕事、仕事の受け取り方、使うモデル、課金方法はそれぞれ違います。自社製品を含む 8 製品を、各ベンダーが公開している情報だけで比較しました。",
-    cta: "早期アクセスに登録",
+    cta: "今すぐ始める",
     secondary: "比較表へ移動",
     secondaryHref: "#compare",
   },
@@ -36,7 +36,7 @@ export const copy: GuideCopy = {
         ["Ema", "大企業の人事・IT・経理", "Teams、Slack、音声。250 以上の連携", "Ema が組み合わせる 100 以上のモデル", "無料トライアル", "成果報酬型、価格非公開"],
         ["Devin", "ソフトウェア開発", "Slack や Teams での @メンション、Linear や Jira のチケット、定期ワークフロー", "Devin のモデル（複数のプロバイダー）", "少量の枠がある無料プラン", "$20/月（Pro）"],
         ["ai-employees（オープンソース）", "8 つの業務職種を、定期ルーティンをまとめたフォルダとして提供", "各職種の SCHEDULE.md に書かれたスケジュール", "自分のエージェント：Claude Code、Codex、OpenCode など", "無料、MIT ライセンス", "無料"],
-        ["Crewmark", "コーディングエージェント上で、自分で定義した任意の職種：開発、SEO、マーケティング、デザイン", "勤務時間中、ハートビートが各社員を起こし、ボードから次の issue を取らせる", "自分の Claude Code、Codex、DeepSeek Harness、OpenCode のサブスクリプション", "早期アクセス", "早期アクセス"],
+        ["Crewmark", "コーディングエージェント上で、自分で定義した任意の職種：開発、SEO、マーケティング、デザイン", "勤務時間中、ハートビートが各社員を起こし、ボードから次の issue を取らせる", "自分の Claude Code、Codex、DeepSeek Harness、OpenCode のサブスクリプション", "あり：1 プロジェクト、社員 3 名まで", "月 $5（Pro、近日提供）"],
       ],
     },
     {
@@ -116,7 +116,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "すでに Claude Code や Codex にお金を払っていますか？",
     text: "Crewmark なら、それを職種・目標・勤務時間・issue のボードを持つ AI 社員に変えられます。AI の請求書が 2 つになることはありません。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   faq: {
     title: "AI 社員プラットフォームのよくある質問",
@@ -154,7 +154,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "すでにお金を払っているエージェントに、仕事を与えましょう。",
     text: "Crewmark は、Claude Code、Codex、DeepSeek Harness のセッションを、職種・目標・勤務時間・ハートビートを持つ AI 社員に変えます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   checked: "2026年11月6日に各ベンダーのウェブサイトと料金ページと照合しました。価格は変わるため、最新の価格はリンク先でご確認ください。",
   disclaimer:

@@ -18,6 +18,7 @@ import {
   type NewIssueInput,
 } from "@/db/issues";
 import { insertAttachment } from "@/db/attachments";
+import { directThreadsOfUser, readDirectMessages, sendDirectMessage } from "@/db/direct-messages";
 import { addComment, listActivity } from "@/db/issue-activity";
 import { insertProject, saveProject, type ProjectPatch } from "@/db/projects";
 import { employees } from "@/db/schema";
@@ -26,7 +27,16 @@ import { storage, uploadTarget } from "@/lib/attachments";
 import { auth, freeOrganizationSlug, requireMember, requireUserId } from "@/lib/auth";
 import { answerCliLogin, revokeCliKey } from "@/lib/cli-auth";
 import { realtimeConnection } from "@/lib/realtime";
-import type { AgentConnection, Employee, ImageUpload, Issue, IssueActivity, Project } from "@/lib/types";
+import type {
+  AgentConnection,
+  DirectMessage,
+  DirectThread,
+  Employee,
+  ImageUpload,
+  Issue,
+  IssueActivity,
+  Project,
+} from "@/lib/types";
 import { text } from "@/lib/validate";
 
 export type { EmployeePatch, IssuePatch, NewEmployeeInput, NewIssueInput, ProjectPatch };
@@ -85,6 +95,34 @@ export async function getIssueActivity(organizationId: string, issueId: string):
 export async function getRealtimeConnection(organizationId: string) {
   await requireMember(organizationId);
   return realtimeConnection(organizationId);
+}
+
+/** The signed-in person's direct conversations with employees, newest first. */
+export async function getDirectThreads(organizationId: string): Promise<DirectThread[]> {
+  const userId = await requireMember(organizationId);
+  return directThreadsOfUser(organizationId, userId);
+}
+
+/**
+ * The signed-in person's conversation with the employee: its latest messages, oldest first, or those before the
+ * message `before` for an older page. Reading the latest marks them read.
+ */
+export async function getDirectMessages(
+  organizationId: string,
+  employeeId: string,
+  before?: number,
+): Promise<{ messages: DirectMessage[]; hasMore: boolean }> {
+  const userId = await requireMember(organizationId);
+  if (before !== undefined && !Number.isInteger(before)) throw new Error("before must be a message id");
+  return readDirectMessages(organizationId, { userId, employeeId: text(employeeId, "employeeId", { required: true }) }, "user", {
+    before,
+  });
+}
+
+/** Sends the employee a direct message from the signed-in person; its agent gets it at once. */
+export async function sendDirectMessageTo(organizationId: string, employeeId: string, body: string): Promise<DirectMessage> {
+  const userId = await requireMember(organizationId);
+  return sendDirectMessage(organizationId, { userId, employeeId: text(employeeId, "employeeId", { required: true }) }, "user", body);
 }
 
 /** Comments on the issue as the signed-in person. */

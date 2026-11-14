@@ -36,7 +36,7 @@ git worktree remove ../app-feature-a`;
 export const claudeCodeWorktree: Partial<Record<"en", GuideCopy>> = {
   en: {
     meta: {
-      title: "Claude Code Worktree: --worktree, Workflow, Cleanup and Settings | Crewmark",
+      title: "Claude Code Worktree: Workflow and Cleanup | Crewmark AI",
       description:
         "How git worktrees work in Claude Code: claude --worktree, where worktrees go, the base branch, .worktreeinclude for .env files, cleanup, subagent isolation and the settings.",
     },
@@ -47,7 +47,7 @@ export const claudeCodeWorktree: Partial<Record<"en", GuideCopy>> = {
       kicker: "Blog · Claude Code",
       title: "Claude Code worktrees: run parallel sessions without edit conflicts",
       lead: "A Claude Code worktree is a separate git working directory, with its own files and its own branch, that shares your repository's history. Start a session with `claude --worktree <name>` and Claude edits there instead of in your checkout, so two or three sessions can work at once without touching each other's files. This guide covers the flag, where worktrees go, which branch they start from, getting `.env` files into them, cleanup, subagents, and the settings.",
-      cta: "Get early access",
+      cta: "Get started",
       secondary: "Jump to the workflow",
       secondaryHref: "#how-to",
     },
@@ -195,7 +195,7 @@ export const claudeCodeWorktree: Partial<Record<"en", GuideCopy>> = {
     mid: {
       title: "Three worktrees, three sessions. Who tells them what's next?",
       text: "Crewmark wakes each Claude Code session on a heartbeat with a role, a goal and a board of issues, on the plan you already pay for.",
-      button: "Get early access",
+      button: "Get started",
     },
     faq: {
       title: "Claude Code worktree FAQ",
@@ -233,7 +233,7 @@ export const claudeCodeWorktree: Partial<Record<"en", GuideCopy>> = {
     cta: {
       title: "Give each worktree an employee that knows what to do next.",
       text: "Crewmark turns Claude Code, Codex and DeepSeek Harness sessions into AI employees with roles, goals, working hours and a heartbeat.",
-      button: "Get early access",
+      button: "Get started",
     },
     checked: "Checked against the Claude Code docs (worktrees, settings, CLI reference and desktop) on November 6, 2026.",
     disclaimer:

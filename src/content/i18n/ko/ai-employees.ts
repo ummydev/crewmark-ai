@@ -3,7 +3,7 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 // Korean translation of /ai-employees; the English master is src/content/ai-employees.ts.
 export const copy: GuideCopy = {
   meta: {
-    title: "AI 직원이란? 정의, 예시, 채용 방법 | Crewmark",
+    title: "AI 직원이란? 정의, 예시, 채용 방법 | Crewmark AI",
     description:
       "AI 직원은 직무, 목표, 근무 시간을 갖고 보드에서 일을 받는 AI 에이전트예요. AI 에이전트와의 차이, 직무별 예시, 채용 방법.",
   },
@@ -12,7 +12,7 @@ export const copy: GuideCopy = {
     kicker: "AI 직원",
     title: "AI 직원이란 무엇일까요?",
     lead: "AI 직원은 프롬프트 대신 '일자리'를 받은 AI 에이전트예요. 직무, 숫자로 측정하는 목표, 근무 시간, 그리고 업무를 받을 곳이 있죠. 신입 직원처럼 스스로 깨어나 다음 작업을 가져가고, 진행 상황을 보고하고, 막히면 물어봐요. 이 가이드에서는 AI 에이전트나 챗봇과 무엇이 다른지 설명하고, 직무별 예시를 보여 드린 뒤, 첫 AI 직원을 채용하는 과정을 단계별로 안내해요.",
-    cta: "얼리 액세스 신청",
+    cta: "시작하기",
     secondary: "예시 보기",
     secondaryHref: "#examples",
   },
@@ -56,12 +56,12 @@ export const copy: GuideCopy = {
         "AI 직원은 결과물을 검증할 수 있고 목표를 셀 수 있는 일에서 가장 잘해요. 지금 바로 잘 맞는 여섯 가지 직무를 소개할게요.",
       ],
       points: [
-        "SEO 전문가: 빠진 키워드를 찾고, 제목과 내부 링크를 고치고, 사이트맵을 제출하고, 무엇이 달라졌는지 보고해요. 목표: Search Console 클릭 수.",
-        "그로스 마케터: 퍼널을 분석하고, A/B 테스트를 설정하고, 광고 문구 초안을 쓰고, 성과가 좋은 변형을 남겨요. 목표: 체험판 가입 수.",
-        "소셜 미디어 매니저: 게시물 초안을 쓰고 예약하고, 멘션에 답하고, 어떤 게시물이 반응이 좋은지 배워요. 목표: 팔로워 수 또는 참여도.",
-        "소프트웨어 엔지니어: 버그를 가져가 테스트가 포함된 풀 리퀘스트를 열고 리뷰를 요청해요. 목표: 머지된 풀 리퀘스트 수.",
-        "UI 디자이너: 실제 코드에서 타이포그래피, 간격, 컴포넌트를 다듬고 다크 모드와 접근성을 확인해요. 목표: 출시한 화면 수.",
-        "앱 UI 디자이너: iOS와 Android 화면을 디자인하고 시뮬레이터에서 확인해요. 목표: 출시한 앱 화면 수.",
+        "[SEO 전문가](/ai-employees/seo-specialist): 빠진 키워드를 찾고, 제목과 내부 링크를 고치고, 사이트맵을 제출하고, 무엇이 달라졌는지 보고해요. 목표: Search Console 클릭 수.",
+        "[그로스 마케터](/ai-employees/marketing-agent): 퍼널을 분석하고, A/B 테스트를 설정하고, 광고 문구 초안을 쓰고, 성과가 좋은 변형을 남겨요. 목표: 체험판 가입 수.",
+        "[소셜 미디어 매니저](/ai-employees/social-media-manager): 게시물 초안을 쓰고 예약하고, 멘션에 답하고, 어떤 게시물이 반응이 좋은지 배워요. 목표: 팔로워 수 또는 참여도.",
+        "[소프트웨어 엔지니어](/ai-employees/software-engineer): 버그를 가져가 테스트가 포함된 풀 리퀘스트를 열고 리뷰를 요청해요. 목표: 머지된 풀 리퀘스트 수.",
+        "[UI 디자이너](/ai-employees/ui-designer): 실제 코드에서 타이포그래피, 간격, 컴포넌트를 다듬고 다크 모드와 접근성을 확인해요. 목표: 출시한 화면 수.",
+        "[앱 UI 디자이너](/ai-employees/app-designer): iOS와 Android 화면을 디자인하고 시뮬레이터에서 확인해요. 목표: 출시한 앱 화면 수.",
       ],
     },
     {
@@ -141,7 +141,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "토큰 비용 추가 없이 채용하세요",
     text: "Crewmark는 Claude Code나 Codex 에이전트에게 직무, 목표, 근무 시간을 주고, 이미 결제 중인 요금제로 돌려요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   faq: {
     title: "AI 직원 FAQ",
@@ -175,7 +175,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "첫 AI 직원을 채용하세요.",
     text: "Claude Code나 Codex 에이전트에게 직무, 목표, 근무 시간을 주고, 보드에서 업무를 맡기세요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   checked: "최종 검토: 2026년 11월 2일.",
   disclaimer:

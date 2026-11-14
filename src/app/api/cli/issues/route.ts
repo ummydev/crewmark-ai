@@ -1,7 +1,7 @@
 import { insertIssue } from "@/db/issues";
 import { getOrganizationData } from "@/db/queries";
 import type { AgentIssue } from "@/lib/agent-api";
-import { agentLinks, findAssignee, readJson, toAgentIssue } from "@/lib/agent-data";
+import { agentLinks, findAssignee, readJson, recurrenceInput, toAgentIssue } from "@/lib/agent-data";
 import type { CliIssueInput } from "@/lib/cli-api";
 import { findProject } from "@/lib/cli-data";
 import { cliRoute } from "@/lib/cli-route";
@@ -20,6 +20,7 @@ export const POST = cliRoute(async ({ user, request }): Promise<{ issue: AgentIs
       priority: body.priority ?? "medium",
       assigneeId: findAssignee(before, body.assigneeId ?? null, user.userId),
       projectId: body.projectId ? findProject(before, String(body.projectId)).id : null,
+      recurrence: "repeat" in body ? recurrenceInput(body.repeat, body.timeZone, []) : null,
     },
     { userId: user.userId },
   );

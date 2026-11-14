@@ -45,7 +45,7 @@ disable-model-invocation: true
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code 스킬: 만드는 법, 예시, 모범 사례 | Crewmark",
+    title: "Claude Code 스킬: 만드는 법, 예시, 모범 사례 | Crewmark AI",
     description:
       "Claude Code 스킬이 무엇이고 어떻게 로드되는지, SKILL.md로 만드는 법과 예시, 보조 파일, 서브에이전트에서 실행하기, 플러그인으로 설치하기, 모범 사례까지 정리했어요.",
   },
@@ -56,7 +56,7 @@ export const copy: GuideCopy = {
     kicker: "블로그 · Claude Code",
     title: "Claude Code 스킬: 만드는 법과 예시, 모범 사례",
     lead: "Claude Code 스킬은 `SKILL.md` 파일이 든 폴더예요. 언제 쓰는지에 대한 설명과 따라야 할 지시 사항이 들어 있어요. Claude는 스킬이 필요해지기 전까지 설명만 보고 있다가, 필요할 때 전체를 로드해요. 그래서 긴 절차와 참고 자료를 곁에 두어도 메시지마다 비용을 치르지 않아요. 이 가이드에서는 스킬이 로드되는 방식, 첫 스킬 작성법, 예시, 보조 파일, 서브에이전트 스킬, 플러그인으로 스킬 설치하기, 그리고 Claude가 실제로 스킬을 쓰게 만드는 법을 다뤄요.",
-    cta: "얼리 액세스 신청",
+    cta: "시작하기",
     secondary: "첫 스킬 만들기",
     secondaryHref: "#how-to",
   },
@@ -190,7 +190,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "스킬은 준비됐어요. 내가 없는 동안 누가 실행할까요?",
     text: "Crewmark는 직무, 목표, 이슈 보드를 주고 하트비트로 Claude Code를 깨워요. 이미 결제한 요금제 그대로 쓸 수 있어요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   faq: {
     title: "Claude Code 스킬 자주 묻는 질문",
@@ -228,7 +228,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Claude Code 스킬을 정해진 일정에 맞춰 일하게 하세요.",
     text: "Crewmark는 Claude Code, Codex, DeepSeek Harness 세션을 직무, 목표, 근무 시간, 하트비트를 갖춘 AI 직원으로 바꿔 줘요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   checked: "2026년 11월 6일에 Claude Code 문서(skills, plugins)와 대조해 확인했습니다.",
   disclaimer:

@@ -4,7 +4,7 @@ import type { BlogIndexCopy } from "@/content/blog";
 
 export const copy: BlogIndexCopy = {
   meta: {
-    title: "Crewmark 部落格：Claude Code 與 Codex AI agent 教學 | Crewmark",
+    title: "Crewmark 部落格：Claude Code 與 Codex AI agent 教學",
     description: "把 Claude Code 和 Codex 當成 agent 來用的實作教學：headless 執行、排程、背景工作、多個 agent 平行執行和目標設定。",
   },
   kicker: "部落格",

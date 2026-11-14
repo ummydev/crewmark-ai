@@ -1,6 +1,7 @@
 import type { Locale } from "next-intl";
 
 import { blogIndexLocales, blogLocales } from "./blog";
+import { roleLocales } from "./roles";
 import { routing } from "./routing";
 
 /**
@@ -15,6 +16,7 @@ export const guideLocales = {
   "/alternatives/paperclip": routing.locales,
   "/alternatives/multica": routing.locales,
   "/alternatives/crewai": routing.locales,
+  "/pricing": routing.locales,
   "/blog": blogIndexLocales,
 } as const satisfies Record<string, readonly Locale[]>;
 
@@ -41,8 +43,8 @@ export function guideLocale(href: GuideHref, locale: Locale): Locale {
   return (guideLocales[href] as readonly Locale[]).includes(locale) ? locale : "en";
 }
 
-/** The languages a page written in only some languages has (a guide, the blog index or a post), or undefined for a page in
- * every language. */
+/** The languages a page written in only some languages has (a guide, the blog index, a post or a role), or undefined for a
+ * page in every language. */
 export function pageLocales(pathname: string): readonly Locale[] | undefined {
-  return isGuideHref(pathname) ? guideLocales[pathname] : blogLocales[pathname];
+  return isGuideHref(pathname) ? guideLocales[pathname] : (blogLocales[pathname] ?? roleLocales[pathname]);
 }

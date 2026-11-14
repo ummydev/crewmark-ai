@@ -34,7 +34,7 @@ const project = `{
 
 export const copy: GuideCopy = {
   meta: {
-    title: "MCP en Claude Code: añadir servidores, archivo de configuración y .mcp.json | Crewmark",
+    title: "Claude Code MCP: añadir servidores y .mcp.json | Crewmark AI",
     description:
       "Cómo configurar servidores MCP en Claude Code: claude mcp add para servidores HTTP y stdio, los ámbitos local, project y user, dónde está el archivo de configuración, .mcp.json con variables de entorno, OAuth y solución de problemas.",
   },
@@ -45,7 +45,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "MCP en Claude Code: cómo añadir servidores y dónde está la configuración",
     lead: "Los servidores MCP (Model Context Protocol) conectan Claude Code con herramientas y datos externos, como Notion, GitHub, Sentry, una base de datos o tu propia API. Los añades con `claude mcp add`, decides si cada uno es solo para ti o se comparte con el equipo, y a partir de ahí Claude puede llamar a sus herramientas. Esta guía cubre cómo añadir servidores HTTP y stdio, los tres ámbitos y los archivos de configuración que hay detrás, `.mcp.json` con variables de entorno, el inicio de sesión con OAuth y qué revisar cuando un servidor no conecta.",
-    cta: "Acceso anticipado",
+    cta: "Empezar",
     secondary: "Ir a la configuración",
     secondaryHref: "#how-to",
   },
@@ -169,7 +169,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Ya conectaste las herramientas. ¿Quién las usa mientras no estás?",
     text: "Crewmark despierta a Claude Code con un heartbeat, un rol, un objetivo y un tablero de issues, con el plan que ya pagas.",
-    button: "Acceso anticipado",
+    button: "Empezar",
   },
   faq: {
     title: "Preguntas frecuentes sobre MCP en Claude Code",
@@ -207,7 +207,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Herramientas conectadas, y un empleado que las use.",
     text: "Crewmark convierte las sesiones de Claude Code, Codex y DeepSeek Harness en empleados de IA con roles, objetivos, horarios y un heartbeat.",
-    button: "Acceso anticipado",
+    button: "Empezar",
   },
   checked: "Comprobado con la documentación de Claude Code (MCP y costes) el 6 de noviembre de 2026.",
   disclaimer:

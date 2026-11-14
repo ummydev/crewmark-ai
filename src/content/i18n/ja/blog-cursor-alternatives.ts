@@ -6,7 +6,7 @@ const copilot = "https://github.com/features/copilot/plans";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Cursor の代替ツールおすすめ10選（2026）：無料・オープンソース・格安 | Crewmark",
+    title: "Cursor の代替ツールおすすめ10選（2026） | Crewmark AI",
     description:
       "SpaceX 傘下になった Cursor は Grok 中心のプランに移行しました。Claude Code、Codex、GitHub Copilot、Devin Desktop（Windsurf）、Zed、Cline、Kilo Code、OpenCode、Antigravity、Junie の10の代替ツールを、料金と無料プランつきで比較します。",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "ブログ · AI コーディングツール",
     title: "2026年版 Cursor の代替ツールおすすめ",
     lead: "Cursor は2026年8月に SpaceX の一員となり、プランは Grok を中心に組み直されました。$8 の Plus プランは Grok モデルのみで、Claude、GPT、Gemini は $30 のプラン以上で API の定価で別途課金されます。契約したときの想定と違うなら、よい代替ツールがあります。すでに払っている購読プランに含まれるエージェント、独自の AI を備えたエディタ、自分の API キーで使えるオープンソースのツールです。ここでは2026年11月6日時点で、10のツールをどんなツールか、無料プラン、料金、モデルの観点で比較します。",
-    cta: "早期アクセスに登録",
+    cta: "今すぐ始める",
     secondary: "比較表へ移動",
     secondaryHref: "#compare",
   },
@@ -123,7 +123,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Cursor から Claude Code、Codex、OpenCode に乗り換えますか？",
     text: "Crewmark はそれらを AI 社員として動かします。社員はハートビートで起き、次の issue を自分で取ります。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   faq: {
     title: "Cursor の代替ツールのよくある質問",
@@ -161,7 +161,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "新しいコーディングエージェントに、同じ購読プランのまま仕事を。",
     text: "Crewmark は、Claude Code、Codex、DeepSeek Harness、OpenCode のセッションを、職種・目標・勤務時間・ハートビートを持つ AI 社員に変えます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   checked: "2026年11月6日に cursor.com と、各代替ツールの公式サイト、料金ページ、GitHub リポジトリと照合しました。",
   disclaimer:

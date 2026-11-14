@@ -16,13 +16,13 @@ const others = (except: Alternative) =>
 const closing = (product: string) => ({
   title: `${product} の代わりに Crewmark を試してみましょう。`,
   text: "お使いの Claude Code や Codex のエージェントに職種・目標・勤務時間を与え、ボードで仕事を割り当てましょう。",
-  button: "早期アクセスに登録",
+  button: "今すぐ始める",
 });
 
 const mid = {
   title: "契約中のプランのまま AI 社員を採用",
   text: "Crewmark は、ハートビートで Claude Code や Codex のセッションを起こし、ボードから次のタスクを渡します。",
-  button: "早期アクセスに登録",
+  button: "今すぐ始める",
 };
 
 const disclaimer = (owner: string) =>
@@ -33,7 +33,7 @@ const newToIdea = "初めての方は、[AI 社員とは何か](/ai-employees)�
 export const copy: Record<Alternative, GuideCopy> = {
   paperclip: {
     meta: {
-      title: "Paperclip AI の代替：Crewmark と比較 | Crewmark",
+      title: "Paperclip AI の代替：Crewmark vs Paperclip | Crewmark AI",
       description:
         "Paperclip の代替をお探しですか？ホスティング、エージェント、ハートビート、目標、導入方法で Crewmark と Paperclip を比較し、チームに合う方を選びましょう。",
     },
@@ -42,7 +42,7 @@ export const copy: Record<Alternative, GuideCopy> = {
       kicker: "Paperclip の代替",
       title: "Crewmark と Paperclip の比較",
       lead: "Paperclip と Crewmark はどちらも、Claude Code や Codex のようなコーディングエージェントを、スケジュールに沿って仕事を受け取るチームに変えます。Paperclip は会社全体のエージェントを統括するために自分で運用するオープンソースのサーバーで、Crewmark は各エージェントが職種・数値目標・勤務時間を持つ社員として働く、ホスティング型のボードです。両者を比較します。",
-      cta: "早期アクセスに登録",
+      cta: "今すぐ始める",
       secondary: "比較を見る",
       secondaryHref: "#compare",
     },
@@ -62,7 +62,7 @@ export const copy: Record<Alternative, GuideCopy> = {
         headers: ["", "Paperclip", "Crewmark"],
         rows: [
           ["ホスティング", "セルフホスト（Node.js 24 以上または Docker）。クラウド版はウェイトリスト", "ホスティング型の Web アプリと、パソコン上の小さなデーモン"],
-          ["ライセンス", "オープンソース（MIT）", "商用、早期アクセス中"],
+          ["ライセンス", "オープンソース（MIT）", "商用、登録受付中"],
           ["エージェント", "Claude Code、Codex、Cursor、Gemini CLI、OpenCode、OpenClaw ほか、または API キー", "Claude Code、Codex、DeepSeek Harness、OpenCode"],
           ["仕事の単位", "会社やプロジェクトの目標に紐づくタスク", "カンバンボード上のタスク"],
           ["構造", "組織図：職種、指揮系統、予算", "社員：職種、数値の KPI、勤務時間"],
@@ -125,6 +125,10 @@ export const copy: Record<Alternative, GuideCopy> = {
           q: "Crewmark をセルフホストできますか？",
           a: "いいえ。Crewmark はホスティング型のアプリで、あなたのパソコンで動くのはエージェントを起動するデーモンだけです。",
         },
+        {
+          q: "Paperclip と OpenClaw や Hermes Agent の違いは何ですか？",
+          a: "Paperclip は自らを「会社」、OpenClaw を「社員」と位置づけています。OpenClaw と Hermes は個人向けのエージェントで、Paperclip はそうしたエージェントを目標と予算のある組織図にまとめます。2 つのエージェントの比較は [Hermes Agent vs OpenClaw](/blog/hermes-agent-vs-openclaw) をご覧ください。",
+        },
       ],
     },
     cta: closing("Paperclip"),
@@ -133,7 +137,7 @@ export const copy: Record<Alternative, GuideCopy> = {
   },
   multica: {
     meta: {
-      title: "Multica の代替：Crewmark と比較 | Crewmark",
+      title: "Multica の代替：Crewmark vs Multica | Crewmark AI",
       description:
         "Multica の代替をお探しですか？エージェント、スケジュール、目標、ライセンス、導入方法で Crewmark と Multica を比較し、チームに合う方を選びましょう。",
     },
@@ -142,7 +146,7 @@ export const copy: Record<Alternative, GuideCopy> = {
       kicker: "Multica の代替",
       title: "Crewmark と Multica の比較",
       lead: "Multica と Crewmark はどちらも、Claude Code や Codex のようなコーディングエージェントに、チームメンバーと同じようにタスクを割り当てられます。Multica はソフトウェアチーム向けのワークスペースで、クラウド版とセルフホスト版があります。Crewmark は各エージェントを、数値目標、勤務時間、そして自分で起動するためのハートビートを持つ社員として扱います。両者を比較します。",
-      cta: "早期アクセスに登録",
+      cta: "今すぐ始める",
       secondary: "比較を見る",
       secondaryHref: "#compare",
     },
@@ -162,7 +166,7 @@ export const copy: Record<Alternative, GuideCopy> = {
         headers: ["", "Multica", "Crewmark"],
         rows: [
           ["ホスティング", "クラウド、または Docker か Helm でセルフホスト", "ホスティング型の Web アプリと、パソコン上の小さなデーモン"],
-          ["ライセンス", "ソース公開（条件付きの Apache 2.0）。他者向けにホスティングするには商用ライセンスが必要", "商用、早期アクセス中"],
+          ["ライセンス", "ソース公開（条件付きの Apache 2.0）。他者向けにホスティングするには商用ライセンスが必要", "商用、登録受付中"],
           ["エージェント", "26 種類のエージェント CLI（Claude Code、Codex、Cursor、DeepSeek Harness など）", "Claude Code、Codex、DeepSeek Harness、OpenCode"],
           ["仕事の単位", "ボード上のタスク、squads、チャット、チャンネル", "カンバンボード上のタスク"],
           ["定期的な仕事", "Autopilots が cron や Webhook でタスクを作成", "ハートビートが 15 分・30 分・60 分ごとに各社員を起動"],
@@ -225,6 +229,18 @@ export const copy: Record<Alternative, GuideCopy> = {
           q: "Crewmark をセルフホストできますか？",
           a: "いいえ。Crewmark はホスティング型のアプリで、あなたのパソコンで動くのはエージェントを起動するデーモンだけです。",
         },
+        {
+          q: "Multica は無料ですか？",
+          a: "Multica はソース公開型です。自分の組織の中でセルフホストして使うのは無料ですが、他者に提供するには商用ライセンスが必要です。クラウド版には無料トライアルがありますが、プラン料金はまだ公開されていません。",
+        },
+        {
+          q: "Multica と Linear の違いは何ですか？",
+          a: "Linear は人のための課題管理ツールです。Multica はコーディングエージェントがチームメイトになるボードで、タスクを割り当てると、エージェントがあなたのパソコン上のデーモンかクラウドのランタイムを通じてそれを引き受け、作業し、報告します。",
+        },
+        {
+          q: "Multica と Hermes Agent の違いは何ですか？",
+          a: "レイヤーが違います。Hermes Agent は Nous Research の個人向けエージェントです。Multica は Hermes を、Claude Code、Codex、OpenClaw など 20 以上のエージェント CLI とともに、ボード上のランタイムとして動かせます。[Hermes Agent vs OpenClaw](/blog/hermes-agent-vs-openclaw) もご覧ください。",
+        },
       ],
     },
     cta: closing("Multica"),
@@ -233,7 +249,7 @@ export const copy: Record<Alternative, GuideCopy> = {
   },
   crewai: {
     meta: {
-      title: "CrewAI の代替（コード不要）：Crewmark と比較 | Crewmark",
+      title: "CrewAI の代替（コード不要）：Crewmark と比較 | Crewmark AI",
       description:
         "CrewAI の代替をお探しですか？コーディングの要否、モデル、料金、仕事の割り当て方で Crewmark と CrewAI を比較し、チームに合う方を選びましょう。",
     },
@@ -242,7 +258,7 @@ export const copy: Record<Alternative, GuideCopy> = {
       kicker: "CrewAI の代替",
       title: "Crewmark と CrewAI の比較",
       lead: "CrewAI は、マルチエージェントのワークフローを構築するための Python フレームワークで、その上に商用プラットフォームがあります。Crewmark はフレームワークではありません。お使いの Claude Code や Codex のエージェントを AI 社員に変え、ボードで仕事を渡します。書くべきコードも、API の請求もありません。両者を比較します。",
-      cta: "早期アクセスに登録",
+      cta: "今すぐ始める",
       secondary: "比較を見る",
       secondaryHref: "#compare",
     },
@@ -268,7 +284,7 @@ export const copy: Record<Alternative, GuideCopy> = {
           ["仕事の単位", "crew や flow の中のタスク", "カンバンボード上のタスク"],
           ["スケジュール", "プラットフォームでの cron によるスケジュール実行", "勤務時間中に 15 分・30 分・60 分ごとのハートビート"],
           ["目標", "各エージェントのプロンプト内の goal フィールド", "社員ごとの数値の KPI を継続的に追跡"],
-          ["料金", "月 50 回実行できる無料プラン。Enterprise は個別見積もり", "早期アクセス中。プラン以外に追加のトークン費用なし"],
+          ["料金", "月 50 回実行できる無料プラン。Enterprise は個別見積もり", "登録受付中。プラン以外に追加のトークン費用なし"],
         ],
       },
       {

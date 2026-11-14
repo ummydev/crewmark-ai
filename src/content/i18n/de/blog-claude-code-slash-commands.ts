@@ -28,7 +28,7 @@ Erhalte jedes bestehende Verhalten und halte alle Tests grün.`;
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code Slash-Commands: Cheat Sheet, eigene Commands und Skills | Crewmark",
+    title: "Claude Code Slash-Commands: Cheat Sheet und eigene Commands",
     description:
       "Ein Cheat Sheet der Claude Code Slash-Commands, die du kennen solltest, wie du eigene Slash-Commands mit Argumenten schreibst und wie Commands und Skills zusammenhängen.",
   },
@@ -39,7 +39,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "Claude Code Slash-Commands: das Cheat Sheet und wie du eigene schreibst",
     lead: "Slash-Commands sind die Kürzel, die du am Anfang einer Nachricht in Claude Code tippst, etwa `/init`, `/compact` oder `/code-review`, um die Session zu steuern oder einen gespeicherten Prompt auszuführen. Diese Anleitung enthält ein Cheat Sheet der wichtigsten Commands, sortiert danach, wann du sie brauchst, und zeigt dann, wie du eigene Slash-Commands mit Argumenten anlegst und wie sie mit Skills zusammenhängen.",
-    cta: "Early Access anfragen",
+    cta: "Loslegen",
     secondary: "Direkt zu eigenen Commands",
     secondaryHref: "#how-to",
   },
@@ -191,7 +191,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Das Tippen hast du automatisiert. Wer entscheidet, was als Nächstes getippt wird?",
     text: "Crewmark weckt Claude Code per Heartbeat mit Rolle, Ziel und einem Board voller Issues, mit dem Tarif, den du ohnehin zahlst.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   faq: {
     title: "FAQ zu Claude Code Slash-Commands",
@@ -229,7 +229,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Gib deinen Claude Code Skills einen Mitarbeiter, der sie ausführt.",
     text: "Crewmark macht aus Sessions von Claude Code, Codex und DeepSeek Harness KI-Mitarbeiter mit Rollen, Zielen, Arbeitszeiten und einem Heartbeat.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   checked: "Am 6. November 2026 mit der Claude-Code-Dokumentation (Commands und Skills) abgeglichen.",
   disclaimer:

@@ -14,7 +14,7 @@ import (
 //   credentials.json          one API key per employee set up here, and the person's CLI key after
 //                             `crewmark login` (readable by this user only)
 //   login.json                a login waiting to be allowed, for `crewmark login --wait`
-//   employees/<id>/notes.md   the employee's notes, kept across conversations
+//   employees/<id>/           what the daemon keeps for each employee: daemon.json, claude.log
 //   install-id                a random id the install scripts send with their anonymous install counts
 
 var home = func() string {
@@ -130,17 +130,4 @@ func saveAccount(account *accountProfile) error {
 	}
 	stored.Account = account
 	return writePrivate(credentialsPath(), stored)
-}
-
-// employeeNotes is the employee's notes file, for what should outlast a conversation; made on first use.
-func employeeNotes(employeeID, name string) string {
-	dir := filepath.Join(home, "employees", employeeID)
-	notes := filepath.Join(dir, "notes.md")
-	if err := os.MkdirAll(dir, 0o700); err == nil {
-		if _, err := os.Stat(notes); errors.Is(err, fs.ErrNotExist) {
-			starter := "# " + name + "'s notes\n\nWhat to remember across conversations: decisions, where things are, what you learned.\n"
-			_ = os.WriteFile(notes, []byte(starter), 0o600)
-		}
-	}
-	return notes
 }

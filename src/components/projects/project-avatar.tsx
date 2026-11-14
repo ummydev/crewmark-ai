@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { EmojiPicker } from "@/components/emoji-picker";
 import { cn } from "@/lib/utils";
 import { PROJECT_EMOJIS } from "@/lib/types";
 
@@ -57,28 +52,8 @@ export function ProjectEmojiPicker({
   className?: string;
 }) {
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger
-        aria-label="Change project icon"
-        className={cn(
-          "rounded-full outline-none transition-shadow hover:ring-2 hover:ring-foreground/10 focus-visible:ring-3 focus-visible:ring-ring/50",
-          className,
-        )}
-      >
-        <ProjectAvatar emoji={value} size={size} />
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="grid w-auto grid-cols-8 gap-0.5 p-1.5">
-        {PROJECT_EMOJIS.map((emoji) => (
-          <DropdownMenuItem
-            key={emoji}
-            aria-label={emoji}
-            onClick={() => onChange(emoji)}
-            className={cn("size-8 justify-center p-0 text-lg leading-none", emoji === value && "bg-accent")}
-          >
-            {emoji}
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <EmojiPicker value={value} emojis={PROJECT_EMOJIS} onChange={onChange} label="Change project icon" className={className}>
+      <ProjectAvatar emoji={value} size={size} />
+    </EmojiPicker>
   );
 }

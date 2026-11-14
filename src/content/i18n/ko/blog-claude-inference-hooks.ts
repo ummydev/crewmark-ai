@@ -17,7 +17,7 @@ const verdict = `// 요청 허용
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude inference hooks: 작동 방식, 설정 방법, Claude Code hooks와 비교 | Crewmark",
+    title: "Claude inference hooks: 작동 방식과 설정 | Crewmark AI",
     description:
       "2026년 11월 5일 정식 출시된 Claude inference hooks(추론 훅)는 모든 프롬프트와 도구 호출을 보안 서버로 보내 허용 또는 거부 판정을 받아요. 작동 방식, 설정 단계, 제한 사항, Claude Code hooks와의 차이를 정리했어요.",
   },
@@ -28,7 +28,7 @@ export const copy: GuideCopy = {
     kicker: "블로그 · Claude",
     title: "Claude inference hooks: 모든 프롬프트 앞에 허용 또는 거부 검사를",
     lead: "inference hooks(추론 훅)를 쓰면 Claude Enterprise 조직은 모든 프롬프트(원하면 모든 도구 호출까지)를 자체 보안 서버로 보내고, 허용(allow) 또는 거부(deny) 판정을 받은 뒤에 Claude를 실행할 수 있어요. 2026년 11월 5일에 정식 출시되었고, 베타 버전의 보안 센터(security center)도 함께 발표됐어요. 검사가 Anthropic 서버에서 이뤄지기 때문에 한 번만 설정하면 claude.ai, Claude Code, Cowork 등 다른 Claude 제품까지 모두 적용되고, 직원 노트북에는 아무것도 설치할 필요가 없어요. 이 글에서는 작동 방식, 설정 방법, 제한 사항, 그리고 Claude Code에서 직접 작성하는 hooks와 무엇이 다른지 설명해요.",
-    cta: "얼리 액세스 신청",
+    cta: "시작하기",
     secondary: "설정 방법으로 이동",
     secondaryHref: "#how-to",
   },
@@ -146,7 +146,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "보안은 설정했어요. 이제 Claude Code에게 일을 맡기세요.",
     text: "Crewmark는 직무, 목표, 이슈 보드를 주고 하트비트로 Claude Code를 깨워요. 이미 결제한 요금제 그대로 쓸 수 있어요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   faq: {
     title: "Claude inference hooks FAQ",
@@ -184,7 +184,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Claude Code 기반 AI 직원을, 우리 회사의 가드레일 안에서.",
     text: "Crewmark는 Claude Code, Codex, DeepSeek Harness 세션을 직무, 목표, 근무 시간, 하트비트를 갖춘 AI 직원으로 바꿔 줘요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   checked: "2026년 11월 6일에 Anthropic의 발표, Claude 고객센터, Claude Platform 문서와 대조해 확인했어요.",
   disclaimer:

@@ -8,6 +8,7 @@ import {
   ChevronsUpDownIcon,
   KanbanSquareIcon,
   LogOutIcon,
+  MessageCircleIcon,
   PlusIcon,
   SquarePenIcon,
   UserRoundPlusIcon,
@@ -15,6 +16,8 @@ import {
 } from "lucide-react";
 
 import { useCrewStore } from "@/components/crew-store";
+import { useMessages } from "@/components/messages/messages-provider";
+import { UnreadBadge } from "@/components/messages/messages-view";
 import { NewIssueDialog } from "@/components/issues/new-issue-dialog";
 import { NewOrganizationDialog } from "@/components/organizations/new-organization-dialog";
 import { NewProjectDialog } from "@/components/projects/new-project-dialog";
@@ -48,6 +51,7 @@ import type { User } from "@/lib/types";
 
 const NAV_ITEMS = [
   { href: "/issues", label: "Issues", icon: KanbanSquareIcon },
+  { href: "/messages", label: "Messages", icon: MessageCircleIcon },
   { href: "/employees", label: "Employees", icon: UsersIcon },
 ];
 
@@ -217,6 +221,7 @@ function NavGroups({
   onNewProject: () => void;
 }) {
   const { projects, orgPath } = useCrewStore();
+  const { unread } = useMessages();
 
   return (
     <>
@@ -248,6 +253,7 @@ function NavGroups({
                 >
                   <item.icon />
                   <span>{item.label}</span>
+                  {item.href === "/messages" && <UnreadBadge count={unread} className="ml-auto" />}
                 </SidebarMenuButton>
               </SidebarMenuItem>
             ))}

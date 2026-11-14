@@ -3,7 +3,7 @@ import type { RemoteClaudeCodeCopy } from "@/content/remote-claude-code";
 // Japanese translation of /remote-claude-code; the English master is src/content/remote-claude-code.ts.
 export const copy: RemoteClaudeCodeCopy = {
   meta: {
-    title: "Claude Code Remote Control：スマホから操作する方法 | Crewmark",
+    title: "Claude Code Remote Control：スマホで操作 | Crewmark AI",
     description:
       "Claude Code Remote Control でローカルのセッションをスマホやブラウザから操作する方法、その限界、離れている間も働かせる方法。",
   },
@@ -12,7 +12,7 @@ export const copy: RemoteClaudeCodeCopy = {
     kicker: "Claude Code をリモートで使う",
     title: "Claude Code をスマホから操作し、あなたがいなくても働かせる",
     lead: "Claude Code Remote Control は、パソコンで動いている Claude Code のセッションを、スマホやタブレット、任意のブラウザから続けられる Anthropic の機能です。このガイドでは、その設定方法と限界、そして Crewmark が同じ Claude Code を、自分のスケジュールで働き続ける社員に変える方法を紹介します。",
-    cta: "早期アクセスに登録",
+    cta: "今すぐ始める",
     secondary: "Remote Control を設定する",
   },
   official: {
@@ -51,7 +51,7 @@ export const copy: RemoteClaudeCodeCopy = {
   mid: {
     title: "離れている間も働き続けてほしいなら",
     text: "Remote Control はスマホからセッションを操作するための機能です。Crewmark の社員はハートビートに合わせて働き続け、必要なときだけあなたにメッセージを送ります。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   limits: {
     title: "Remote Control にできないこと",
@@ -118,6 +118,22 @@ export const copy: RemoteClaudeCodeCopy = {
         a: "いいえ。Anthropic のドキュメントによると、claude.ai 経由でログインした Pro、Max、Ultra、Team、Enterprise プランが必要です。API キー、Amazon Bedrock、Google Cloud、Microsoft Foundry、カスタムの ANTHROPIC_BASE_URL では使えません。",
       },
       {
+        q: "Claude Code の Remote Control が動かないのはなぜですか？",
+        a: "多くの場合、原因はログインです。claude auth login を実行して claude.ai のオプションを選んでください。ANTHROPIC_API_KEY や ANTHROPIC_AUTH_TOKEN が設定されているとそちらが優先されるので、削除してください。また、claude setup-token で作った長期トークンでは Remote Control を開始できないため、使わないでください。Team と Enterprise では、先に Owner が Remote Control を有効にする必要があります。CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC や DISABLE_GROWTHBOOK を設定している場合も無効になります。claude doctor を実行すると、どのチェックで失敗したかがわかります。",
+      },
+      {
+        q: "Remote Control が何度も切断されるのはなぜですか？",
+        a: "\"Remote Control disconnected\" や \"Can't reach\" は、スマホやブラウザがパソコン上の Claude Code と通信できなくなったことを意味します。対話型のセッションは、パソコンがスリープから復帰してオンラインになると自動で再接続します。claude プロセスが止まっている場合は、もう一度起動してセッションを再開してください。リモートマシンでは、ターミナルを閉じても終了しないよう claude を tmux や screen の中で実行し、約 30 分間サーバーに接続できなかったと表示されたら、もう一度 /remote-control を実行してください。",
+      },
+      {
+        q: "Remote Control と Dispatch の違いは何ですか？",
+        a: "Remote Control は、パソコン上ですでに動いている Claude Code のセッションを claude.ai/code や Claude アプリから操作する機能です。Dispatch は、Claude のモバイルアプリから新しいタスクをメッセージで送ると、パソコン上のデスクトップアプリがそのタスク用のセッションを開始する機能で、モバイルアプリと Claude Desktop のペアリングが必要です。",
+      },
+      {
+        q: "Remote Control は DeepSeek など他のモデルプロバイダーでも使えますか？",
+        a: "いいえ。Remote Control は、Claude Code が api.anthropic.com と通信している場合にのみ使えます。ANTHROPIC_BASE_URL が DeepSeek やゲートウェイ、プロキシを指している場合や、Bedrock、Google Cloud、Foundry を使っている場合は、その設定を解除して claude.ai でログインしてください。",
+      },
+      {
         q: "ノートパソコンを閉じても Claude Code は働き続けますか？",
         a: "単独ではできません。Remote Control のセッションには、パソコンの電源が入っていて claude プロセスが動いていることが必要で、タスクが終わると次のメッセージを待ちます。Crewmark の社員もあなたのパソコンで動きますが、勤務時間中はハートビートで起動され、タスクを順に進めていきます。",
       },
@@ -129,10 +145,10 @@ export const copy: RemoteClaudeCodeCopy = {
   },
   cta: {
     title: "離れている間も Claude Code に働いてもらいましょう",
-    text: "Crewmark は現在プライベートベータ版です。早期アクセスにご登録いただければ、最初の社員の採用をお手伝いします。",
-    button: "早期アクセスに登録",
+    text: "Google アカウントで登録すれば、いま使っているエージェントで最初の社員を採用できます。",
+    button: "今すぐ始める",
   },
-  checked: "Remote Control の情報は、2026年11月1日に Anthropic のドキュメントと照合しました。",
+  checked: "Remote Control の情報は、2026年11月7日に Anthropic のドキュメントと照合しました。",
   disclaimer:
     "Claude および Claude Code は Anthropic, PBC の商標です。Crewmark は独立した製品であり、Anthropic とは提携しておらず、その承認や後援も受けていません。",
 };

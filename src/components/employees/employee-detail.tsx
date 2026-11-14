@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ChevronRightIcon } from "lucide-react";
+import { ChevronRightIcon, MessageCircleIcon } from "lucide-react";
 import { toast } from "sonner";
 
 import { useCrewStore, useOrgPath } from "@/components/crew-store";
 import { DeleteMenu } from "@/components/delete-menu";
-import { EmployeeAvatar } from "@/components/employee-avatar";
+import { EmployeeEmojiPicker } from "@/components/employee-avatar";
 import { AgentPanel } from "@/components/employees/connect-agent";
 import { EMPLOYEE_STATUS_DOT, EmployeeStatusSelect, RoleField } from "@/components/employees/employee-fields";
 import { HeartbeatFields } from "@/components/employees/heartbeat-fields";
@@ -68,27 +68,38 @@ export function EmployeeDetail({ employeeId }: { employeeId: string }) {
       <PageHeader
         title={<Breadcrumb name={employee.name || "Untitled"} />}
         actions={
-          <DeleteMenu
-            label="Delete employee"
-            title={`Delete ${employee.name || "this employee"}?`}
-            description={
-              "Its issues stay, unassigned. Its connected agent is disconnected and can't use Crewmark any more. " +
-              "This can't be undone."
-            }
-            onDelete={async () => {
-              // Leave first, so the page doesn't show the employee as not found on the way out.
-              router.push(orgPath("/employees"));
-              await deleteEmployee(employee.id);
-              toast.success(`${employee.name || "The employee"} was deleted`);
-            }}
-          />
+          <>
+            <Button
+              variant="outline"
+              size="sm"
+              nativeButton={false}
+              render={<Link href={orgPath(`/messages/${employee.id}`)} />}
+            >
+              <MessageCircleIcon />
+              Message
+            </Button>
+            <DeleteMenu
+              label="Delete employee"
+              title={`Delete ${employee.name || "this employee"}?`}
+              description={
+                "Its issues stay, unassigned. Its connected agent is disconnected and can't use Crewmark any more. " +
+                "This can't be undone."
+              }
+              onDelete={async () => {
+                // Leave first, so the page doesn't show the employee as not found on the way out.
+                router.push(orgPath("/employees"));
+                await deleteEmployee(employee.id);
+                toast.success(`${employee.name || "The employee"} was deleted`);
+              }}
+            />
+          </>
         }
       />
       <div className="flex min-h-0 flex-1 flex-col overflow-y-auto lg:flex-row lg:overflow-hidden">
         <main className="min-w-0 flex-1 lg:overflow-y-auto">
           <div className="mx-auto grid max-w-3xl gap-7 px-6 py-10 lg:px-10">
             <div className="flex items-center gap-4">
-              <EmployeeAvatar employee={employee} size="lg" />
+              <EmployeeEmojiPicker employee={employee} onChange={(emoji) => update({ emoji })} />
               <div className="grid min-w-0 flex-1 gap-1">
                 <input
                   aria-label="Name"

@@ -4,7 +4,7 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 // src/content/blog/claude-code-background-agents.ts.
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code 백그라운드 에이전트·헤드리스 모드 | Crewmark",
+    title: "Claude Code 백그라운드 에이전트·헤드리스 모드 | Crewmark AI",
     description:
       "Claude Code 백그라운드 실행: 백그라운드 작업, --bg, cron으로 돌리는 claude -p, 클라우드 세션, 예약 작업과 권한.",
   },
@@ -15,7 +15,7 @@ export const copy: GuideCopy = {
     kicker: "블로그 · Claude Code",
     title: "Claude Code 백그라운드 에이전트 실행하는 방법",
     lead: "백그라운드 에이전트는 내가 다른 일을 하는 동안에도 계속 일해요. 백그라운드로 보낸 긴 테스트 실행, --bg로 시작하고 터미널을 닫아 버린 세션, 매일 아침 cron이 시작하는 헤드리스 claude -p 작업 같은 것이죠. Claude Code에는 각각을 위한 도구가 있어요. 이 가이드에서는 사용 방법, 각각을 계속 돌아가게 하는 조건, 그리고 지켜보지 않는 실행에 필요한 권한을 설명해요.",
-    cta: "얼리 액세스 신청",
+    cta: "시작하기",
     secondary: "헤드리스 모드로 바로 가기",
     secondaryHref: "#how-to",
   },
@@ -134,7 +134,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "다음 작업을 스스로 고르게 하고 싶나요?",
     text: "Crewmark는 정해 둔 근무 시간 동안 하트비트에 맞춰 Claude Code 세션을 깨우고, 보드에서 다음 이슈를 넘겨줘요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   faq: {
     title: "Claude Code 백그라운드 에이전트 FAQ",
@@ -168,7 +168,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Claude Code에게 고정 업무를 주세요.",
     text: "Crewmark는 Claude Code 세션을 직무, 목표, 근무 시간, 하트비트를 갖춘 AI 직원으로 바꿔 줘요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   checked: "2026년 11월 2일에 Anthropic의 Claude Code 문서와 대조해 확인했습니다.",
   disclaimer:

@@ -6,7 +6,7 @@ const repo = "https://github.com/deepseek-ai/dsh-superagent-prototype";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "DeepSeek Super-Agent (dsh-superagent): Was er kann, Einrichtung | Crewmark",
+    title: "DeepSeek Super-Agent (dsh-superagent): Einrichtung",
     description:
       "DeepSeeks Open-Source-Super-Agent: proaktiver Coding-Agent für ein GitHub-Repo. Was er tut, Einrichtung, Sicherheitsgrenzen und Vergleich.",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · DeepSeek",
     title: "DeepSeek Super-Agent: was er ist und wie du ihn einrichtest",
     lead: "dsh-superagent ist DeepSeeks quelloffener, proaktiver Coding-Agent für ein GitHub-Repository, veröffentlicht am 31. Oktober 2026 unter der MIT-Lizenz. Er läuft auf DeepSeek Harness, beobachtet GitHub und optional Feishu und macht aus Anfragen Pull Requests, jede in einer eigenen Session und einem eigenen Verzeichnis bearbeitet. Diese Anleitung erklärt, was er tut, was er braucht, wie du ihn einrichtest, was „proaktiv“ in der Praxis heißt und wie er sich im Vergleich schlägt.",
-    cta: "Early Access anfragen",
+    cta: "Loslegen",
     secondary: "Direkt zur Einrichtung",
     secondaryHref: "#how-to",
   },
@@ -110,8 +110,8 @@ export const copy: GuideCopy = {
         ["Startet die Arbeit", "Eine @-Erwähnung einer erlaubten Person oder eine Regel im Modus `auto`", "Deine Nachrichten, Zeitpläne und eigene Recherche", "Ein Heartbeat alle 15–60 Minuten während der Arbeitszeit"],
         ["Arbeitswarteschlange", "Tickets aus GitHub und Feishu-Threads", "Gesprächs-Threads und Scheduled", "Issues auf einem Kanban-Board"],
         ["Umfang", "Ein GitHub-Repository pro Einrichtung", "Deine verbundenen Apps", "Ein Mitarbeiter pro Rolle, etwa SEO oder Entwicklung"],
-        ["Kosten", "Kostenlos, MIT-Lizenz; du bezahlst deinen Modellanbieter", "Pro- und Business-Premium-Pläne", "Early Access; läuft mit dem Agenten und dem Plan, die du schon hast"],
-        ["Status", "Forschungsprototyp", "Wird ausgerollt", "Early Access"],
+        ["Kosten", "Kostenlos, MIT-Lizenz; du bezahlst deinen Modellanbieter", "Pro- und Business-Premium-Pläne", "Offene Registrierung; läuft mit dem Agenten und dem Plan, die du schon hast"],
+        ["Status", "Forschungsprototyp", "Wird ausgerollt", "Registrierung offen"],
       ],
     },
     {
@@ -142,7 +142,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Du nutzt schon DeepSeek Harness, Claude Code oder Codex?",
     text: "Crewmark macht diese Session proaktiv: ein Heartbeat, Arbeitszeiten und ein Board mit Issues, mit dem Plan, für den du schon zahlst.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   faq: {
     title: "FAQ zu DeepSeek Super-Agent",
@@ -180,7 +180,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Mach den Agenten, den du schon nutzt, proaktiv.",
     text: "Crewmark macht aus Sessions in DeepSeek Harness, Claude Code und Codex KI-Mitarbeiter mit Rollen, Zielen, Arbeitszeiten und einem Heartbeat.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   checked: "Am 3. November 2026 mit den GitHub-Repositories von dsh-superagent und DeepSeek Harness abgeglichen.",
   disclaimer:

@@ -1,6 +1,6 @@
 import "server-only";
 
-import { createHmac } from "node:crypto";
+import { createHash, createHmac, timingSafeEqual } from "node:crypto";
 import { after } from "next/server";
 
 // The push channel: a Cloudflare Worker (realtime/ in this repo) that crewmark daemons and the dashboard's tabs keep a
@@ -52,12 +52,37 @@ export function pushActivity(organizationId: string, issueId: string) {
   notify({ organizationId, kind: "activity", issueId });
 }
 
-function notify(body: object) {
+/**
+ * Tells the dashboard's open tabs that a direct conversation changed (a message, or one read), after the response is
+ * sent. Each tab asks for its own person's conversations, so nothing about whose it was goes through the Worker.
+ */
+export function pushMessages(organizationId: string) {
+  notify({ organizationId, kind: "messages" });
+}
+
+/**
+ * Sets the organization's timer in the Worker to when its next repeating issue comes round (null: none repeat), after
+ * the response is sent. Then the Worker calls POST /api/realtime/recur, which handles what's due and answers the next
+ * time. Without a Worker, daemons checking in handle what's due (db/recurrence.ts).
+ */
+export function scheduleRecurrences(organizationId: string, at: Date | null) {
+  notify({ organizationId, at: at?.toISOString() ?? null }, "/schedule");
+}
+
+/** Whether a request's Authorization header is the Worker's, in constant time. */
+export function fromWorker(authorization: string | null) {
+  const target = worker();
+  if (!target || !authorization) return false;
+  const digest = (text: string) => createHash("sha256").update(text).digest();
+  return timingSafeEqual(digest(authorization), digest(`Bearer ${target.secret}`));
+}
+
+function notify(body: object, path = "/notify") {
   const target = worker();
   if (!target) return;
   const push = async () => {
     try {
-      const response = await fetch(`${target.url}/notify`, {
+      const response = await fetch(`${target.url}${path}`, {
         method: "POST",
         headers: { Authorization: `Bearer ${target.secret}`, "Content-Type": "application/json" },
         body: JSON.stringify(body),

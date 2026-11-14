@@ -45,7 +45,7 @@ kritisch samt Fix-Version auf und berichte, welche Major-Versionen hinterherhink
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code Skills: anlegen, Beispiele und Best Practices | Crewmark",
+    title: "Claude Code Skills: anlegen, Beispiele und Best Practices",
     description:
       "Was Claude Code Skills sind, wie sie laden, wie du einen mit SKILL.md anlegst, Beispiele, zusätzliche Dateien, Skills als Subagent, Skills aus Plugins installieren und Best Practices.",
   },
@@ -56,7 +56,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "Claude Code Skills: So legst du sie an, mit Beispielen und Best Practices",
     lead: "Ein Claude Code Skill ist ein Ordner mit einer `SKILL.md`-Datei: einer Beschreibung, wann er zum Einsatz kommt, und den Anweisungen, die zu befolgen sind. Claude sieht nur die Beschreibungen, bis ein Skill gebraucht wird, und lädt ihn dann vollständig. So kannst du lange Abläufe und Referenzmaterial griffbereit halten, ohne bei jeder Nachricht dafür zu zahlen. Diese Anleitung zeigt, wie Skills laden, wie du deinen ersten schreibst, dazu Beispiele, zusätzliche Dateien, Skills als Subagent, die Installation von Skills aus Plugins und wie du Claude dazu bringst, sie tatsächlich zu nutzen.",
-    cta: "Early Access anfragen",
+    cta: "Loslegen",
     secondary: "Ersten Skill anlegen",
     secondaryHref: "#how-to",
   },
@@ -190,7 +190,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Deine Skills sind bereit. Wer führt sie aus, während du weg bist?",
     text: "Crewmark weckt Claude Code per Heartbeat mit Rolle, Ziel und einem Board voller Issues, mit dem Tarif, den du ohnehin zahlst.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   faq: {
     title: "FAQ zu Claude Code Skills",
@@ -228,7 +228,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Lass deine Claude Code Skills nach Zeitplan arbeiten.",
     text: "Crewmark macht aus Sessions von Claude Code, Codex und DeepSeek Harness KI-Mitarbeiter mit Rollen, Zielen, Arbeitszeiten und einem Heartbeat.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   checked: "Am 6. November 2026 mit der Claude-Code-Dokumentation (Skills und Plugins) abgeglichen.",
   disclaimer:

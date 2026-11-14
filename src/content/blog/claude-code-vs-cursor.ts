@@ -14,7 +14,7 @@ const cursorPricing = "https://cursor.com/pricing";
 export const claudeCodeVsCursor: Partial<Record<"en", GuideCopy>> = {
   en: {
     meta: {
-      title: "Claude Code vs Cursor (2026): Pricing, Models, Limits and Which to Choose | Crewmark",
+      title: "Claude Code vs Cursor (2026): Pricing, Limits | Crewmark AI",
       description:
         "Claude Code vs Cursor compared in November 2026: Cursor's new Grok-first plans after joining SpaceX, what Claude models cost in each, agents, CLI, rules, MCP and hooks, and how to choose.",
     },
@@ -25,7 +25,7 @@ export const claudeCodeVsCursor: Partial<Record<"en", GuideCopy>> = {
       kicker: "Blog · Claude Code",
       title: "Claude Code vs Cursor in 2026: what changed, and which to choose",
       lead: "Claude Code is Anthropic's coding agent: it runs in your terminal, IDE, desktop app or browser on a Claude subscription. Cursor is an AI code editor with its own agent, CLI and cloud agents. The comparison changed this year: Cursor became part of SpaceX in August 2026, its plans are now built around Grok models, and Claude models in Cursor are billed separately at API list price. This guide compares pricing, models, limits and features as of November 6, 2026, and shows how to choose, or use both.",
-      cta: "Get early access",
+      cta: "Get started",
       secondary: "Jump to the comparison",
       secondaryHref: "#compare",
     },
@@ -149,7 +149,7 @@ export const claudeCodeVsCursor: Partial<Record<"en", GuideCopy>> = {
     mid: {
       title: "Picked your agent? Now let it work without waiting for you.",
       text: "Crewmark wakes Claude Code or Codex on a heartbeat with a role, a goal and a board of issues.",
-      button: "Get early access",
+      button: "Get started",
     },
     faq: {
       title: "Claude Code vs Cursor FAQ",
@@ -187,7 +187,7 @@ export const claudeCodeVsCursor: Partial<Record<"en", GuideCopy>> = {
     cta: {
       title: "Turn your coding agent into a teammate that keeps going.",
       text: "Crewmark turns Claude Code, Codex and DeepSeek Harness sessions into AI employees with roles, goals, working hours and a heartbeat.",
-      button: "Get early access",
+      button: "Get started",
     },
     checked: "Checked against the Claude Code docs, claude.com/pricing and cursor.com (pricing, docs, changelog and blog) on November 6, 2026.",
     disclaimer:

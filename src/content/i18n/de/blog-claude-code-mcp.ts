@@ -34,7 +34,7 @@ const project = `{
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code MCP: Server hinzufügen, Config-Datei und .mcp.json | Crewmark",
+    title: "Claude Code MCP: Server hinzufügen, Config und .mcp.json",
     description:
       "So richtest du MCP-Server in Claude Code ein: claude mcp add für HTTP- und stdio-Server, die Scopes local, project und user, wo die Config-Datei liegt, .mcp.json mit Umgebungsvariablen, OAuth und Fehlerbehebung.",
   },
@@ -45,7 +45,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "Claude Code MCP: Server hinzufügen und wo die Konfiguration liegt",
     lead: "MCP-Server (Model Context Protocol) verbinden Claude Code mit externen Tools und Daten, etwa Notion, GitHub, Sentry, einer Datenbank oder deiner eigenen API. Du fügst sie mit `claude mcp add` hinzu, legst fest, ob jeder nur für dich gilt oder mit dem Team geteilt wird, und danach kann Claude ihre Tools aufrufen. Diese Anleitung zeigt, wie du HTTP- und stdio-Server hinzufügst, die drei Scopes und die Config-Dateien dahinter, `.mcp.json` mit Umgebungsvariablen, die Anmeldung per OAuth und was du prüfen solltest, wenn ein Server keine Verbindung bekommt.",
-    cta: "Early Access anfragen",
+    cta: "Loslegen",
     secondary: "Zur Einrichtung",
     secondaryHref: "#how-to",
   },
@@ -169,7 +169,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Die Tools sind verbunden. Wer nutzt sie, während du weg bist?",
     text: "Crewmark weckt Claude Code per Heartbeat mit Rolle, Ziel und einem Board voller Issues, mit dem Tarif, den du ohnehin zahlst.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   faq: {
     title: "FAQ zu Claude Code MCP",
@@ -207,7 +207,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Verbundene Tools und ein Mitarbeiter, der sie nutzt.",
     text: "Crewmark macht aus Sessions von Claude Code, Codex und DeepSeek Harness KI-Mitarbeiter mit Rollen, Zielen, Arbeitszeiten und einem Heartbeat.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   checked: "Am 6. November 2026 mit der Claude-Code-Dokumentation (MCP und Kosten) abgeglichen.",
   disclaimer:

@@ -21,7 +21,7 @@ git push -u origin HEAD`;
 export const conductorAlternatives: Partial<Record<"en", GuideCopy>> = {
   en: {
     meta: {
-      title: "Conductor Is Joining Meta: Shutdown Dates and the Best Conductor Alternatives | Crewmark",
+      title: "Conductor Alternatives as Conductor Joins Meta | Crewmark AI",
       description:
         "Conductor, the Mac app for parallel Claude Code and Codex agents, is joining Meta. The shutdown dates, how to save your workspaces, and the alternatives for Mac, Windows and Linux.",
     },
@@ -32,7 +32,7 @@ export const conductorAlternatives: Partial<Record<"en", GuideCopy>> = {
       kicker: "Blog · AI coding agents",
       title: "Conductor is joining Meta: what happens now, and where to run your agents next",
       lead: "Conductor, the Mac app that runs Claude Code, Codex, Cursor and OpenCode agents in parallel workspaces, announced on November 4, 2026 that it's joining Meta. New sign-ups are closed, Conductor Cloud goes read-only on November 13 and shuts down on November 20, and the local app gets updates only until early 2027. This guide covers the dates, how to keep your work, and the alternatives that do the same job.",
-      cta: "Get early access",
+      cta: "Get started",
       secondary: "Save your workspaces",
       secondaryHref: "#how-to",
     },
@@ -97,7 +97,7 @@ export const conductorAlternatives: Partial<Record<"en", GuideCopy>> = {
           ["Isolation", "One git worktree per workspace", "One git worktree per session or subagent", "Worktrees", "Each employee in its own session and checkout"],
           ["Who starts the next task", "You", "You (or a schedule)", "You (or a schedule)", "The heartbeat: each employee wakes and takes the next issue"],
           ["Task board", "Workspaces list", "No", "No", "Yes, with issues, comments and messages to you"],
-          ["Status", "Cloud ends November 20; local until early 2027", "Active", "Active", "Early access"],
+          ["Status", "Cloud ends November 20; local until early 2027", "Active", "Active", "Active"],
         ],
       },
       {
@@ -138,7 +138,7 @@ export const conductorAlternatives: Partial<Record<"en", GuideCopy>> = {
     mid: {
       title: "Moving off Conductor? Don't just replace it, upgrade it.",
       text: "Crewmark runs Claude Code, Codex and OpenCode as AI employees that wake on a heartbeat and take the next issue themselves.",
-      button: "Get early access",
+      button: "Get started",
     },
     faq: {
       title: "Conductor shutdown FAQ",
@@ -176,7 +176,7 @@ export const conductorAlternatives: Partial<Record<"en", GuideCopy>> = {
     cta: {
       title: "Your agents need a new home. Give them a job, too.",
       text: "Crewmark turns Claude Code, Codex, DeepSeek Harness and OpenCode sessions into AI employees with roles, goals, working hours and a heartbeat.",
-      button: "Get early access",
+      button: "Get started",
     },
     checked: "Checked against Conductor's announcement, changelog and docs, and TechCrunch's report, on November 6, 2026.",
     disclaimer:

@@ -6,7 +6,7 @@ const copilot = "https://github.com/features/copilot/plans";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Alternativas a Cursor en 2026: 10 opciones gratis, open source y más baratas | Crewmark",
+    title: "Alternativas a Cursor (2026): 10 gratis y open source",
     description:
       "Cursor se unió a SpaceX y sus planes ahora giran en torno a Grok. Comparamos diez alternativas: Claude Code, Codex, GitHub Copilot, Devin Desktop (Windsurf), Zed, Cline, Kilo Code, OpenCode, Antigravity y Junie, con precios y planes gratuitos.",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Herramientas de programación con IA",
     title: "Las mejores alternativas a Cursor en 2026",
     lead: "Cursor pasó a formar parte de SpaceX en agosto de 2026 y sus planes ahora giran en torno a Grok: el plan Plus de $8 solo ofrece modelos Grok, y Claude, GPT o Gemini se pagan aparte, al precio de lista de la API, a partir del plan de $30. Si no es lo que contrataste, hay buenas alternativas: agentes que vienen con la suscripción que ya tienes, editores con su propia IA y herramientas open source en las que usas tu propia clave. Aquí tienes diez, comparadas por lo que son, planes gratuitos, precios y modelos, a 6 de noviembre de 2026.",
-    cta: "Acceso anticipado",
+    cta: "Empezar",
     secondary: "Ir a la comparación",
     secondaryHref: "#compare",
   },
@@ -123,7 +123,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "¿Dejas Cursor por Claude Code, Codex u OpenCode?",
     text: "Crewmark los convierte en empleados de IA que se despiertan con un heartbeat y toman la siguiente issue por sí mismos.",
-    button: "Acceso anticipado",
+    button: "Empezar",
   },
   faq: {
     title: "Preguntas frecuentes sobre alternativas a Cursor",
@@ -161,7 +161,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Nuevo agente de programación, la misma suscripción y, ahora, con un trabajo.",
     text: "Crewmark convierte sesiones de Claude Code, Codex, DeepSeek Harness y OpenCode en empleados de IA con roles, metas, horarios de trabajo y un heartbeat.",
-    button: "Acceso anticipado",
+    button: "Empezar",
   },
   checked: "Comprobado con cursor.com y el sitio web, la página de precios o el repositorio de GitHub de cada alternativa el 6 de noviembre de 2026.",
   disclaimer:

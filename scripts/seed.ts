@@ -69,13 +69,14 @@ async function main() {
   if (await isEmpty(schema.issues)) {
     await db.insert(schema.issues).values(
       // The number comes from the mock key, so MC-3 stays MC-3.
-      MOCK_ISSUES.map(({ key, createdAt, assigneeId, ...issue }) => ({
+      MOCK_ISSUES.map(({ key, createdAt, assigneeId, nextRecurAt, ...issue }) => ({
         ...issue,
         // The demo issues are all assigned to employees.
         assigneeEmployeeId: assigneeId,
         organizationId,
         number: Number(key.slice(3)),
         createdAt: new Date(createdAt),
+        nextRecurAt: nextRecurAt ? new Date(nextRecurAt) : null,
       })),
     );
     console.log(`issues: inserted ${MOCK_ISSUES.length}`);

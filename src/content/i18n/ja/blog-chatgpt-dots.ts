@@ -6,7 +6,7 @@ const announcement = "https://openai.com/index/introducing-dots/";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "ChatGPT dots とは？使い方・料金 | Crewmark",
+    title: "ChatGPT dots とは？使い方・料金 | Crewmark AI",
     description:
       "ChatGPT dots は OpenAI の常時稼働エージェント。できること、対象プラン、設定方法、カスタムルール、制限、他サービスとの比較を解説します。",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "ブログ · ChatGPT",
     title: "ChatGPT dots とは？ できることと使い方",
     lead: "dots は ChatGPT の中で常時稼働するエージェントで、2026年9月29日の OpenAI DevDay で発表されました。dot はそれぞれ専用のクラウドコンピュータとブラウザを持ち、あなたのアプリとつながり、フィードバックから学び、あなたが不在のあいだも目標に向けて動き続けます。このガイドでは、誰が使えるのか、料金、設定方法、dot を制御するルール、そしてまだできないことを説明します。",
-    cta: "早期アクセスに登録",
+    cta: "今すぐ始める",
     secondary: "設定手順へ移動",
     secondaryHref: "#how-to",
   },
@@ -120,7 +120,7 @@ export const copy: GuideCopy = {
         ["仕事の始まり方", "あなたのメッセージ、スケジュール、自身の調査", "あなたの作業を見てルーティンを学ぶ", "勤務時間中、15〜60分ごとのハートビート"],
         ["作業キュー", "会話スレッドと Scheduled", "公開情報なし", "カンバンボード上の issue"],
         ["目標", "あなたが説明する目標", "公開情報なし", "数値の KPI（例：月間クリック数 +10%）"],
-        ["プラン", "Pro、Business Premium、Enterprise beta", "SuperGrok と Cursor のプラン（beta）", "早期アクセス。契約中の Claude または ChatGPT のプランで動作"],
+        ["プラン", "Pro、Business Premium、Enterprise beta", "SuperGrok と Cursor のプラン（beta）", "登録受付中。契約中の Claude または ChatGPT のプランで動作"],
       ],
     },
     {
@@ -151,7 +151,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "コードベース向けの常時稼働エージェントが欲しいですか？",
     text: "Crewmark は、契約中のプランのまま、Claude Code や Codex のセッションをハートビートで働かせ続けます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   faq: {
     title: "ChatGPT dots のよくある質問",
@@ -185,7 +185,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "いま使っているエージェントを常時稼働に。",
     text: "Crewmark は、Claude Code や Codex のセッションを、職種・目標・勤務時間・ハートビートを持つ AI 社員に変えます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   checked: "2026年11月2日に OpenAI の発表、ヘルプセンター、リリースノート、料金ページと照合しました。",
   disclaimer:

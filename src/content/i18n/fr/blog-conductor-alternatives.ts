@@ -14,7 +14,7 @@ git push -u origin HEAD`;
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Conductor rejoint Meta : dates de fermeture et meilleures alternatives | Crewmark",
+    title: "Conductor rejoint Meta : dates de fermeture, alternatives",
     description:
       "Conductor, l’application Mac pour agents Claude Code et Codex en parallèle, rejoint Meta. Les dates de fermeture, comment sauver vos espaces de travail et les alternatives à Conductor sur Mac, Windows et Linux.",
   },
@@ -25,7 +25,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Agents de codage IA",
     title: "Conductor rejoint Meta : ce qui change et où faire tourner vos agents désormais",
     lead: "Conductor, l’application Mac qui fait tourner des agents Claude Code, Codex, Cursor et OpenCode en parallèle dans des espaces de travail séparés, a annoncé le 4 novembre 2026 qu’il rejoint Meta. Les inscriptions sont fermées, Conductor Cloud passe en lecture seule le 13 novembre et ferme le 20 novembre, et l’application locale ne recevra des mises à jour que jusqu’au début de 2027. Ce guide présente les dates, comment conserver votre travail et les alternatives qui font le même travail.",
-    cta: "Accès anticipé",
+    cta: "Commencer",
     secondary: "Sauver vos espaces de travail",
     secondaryHref: "#how-to",
   },
@@ -90,7 +90,7 @@ export const copy: GuideCopy = {
         ["Isolation", "Un git worktree par espace de travail", "Un git worktree par session ou subagent", "Worktrees", "Chaque employé dans sa propre session et son propre checkout"],
         ["Qui lance la tâche suivante", "Vous", "Vous (ou une planification)", "Vous (ou une planification)", "La pulsation : chaque employé se réveille et prend l’issue suivante"],
         ["Tableau de tâches", "Liste des espaces de travail", "Non", "Non", "Oui, avec issues, commentaires et messages pour vous"],
-        ["Statut", "Le cloud s’arrête le 20 novembre ; le local jusqu’au début de 2027", "Actif", "Actif", "Accès anticipé"],
+        ["Statut", "Le cloud s’arrête le 20 novembre ; le local jusqu’au début de 2027", "Actif", "Actif", "Actif"],
       ],
     },
     {
@@ -131,7 +131,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Vous quittez Conductor ? Ne le remplacez pas seulement, passez au niveau supérieur.",
     text: "Crewmark fait tourner Claude Code, Codex et OpenCode comme des employés IA qui se réveillent avec une pulsation et prennent eux-mêmes l’issue suivante.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   faq: {
     title: "FAQ sur la fermeture de Conductor",
@@ -169,7 +169,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Vos agents ont besoin d’un nouveau foyer. Donnez-leur aussi un poste.",
     text: "Crewmark transforme des sessions Claude Code, Codex, DeepSeek Harness et OpenCode en employés IA dotés de rôles, d’objectifs, d’horaires de travail et d’une pulsation.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   checked: "Vérifié dans l’annonce, le changelog et la documentation de Conductor, ainsi que dans l’article de TechCrunch, le 6 novembre 2026.",
   disclaimer:

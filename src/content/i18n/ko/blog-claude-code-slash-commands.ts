@@ -28,7 +28,7 @@ $0 컴포넌트를 $1에서 $2로 마이그레이션해.
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code 슬래시 명령어: 치트 시트, 커스텀 명령어, 스킬 | Crewmark",
+    title: "Claude Code 슬래시 명령어 치트 시트 | Crewmark AI",
     description:
       "알아 둘 만한 Claude Code 슬래시 명령어 치트 시트, 인수를 받는 커스텀 슬래시 명령어 만드는 법, 명령어와 스킬의 관계를 정리했어요.",
   },
@@ -39,7 +39,7 @@ export const copy: GuideCopy = {
     kicker: "블로그 · Claude Code",
     title: "Claude Code 슬래시 명령어: 치트 시트와 직접 만드는 법",
     lead: "슬래시 명령어는 `/init`, `/compact`, `/code-review`처럼 Claude Code 메시지 맨 앞에 입력하는 단축 명령으로, 세션을 제어하거나 저장해 둔 프롬프트를 실행해요. 이 가이드에서는 알아 둘 만한 명령어를 필요한 시점별로 묶은 치트 시트를 보여 주고, 인수를 받는 커스텀 슬래시 명령어를 만드는 법과 스킬과의 관계를 설명해요.",
-    cta: "얼리 액세스 신청",
+    cta: "시작하기",
     secondary: "커스텀 명령어로 이동",
     secondaryHref: "#how-to",
   },
@@ -191,7 +191,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "입력은 자동화했어요. 다음에 뭘 입력할지는 누가 정할까요?",
     text: "Crewmark는 직무, 목표, 이슈 보드를 주고 하트비트로 Claude Code를 깨워요. 이미 결제한 요금제 그대로 쓸 수 있어요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   faq: {
     title: "Claude Code 슬래시 명령어 자주 묻는 질문",
@@ -229,7 +229,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Claude Code 스킬을 실행할 직원을 두세요.",
     text: "Crewmark는 Claude Code, Codex, DeepSeek Harness 세션을 직무, 목표, 근무 시간, 하트비트를 갖춘 AI 직원으로 바꿔 줘요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   checked: "2026년 11월 6일에 Claude Code 문서(commands, skills)와 대조해 확인했습니다.",
   disclaimer:

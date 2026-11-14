@@ -6,7 +6,7 @@ const docs = "https://code.claude.com/docs/en/agents";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "2026 최고의 Claude Code 오케스트레이션 도구: 내장 기능과 앱 10개 비교 | Crewmark",
+    title: "Claude Code 오케스트레이션 도구 비교 (2026) | Crewmark AI",
     description:
       "Claude Code 에이전트 여러 개를 동시에 돌리는 법. 내장 기능(Subagents, Agent view, Agent teams, 워크플로)과 Claude Squad, Orca부터 Paperclip, Multica, Crewmark까지 오케스트레이션 도구 10개를 비교해요.",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "블로그 · Claude Code",
     title: "2026년 최고의 Claude Code 오케스트레이션 도구",
     lead: "Claude Code 오케스트레이션은 Claude Code 에이전트 여러 개를 동시에 실행하고 조율하는 일이에요. 각 에이전트에 코드 사본, 작업, 결과를 보고할 방법을 하나씩 주는 거죠. 이제 Claude Code가 이 중 많은 부분을 직접 해 주고, 오픈소스와 상용 도구들이 그 위에 인터페이스, 보드, 일정을 더하고 있어요. 이 가이드는 먼저 내장 기능을 살펴본 뒤, 도구 10개를 인터페이스, 격리 방식, 지원 에이전트, 그리고 가장 중요한 질문으로 비교해요. 에이전트가 스스로 일을 시작하나요, 아니면 나를 기다리나요?",
-    cta: "얼리 액세스 신청",
+    cta: "시작하기",
     secondary: "비교표로 이동",
     secondaryHref: "#compare",
   },
@@ -57,7 +57,7 @@ export const copy: GuideCopy = {
         ["Conductor", "Mac 앱", "작업마다 워크스페이스와 브랜치", "Claude Code, Codex, Cursor, OpenCode", "아니요. Meta에 합류하며 클라우드는 2026년 11월 20일 종료", "비공개 소스"],
         ["Paperclip", "웹 UI: 조직도, 목표, 예산을 갖춘 \"AI 회사\"", "선택형 worktree와 샌드박스", "Claude Code, Codex, Gemini CLI, Cursor, OpenCode 등", "예: 예약된 하트비트, 배정과 @멘션", "MIT, ~111k"],
         ["Multica", "웹, 데스크톱, CLI, API", "내 컴퓨터에서 도는 데몬", "Claude Code, Codex, Cursor, Copilot, OpenCode 등", "예: 에이전트가 배정된 이슈를 가져가고, Autopilots는 cron으로 실행", "Multica License(소스 공개), ~55k"],
-        ["Crewmark", "웹 보드, CLI, 내 컴퓨터에서 도는 데몬", "직원마다 자기 세션과 체크아웃", "Claude Code, Codex, DeepSeek Harness, OpenCode", "예: 근무 시간 중 하트비트가 다음 이슈를 가져가요", "얼리 액세스"],
+        ["Crewmark", "웹 보드, CLI, 내 컴퓨터에서 도는 데몬", "직원마다 자기 세션과 체크아웃", "Claude Code, Codex, DeepSeek Harness, OpenCode", "예: 근무 시간 중 하트비트가 다음 이슈를 가져가요", "누구나 가입 가능"],
       ],
     },
     {
@@ -131,7 +131,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "에이전트 다섯 개를 돌리면서 프롬프트는 여전히 하나하나 입력하나요?",
     text: "Crewmark는 Claude Code 세션마다 직무, 목표, 하트비트를 줘서, 내가 없어도 다음 이슈를 가져가게 해요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   faq: {
     title: "Claude Code 오케스트레이션 FAQ",
@@ -169,7 +169,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Claude Code 에이전트가 다음 작업을 스스로 가져가게 하세요.",
     text: "Crewmark는 Claude Code, Codex, DeepSeek Harness 세션을 직무, 목표, 근무 시간, 하트비트를 갖춘 AI 직원으로 바꿔 줘요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   checked: "2026년 11월 6일에 Claude Code 문서, 각 프로젝트의 README 또는 웹사이트, GitHub API와 대조해 확인했어요.",
   disclaimer:

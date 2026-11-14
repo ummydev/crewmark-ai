@@ -62,7 +62,7 @@ const stop = `{
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Hooks Claude Code : événements, exemples et fonctionnement | Crewmark",
+    title: "Hooks Claude Code : événements et exemples | Crewmark AI",
     description:
       "Les hooks de Claude Code expliqués : événements du cycle de vie, où les configurer, codes de sortie et sortie JSON, et des exemples prêts à copier pour les notifications, le formatage automatique, le blocage de commandes et les hooks Stop.",
   },
@@ -73,7 +73,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "Hooks Claude Code : événements, exemples et fonctionnement",
     lead: "Les hooks de Claude Code sont des commandes qui s’exécutent automatiquement à des moments précis d’une session : avant l’exécution d’un outil, après la modification d’un fichier, quand Claude termine, quand il attend votre réponse. Contrairement aux instructions du CLAUDE.md, que Claude suit en général, un hook s’exécute toujours : c’est donc le moyen d’imposer des règles et d’automatiser les corvées. Ce guide présente les événements, l’endroit où configurer les hooks, la façon dont les codes de sortie et le JSON déterminent ce qui se passe, quatre exemples prêts à l’emploi et les nouveaux types de hooks : prompt, agent et HTTP.",
-    cta: "Accès anticipé",
+    cta: "Commencer",
     secondary: "Aller aux exemples",
     secondaryHref: "#how-to",
   },
@@ -209,7 +209,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Vos hooks s’exécutent à chaque fois. Et votre agent ?",
     text: "Crewmark réveille Claude Code avec une pulsation, un rôle, un objectif et un tableau d’issues, avec l’abonnement que vous payez déjà.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   faq: {
     title: "FAQ hooks Claude Code",
@@ -247,7 +247,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Les garde-fous dans les hooks, le travail sur un tableau.",
     text: "Crewmark transforme les sessions Claude Code, Codex et DeepSeek Harness en employés IA avec des rôles, des objectifs, des horaires de travail et une pulsation.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   checked: "Vérifié dans la documentation de Claude Code (guide et référence des hooks) le 6 novembre 2026.",
   disclaimer:

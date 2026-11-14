@@ -62,7 +62,7 @@ const stop = `{
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Hooks do Claude Code: eventos, exemplos e como funcionam | Crewmark",
+    title: "Hooks do Claude Code: eventos, exemplos e como funcionam",
     description:
       "Os hooks do Claude Code explicados: eventos do ciclo de vida, onde configurar, códigos de saída e saída JSON, e exemplos prontos para copiar: notificações, formatação automática, bloqueio de comandos e hooks Stop.",
   },
@@ -73,7 +73,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "Hooks do Claude Code: eventos, exemplos e como funcionam",
     lead: "Os hooks do Claude Code são comandos que rodam automaticamente em pontos fixos de uma sessão: antes de uma ferramenta rodar, depois que um arquivo é editado, quando o Claude termina, quando ele precisa da sua resposta. Diferente das instruções do CLAUDE.md, que o Claude costuma seguir, um hook roda sempre, então é a forma de impor regras e automatizar tarefas repetitivas. Este guia cobre os eventos, onde os hooks são configurados, como os códigos de saída e o JSON controlam o que acontece, quatro exemplos prontos para usar e os tipos de hook mais novos: prompt, agent e HTTP.",
-    cta: "Acesso antecipado",
+    cta: "Começar",
     secondary: "Ir para os exemplos",
     secondaryHref: "#how-to",
   },
@@ -209,7 +209,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Seus hooks rodam sempre. E o seu agente?",
     text: "O Crewmark acorda o Claude Code com um heartbeat, um papel, uma meta e um quadro de issues, no plano que você já paga.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   faq: {
     title: "Perguntas frequentes sobre hooks do Claude Code",
@@ -247,7 +247,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Proteções nos hooks, trabalho a partir de um quadro.",
     text: "O Crewmark transforma sessões do Claude Code, Codex e DeepSeek Harness em funcionários de IA com papéis, metas, horários de trabalho e um heartbeat.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   checked: "Conferido com a documentação do Claude Code (guia de hooks e referência de hooks) em 6 de novembro de 2026.",
   disclaimer:

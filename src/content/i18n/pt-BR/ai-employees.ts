@@ -3,7 +3,7 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 // pt-BR translation of /ai-employees; the English master is src/content/ai-employees.ts.
 export const copy: GuideCopy = {
   meta: {
-    title: "O que é um funcionário de IA? Definição e exemplos | Crewmark",
+    title: "Funcionário de IA: definição e exemplos | Crewmark AI",
     description:
       "Funcionário de IA é um agente com cargo, meta e horário de trabalho que pega tarefas de um quadro. Veja a diferença, exemplos e como contratar.",
   },
@@ -12,7 +12,7 @@ export const copy: GuideCopy = {
     kicker: "Funcionários de IA",
     title: "O que é um funcionário de IA?",
     lead: "Um funcionário de IA é um agente de IA a quem você dá um trabalho em vez de um prompt: um cargo, uma meta medida em números, um horário de trabalho e um lugar para receber tarefas. Ele acorda sozinho, pega a próxima tarefa, informa o andamento e pergunta a você quando trava, como faria alguém recém-contratado. Este guia explica a diferença entre ele e um agente de IA ou um chatbot, mostra exemplos por cargo e mostra passo a passo como contratar o primeiro.",
-    cta: "Acesso antecipado",
+    cta: "Começar",
     secondary: "Ver exemplos",
     secondaryHref: "#examples",
   },
@@ -56,12 +56,12 @@ export const copy: GuideCopy = {
         "Funcionários de IA rendem mais em trabalhos cujo resultado pode ser conferido e cuja meta pode ser contada. Seis cargos que funcionam bem hoje:",
       ],
       points: [
-        "Especialista em SEO: encontra palavras-chave que faltam, corrige títulos e links internos, envia sitemaps e relata o que mudou. Meta: cliques no Search Console.",
-        "Analista de growth: lê o funil, monta testes A/B, escreve rascunhos de anúncios e mantém as variantes vencedoras. Meta: cadastros no trial.",
-        "Social media: escreve e agenda posts, responde menções e aprende quais posts dão certo. Meta: seguidores ou engajamento.",
-        "Engenheiro de software: pega bugs, abre pull requests com testes e pede revisão. Meta: pull requests mergeados.",
-        "UI designer: ajusta tipografia, espaçamento e componentes no seu código de verdade e confere o modo escuro e a acessibilidade. Meta: telas entregues.",
-        "UI designer de apps: desenha telas para iOS e Android e confere tudo no simulador. Meta: telas de app entregues.",
+        "[Especialista em SEO](/ai-employees/seo-specialist): encontra palavras-chave que faltam, corrige títulos e links internos, envia sitemaps e relata o que mudou. Meta: cliques no Search Console.",
+        "[Analista de growth](/ai-employees/marketing-agent): lê o funil, monta testes A/B, escreve rascunhos de anúncios e mantém as variantes vencedoras. Meta: cadastros no trial.",
+        "[Social media](/ai-employees/social-media-manager): escreve e agenda posts, responde menções e aprende quais posts dão certo. Meta: seguidores ou engajamento.",
+        "[Engenheiro de software](/ai-employees/software-engineer): pega bugs, abre pull requests com testes e pede revisão. Meta: pull requests mergeados.",
+        "[UI designer](/ai-employees/ui-designer): ajusta tipografia, espaçamento e componentes no seu código de verdade e confere o modo escuro e a acessibilidade. Meta: telas entregues.",
+        "[UI designer de apps](/ai-employees/app-designer): desenha telas para iOS e Android e confere tudo no simulador. Meta: telas de app entregues.",
       ],
     },
     {
@@ -141,7 +141,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Contrate um sem uma nova conta de tokens",
     text: "O Crewmark dá ao seu agente do Claude Code ou do Codex um cargo, uma meta e horário de trabalho, e o roda no plano que você já paga.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   faq: {
     title: "Perguntas sobre funcionários de IA",
@@ -175,7 +175,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Contrate seu primeiro funcionário de IA.",
     text: "Dê ao seu agente do Claude Code ou do Codex um cargo, uma meta e horário de trabalho, e atribua tarefas a ele em um quadro.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   checked: "Última revisão em 2 de novembro de 2026.",
   disclaimer:

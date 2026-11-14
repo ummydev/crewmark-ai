@@ -34,7 +34,7 @@ const project = `{
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code MCP: 서버 추가, 설정 파일 위치, .mcp.json과 스코프 | Crewmark",
+    title: "Claude Code MCP: 서버 추가와 .mcp.json | Crewmark AI",
     description:
       "Claude Code에서 MCP 서버를 설정하는 방법: claude mcp add로 HTTP와 stdio 서버 추가하기, local·project·user 스코프, 설정 파일 위치, 환경 변수를 쓰는 .mcp.json, OAuth와 문제 해결까지.",
   },
@@ -45,7 +45,7 @@ export const copy: GuideCopy = {
     kicker: "블로그 · Claude Code",
     title: "Claude Code MCP: 서버 추가 방법과 설정이 저장되는 곳",
     lead: "MCP(Model Context Protocol) 서버는 Claude Code를 Notion, GitHub, Sentry, 데이터베이스, 직접 만든 API 같은 외부 도구와 데이터에 연결해요. `claude mcp add`로 추가하고, 서버마다 나만 쓸지 팀과 공유할지 정하면 Claude가 그 도구를 호출할 수 있어요. 이 가이드에서는 HTTP와 stdio 서버 추가, 세 가지 스코프(scope)와 그 뒤의 설정 파일, 환경 변수를 쓰는 `.mcp.json`, OAuth 로그인, 서버가 연결되지 않을 때 확인할 것을 다뤄요.",
-    cta: "얼리 액세스 신청",
+    cta: "시작하기",
     secondary: "설정 방법으로 바로 가기",
     secondaryHref: "#how-to",
   },
@@ -169,7 +169,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "도구는 연결했어요. 내가 없는 동안엔 누가 쓰나요?",
     text: "Crewmark는 직무, 목표, 이슈 보드를 주고 하트비트로 Claude Code를 깨워요. 이미 결제한 요금제 그대로 쓸 수 있어요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   faq: {
     title: "Claude Code MCP 자주 묻는 질문",
@@ -207,7 +207,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "도구는 연결됐으니, 이제 쓸 직원도.",
     text: "Crewmark는 Claude Code, Codex, DeepSeek Harness 세션을 직무, 목표, 근무 시간, 하트비트를 갖춘 AI 직원으로 바꿔 줘요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   checked: "2026년 11월 6일에 Claude Code 문서(MCP, 비용)와 대조해 확인했습니다.",
   disclaimer:

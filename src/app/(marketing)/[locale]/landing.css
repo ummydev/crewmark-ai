@@ -353,42 +353,12 @@ footer.foot { padding: 72px 0 40px; }
 .foot-grid h4 { font-size: 14px; font-weight: 600; margin-bottom: 14px; }
 .foot-grid ul { display: grid; gap: 10px; font-size: 14.5px; color: var(--muted); }
 .foot-grid li { display: flex; align-items: center; gap: 8px; }
-.foot-grid a:hover { color: var(--ink); }
+.signin:hover, .foot-grid a:hover { color: var(--ink); }
 .foot-grid .lg { width: 15px; height: 15px; }
 .foot-bottom { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px 24px; color: var(--faint); font-size: 13.5px; }
 /* The language links get a row of their own under the copyright line. */
 .langs { order: 3; flex-basis: 100%; display: flex; flex-wrap: wrap; gap: 6px 18px; }
 .langs a:hover, .langs a[aria-current] { color: var(--ink); }
-
-/* ---------- Early access dialog ---------- */
-.signin:hover, .foot-grid button:hover { color: var(--ink); }
-.ea { margin: auto; width: min(440px, calc(100% - 32px)); max-height: calc(100% - 32px); border: 0; border-radius: 20px; background: #fff; color: var(--ink); box-shadow: 0 40px 100px -20px rgb(0 0 0 / 0.35); }
-.ea::backdrop { background: rgb(23 23 23 / 0.45); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
-.ea[open] { animation: ea-in 260ms var(--ease); }
-.ea[open]::backdrop { animation: ea-fade 200ms ease; }
-@keyframes ea-in { from { opacity: 0; transform: translateY(8px) scale(0.98); } }
-@keyframes ea-fade { from { opacity: 0; } }
-body:has(.ea[open]) { overflow: hidden; }
-.ea-body { position: relative; padding: 36px 32px 30px; }
-.ea-close { position: absolute; top: 14px; right: 14px; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; color: var(--muted); transition: background-color 150ms, color 150ms; }
-.ea-close:hover { background: var(--soft); color: var(--ink); }
-.ea-mark { width: 40px; height: 40px; margin-bottom: 20px; }
-.ea h2 { font-size: 26px; font-weight: 650; letter-spacing: -0.035em; line-height: 1.15; }
-.ea p { margin-top: 10px; color: var(--muted); font-size: 15.5px; }
-.ea p b { color: var(--ink); font-weight: 600; overflow-wrap: anywhere; }
-.ea form { margin-top: 24px; display: grid; gap: 8px; }
-.ea label { font-size: 14px; font-weight: 500; }
-.ea input { height: 46px; padding: 0 16px; border: 1px solid #d6d6d2; border-radius: 12px; font: inherit; color: var(--ink); background: #fff; outline: none; transition: border-color 150ms, box-shadow 150ms; }
-.ea input::placeholder { color: var(--faint); }
-.ea input:focus { border-color: var(--ink); box-shadow: 0 0 0 3px rgb(243 206 73 / 0.6); }
-.ea input[aria-invalid="true"] { border-color: #c2412d; box-shadow: 0 0 0 3px rgb(194 65 45 / 0.15); }
-.ea .ea-error { margin: 0; font-size: 13.5px; color: #b13a26; }
-.ea form .btn { margin-top: 8px; width: 100%; }
-.ea .ea-fine { margin-top: 14px; font-size: 13px; color: var(--faint); text-align: center; }
-.ea-check { width: 48px; height: 48px; border-radius: 50%; background: var(--yellow); display: grid; place-items: center; margin-bottom: 20px; }
-.ea-check svg { width: 22px; height: 22px; }
-.ea-done .btn { margin-top: 26px; width: 100%; }
-.ea.sent .ea-form-view, .ea:not(.sent) .ea-done { display: none; }
 
 /* ---------- Chinese, Japanese, Korean ---------- */
 /* Each language's own fonts, so Han characters take the right regional forms (Inter has none). */
@@ -449,7 +419,6 @@ body:has(.ea[open]) { overflow: hidden; }
   .langs { flex-basis: auto; }
   .nav .container { gap: 16px; }
   .nav-right { gap: 14px; }
-  .ea-body { padding: 30px 22px 24px; }
   .cta { margin-top: 96px; padding: 64px 20px; border-radius: 20px; }
 }
 @media (prefers-reduced-motion: reduce) {

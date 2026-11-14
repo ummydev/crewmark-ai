@@ -15,7 +15,7 @@ specific, actionable feedback on quality, security and best practices.`;
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code 멀티 에이전트: 서브에이전트·worktree | Crewmark",
+    title: "Claude Code 멀티 에이전트: 서브에이전트·worktree",
     description:
       "Claude Code 에이전트 동시 실행: 서브에이전트, git worktree, --bg 세션, agent teams를 충돌 없이 쓰는 법.",
   },
@@ -26,7 +26,7 @@ export const copy: GuideCopy = {
     kicker: "블로그 · Claude Code",
     title: "Claude Code 에이전트 여러 개를 동시에 실행하는 방법",
     lead: "Claude Code는 여러 일을 동시에 할 수 있고, 방법은 네 가지예요. 한 대화 안의 서브에이전트, 각자의 git worktree에서 도는 별도 세션, --bg로 시작하는 백그라운드 세션, 그리고 서로 메시지를 주고받는 실험적 agent teams예요. 이 가이드에서는 각각을 설정하는 방법, 무엇을 고를지, 그리고 병렬 에이전트가 서로의 작업을 덮어쓰지 않게 하는 방법을 보여 드려요.",
-    cta: "얼리 액세스 신청",
+    cta: "시작하기",
     secondary: "worktree로 바로 가기",
     secondaryHref: "#how-to",
   },
@@ -156,7 +156,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "매일 에이전트 여러 개를 돌리시나요?",
     text: "Crewmark는 각 Claude Code 세션에 직무, 목표, 근무 시간을 주고, 모든 업무를 보드 하나에 모아요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   faq: {
     title: "Claude Code 멀티 에이전트 FAQ",
@@ -190,7 +190,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "일자리가 있는 Claude Code 에이전트 팀을 운영하세요.",
     text: "Crewmark는 Claude Code와 Codex 세션을 직무, 목표, 근무 시간을 갖춘 AI 직원으로 바꾸고, 보드 하나에서 관리하게 해 줘요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   checked: "2026년 11월 2일에 Anthropic의 Claude Code 문서와 대조해 확인했습니다.",
   disclaimer:

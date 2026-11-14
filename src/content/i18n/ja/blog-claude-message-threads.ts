@@ -33,7 +33,7 @@ anthropic-beta: message-threads-2026-08-12`;
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude のメッセージスレッドとは？ 長いエージェントセッションを高速化 | Crewmark",
+    title: "Claude のメッセージスレッドとは？ | Crewmark AI",
     description:
       "Anthropic のメッセージスレッドは、Claude との会話を一度だけ送り、以降は新しい分だけを送る仕組みです。Claude Code への影響、ベータ API の使い方、5分の有効期限と制限を解説します。",
   },
@@ -44,7 +44,7 @@ export const copy: GuideCopy = {
     kicker: "ブログ · Claude",
     title: "Claude のメッセージスレッドとは？ 仕組みと使い方",
     lead: "メッセージスレッドは、2026年11月2日からパブリックベータで提供されている Claude API の機能です。毎ターン会話全体をアップロードする代わりに、エージェントは会話を一度だけ送り、その後は新しいメッセージだけを送ります。Anthropic によると、Claude Code のほとんどのユーザーですでに有効になっていて、50万〜100万トークンのリクエストでは最初のトークンが返るまでの時間の中央値が約35%短くなります。このガイドでは、何が変わり何が変わらないのか、自分のエージェントでの使い方、そして制限を説明します。",
-    cta: "早期アクセスに登録",
+    cta: "今すぐ始める",
     secondary: "設定方法へ移動",
     secondaryHref: "#how-to",
   },
@@ -157,7 +157,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "長い Claude Code セッションを動かしていますか？",
     text: "Crewmark は、職種・目標・issue のボードを与え、ハートビートでセッションを起こします。契約中のプランのままご利用いただけます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   faq: {
     title: "Claude のメッセージスレッドのよくある質問",
@@ -195,7 +195,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "長い Claude Code セッションを、自律的に動かそう。",
     text: "Crewmark は、Claude Code、Codex、DeepSeek Harness のセッションを、職種・目標・勤務時間・ハートビートを持つ AI 社員に変えます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   checked: "2026年11月4日に Anthropic の発表と Claude Platform のドキュメントと照合しました。",
   disclaimer:

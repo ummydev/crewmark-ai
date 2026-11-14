@@ -3,7 +3,7 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 // French translation of /proactive-claude-code; the English master is src/content/proactive-claude-code.ts.
 export const copy: GuideCopy = {
   meta: {
-    title: "Rendre Claude Code proactif : /loop et heartbeat | Crewmark",
+    title: "Claude Code proactif : /loop et heartbeat | Crewmark AI",
     description:
       "Claude Code qui travaille sans vous attendre : style Proactive, auto mode, /goal, /loop, tâches planifiées et une pulsation (heartbeat) pour un vrai poste.",
   },
@@ -12,7 +12,7 @@ export const copy: GuideCopy = {
     kicker: "Claude Code proactif",
     title: "Comment rendre Claude Code proactif",
     lead: "Un agent Claude Code proactif n’attend pas votre prochain message. Il prend lui-même les décisions de routine, continue jusqu’à ce que le travail soit fini, se réveille selon un planning et réagit quand quelque chose se produit. Claude Code propose une brique intégrée pour chacun de ces points. Ce guide montre comment les activer, où chacune s’arrête, et comment confier à Claude Code un poste permanent plutôt qu’un prompt ponctuel. La brique que les fonctionnalités intégrées laissent de côté, c’est la pulsation (heartbeat) : réveiller la même session à intervalles réguliers pour qu’elle prenne sa tâche suivante. Nous montrons comment la mettre en place à la main, et comment Crewmark s’en charge pour vous.",
-    cta: "Accès anticipé",
+    cta: "Commencer",
     secondary: "Aller aux étapes",
     secondaryHref: "#how-to",
   },
@@ -163,7 +163,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Ni tâche cron ni session ouverte",
     text: "Crewmark réveille votre session Claude Code au rythme d’une pulsation pendant les heures de travail et lui confie le ticket suivant du tableau.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   faq: {
     title: "FAQ",
@@ -201,7 +201,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Faites de Claude Code votre premier employé IA",
     text: "Donnez-lui un rôle, un objectif, des horaires de travail et une pulsation, puis assignez-lui son premier ticket.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   checked: "Vérifié dans la documentation Claude Code d’Anthropic le 2 novembre 2026.",
   disclaimer:

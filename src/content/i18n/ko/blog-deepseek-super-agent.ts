@@ -6,7 +6,7 @@ const repo = "https://github.com/deepseek-ai/dsh-superagent-prototype";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "DeepSeek Super-Agent란? 설정 방법 총정리 | Crewmark",
+    title: "DeepSeek Super-Agent란? 설정 방법 총정리 | Crewmark AI",
     description:
       "DeepSeek의 오픈소스 Super-Agent(dsh-superagent)는 GitHub 저장소 하나를 맡는 능동형 코딩 에이전트예요. 기능, 요구 사항, 설정, 안전 한계, 비교까지 정리했어요.",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "블로그 · DeepSeek",
     title: "DeepSeek Super-Agent란 무엇이고 어떻게 설정할까",
     lead: "dsh-superagent는 GitHub 저장소 하나를 맡는 DeepSeek의 오픈소스 능동형 코딩 에이전트로, 2026년 10월 31일 MIT 라이선스로 공개됐어요. DeepSeek Harness 위에서 돌아가며 GitHub(원하면 Feishu도)를 지켜보고, 요청을 풀 리퀘스트로 바꿔요. 요청마다 전용 세션과 디렉터리에서 작업해요. 이 가이드에서는 무엇을 하는지, 무엇이 필요한지, 설정 방법, 실제로 “능동적”이라는 게 무슨 뜻인지, 그리고 다른 서비스와의 비교를 다뤄요.",
-    cta: "얼리 액세스 신청",
+    cta: "시작하기",
     secondary: "설정 방법으로 이동",
     secondaryHref: "#how-to",
   },
@@ -110,8 +110,8 @@ export const copy: GuideCopy = {
         ["일을 시작하는 방식", "허용된 사람의 @멘션, 또는 `auto` 모드의 규칙", "내 메시지, 예약 일정, 자체 조사", "근무 시간 중 15~60분마다 하트비트"],
         ["업무 대기열", "GitHub와 Feishu 스레드에서 온 Ticket", "대화 스레드와 Scheduled", "칸반 보드의 이슈"],
         ["범위", "설정 하나당 GitHub 저장소 하나", "내가 연결한 앱", "SEO나 엔지니어링처럼 직무마다 직원 한 명"],
-        ["비용", "무료, MIT 라이선스. 모델 제공자 비용은 직접 부담", "Pro와 Business Premium 요금제", "얼리 액세스. 이미 쓰고 있는 에이전트와 요금제로 실행"],
-        ["상태", "연구용 프로토타입", "순차 제공 중", "얼리 액세스"],
+        ["비용", "무료, MIT 라이선스. 모델 제공자 비용은 직접 부담", "Pro와 Business Premium 요금제", "누구나 가입 가능. 이미 쓰고 있는 에이전트와 요금제로 실행"],
+        ["상태", "연구용 프로토타입", "순차 제공 중", "누구나 가입 가능"],
       ],
     },
     {
@@ -142,7 +142,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "이미 DeepSeek Harness, Claude Code, Codex를 쓰고 있나요?",
     text: "Crewmark는 그 세션을 능동적으로 만들어 줘요. 하트비트, 근무 시간, 이슈 보드를 이미 결제한 요금제 그대로 쓸 수 있어요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   faq: {
     title: "DeepSeek Super-Agent 자주 묻는 질문",
@@ -180,7 +180,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "이미 쓰고 있는 에이전트를 능동적으로 만드세요.",
     text: "Crewmark는 DeepSeek Harness, Claude Code, Codex 세션을 직무, 목표, 근무 시간, 하트비트를 갖춘 AI 직원으로 바꿔 줘요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   checked: "2026년 11월 3일에 GitHub의 dsh-superagent 및 DeepSeek Harness 저장소와 대조해 확인했습니다.",
   disclaimer:

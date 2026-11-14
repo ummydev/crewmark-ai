@@ -189,6 +189,8 @@ export const employees = pgTable(
     id: id(),
     organizationId: organizationId(),
     name: text("name").notNull(),
+    /** Shown on a light grey circle as the employee's avatar; one of EMPLOYEE_EMOJIS. */
+    emoji: text("emoji").notNull().default("🐵"),
     role: text("role").notNull().default(""),
     /**
      * What the employee's agent runs in, saved from what it reports when it connects (crewmark setup or
@@ -293,6 +295,10 @@ export const issues = pgTable(
     createdByUserId: text("created_by_user_id").references(() => users.id, { onDelete: "set null" }),
     createdByEmployeeId: text("created_by_employee_id").references(() => employees.id, { onDelete: "set null" }),
     createdAt: createdAt(),
+    /** When it repeats: iCalendar text, see lib/recurrence.ts. Null for a one-off issue. */
+    recurrence: text("recurrence"),
+    /** When the schedule next comes round (db/recurrence.ts reopens the issue then); set with recurrence. */
+    nextRecurAt: timestamp("next_recur_at", { withTimezone: true }),
   },
   (t) => [
     uniqueIndex().on(t.organizationId, t.number),
@@ -300,6 +306,7 @@ export const issues = pgTable(
     index().on(t.assigneeEmployeeId),
     index().on(t.assigneeUserId),
     index().on(t.position),
+    index().on(t.organizationId, t.nextRecurAt),
     // At most one creator; both become null only if the creator is deleted.
     check(
       "issues_single_creator",
@@ -379,6 +386,51 @@ export const agentEvents = pgTable(
     createdAt: createdAt(),
   },
   (t) => [index().on(t.employeeId, t.id)],
+);
+
+/**
+ * A direct conversation between a person and a digital employee (MC-169): the employee writes there only what the
+ * person needs to see (a question, something to approve, an answer, a report they asked for), and the person answers
+ * there. One per pair, like a chat in a messaging app: there's no second thread between the same two.
+ */
+export const directThreads = pgTable(
+  "direct_threads",
+  {
+    id: id(),
+    organizationId: organizationId(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    employeeId: text("employee_id")
+      .notNull()
+      .references(() => employees.id, { onDelete: "cascade" }),
+    /** When the latest message was sent, to list conversations newest first. */
+    lastMessageAt: timestamp("last_message_at", { withTimezone: true }).notNull().defaultNow(),
+    /** The id of the latest message each side has seen; later ones from the other side are unread. */
+    userReadId: bigint("user_read_id", { mode: "number" }).notNull().default(0),
+    employeeReadId: bigint("employee_read_id", { mode: "number" }).notNull().default(0),
+    createdAt: createdAt(),
+  },
+  (t) => [uniqueIndex().on(t.userId, t.employeeId), index().on(t.organizationId), index().on(t.employeeId)],
+);
+
+/** A message in a direct conversation, from its person or its employee. */
+export const directMessages = pgTable(
+  "direct_messages",
+  {
+    /** Counts up, so it orders the messages and marks how far each side has read. */
+    id: bigint("id", { mode: "number" }).primaryKey().generatedAlwaysAsIdentity(),
+    organizationId: organizationId(),
+    threadId: text("thread_id")
+      .notNull()
+      .references(() => directThreads.id, { onDelete: "cascade" }),
+    /** Written by the conversation's employee; else by its person. */
+    fromEmployee: boolean("from_employee").notNull(),
+    /** Markdown. */
+    body: text("body").notNull(),
+    createdAt: createdAt(),
+  },
+  (t) => [index().on(t.threadId, t.id)],
 );
 
 /**

@@ -3,7 +3,7 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 // pt-BR translation of /proactive-claude-code; the English master is src/content/proactive-claude-code.ts.
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code proativo: heartbeat, /loop e cron | Crewmark",
+    title: "Claude Code proativo: heartbeat, /loop e cron | Crewmark AI",
     description:
       "Faça o Claude Code trabalhar sem esperar você: output style Proactive, auto mode, /goal, /loop, tarefas agendadas e um heartbeat para um trabalho fixo.",
   },
@@ -12,7 +12,7 @@ export const copy: GuideCopy = {
     kicker: "Claude Code proativo",
     title: "Como deixar o Claude Code proativo",
     lead: "Um agente proativo do Claude Code não espera sua próxima mensagem. Ele toma sozinho as decisões de rotina, continua até terminar o trabalho, acorda em horários definidos e reage quando algo acontece. O Claude Code tem um recurso nativo para cada uma dessas coisas. Este guia mostra como ativá-los, onde cada um para e como dar ao Claude Code um trabalho fixo em vez de um prompt avulso. O que os recursos nativos deixam de fora é o heartbeat: acordar a mesma sessão em um ritmo regular para pegar a próxima tarefa. Mostramos como montar um à mão e como o Crewmark faz isso por você.",
-    cta: "Acesso antecipado",
+    cta: "Começar",
     secondary: "Ir para o passo a passo",
     secondaryHref: "#how-to",
   },
@@ -163,7 +163,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Dispense o cron e a sessão aberta",
     text: "O Crewmark acorda sua sessão do Claude Code com um heartbeat durante o horário de trabalho e entrega a ela a próxima tarefa de um quadro.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   faq: {
     title: "Perguntas frequentes",
@@ -201,7 +201,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Faça do Claude Code seu primeiro funcionário de IA",
     text: "Dê a ele um cargo, uma meta, horário de trabalho e um heartbeat, e atribua a primeira tarefa.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   checked: "Conferido com a documentação do Claude Code da Anthropic em 2 de novembro de 2026.",
   disclaimer:

@@ -22,9 +22,16 @@ export type TrackedValues = {
   priority: string;
   assigneeId: string | null;
   projectId: string | null;
+  recurrence: string | null;
 };
 
-const COLUMNS = { status: "status", priority: "priority", assignee: "assigneeId", project: "projectId" } as const;
+const COLUMNS = {
+  status: "status",
+  priority: "priority",
+  assignee: "assigneeId",
+  project: "projectId",
+  repeat: "recurrence",
+} as const;
 
 function toActivity({ fromValue, toValue, createdAt, organizationId, ...row }: typeof issueActivity.$inferSelect): IssueActivity {
   return { ...row, from: fromValue, to: toValue, createdAt: createdAt.toISOString() };

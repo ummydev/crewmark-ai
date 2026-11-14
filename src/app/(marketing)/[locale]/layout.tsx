@@ -31,7 +31,7 @@ export default async function MarketingLayout({ children }: LayoutProps<"/[local
     <html lang={locale} className={inter.variable}>
       <body>
         {/* Client components only get the strings they render; everything else is translated on the server. */}
-        <NextIntlClientProvider messages={{ Landing: { demo: Landing.demo, earlyAccess: Landing.earlyAccess } }}>
+        <NextIntlClientProvider messages={{ Landing: { demo: Landing.demo } }}>
           {children}
         </NextIntlClientProvider>
       </body>

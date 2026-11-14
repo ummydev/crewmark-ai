@@ -6,7 +6,7 @@ const copilot = "https://github.com/features/copilot/plans";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Cursor-Alternativen 2026: 10 kostenlose, Open-Source- und günstigere Optionen | Crewmark",
+    title: "Cursor-Alternativen 2026: kostenlos, Open Source, günstig",
     description:
       "Cursor gehört jetzt zu SpaceX und setzt in seinen Plänen auf Grok. Zehn Alternativen im Vergleich: Claude Code, Codex, GitHub Copilot, Devin Desktop (Windsurf), Zed, Cline, Kilo Code, OpenCode, Antigravity und Junie, mit Preisen und Gratis-Tarifen.",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · KI-Coding-Tools",
     title: "Die besten Cursor-Alternativen 2026",
     lead: "Cursor gehört seit August 2026 zu SpaceX, und seine Pläne sind jetzt um Grok herum gebaut: Der Plus-Plan für $8 bietet nur Grok-Modelle, und Claude, GPT oder Gemini kosten ab dem $30-Plan extra, zum API-Listenpreis. Wenn du dich dafür nicht angemeldet hast, gibt es gute Alternativen: Agenten, die in deinem bestehenden Abo enthalten sind, Editoren mit eigener KI und Open-Source-Tools, in denen du deinen eigenen Key nutzt. Hier sind zehn davon, verglichen nach Art, Gratis-Tarif, Preis und Modellen, Stand 6. November 2026.",
-    cta: "Early Access anfragen",
+    cta: "Loslegen",
     secondary: "Direkt zum Vergleich",
     secondaryHref: "#compare",
   },
@@ -123,7 +123,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Du wechselst von Cursor zu Claude Code, Codex oder OpenCode?",
     text: "Crewmark macht daraus KI-Mitarbeiter, die per Heartbeat aufwachen und sich das nächste Issue selbst nehmen.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   faq: {
     title: "FAQ zu Cursor-Alternativen",
@@ -161,7 +161,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Neuer Coding-Agent, gleiches Abo, jetzt mit einem Job.",
     text: "Crewmark macht aus Sessions in Claude Code, Codex, DeepSeek Harness und OpenCode KI-Mitarbeiter mit Rollen, Zielen, Arbeitszeiten und einem Heartbeat.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   checked: "Am 6. November 2026 mit cursor.com und der Website, Preisseite oder dem GitHub-Repository jeder Alternative abgeglichen.",
   disclaimer:

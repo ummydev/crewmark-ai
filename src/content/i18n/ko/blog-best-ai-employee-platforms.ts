@@ -4,7 +4,7 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "2026 최고의 AI 직원 플랫폼: 8개 비교와 가격 | Crewmark",
+    title: "2026 최고의 AI 직원 플랫폼: 8개 비교와 가격 | Crewmark AI",
     description:
       "Lindy, Sintra, Marblism, Artisan, Ema, Devin, 오픈소스 ai-employees 프로젝트, Crewmark를 비교했어요. 맡는 직무, 일이 시작되는 방식, 쓰는 모델, 무료 플랜과 가격까지 정리했어요.",
   },
@@ -15,7 +15,7 @@ export const copy: GuideCopy = {
     kicker: "블로그 · AI 직원",
     title: "2026년 최고의 AI 직원 플랫폼 비교",
     lead: "AI 직원 플랫폼은 AI 에이전트를 직원처럼 세팅해 줘요. 각자 직무가 있고, 목표를 향해 일하며, 매번 지시하지 않아도 스스로 일을 시작하죠. 아래 제품들은 모두 이 개념을 내세우지만, 맡는 일, 일이 들어오는 방식, 쓰는 모델, 요금 방식은 저마다 달라요. 저희 제품을 포함해 8개를 각 업체가 공개한 정보만으로 비교했어요.",
-    cta: "얼리 액세스 신청",
+    cta: "시작하기",
     secondary: "비교표로 이동",
     secondaryHref: "#compare",
   },
@@ -36,7 +36,7 @@ export const copy: GuideCopy = {
         ["Ema", "기업의 HR, IT, 재무", "Teams, Slack 또는 음성, 250개 이상의 연동", "Ema가 조합한 100개 이상의 모델", "무료 체험", "성과 기반, 비공개"],
         ["Devin", "소프트웨어 엔지니어링", "Slack이나 Teams에서 @멘션, Linear나 Jira 티켓, 반복 워크플로", "Devin의 모델 (여러 제공업체)", "사용량이 적은 무료 플랜", "$20/월 (Pro)"],
         ["ai-employees (오픈소스)", "예약된 루틴 폴더로 만든 8개 비즈니스 직무", "각 직무의 SCHEDULE.md에 적힌 일정", "내 에이전트: Claude Code, Codex, OpenCode 등", "무료, MIT 라이선스", "무료"],
-        ["Crewmark", "코딩 에이전트 위에서 직접 정의한 모든 직무: 엔지니어링, SEO, 마케팅, 디자인", "근무 시간 동안 하트비트가 각 직원을 깨워 보드에서 다음 이슈를 가져가게 함", "내 Claude Code, Codex, DeepSeek Harness, OpenCode 구독", "얼리 액세스", "얼리 액세스"],
+        ["Crewmark", "코딩 에이전트 위에서 직접 정의한 모든 직무: 엔지니어링, SEO, 마케팅, 디자인", "근무 시간 동안 하트비트가 각 직원을 깨워 보드에서 다음 이슈를 가져가게 함", "내 Claude Code, Codex, DeepSeek Harness, OpenCode 구독", "있음: 프로젝트 1개, 직원 3명까지", "월 $5 (Pro, 곧 출시)"],
       ],
     },
     {
@@ -116,7 +116,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "이미 Claude Code나 Codex에 돈을 내고 계신가요?",
     text: "Crewmark는 그것을 직무, 목표, 근무 시간, 이슈 보드를 가진 AI 직원으로 바꿔 줘요. AI 청구서가 두 개로 늘지 않아요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   faq: {
     title: "AI 직원 플랫폼 FAQ",
@@ -154,7 +154,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "이미 돈을 내고 있는 에이전트에게 일자리를 주세요.",
     text: "Crewmark는 Claude Code, Codex, DeepSeek Harness 세션을 직무, 목표, 근무 시간, 하트비트를 갖춘 AI 직원으로 바꿔 줘요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   checked: "2026년 11월 6일에 각 업체의 웹사이트와 가격 페이지와 대조해 확인했어요. 가격은 바뀔 수 있으니 최신 가격은 링크에서 확인하세요.",
   disclaimer:

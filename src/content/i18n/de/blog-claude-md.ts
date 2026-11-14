@@ -23,7 +23,7 @@ paths: ["src/api/**/*.ts"]
 
 export const copy: GuideCopy = {
   meta: {
-    title: "CLAUDE.md: Speicherorte, Best Practices, Vorlage und AGENTS.md | Crewmark",
+    title: "CLAUDE.md: Speicherorte, Best Practices und Vorlage",
     description:
       "So funktioniert CLAUDE.md in Claude Code: wo die Dateien liegen und in welcher Reihenfolge sie laden, Imports, Regeln, was hineingehört, eine Vorlage und das Verhältnis zu AGENTS.md.",
   },
@@ -34,7 +34,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "CLAUDE.md: wohin damit, was hineingehört und wie es mit AGENTS.md zusammenspielt",
     lead: "CLAUDE.md ist eine Markdown-Datei mit Anweisungen, die Claude Code zu Beginn jeder Session liest: die auszuführenden Befehle, die einzuhaltenden Konventionen und die Stolperfallen in deinem Projekt. Diese Anleitung behandelt alle Orte, an denen eine CLAUDE.md liegen kann, und die Reihenfolge, in der sie laden, Imports und Regeldateien, was hineingehört und was nicht, eine kurze Vorlage und das Verhältnis zu AGENTS.md.",
-    cta: "Early Access anfragen",
+    cta: "Loslegen",
     secondary: "Direkt zur Vorlage",
     secondaryHref: "#how-to",
   },
@@ -167,7 +167,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Deine CLAUDE.md steht. Wer startet die nächste Aufgabe?",
     text: "Crewmark weckt Claude Code per Heartbeat mit Rolle, Ziel und einem Board voller Issues, mit dem Tarif, den du ohnehin zahlst.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   faq: {
     title: "FAQ zu CLAUDE.md",
@@ -205,7 +205,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Gib deinem gut informierten Claude Code eine Aufgabe.",
     text: "Crewmark macht aus Sessions von Claude Code, Codex und DeepSeek Harness KI-Mitarbeiter mit Rollen, Zielen, Arbeitszeiten und einem Heartbeat.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   checked: "Am 5. November 2026 mit der Claude-Code-Dokumentation, agents.md und der Codex-Dokumentation von OpenAI abgeglichen.",
   disclaimer:

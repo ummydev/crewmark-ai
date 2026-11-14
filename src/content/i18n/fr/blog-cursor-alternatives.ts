@@ -6,7 +6,7 @@ const copilot = "https://github.com/features/copilot/plans";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Alternatives à Cursor en 2026 : 10 options gratuites, open source et moins chères | Crewmark",
+    title: "Alternatives à Cursor (2026) : gratuites et open source",
     description:
       "Cursor a rejoint SpaceX et ses forfaits sont désormais centrés sur Grok. Dix alternatives comparées : Claude Code, Codex, GitHub Copilot, Devin Desktop (Windsurf), Zed, Cline, Kilo Code, OpenCode, Antigravity et Junie, avec tarifs et offres gratuites.",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Outils de codage IA",
     title: "Les meilleures alternatives à Cursor en 2026",
     lead: "Cursor fait partie de SpaceX depuis août 2026, et ses forfaits sont désormais construits autour de Grok : le forfait Plus à 8 $ ne propose que les modèles Grok, et Claude, GPT ou Gemini sont facturés en plus, au prix catalogue de l’API, à partir du forfait à 30 $. Si ce n’est pas ce pour quoi vous aviez signé, il existe de bonnes alternatives : des agents inclus dans l’abonnement que vous avez déjà, des éditeurs dotés de leur propre IA et des outils open source où vous utilisez votre propre clé. En voici dix, comparées selon ce qu’elles sont, leurs offres gratuites, leurs tarifs et leurs modèles, au 6 novembre 2026.",
-    cta: "Accès anticipé",
+    cta: "Commencer",
     secondary: "Aller à la comparaison",
     secondaryHref: "#compare",
   },
@@ -123,7 +123,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Vous quittez Cursor pour Claude Code, Codex ou OpenCode ?",
     text: "Crewmark en fait des employés IA qui se réveillent à chaque pulsation et prennent eux-mêmes la prochaine issue.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   faq: {
     title: "FAQ sur les alternatives à Cursor",
@@ -161,7 +161,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Nouvel agent de codage, même abonnement, et désormais un vrai travail.",
     text: "Crewmark transforme des sessions Claude Code, Codex, DeepSeek Harness et OpenCode en employés IA dotés de rôles, d’objectifs, d’horaires de travail et d’une pulsation.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   checked: "Vérifié sur cursor.com et sur le site, la page de tarifs ou le dépôt GitHub de chaque alternative le 6 novembre 2026.",
   disclaimer:

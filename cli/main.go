@@ -14,7 +14,7 @@ import (
 )
 
 // version is bumped for every release of the binaries.
-var version = "0.6.1"
+var version = "0.6.4"
 
 const defaultURL = "https://crewmark.ai"
 
@@ -39,13 +39,28 @@ Issues
                                   works; pass - instead of the text to read it from stdin. The assignee is
                                   told; to tell another employee too, mention it: @<name>, e.g. @DevOps crewmark
   issues create --title <text> [--description <text>] [--status <s>] [--priority <p>]
-                [--project <id>] [--assignee me|<who>]
+                [--project <id>] [--assignee me|<who>] [--repeat <schedule>] [--timezone <zone>]
                                   Filed as you, the employee; from a conversation that isn't an
                                   employee, as the person logged in with crewmark login
   issues update <KEY> [--title <text>] [--description <text>] [--status <s>] [--priority <p>]
-                [--project <id>|none] [--assignee me|<who>|none]
+                [--project <id>|none] [--assignee me|<who>|none] [--repeat <schedule>|off]
+                [--timezone <zone>]
                                   <who> is an employee or a person (a member): id, name or email.
                                   A first name does when it's unique, e.g. --assignee Alex
+                                  --repeat makes a recurring issue: when the schedule comes round, a
+                                  done issue goes back to Todo and its employee is told; one that's
+                                  still open, reminded. <schedule> is "daily", "weekdays", "every 2
+                                  days", "weekly on mon,thu", "every 2 weeks on fri", "monthly on 1"
+                                  or "monthly on last", with "at 10:00" (else 09:00), in this
+                                  computer's time zone unless --timezone Asia/Shanghai says another.
+                                  "off" stops it
+
+Direct messages, one conversation per person and employee
+  dm                              Your conversations, with what's unread
+  dm show [<who>]                 One conversation, oldest first; marks it read
+  dm send [--to <who>] <message>  Message a person (or, logged in as a person, an employee). For what they
+                                  need to see: a question, something to approve, an answer, a report they
+                                  asked for; progress goes on issues. - reads the message from stdin
 
 Your organization
   projects                        Projects and their ids
@@ -79,7 +94,7 @@ Options for every command
 
 Statuses:   ` + strings.Join(values(issueStatuses), ", ") + `
 Priorities: ` + strings.Join(values(issuePriorities), ", ") + `
-The CLI keeps its keys and the employees' notes in ~/.crewmark.`
+The CLI keeps its keys in ~/.crewmark.`
 }
 
 func main() {
@@ -119,6 +134,8 @@ func run(args []string) error {
 		return me(rest)
 	case "issues":
 		return issues(rest)
+	case "dm":
+		return dm(rest)
 	case "projects":
 		return projects(rest)
 	case "employees":
@@ -284,6 +301,9 @@ func printIssue(issue agentIssue) {
 		day = day[:10]
 	}
 	fmt.Printf("Filed by %s on %s · %s\n", by, day, issue.URL)
+	if issue.Repeat != nil {
+		fmt.Printf("Repeats %s\n", repeatLine(*issue.Repeat))
+	}
 	if description := strings.TrimSpace(issue.Description); description != "" {
 		fmt.Printf("\n%s\n", description)
 	}
@@ -303,6 +323,16 @@ func printActivity(key string, entries []activity) {
 		}
 		if entry.Kind == "comment" {
 			fmt.Printf("\n  %s  %s:\n    %s\n", when, who, strings.ReplaceAll(strings.TrimSpace(entry.Body), "\n", "\n    "))
+		} else if entry.Kind == "recurred" {
+			if orNone(entry.From) != orNone(entry.To) {
+				fmt.Printf("\n  %s  %s moved it back to %s: it's due again\n", when, who, orNone(entry.To))
+			} else {
+				fmt.Printf("\n  %s  %s: it's due again, still %s\n", when, who, orNone(entry.To))
+			}
+		} else if entry.Kind == "repeat" && entry.To == nil {
+			fmt.Printf("\n  %s  %s stopped it repeating\n", when, who)
+		} else if entry.Kind == "repeat" {
+			fmt.Printf("\n  %s  %s set it to repeat %s\n", when, who, *entry.To)
 		} else {
 			fmt.Printf("\n  %s  %s changed %s: %s → %s\n", when, who, entry.Kind, orNone(entry.From), orNone(entry.To))
 		}
@@ -384,11 +414,8 @@ func connected(baseURL string, res setupResponse, body setupRequest, session *de
 	if err != nil {
 		return fail("Couldn't save the API key in %s: %v", shortPath(home), err)
 	}
-	notes := employeeNotes(res.Employee.ID, res.Employee.Name)
 	if asJSON {
-		return printJSON(map[string]any{
-			"employee": res.Employee, "organization": res.Organization, "session": session, "notes": notes,
-		})
+		return printJSON(map[string]any{"employee": res.Employee, "organization": res.Organization, "session": session})
 	}
 
 	role := ""
@@ -399,7 +426,7 @@ func connected(baseURL string, res setupResponse, body setupRequest, session *de
 		res.Organization.Name, shortPath(home))
 	fmt.Printf("Your employee id is %s. If crewmark ever asks which employee you are, add --employee %s.\n",
 		res.Employee.ID, res.Employee.ID)
-	fmt.Printf("Notes that outlast this conversation go in %s.\n\n", shortPath(notes))
+	fmt.Println()
 	daemonNote()
 	if session == nil {
 		notLinked(res.Employee.ID, res.Employee.Name)
@@ -491,7 +518,7 @@ func me(args []string) error {
 	if err != nil {
 		return err
 	}
-	employeeID, profile, err := currentEmployee(p.strings["employee"])
+	_, profile, err := currentEmployee(p.strings["employee"])
 	if err != nil {
 		return err
 	}
@@ -533,13 +560,33 @@ func me(args []string) error {
 	section("People (you can assign them issues, e.g. --assignee \"<name>\")", strings.Join(people, "\n"))
 	fmt.Printf("\nOpen issues assigned to you (%d)\n", len(data.Issues))
 	printIssues(data.Issues, "None. Plan your next piece of work with `crewmark issues create`.", "  ")
-	fmt.Printf("\nYour notes: %s\n", shortPath(employeeNotes(employeeID, employee.Name)))
 	return nil
 }
 
-var issueOptions = []string{"title", "description", "status", "priority", "project", "assignee"}
+var issueOptions = []string{"title", "description", "status", "priority", "project", "assignee", "repeat", "timezone"}
 
-// issueBody is the fields given on the command line; "none" clears a project or assignee.
+// repeatLine is a schedule with its time zone and when it next comes round there, e.g. "every 2 days at 10:00
+// (Asia/Shanghai) · next Mon 2026-11-09 10:00".
+func repeatLine(repeat issueRepeat) string {
+	line := repeat.Schedule
+	if repeat.TimeZone != "" {
+		line += " (" + repeat.TimeZone + ")"
+	}
+	if repeat.Next == nil {
+		return line
+	}
+	next, err := time.Parse(time.RFC3339Nano, *repeat.Next)
+	if err != nil {
+		return line
+	}
+	if zone, err := time.LoadLocation(repeat.TimeZone); err == nil {
+		next = next.In(zone)
+	}
+	return line + " · next " + next.Format("Mon 2006-01-02 15:04")
+}
+
+// issueBody is the fields given on the command line; "none" clears a project or assignee, and --repeat off stops an
+// issue repeating.
 func issueBody(p *parsed) map[string]any {
 	body := map[string]any{}
 	for _, field := range []string{"title", "description", "status", "priority"} {
@@ -554,6 +601,15 @@ func issueBody(p *parsed) map[string]any {
 			} else {
 				body[field] = p.strings[option]
 			}
+		}
+	}
+	if p.has("repeat") {
+		body["repeat"] = p.strings["repeat"]
+		// Words like "at 10:00" mean this computer's time unless --timezone says otherwise.
+		if zone := p.strings["timezone"]; zone != "" {
+			body["timeZone"] = zone
+		} else if zone := localTimeZone(); zone != "" {
+			body["timeZone"] = zone
 		}
 	}
 	return body
@@ -634,6 +690,9 @@ func issues(args []string) error {
 		if !p.has("title") {
 			return fail("Usage: crewmark issues create --title <text> [options]")
 		}
+		if p.has("timezone") && !p.has("repeat") {
+			return fail("--timezone goes with --repeat, e.g. --repeat \"daily at 10:00\" --timezone Asia/Shanghai")
+		}
 		profile, account, err := issueAuthor(p.strings["employee"])
 		if err != nil {
 			return err
@@ -651,6 +710,9 @@ func issues(args []string) error {
 			return printJSON(res.Issue)
 		}
 		fmt.Printf("Created %s: %s\n%s\n", res.Issue.Key, res.Issue.Title, res.Issue.URL)
+		if res.Issue.Repeat != nil {
+			fmt.Println("Repeats " + repeatLine(*res.Issue.Repeat))
+		}
 		if account != nil {
 			fmt.Printf("Filed as %s, who is logged in here: this conversation isn't one of the employees set up on "+
 				"this computer.\n", account.User.Name)
@@ -661,6 +723,9 @@ func issues(args []string) error {
 		p, err := parseArgs(args[1:], issueOptions, nil)
 		if err != nil {
 			return err
+		}
+		if p.has("timezone") && !p.has("repeat") {
+			return fail("--timezone goes with --repeat, e.g. --repeat \"daily at 10:00\" --timezone Asia/Shanghai")
 		}
 		body := issueBody(p)
 		if p.positional(0) == "" || len(body) == 0 {
@@ -678,6 +743,13 @@ func issues(args []string) error {
 			return printJSON(res.Issue)
 		}
 		fmt.Println("Updated " + issueLine(res.Issue))
+		if p.has("repeat") {
+			if res.Issue.Repeat != nil {
+				fmt.Println("Repeats " + repeatLine(*res.Issue.Repeat))
+			} else {
+				fmt.Println("It doesn't repeat any more.")
+			}
+		}
 		return nil
 
 	case "list":

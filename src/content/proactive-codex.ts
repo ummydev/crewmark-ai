@@ -20,7 +20,7 @@ export const proactiveCodex: Record<ProactiveCodexLocale, GuideCopy> = {
   ...proactiveCodexTranslations,
   en: {
     meta: {
-      title: "How to Make Codex Proactive: Scheduled Tasks, Cron and Heartbeats | Crewmark",
+      title: "Proactive Codex: Scheduled Tasks and Cron | Crewmark AI",
       description:
         "Make Codex and ChatGPT act without waiting for you: scheduled tasks (formerly Automations), codex exec with cron, the GitHub Action, and a heartbeat for a standing job.",
     },
@@ -29,7 +29,7 @@ export const proactiveCodex: Record<ProactiveCodexLocale, GuideCopy> = {
       kicker: "Proactive Codex",
       title: "How to make Codex proactive",
       lead: "A proactive Codex agent doesn't sit waiting in a chat. It handles routine approvals itself, runs on a schedule, reacts to a pull request or a Slack message, and reports back. OpenAI ships a piece for each of these, and ChatGPT shares some of them. This guide shows how to set them up, what each can't do, and how to give Codex a standing job instead of a one-off prompt. What none of them give you is a heartbeat: waking the same conversation on a rhythm to take its next task. We cover the closest built-in option and how Crewmark adds one.",
-      cta: "Get early access",
+      cta: "Get started",
       secondary: "Jump to the steps",
       secondaryHref: "#how-to",
     },
@@ -176,7 +176,7 @@ export const proactiveCodex: Record<ProactiveCodexLocale, GuideCopy> = {
     mid: {
       title: "Give Codex a standing job, not a scheduled prompt",
       text: "Crewmark wakes your Codex conversation on a heartbeat during working hours and hands it the next issue from a board.",
-      button: "Get early access",
+      button: "Get started",
     },
     faq: {
       title: "FAQ",
@@ -214,7 +214,7 @@ export const proactiveCodex: Record<ProactiveCodexLocale, GuideCopy> = {
     cta: {
       title: "Make Codex your first AI employee",
       text: "Give it a role, a goal, working hours and a heartbeat, then assign its first issue.",
-      button: "Get early access",
+      button: "Get started",
     },
     checked: "Checked against OpenAI's Codex documentation on November 2, 2026.",
     disclaimer:
@@ -222,7 +222,7 @@ export const proactiveCodex: Record<ProactiveCodexLocale, GuideCopy> = {
   },
   zh: {
     meta: {
-      title: "Codex 定时任务与自动化：让 Codex 和 ChatGPT 主动干活 | Crewmark",
+      title: "Codex 定时任务与自动化：让 Codex 主动干活 | Crewmark AI",
       description:
         "让 Codex 和 ChatGPT 不等你开口就开工：定时任务（原 Automations）、codex exec 配 cron、GitHub Action，以及用心跳（heartbeat）给它一份长期的工作。",
     },
@@ -231,7 +231,7 @@ export const proactiveCodex: Record<ProactiveCodexLocale, GuideCopy> = {
       kicker: "Codex 定时任务",
       title: "怎么让 Codex 主动干活",
       lead: "主动的 Codex 不会在对话框里干等：常规的确认自己处理，按时间表运行，遇到 PR 或 Slack 消息就响应，做完向你汇报。OpenAI 对这几件事各有一个功能，其中一些 ChatGPT 也能用。这篇教程讲怎么设置、每个功能做不到什么，以及怎么给 Codex 一份长期的工作，而不是一次性的提示词。它们都缺一个心跳：按固定节奏唤醒同一个对话，让它去领下一个任务。我们会讲最接近的内置做法，以及 Crewmark 怎么补上。",
-      cta: "申请抢先体验",
+      cta: "开始使用",
       secondary: "直接看步骤",
       secondaryHref: "#how-to",
     },
@@ -376,7 +376,7 @@ export const proactiveCodex: Record<ProactiveCodexLocale, GuideCopy> = {
     mid: {
       title: "给 Codex 一份长期工作，而不只是定时提示词",
       text: "Crewmark 在工作时间内按心跳唤醒你的 Codex 对话，从看板上给它派下一个任务。",
-      button: "申请抢先体验",
+      button: "开始使用",
     },
     faq: {
       title: "常见问题",
@@ -414,7 +414,7 @@ export const proactiveCodex: Record<ProactiveCodexLocale, GuideCopy> = {
     cta: {
       title: "让 Codex 成为你的第一个 AI 员工",
       text: "给它一个岗位、一个目标、工作时间和心跳，然后派给它第一个 issue。",
-      button: "申请抢先体验",
+      button: "开始使用",
     },
     checked: "已于 2026 年 11 月 2 日对照 OpenAI 的 Codex 官方文档核对。",
     disclaimer: "Crewmark 是独立产品，与 OpenAI 无关，也未获其背书。Codex 和 ChatGPT 是 OpenAI 的商标。",

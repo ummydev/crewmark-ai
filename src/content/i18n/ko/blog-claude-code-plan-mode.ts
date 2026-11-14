@@ -18,7 +18,7 @@ const settings = `{
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code 플랜 모드: 단축키, 작동 방식, auto 모드와 비교 | Crewmark",
+    title: "Claude Code 플랜 모드: 단축키와 작동 방식 | Crewmark AI",
     description:
       "Claude Code 플랜 모드(plan mode) 사용법: Shift+Tab 단축키와 /plan, 계획 중 Claude가 할 수 있는 일, 계획 승인, 기본값으로 설정하는 법, 그리고 auto, accept edits, manual 모드와의 비교.",
   },
@@ -29,7 +29,7 @@ export const copy: GuideCopy = {
     kicker: "블로그 · Claude Code",
     title: "Claude Code 플랜 모드: 작동 방식과 언제 쓰면 좋은지",
     lead: "플랜 모드(plan mode)는 Claude가 변경 사항을 조사하고 제안만 할 뿐 실제로 바꾸지는 않는 Claude Code 권한 모드예요. 파일을 읽고, 탐색을 위해 명령을 실행하고, 계획을 작성하지만, 내가 승인하기 전까지는 소스 코드를 편집하지 않아요. `Shift+Tab`을 눌러 모드를 순환하며 들어가거나, 프롬프트 앞에 `/plan`을 붙이면 돼요. 이 가이드에서는 들어가고 나오는 모든 방법, 계획 중에 허용되는 일, 승인 옵션, 기본값으로 만드는 법, 그리고 auto, accept edits, manual 모드와 어떻게 다른지 다뤄요.",
-    cta: "얼리 액세스 신청",
+    cta: "시작하기",
     secondary: "단계로 이동",
     secondaryHref: "#how-to",
   },
@@ -145,7 +145,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "계획은 승인했어요. 다음 작업은 누가 가져갈까요?",
     text: "Crewmark는 직무, 목표, 이슈 보드를 주고 하트비트로 Claude Code를 깨워요. 이미 결제한 요금제 그대로 쓸 수 있어요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   faq: {
     title: "Claude Code 플랜 모드 FAQ",
@@ -183,7 +183,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Claude Code가 계획하고, 만들고, 다음 이슈까지 가져가게 하세요.",
     text: "Crewmark는 Claude Code, Codex, DeepSeek Harness 세션을 직무, 목표, 근무 시간, 하트비트를 갖춘 AI 직원으로 바꿔 줘요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   checked: "2026년 11월 6일에 Claude Code 문서(permission modes, settings)와 대조해 확인했습니다.",
   disclaimer:

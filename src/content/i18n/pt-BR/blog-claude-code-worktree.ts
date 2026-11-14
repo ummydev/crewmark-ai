@@ -29,7 +29,7 @@ git worktree remove ../app-feature-a`;
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Worktrees no Claude Code: --worktree, fluxo, limpeza e configurações | Crewmark",
+    title: "Worktrees no Claude Code: --worktree, fluxo e limpeza",
     description:
       "Como as git worktrees funcionam no Claude Code: claude --worktree, onde ficam, a branch base, .worktreeinclude para arquivos .env, limpeza, subagentes isolados e as configurações.",
   },
@@ -40,7 +40,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "Worktrees no Claude Code: sessões paralelas sem conflitos de edição",
     lead: "Uma worktree do Claude Code é um diretório de trabalho do git separado, com os próprios arquivos e a própria branch, que compartilha o histórico do seu repositório. Inicie uma sessão com `claude --worktree <name>` e o Claude edita lá em vez de no seu checkout, então duas ou três sessões podem trabalhar ao mesmo tempo sem mexer nos arquivos umas das outras. Este guia cobre a flag, onde as worktrees ficam, de qual branch elas partem, como levar os arquivos `.env` para elas, a limpeza, os subagentes e as configurações.",
-    cta: "Acesso antecipado",
+    cta: "Começar",
     secondary: "Ir para o fluxo de trabalho",
     secondaryHref: "#how-to",
   },
@@ -188,7 +188,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Três worktrees, três sessões. Quem diz a elas o que vem depois?",
     text: "O Crewmark acorda cada sessão do Claude Code com um heartbeat, um papel, uma meta e um quadro de issues, no plano que você já paga.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   faq: {
     title: "Perguntas frequentes sobre worktrees no Claude Code",
@@ -226,7 +226,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Dê a cada worktree um funcionário que sabe o que fazer em seguida.",
     text: "O Crewmark transforma sessões do Claude Code, Codex e DeepSeek Harness em funcionários de IA com papéis, metas, horários de trabalho e um heartbeat.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   checked: "Conferido com a documentação do Claude Code (worktrees, configurações, referência da CLI e app desktop) em 6 de novembro de 2026.",
   disclaimer:

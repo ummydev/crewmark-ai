@@ -18,7 +18,7 @@ const settings = `{
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code Plan Mode: Shortcut, Funktionsweise, vs. Auto Mode | Crewmark",
+    title: "Claude Code Plan Mode: Shortcut, Funktionsweise, Auto Mode",
     description:
       "So funktioniert der Plan Mode (Plan-Modus) in Claude Code: der Shortcut Shift+Tab und /plan, was Claude beim Planen darf, einen Plan freigeben, ihn zum Standard machen und der Vergleich mit Auto, Accept Edits und Manual.",
   },
@@ -29,7 +29,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "Claude Code Plan Mode: wie er funktioniert und wann er sich lohnt",
     lead: "Der Plan Mode (Plan-Modus) ist der Berechtigungsmodus von Claude Code, in dem Claude recherchiert und Änderungen vorschlägt, ohne sie umzusetzen: Es liest Dateien, führt Befehle zum Erkunden aus und schreibt einen Plan, fasst deinen Code aber erst an, wenn du zustimmst. Drück `Shift+Tab`, um dorthin zu wechseln, oder beginne einen Prompt mit `/plan`. Diese Anleitung zeigt alle Wege hinein und hinaus, was beim Planen erlaubt ist, die Freigabeoptionen, wie du ihn zum Standard machst und wie er sich im Vergleich zu Auto, Accept Edits und Manual schlägt.",
-    cta: "Early Access anfragen",
+    cta: "Loslegen",
     secondary: "Direkt zu den Schritten",
     secondaryHref: "#how-to",
   },
@@ -145,7 +145,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Du hast den Plan freigegeben. Wer übernimmt die nächste Aufgabe?",
     text: "Crewmark weckt Claude Code per Heartbeat mit Rolle, Ziel und einem Board voller Issues, mit dem Tarif, den du ohnehin zahlst.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   faq: {
     title: "FAQ zum Claude Code Plan Mode",
@@ -183,7 +183,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Lass Claude Code planen, bauen und das nächste Issue übernehmen.",
     text: "Crewmark macht aus Sessions von Claude Code, Codex und DeepSeek Harness KI-Mitarbeiter mit Rollen, Zielen, Arbeitszeiten und einem Heartbeat.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   checked: "Am 6. November 2026 mit der Claude-Code-Dokumentation (Berechtigungsmodi und Einstellungen) abgeglichen.",
   disclaimer:

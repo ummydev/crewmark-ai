@@ -6,7 +6,7 @@ const docs = "https://code.claude.com/docs/en/scheduled-tasks";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code 排程任務與 /loop：讓它主動工作 | Crewmark",
+    title: "Claude Code 排程任務與 /loop：讓它主動工作 | Crewmark AI",
     description:
       "讓 Claude Code 不等你開口就動工：Proactive 輸出風格、auto 模式、/goal、/loop、排程任務，以及用心跳（heartbeat）給它一份長期工作。",
   },
@@ -15,7 +15,7 @@ export const copy: GuideCopy = {
     kicker: "Claude Code 排程任務",
     title: "如何讓 Claude Code 主動工作",
     lead: "主動的 Claude Code 不會等你傳下一則訊息：例行決定自己拿主意，一路做到任務完成，按時間表醒來，有事發生就處理。Claude Code 對這幾件事各有一個內建功能。這篇教學說明如何開啟它們、每個功能的極限在哪裡，以及如何給 Claude Code 一份長期的工作，而不是一次性的提示詞。內建功能缺少的一塊是心跳：按固定節奏喚醒同一個工作階段，讓它去接手下一個任務。我們會說明如何手動搭建，以及 Crewmark 如何幫你做好。",
-    cta: "申請搶先體驗",
+    cta: "開始使用",
     secondary: "直接看步驟",
     secondaryHref: "#how-to",
   },
@@ -161,7 +161,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "不必寫 cron，也不必一直開著工作階段",
     text: "Crewmark 在工作時間內依心跳喚醒你的 Claude Code 工作階段，從看板上指派下一個任務給它。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   faq: {
     title: "常見問題",
@@ -199,7 +199,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "讓 Claude Code 成為你的第一位 AI 員工",
     text: "為它設定職位、目標、工作時間和心跳，然後指派第一個 issue 給它。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   checked: "已於 2026 年 11 月 2 日對照 Anthropic 的 Claude Code 官方文件查核。",
   disclaimer: "Crewmark 是獨立產品，與 Anthropic 無關，也未獲其背書。Claude 和 Claude Code 是 Anthropic 的商標。",

@@ -3,7 +3,7 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 // Korean translation of /proactive-claude-code; the English master is src/content/proactive-claude-code.ts.
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code 하트비트·/loop·예약 작업 가이드 | Crewmark",
+    title: "Claude Code 하트비트·/loop·예약 작업 가이드 | Crewmark AI",
     description:
       "먼저 일하는 Claude Code: Proactive output style, auto mode, /goal, /loop, 예약 작업, 하트비트.",
   },
@@ -12,7 +12,7 @@ export const copy: GuideCopy = {
     kicker: "능동적인 Claude Code",
     title: "Claude Code를 능동적으로 일하게 만드는 방법",
     lead: "능동적인 Claude Code 에이전트는 다음 메시지를 기다리지 않아요. 일상적인 결정은 스스로 내리고, 일이 끝날 때까지 계속하고, 일정에 맞춰 깨어나고, 무슨 일이 생기면 반응해요. Claude Code에는 이 각각을 위한 기본 기능이 있어요. 이 가이드에서는 이 기능들을 켜는 방법과 각각의 한계, 그리고 일회성 프롬프트 대신 고정 업무를 주는 방법을 보여 드려요. 기본 기능에 빠져 있는 것이 하트비트예요. 같은 세션을 일정한 리듬으로 깨워 다음 작업을 가져가게 하는 것이죠. 이를 직접 구성하는 방법과 Crewmark가 대신해 주는 방법을 소개할게요.",
-    cta: "얼리 액세스 신청",
+    cta: "시작하기",
     secondary: "단계로 바로 가기",
     secondaryHref: "#how-to",
   },
@@ -163,7 +163,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "cron 작업도, 열어 둔 세션도 필요 없어요",
     text: "Crewmark는 근무 시간 동안 하트비트에 맞춰 Claude Code 세션을 깨우고, 보드에서 다음 이슈를 넘겨줘요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   faq: {
     title: "자주 묻는 질문",
@@ -201,7 +201,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Claude Code를 첫 AI 직원으로 만드세요",
     text: "직무, 목표, 근무 시간, 하트비트를 정하고 첫 이슈를 배정하세요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   checked: "2026년 11월 2일에 Anthropic의 Claude Code 문서와 대조해 확인했습니다.",
   disclaimer:

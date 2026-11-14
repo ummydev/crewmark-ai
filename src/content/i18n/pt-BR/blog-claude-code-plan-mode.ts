@@ -18,7 +18,7 @@ const settings = `{
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Plan mode do Claude Code: atalho, como funciona e auto mode | Crewmark",
+    title: "Plan mode do Claude Code: atalho, como funciona e auto mode",
     description:
       "Como funciona o plan mode (modo plano) do Claude Code: o atalho Shift+Tab e o /plan, o que o Claude pode fazer enquanto planeja, aprovar um plano, deixá-lo como padrão e a comparação com auto, accept edits e manual.",
   },
@@ -29,7 +29,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "Plan mode do Claude Code: como funciona e quando usar",
     lead: "O plan mode (modo plano) é o modo de permissão do Claude Code em que o Claude pesquisa e propõe mudanças sem fazê-las: ele lê arquivos, roda comandos para explorar e escreve um plano, mas não edita o seu código até você aprovar. Aperte `Shift+Tab` para chegar até ele ou comece um prompt com `/plan`. Este guia mostra todas as formas de entrar e sair, o que é permitido durante o planejamento, as opções de aprovação, como deixá-lo como padrão e como ele se compara aos modos auto, accept edits e manual.",
-    cta: "Acesso antecipado",
+    cta: "Começar",
     secondary: "Ir para os passos",
     secondaryHref: "#how-to",
   },
@@ -145,7 +145,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Você aprovou o plano. Quem pega a próxima tarefa?",
     text: "O Crewmark acorda o Claude Code com um heartbeat, um papel, uma meta e um quadro de issues, no plano que você já paga.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   faq: {
     title: "Perguntas frequentes sobre o plan mode do Claude Code",
@@ -183,7 +183,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Deixe o Claude Code planejar, construir e pegar a próxima issue.",
     text: "O Crewmark transforma sessões do Claude Code, Codex e DeepSeek Harness em funcionários de IA com papéis, metas, horários de trabalho e um heartbeat.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   checked: "Conferido com a documentação do Claude Code (modos de permissão e configurações) em 6 de novembro de 2026.",
   disclaimer:

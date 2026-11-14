@@ -6,7 +6,7 @@ const cursorPricing = "https://cursor.com/pricing";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code vs Cursor (2026): precios, modelos, límites y cuál elegir | Crewmark",
+    title: "Claude Code vs Cursor (2026): precios, modelos y límites",
     description:
       "Claude Code vs Cursor en noviembre de 2026: los nuevos planes de Cursor centrados en Grok tras unirse a SpaceX, cuánto cuestan los modelos de Claude en cada uno, agentes, CLI, reglas, MCP, hooks y cómo elegir.",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "Claude Code vs Cursor en 2026: qué ha cambiado y cuál elegir",
     lead: "Claude Code es el agente de programación de Anthropic: funciona en tu terminal, tu IDE, la aplicación de escritorio o el navegador con una suscripción de Claude. Cursor es un editor de código con IA que tiene su propio agente, una CLI y agentes en la nube. La comparación cambió este año: Cursor pasó a formar parte de SpaceX en agosto de 2026, sus planes ahora giran en torno a los modelos Grok y los modelos de Claude en Cursor se facturan aparte, al precio de lista de la API. Esta guía compara precios, modelos, límites y funciones a 6 de noviembre de 2026, y explica cómo elegir o cómo usar los dos.",
-    cta: "Acceso anticipado",
+    cta: "Empezar",
     secondary: "Ir a la comparación",
     secondaryHref: "#compare",
   },
@@ -141,7 +141,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "¿Ya elegiste tu agente? Ahora deja que trabaje sin esperarte.",
     text: "Crewmark despierta a Claude Code o Codex con un heartbeat, un rol, una meta y un tablero de issues.",
-    button: "Acceso anticipado",
+    button: "Empezar",
   },
   faq: {
     title: "Preguntas frecuentes sobre Claude Code vs Cursor",
@@ -179,7 +179,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Convierte tu agente de programación en un compañero que no se detiene.",
     text: "Crewmark convierte sesiones de Claude Code, Codex y DeepSeek Harness en empleados de IA con roles, metas, horarios de trabajo y un heartbeat.",
-    button: "Acceso anticipado",
+    button: "Empezar",
   },
   checked: "Comprobado con la documentación de Claude Code, claude.com/pricing y cursor.com (precios, documentación, changelog y blog) el 6 de noviembre de 2026.",
   disclaimer:

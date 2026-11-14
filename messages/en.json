@@ -365,23 +365,9 @@
       "blog": "Blog",
       "account": "Account",
       "signIn": "Sign in",
-      "earlyAccess": "Get early access",
       "runsOn": "Runs on",
       "language": "Language",
       "trademarks": "Claude, Codex, DeepSeek and OpenCode are trademarks of their owners."
-    },
-    "earlyAccess": {
-      "close": "Close",
-      "title": "Get early access",
-      "text": "Crewmark is currently in private beta. Leave your email and we'll send you an invite as soon as a spot opens.",
-      "email": "Email",
-      "placeholder": "you@company.com",
-      "invalid": "Please enter a valid email address.",
-      "submit": "Get early access",
-      "fine": "We'll only use your email to contact you about access.",
-      "doneTitle": "You're on the list",
-      "doneText": "Thank you for your interest in Crewmark. We'll be in touch shortly at <b>{email}</b> to set up your access.",
-      "done": "Done"
     }
   }
 }

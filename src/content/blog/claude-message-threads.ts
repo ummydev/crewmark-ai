@@ -38,7 +38,7 @@ anthropic-beta: message-threads-2026-08-12`;
 export const claudeMessageThreads: Partial<Record<"en", GuideCopy>> = {
   en: {
     meta: {
-      title: "Claude Message Threads: Faster Long Agent Sessions, Explained | Crewmark",
+      title: "Claude Message Threads: Faster Agent Sessions | Crewmark AI",
       description:
         "Anthropic's message threads send a Claude conversation once, then only what's new. What changes for Claude Code, how to use the beta API, the 5-minute expiry and the limits.",
     },
@@ -49,7 +49,7 @@ export const claudeMessageThreads: Partial<Record<"en", GuideCopy>> = {
       kicker: "Blog · Claude",
       title: "Claude message threads: what they are and how to use them",
       lead: "Message threads are a Claude API feature in public beta since November 2, 2026. Instead of uploading the whole conversation on every turn, an agent sends it once and then only the new messages. Anthropic says it has turned them on for most Claude Code users, and that median time to first token drops by about 35% on requests of 500k to 1M tokens. This guide covers what changes, what doesn't, how to use them in your own agent, and the limits.",
-      cta: "Get early access",
+      cta: "Get started",
       secondary: "Jump to setup",
       secondaryHref: "#how-to",
     },
@@ -162,7 +162,7 @@ export const claudeMessageThreads: Partial<Record<"en", GuideCopy>> = {
     mid: {
       title: "Running long Claude Code sessions?",
       text: "Crewmark wakes them on a heartbeat with a role, a goal and a board of issues, on the plan you already pay for.",
-      button: "Get early access",
+      button: "Get started",
     },
     faq: {
       title: "Claude message threads FAQ",
@@ -200,7 +200,7 @@ export const claudeMessageThreads: Partial<Record<"en", GuideCopy>> = {
     cta: {
       title: "Make your long Claude Code sessions proactive.",
       text: "Crewmark turns Claude Code, Codex and DeepSeek Harness sessions into AI employees with roles, goals, working hours and a heartbeat.",
-      button: "Get early access",
+      button: "Get started",
     },
     checked: "Checked against Anthropic's announcement and the Claude Platform docs on November 4, 2026.",
     disclaimer:

@@ -6,7 +6,7 @@ const announcement = "https://claude.com/resources/articles/claude-duet";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Duet とは？ Anthropic の自律型エージェントのウェイトリスト・利用条件・制限 | Crewmark",
+    title: "Claude Duet とは？ウェイトリスト・利用条件 | Crewmark AI",
     description:
       "Claude Duet は、2026年10月21日からリサーチプレビューが始まった Anthropic の自律型エージェントアプリです。できること、利用できる人、ウェイトリストへの参加方法、料金、安全面の制限、他サービスとの比較を解説します。",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "ブログ · Claude",
     title: "Claude Duet とは？ 利用できる人と仕組み",
     lead: "Claude Duet は Anthropic の新しいアプリで、Claude が自律型エージェントとして働きます。注意が必要なことを向こうから知らせ、任せたタスクをこなし、あなたが離れている間も作業を続け、あなたに代わって行動する前に確認を取ります。2026年10月21日に、ウェイトリスト制のリサーチプレビューとして、米国の Pro、Max、Ultra の購読者向けに公開されました。このガイドでは、できること、利用方法、料金、安全面の制限、他サービスとの比較を説明します。",
-    cta: "早期アクセスに登録",
+    cta: "今すぐ始める",
     secondary: "利用方法",
     secondaryHref: "#how-to",
   },
@@ -108,8 +108,8 @@ export const copy: GuideCopy = {
         ["作業の始まり方", "あなたのメッセージと数時間ごとの確認", "あなたのメッセージ、スケジュール、自分で行うリサーチ", "勤務時間中の15〜60分ごとのハートビート"],
         ["得意なこと", "受信トレイ、カレンダー、請求書、ブリーフ、ダッシュボード", "連携したアプリをまたぐリサーチとタスク", "コード、SEO など、リポジトリでの仕事。職種ごとに1人の社員"],
         ["作業キュー", "1つの継続スレッド", "会話スレッドと Scheduled", "カンバンボード上の issue"],
-        ["費用", "米国の Pro、Max、Ultra に含まれる", "Pro と Business Premium プラン", "早期アクセス。すでにお持ちのエージェントとプランで動く"],
-        ["状況", "リサーチプレビュー、ウェイトリスト", "順次提供中", "早期アクセス"],
+        ["費用", "米国の Pro、Max、Ultra に含まれる", "Pro と Business Premium プラン", "登録受付中。すでにお持ちのエージェントとプランで動く"],
+        ["状況", "リサーチプレビュー、ウェイトリスト", "順次提供中", "登録受付中"],
       ],
     },
     {
@@ -140,7 +140,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "向こうから連絡してくるエージェントが気に入りましたか？",
     text: "Crewmark は Claude Code と Codex で、それを実現します。ハートビート、勤務時間、issue のボードを使い、契約中のプランのままご利用いただけます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   faq: {
     title: "Claude Duet のよくある質問",
@@ -178,7 +178,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Claude Code のセッションも、自律的に動かそう。",
     text: "Crewmark は、Claude Code、Codex、DeepSeek Harness のセッションを、職種・目標・勤務時間・ハートビートを持つ AI 社員に変えます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   checked: "2026年11月5日に Anthropic の Claude Duet の発表、プロダクトページ、安全性に関する記事と照合しました。",
   disclaimer:

@@ -28,7 +28,7 @@ argument-hint: [component] [from] [to]
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code 斜線指令：速查表、自訂指令與 skill | Crewmark",
+    title: "Claude Code 斜線指令：速查表、自訂指令與 skill | Crewmark AI",
     description:
       "Claude Code 斜線指令（slash commands）速查表：值得掌握的內建指令、如何撰寫帶參數的自訂斜線指令，以及指令和 skill 的關係。",
   },
@@ -39,7 +39,7 @@ export const copy: GuideCopy = {
     kicker: "部落格 · Claude Code",
     title: "Claude Code 斜線指令：速查表，以及如何自己寫",
     lead: "斜線指令是你在 Claude Code 訊息開頭輸入的捷徑，例如 `/init`、`/compact` 或 `/code-review`，用來控制工作階段或執行儲存好的提示詞。本文先提供一份依使用時機分組的常用指令速查表，再說明怎樣建立帶參數的自訂斜線指令，以及它們和 skill 的關係。",
-    cta: "申請搶先體驗",
+    cta: "開始使用",
     secondary: "跳到自訂指令",
     secondaryHref: "#how-to",
   },
@@ -191,7 +191,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "輸入已經自動化了，那下一步要輸入什麼由誰決定？",
     text: "Crewmark 用職位、目標和 issue 看板，依心跳喚醒 Claude Code，使用的就是你已經在付費的方案。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   faq: {
     title: "Claude Code 斜線指令常見問題",
@@ -229,7 +229,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "給你的 Claude Code skill 配一位員工來執行它們。",
     text: "Crewmark 把 Claude Code、Codex 和 DeepSeek Harness 工作階段變成有職位、目標、工作時間和心跳的 AI 員工。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   checked: "已於 2026 年 11 月 6 日對照 Claude Code 文件（commands 與 skills）查核。",
   disclaimer:

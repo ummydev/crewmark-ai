@@ -29,7 +29,7 @@ paths: ["src/api/**/*.ts"]
 export const claudeMd: Partial<Record<"en", GuideCopy>> = {
   en: {
     meta: {
-      title: "CLAUDE.md: Locations, Best Practices, Template and AGENTS.md | Crewmark",
+      title: "CLAUDE.md: Best Practices, Template, AGENTS.md | Crewmark AI",
       description:
         "How CLAUDE.md works in Claude Code: where the files go and in what order they load, imports, rules, what to put in it, a template, and how it relates to AGENTS.md.",
     },
@@ -40,7 +40,7 @@ export const claudeMd: Partial<Record<"en", GuideCopy>> = {
       kicker: "Blog · Claude Code",
       title: "CLAUDE.md: where it goes, what to write, and how it works with AGENTS.md",
       lead: "CLAUDE.md is a markdown file of instructions that Claude Code reads at the start of every session: the commands to run, the conventions to follow and the traps to avoid in your project. This guide covers every place a CLAUDE.md can live and the order they load in, imports and rules files, what belongs in one and what doesn't, a short template, and how it relates to AGENTS.md.",
-      cta: "Get early access",
+      cta: "Get started",
       secondary: "Jump to the template",
       secondaryHref: "#how-to",
     },
@@ -173,7 +173,7 @@ export const claudeMd: Partial<Record<"en", GuideCopy>> = {
     mid: {
       title: "Your CLAUDE.md is ready. Who starts the next task?",
       text: "Crewmark wakes Claude Code on a heartbeat with a role, a goal and a board of issues, on the plan you already pay for.",
-      button: "Get early access",
+      button: "Get started",
     },
     faq: {
       title: "CLAUDE.md FAQ",
@@ -211,7 +211,7 @@ export const claudeMd: Partial<Record<"en", GuideCopy>> = {
     cta: {
       title: "Give your well-briefed Claude Code a job to do.",
       text: "Crewmark turns Claude Code, Codex and DeepSeek Harness sessions into AI employees with roles, goals, working hours and a heartbeat.",
-      button: "Get early access",
+      button: "Get started",
     },
     checked: "Checked against the Claude Code docs, agents.md and OpenAI's Codex docs on November 5, 2026.",
     disclaimer:

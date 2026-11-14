@@ -23,7 +23,9 @@ export default function LoginPage({ searchParams }: PageProps<"/login">) {
         <CrewmarkLogo className="size-9 text-foreground" />
         <div className="space-y-1">
           <h1 className="text-lg font-semibold text-foreground">Sign in to Crewmark</h1>
-          <p className="text-sm text-muted-foreground">Use your Google account to continue.</p>
+          <p className="text-sm text-muted-foreground">
+            Use your Google account. New here? Signing in creates your account.
+          </p>
         </div>
         {/* The session and the query string are only known per request, so this part streams in. */}
         <Suspense fallback={<GoogleSignInButton callbackURL={HOME} disabled />}>

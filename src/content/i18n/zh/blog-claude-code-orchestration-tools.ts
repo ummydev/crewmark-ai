@@ -6,7 +6,7 @@ const docs = "https://code.claude.com/docs/en/agents";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "2026 年最佳 Claude Code 编排工具：内置功能与 10 款应用对比 | Crewmark",
+    title: "2026 年最佳 Claude Code 编排工具：内置功能与 10 款应用对比",
     description:
       "同时运行多个 Claude Code agent：内置功能（Subagents、Agent view、Agent teams、工作流）和 10 款编排工具对比，从 Claude Squad、Orca 到 Paperclip、Multica 和 Crewmark。",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "博客 · Claude Code",
     title: "2026 年最佳 Claude Code 编排工具",
     lead: "Claude Code 编排，就是同时运行多个 Claude Code agent 并协调它们：给每个 agent 一份独立的代码副本、一项任务，以及汇报结果的渠道。如今 Claude Code 自己就能做到其中很多，还有一大批开源和商业工具在它之上加了界面、看板和定时计划。本文先介绍内置功能，再从界面、隔离方式、支持的 agent 以及最关键的问题出发对比十款工具：agent 会自己开工，还是等着你？",
-    cta: "申请抢先体验",
+    cta: "开始使用",
     secondary: "直接看对比",
     secondaryHref: "#compare",
   },
@@ -57,7 +57,7 @@ export const copy: GuideCopy = {
         ["Conductor", "Mac 应用", "每个任务一个 workspace 和分支", "Claude Code、Codex、Cursor、OpenCode", "否。团队加入 Meta；云服务将于 2026 年 11 月 20 日关闭", "闭源"],
         ["Paperclip", "Web 界面：一家带组织架构、目标和预算的“AI 公司”", "可选 worktree 和沙箱", "Claude Code、Codex、Gemini CLI、Cursor、OpenCode 等", "是：定时心跳，以及分派和 @ 提及", "MIT，~111k"],
         ["Multica", "Web、桌面端、CLI 和 API", "运行在你电脑上的守护进程", "Claude Code、Codex、Cursor、Copilot、OpenCode 等", "是：agent 会接手分派给它的 issue；Autopilots 按 cron 运行", "Multica License（源码可用），~55k"],
-        ["Crewmark", "Web 看板、CLI 和运行在你电脑上的守护进程", "每名员工有自己的会话和签出目录", "Claude Code、Codex、DeepSeek Harness、OpenCode", "是：工作时间内由心跳接下一个 issue", "抢先体验"],
+        ["Crewmark", "Web 看板、CLI 和运行在你电脑上的守护进程", "每名员工有自己的会话和签出目录", "Claude Code、Codex、DeepSeek Harness、OpenCode", "是：工作时间内由心跳接下一个 issue", "开放注册"],
       ],
     },
     {
@@ -131,7 +131,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "开着五个 agent，却还要逐条输入提示词？",
     text: "Crewmark 给每个 Claude Code 会话一个岗位、一个目标和一个心跳，让它不用你也能接下一个 issue。",
-    button: "申请抢先体验",
+    button: "开始使用",
   },
   faq: {
     title: "Claude Code 编排常见问题",
@@ -169,7 +169,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "让你的 Claude Code agent 自己接下一个任务。",
     text: "Crewmark 把 Claude Code、Codex 和 DeepSeek Harness 会话变成有岗位、目标、工作时间和心跳的 AI 员工。",
-    button: "申请抢先体验",
+    button: "开始使用",
   },
   checked: "已于 2026 年 11 月 6 日对照 Claude Code 文档、各项目的 README 或官网以及 GitHub API 查证。",
   disclaimer:

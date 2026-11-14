@@ -4,7 +4,7 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 // src/content/blog/claude-code-background-agents.ts.
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code のバックグラウンド実行：ヘッドレス・--bg・定期実行 | Crewmark",
+    title: "Claude Code のバックグラウンド実行：ヘッドレス・--bg",
     description:
       "Claude Code をバックグラウンドで動かす：バックグラウンドタスク、--bg と agent view、cron と claude -p、クラウドセッション、定期実行、必要な権限。",
   },
@@ -15,7 +15,7 @@ export const copy: GuideCopy = {
     kicker: "ブログ · Claude Code",
     title: "Claude Code のバックグラウンドエージェントを動かす方法",
     lead: "バックグラウンドエージェントは、あなたが別のことをしている間も働き続けます。バックグラウンドに回した長いテスト、--bg で始めてターミナルを閉じたセッション、毎朝 cron が起動するヘッドレスの claude -p ジョブなどです。Claude Code には、それぞれに対応するツールがあります。このガイドでは、その使い方、それぞれが動き続ける条件、そして無人で実行するときに必要な権限を説明します。",
-    cta: "早期アクセスに登録",
+    cta: "今すぐ始める",
     secondary: "ヘッドレスモードへ移動",
     secondaryHref: "#how-to",
   },
@@ -134,7 +134,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "次のタスクも自分で選んでほしいなら",
     text: "Crewmark は、あなたが決めた勤務時間中にハートビートで Claude Code のセッションを起こし、ボードから次のタスクを渡します。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   faq: {
     title: "Claude Code のバックグラウンドエージェントに関するよくある質問",
@@ -168,7 +168,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Claude Code に継続的な仕事を与えましょう。",
     text: "Crewmark は、Claude Code のセッションを、職種・目標・勤務時間・ハートビートを持つ AI 社員に変えます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   checked: "2026年11月2日に Anthropic の Claude Code ドキュメントと照合しました。",
   disclaimer:

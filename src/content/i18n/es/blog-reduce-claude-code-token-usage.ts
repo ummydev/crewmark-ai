@@ -23,7 +23,7 @@ const hook = `{
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Cómo reducir el consumo de tokens de Claude Code: 12 trucos | Crewmark",
+    title: "Consumo de tokens de Claude Code: 12 trucos para reducirlo",
     description:
       "Por qué Claude Code gasta tantos tokens y cómo reducirlo: revisa el consumo con /usage y /context, usa clear y compact, elige modelo y esfuerzo, recorta CLAUDE.md y MCP, y usa hooks, skills y subagentes.",
   },
@@ -34,7 +34,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "Cómo reducir el consumo de tokens de Claude Code (y dejar de chocar con los límites)",
     lead: "Claude Code envía toda la conversación en cada petición, así que el consumo de tokens crece con el contexto: una pregunta de una línea al final de una sesión larga cuesta mucho más que la misma pregunta en una sesión nueva. Esta guía muestra cómo ver en qué se van tus tokens y después doce cambios, sacados de la propia documentación de Anthropic, que reducen el consumo: desde `/clear` y `/compact` hasta elegir el modelo y el esfuerzo, recortar CLAUDE.md y los servidores MCP, y llevar el trabajo ruidoso a hooks, skills y subagentes.",
-    cta: "Acceso anticipado",
+    cta: "Empezar",
     secondary: "Ir a los trucos",
     secondaryHref: "#how-to",
   },
@@ -157,7 +157,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Gasta tus tokens en trabajo, no en esperas.",
     text: "Crewmark despierta a Claude Code durante el horario laboral con un rol, un objetivo y la siguiente issue de un tablero.",
-    button: "Acceso anticipado",
+    button: "Empezar",
   },
   faq: {
     title: "Preguntas frecuentes sobre el consumo de tokens de Claude Code",
@@ -195,7 +195,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Pon a trabajar a Claude Code con un horario que controlas tú.",
     text: "Crewmark convierte las sesiones de Claude Code, Codex y DeepSeek Harness en empleados de IA con roles, objetivos, horarios y un heartbeat.",
-    button: "Acceso anticipado",
+    button: "Empezar",
   },
   checked: "Comprobado con la documentación de Claude Code (Manage costs effectively) el 6 de noviembre de 2026.",
   disclaimer:

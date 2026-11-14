@@ -23,7 +23,7 @@ paths: ["src/api/**/*.ts"]
 
 export const copy: GuideCopy = {
   meta: {
-    title: "CLAUDE.md 작성법: 위치, 내용, 템플릿, AGENTS.md와의 관계 | Crewmark",
+    title: "CLAUDE.md 작성법: 위치, 내용, 템플릿 | Crewmark AI",
     description:
       "Claude Code에서 CLAUDE.md가 동작하는 방식: 파일 위치와 로드 순서, 임포트와 규칙 파일, 무엇을 쓸지, 템플릿, AGENTS.md와의 관계를 정리했어요.",
   },
@@ -34,7 +34,7 @@ export const copy: GuideCopy = {
     kicker: "블로그 · Claude Code",
     title: "CLAUDE.md: 어디에 두고, 무엇을 쓰고, AGENTS.md와 어떻게 쓸까",
     lead: "CLAUDE.md는 Claude Code가 매 세션을 시작할 때 읽는 markdown 지침 파일이에요. 실행할 명령어, 따라야 할 규칙, 피해야 할 함정을 프로젝트에 맞게 적어 둬요. 이 가이드에서는 CLAUDE.md를 둘 수 있는 모든 위치와 로드 순서, 임포트와 규칙 파일, 무엇을 쓰고 무엇을 쓰지 말아야 하는지, 짧은 템플릿, AGENTS.md와의 관계를 다뤄요.",
-    cta: "얼리 액세스 신청",
+    cta: "시작하기",
     secondary: "템플릿으로 이동",
     secondaryHref: "#how-to",
   },
@@ -167,7 +167,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "CLAUDE.md는 준비됐어요. 다음 작업은 누가 시작할까요?",
     text: "Crewmark는 직무, 목표, 이슈 보드를 주고 하트비트로 Claude Code를 깨워요. 이미 결제한 요금제 그대로 쓸 수 있어요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   faq: {
     title: "CLAUDE.md 자주 묻는 질문",
@@ -205,7 +205,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "충분히 준비된 Claude Code에게 할 일을 맡겨 보세요.",
     text: "Crewmark는 Claude Code, Codex, DeepSeek Harness 세션을 직무, 목표, 근무 시간, 하트비트를 갖춘 AI 직원으로 바꿔 줘요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   checked: "2026년 11월 5일에 Claude Code 문서, agents.md, OpenAI의 Codex 문서와 대조해 확인했습니다.",
   disclaimer:

@@ -23,7 +23,7 @@ const hook = `{
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code Token-Verbrauch senken: 12 Tipps, die wirken | Crewmark",
+    title: "Claude Code Token-Verbrauch senken: 12 Tipps, die wirken",
     description:
       "Warum Claude Code so viele Tokens verbraucht und wie du es senkst: Verbrauch mit /usage und /context prüfen, clear und compact nutzen, Modell und Effort wählen, CLAUDE.md und MCP entschlacken, Hooks, Skills und Subagents einsetzen.",
   },
@@ -34,7 +34,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "So senkst du den Token-Verbrauch von Claude Code (und stößt nicht mehr an Limits)",
     lead: "Claude Code schickt bei jeder Anfrage die ganze Unterhaltung mit, deshalb wächst der Token-Verbrauch mit dem Kontext: Eine einzeilige Frage spät in einer langen Session kostet weit mehr als dieselbe Frage in einer frischen. Diese Anleitung zeigt, wie du siehst, wohin deine Tokens gehen, und dann zwölf Änderungen aus Anthropics eigener Dokumentation, die den Verbrauch senken: von `/clear` und `/compact` über die Wahl von Modell und Effort und schlankere CLAUDE.md und MCP-Server bis zum Auslagern lauter Arbeit in Hooks, Skills und Subagents.",
-    cta: "Early Access anfragen",
+    cta: "Loslegen",
     secondary: "Direkt zu den Tipps",
     secondaryHref: "#how-to",
   },
@@ -157,7 +157,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Gib deine Tokens für Arbeit aus, nicht fürs Warten.",
     text: "Crewmark weckt Claude Code während der Arbeitszeiten mit Rolle, Ziel und dem nächsten Issue vom Board.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   faq: {
     title: "FAQ zum Token-Verbrauch von Claude Code",
@@ -195,7 +195,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Lass Claude Code nach einem Zeitplan arbeiten, den du bestimmst.",
     text: "Crewmark macht aus Sessions von Claude Code, Codex und DeepSeek Harness KI-Mitarbeiter mit Rollen, Zielen, Arbeitszeiten und einem Heartbeat.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   checked: "Am 6. November 2026 mit der Claude-Code-Dokumentation (Manage costs effectively) abgeglichen.",
   disclaimer:

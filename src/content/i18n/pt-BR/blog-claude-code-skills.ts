@@ -45,7 +45,7 @@ a versão que corrige e informe quais versões major estão atrasadas. Não alte
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Skills do Claude Code: como criar, exemplos e boas práticas | Crewmark",
+    title: "Skills do Claude Code: como criar, exemplos e boas práticas",
     description:
       "O que são as skills do Claude Code, como carregam, como criar uma com SKILL.md, exemplos, arquivos de apoio, skills em um subagente, instalar skills de plugins e boas práticas.",
   },
@@ -56,7 +56,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "Skills do Claude Code: como criar, com exemplos e boas práticas",
     lead: "Uma skill do Claude Code é uma pasta com um arquivo `SKILL.md`: uma descrição de quando usá-la e as instruções a seguir. O Claude vê só as descrições até precisar de uma skill, e então carrega tudo, então você pode deixar procedimentos longos e material de referência à mão sem pagar por eles a cada mensagem. Este guia mostra como as skills carregam, como escrever a sua primeira, exemplos, arquivos de apoio, skills que rodam em um subagente, como instalar skills de plugins e como fazer o Claude realmente usá-las.",
-    cta: "Acesso antecipado",
+    cta: "Começar",
     secondary: "Crie a sua primeira skill",
     secondaryHref: "#how-to",
   },
@@ -190,7 +190,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Suas skills estão prontas. Quem roda elas enquanto você está fora?",
     text: "O Crewmark acorda o Claude Code com um heartbeat, um papel, uma meta e um quadro de issues, no plano que você já paga.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   faq: {
     title: "Perguntas frequentes sobre skills do Claude Code",
@@ -228,7 +228,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Coloque as suas skills do Claude Code para trabalhar com horário marcado.",
     text: "O Crewmark transforma sessões do Claude Code, Codex e DeepSeek Harness em funcionários de IA com papéis, metas, horários de trabalho e um heartbeat.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   checked: "Conferido com a documentação do Claude Code (skills e plugins) em 6 de novembro de 2026.",
   disclaimer:

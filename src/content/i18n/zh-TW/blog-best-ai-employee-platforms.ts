@@ -4,7 +4,7 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "2026 年最佳 AI 員工平台：8 款比較，附價格 | Crewmark",
+    title: "2026 年最佳 AI 員工平台：8 款比較，附價格 | Crewmark AI",
     description:
       "比較 Lindy、Sintra、Marblism、Artisan、Ema、Devin、開源專案 ai-employees 和 Crewmark：涵蓋的職位、工作如何啟動、使用哪些模型、有沒有免費方案，以及價格。",
   },
@@ -15,7 +15,7 @@ export const copy: GuideCopy = {
     kicker: "部落格 · AI 員工",
     title: "2026 年最佳 AI 員工平台比較",
     lead: "AI 員工平台把 AI 代理設定成員工：每一位都有職位，朝著一個目標工作，不需要你每次提示就會自己開工。下面這些產品賣的都是這個概念，但它們涵蓋的工作、接手工作的方式、使用的模型和收費方式各不相同。我們比較了八款，包括我們自己的產品，所用資訊全部來自各廠商自己公布的內容。",
-    cta: "申請搶先體驗",
+    cta: "開始使用",
     secondary: "直接看比較",
     secondaryHref: "#compare",
   },
@@ -36,7 +36,7 @@ export const copy: GuideCopy = {
         ["Ema", "企業的人資、IT 和財務", "Teams、Slack 或語音；250 個以上的整合", "Ema 組合的 100 多個模型", "免費試用", "依成果計費；未公開"],
         ["Devin", "軟體工程", "在 Slack 或 Teams 中 @ 它、來自 Linear 或 Jira 的工單、週期性工作流程", "Devin 的模型（來自多家供應商）", "有額度較少的免費方案", "$20/月（Pro）"],
         ["ai-employees（開源）", "8 個業務職位，每個都是裝著排程例行任務的資料夾", "每個職位 SCHEDULE.md 裡的排程", "你自己的代理：Claude Code、Codex、OpenCode 等", "免費，MIT 授權", "免費"],
-        ["Crewmark", "你定義的任何職位，執行在程式設計代理上：工程、SEO、行銷、設計", "工作時間內，心跳喚醒每位員工，從看板上接手下一個 issue", "你自己的 Claude Code、Codex、DeepSeek Harness 或 OpenCode 訂閱", "搶先體驗", "搶先體驗"],
+        ["Crewmark", "你定義的任何職位，執行在程式設計代理上：工程、SEO、行銷、設計", "工作時間內，心跳喚醒每位員工，從看板上接手下一個 issue", "你自己的 Claude Code、Codex、DeepSeek Harness 或 OpenCode 訂閱", "有：1 個專案、最多 3 名員工", "每月 $5（Pro，即將推出）"],
       ],
     },
     {
@@ -116,7 +116,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "已經在為 Claude Code 或 Codex 付費？",
     text: "Crewmark 把它變成有職位、目標、工作時間和 issue 看板的 AI 員工，不會多出第二份 AI 帳單。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   faq: {
     title: "AI 員工平台常見問題",
@@ -154,7 +154,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "給你已經付費的代理一份工作。",
     text: "Crewmark 把 Claude Code、Codex 和 DeepSeek Harness 工作階段變成有職位、目標、工作時間和心跳的 AI 員工。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   checked: "已於 2026 年 11 月 6 日對照各廠商自己的網站和定價頁查證。價格會變動，最新價格請點連結查看。",
   disclaimer:

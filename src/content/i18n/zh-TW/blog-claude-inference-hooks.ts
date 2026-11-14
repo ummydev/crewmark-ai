@@ -17,7 +17,7 @@ const verdict = `// 放行請求
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude inference hooks：運作方式、設定方法及與 Claude Code hooks 的差異 | Crewmark",
+    title: "Claude inference hooks：運作方式與設定方法 | Crewmark AI",
     description:
       "Claude inference hooks（推論掛鉤）已於 2026 年 11 月 5 日正式推出，會把每則提示詞和工具呼叫送到你的安全伺服器，由它判定放行或拒絕。本文說明運作方式、設定步驟、限制，以及它與 Claude Code hooks 的差異。",
   },
@@ -28,7 +28,7 @@ export const copy: GuideCopy = {
     kicker: "部落格 · Claude",
     title: "Claude inference hooks：每則提示詞送出前，先過一道放行或拒絕的檢查",
     lead: "inference hooks（推論掛鉤）讓 Claude Enterprise 組織把每則提示詞（也可以包括每次工具呼叫）送到自己的安全伺服器，等它做出放行（allow）或拒絕（deny）的判定後，Claude 才開始執行。這項功能於 2026 年 11 月 5 日正式推出，同時推出的還有 beta 階段的安全中心（security center）。由於檢查是在 Anthropic 的伺服器上進行，一次設定就能涵蓋 claude.ai、Claude Code、Cowork 和其他 Claude 產品，員工的筆電上不必安裝任何東西。本文介紹它的運作方式、設定方法、限制，以及它和你在 Claude Code 裡撰寫的 hooks 有什麼不同。",
-    cta: "申請搶先體驗",
+    cta: "開始使用",
     secondary: "直接看設定步驟",
     secondaryHref: "#how-to",
   },
@@ -146,7 +146,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "資安已經設定好了，現在給 Claude Code 一份工作。",
     text: "Crewmark 用職位、目標和 issue 看板，依心跳喚醒 Claude Code，使用的就是你已經在付費的方案。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   faq: {
     title: "Claude inference hooks 常見問題",
@@ -184,7 +184,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "以 Claude Code 打造的 AI 員工，在你的護欄之內工作。",
     text: "Crewmark 把 Claude Code、Codex 和 DeepSeek Harness 工作階段變成有職位、目標、工作時間和心跳的 AI 員工。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   checked: "已於 2026 年 11 月 6 日對照 Anthropic 的公告、Claude 說明中心和 Claude Platform 文件查核。",
   disclaimer:

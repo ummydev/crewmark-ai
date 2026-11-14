@@ -1,14 +1,29 @@
 import "server-only";
 
 import type { OrganizationData } from "@/db/queries";
-import type { AgentActivity, AgentEmployee, AgentIssue } from "@/lib/agent-api";
+import type {
+  AgentActivity,
+  AgentDirectMessage,
+  AgentDirectThread,
+  AgentEmployee,
+  AgentIssue,
+} from "@/lib/agent-api";
 import type { Agent } from "@/lib/agent-auth";
 import { signAttachmentLinks } from "@/lib/attachments";
+import {
+  RecurrenceError,
+  describeRecurrence,
+  formatRecurrence,
+  isTimeZone,
+  parseRecurrence,
+  recurrenceFromWords,
+} from "@/lib/recurrence";
 import { InputError, NotFoundError } from "@/lib/validate";
 import {
   ISSUE_PRIORITIES,
   ISSUE_STATUSES,
   defaultHeartbeatPrompt,
+  type DirectMessage,
   type Employee,
   type Heartbeat,
   type Issue,
@@ -88,11 +103,60 @@ export function toAgentIssue(issue: Issue, data: OrganizationData, links: AgentL
     createdBy: actor(issue.createdByUserId, issue.createdByEmployeeId, data),
     createdAt: issue.createdAt,
     url: `${links.dashboard}/issues/${issue.key}`,
+    repeat: issue.recurrence ? toAgentRepeat(issue.recurrence, issue.nextRecurAt) : null,
   };
 }
 
+function toAgentRepeat(recurrence: string, next: string | null): AgentIssue["repeat"] {
+  try {
+    const schedule = parseRecurrence(recurrence);
+    return { schedule: describeRecurrence(schedule), timeZone: schedule.timeZone, next };
+  } catch {
+    return { schedule: recurrence, timeZone: "", next };
+  }
+}
+
+/** A schedule in words with its time zone, e.g. "every 2 days at 10:00 (Asia/Shanghai)", for Activity. */
+function repeatLabel(recurrence: string) {
+  const repeat = toAgentRepeat(recurrence, null);
+  return repeat && repeat.timeZone ? `${repeat.schedule} (${repeat.timeZone})` : recurrence;
+}
+
+/**
+ * The schedule an agent asked for with IssueInput.repeat, as stored: words or iCalendar text, in IssueInput.timeZone
+ * or else the first good zone of `fallbacks` (the schedule it replaces, the employee's heartbeat), else UTC. Null
+ * stops it repeating.
+ */
+export function recurrenceInput(repeat: unknown, timeZone: unknown, fallbacks: (string | null | undefined)[]) {
+  if (repeat === null || (typeof repeat === "string" && ["off", "none", ""].includes(repeat.trim().toLowerCase()))) {
+    return null;
+  }
+  if (typeof repeat !== "string") throw new InputError("repeat must be a schedule in words, or off");
+  if (timeZone !== undefined && (typeof timeZone !== "string" || !isTimeZone(timeZone))) {
+    throw new InputError(`${String(timeZone)} isn't a time zone, e.g. Asia/Shanghai`);
+  }
+  try {
+    if (/^DTSTART/i.test(repeat.trim())) return formatRecurrence(parseRecurrence(repeat));
+    const zone = timeZone ?? fallbacks.find((zone): zone is string => !!zone && isTimeZone(zone)) ?? "UTC";
+    return formatRecurrence(recurrenceFromWords(repeat, zone));
+  } catch (error) {
+    if (error instanceof RecurrenceError) throw new InputError(error.message);
+    throw error;
+  }
+}
+
+/** The time zone of a stored schedule, to keep when an agent changes it without naming one. */
+export function recurrenceZone(recurrence: string | null) {
+  if (!recurrence) return null;
+  try {
+    return parseRecurrence(recurrence).timeZone;
+  } catch {
+    return null;
+  }
+}
+
 /** Who did something on Crewmark, by name, for an agent. */
-function actor(userId: string | null, employeeId: string | null, data: OrganizationData): AgentActivity["by"] {
+function actor(userId: string | null, employeeId: string | null, data: OrganizationData): AgentIssue["createdBy"] {
   const employee = employeeId ? data.employees.find((e) => e.id === employeeId) : undefined;
   if (employee) return { kind: "employee", name: employee.name };
   const user = userId ? data.users.find((u) => u.id === userId) : undefined;
@@ -112,18 +176,64 @@ export function toAgentActivity(entry: IssueActivity, data: OrganizationData, li
         return assigneeById(value, data)?.name ?? "someone deleted since";
       case "project":
         return data.projects.find((p) => p.id === value)?.name ?? "a deleted project";
+      case "repeat":
+        return repeatLabel(value);
+      case "recurred":
+        return ISSUE_STATUSES.find((s) => s.value === value)?.label ?? value;
       default:
         return value;
     }
   };
   return {
     kind: entry.kind,
-    by: actor(entry.userId, entry.employeeId, data),
+    by: entry.kind === "recurred" ? { kind: "crewmark", name: "Crewmark" } : actor(entry.userId, entry.employeeId, data),
     body: links.markdown(entry.body),
     from: label(entry.from),
     to: label(entry.to),
     createdAt: entry.createdAt,
   };
+}
+
+/**
+ * The person a direct message goes to or is with: a member, by id, name, username or email (a first name does when
+ * it's unique). Without one, the organization's only member.
+ */
+export function findPerson(data: OrganizationData, value: unknown): User {
+  const people = data.users.filter((u) => data.memberIds.includes(u.id));
+  const list = people.map((u) => personName(u)).join(", ");
+  if (value === undefined || value === null || value === "") {
+    if (people.length === 1) return people[0];
+    throw new InputError(`Say who, e.g. --to "${personName(people[0])}". People here: ${list}`);
+  }
+  if (typeof value !== "string") throw new InputError("to must be a name, an email or an id");
+  const wanted = value.trim().toLowerCase();
+  const names = (u: User) => [u.id, u.name, u.username, u.email].filter(Boolean).map((n) => n.toLowerCase());
+  const exact = people.filter((u) => names(u).includes(wanted));
+  const matches = exact.length ? exact : people.filter((u) => u.name.toLowerCase().split(/\s+/).includes(wanted));
+  if (matches.length === 1) return matches[0];
+  if (matches.length > 1) {
+    throw new InputError(`Several are called ${value}: use an email (${matches.map((u) => u.email).join(", ")})`);
+  }
+  throw new NotFoundError(`No one called ${value} in this organization. People here: ${list}`);
+}
+
+/** A direct message as an agent or the CLI reads it; `person` and `employee` are the conversation's two sides. */
+export function toAgentDirectMessage(
+  message: DirectMessage,
+  person: User,
+  employee: Pick<Employee, "name">,
+  links: AgentLinks,
+): AgentDirectMessage {
+  return {
+    from: message.fromEmployee ? { kind: "employee", name: employee.name } : { kind: "user", name: personName(person) },
+    body: links.markdown(message.body),
+    createdAt: message.createdAt,
+  };
+}
+
+/** A person as the other side of an employee's conversation. */
+export function personSide(user: User): AgentDirectThread["with"] {
+  return { kind: "user", id: user.id, name: personName(user) };
 }
 
 /** A request's JSON body, which must be an object. */

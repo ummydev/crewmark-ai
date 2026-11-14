@@ -45,7 +45,7 @@ critique avec la version corrective, et indique quelles versions majeures sont e
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Skills Claude Code : créer les vôtres, exemples et bonnes pratiques | Crewmark",
+    title: "Skills Claude Code : créer, exemples, bonnes pratiques",
     description:
       "Ce que sont les skills Claude Code, comment elles se chargent, comment en créer une avec SKILL.md, des exemples, les fichiers annexes, les skills en subagent, l’installation via des plugins et les bonnes pratiques.",
   },
@@ -56,7 +56,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "Skills Claude Code : comment les créer, avec exemples et bonnes pratiques",
     lead: "Une skill Claude Code est un dossier contenant un fichier `SKILL.md` : une description de quand l’utiliser et les instructions à suivre. Claude ne voit que les descriptions jusqu’à ce qu’une skill soit nécessaire, puis la charge en entier : vous pouvez donc garder sous la main de longues procédures et de la documentation de référence sans les payer à chaque message. Ce guide explique comment les skills se chargent, comment écrire votre première skill, avec des exemples, les fichiers annexes, les skills en subagent, l’installation de skills depuis des plugins, et comment faire en sorte que Claude s’en serve vraiment.",
-    cta: "Accès anticipé",
+    cta: "Commencer",
     secondary: "Créer votre première skill",
     secondaryHref: "#how-to",
   },
@@ -190,7 +190,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Vos skills sont prêtes. Qui les lance pendant votre absence ?",
     text: "Crewmark réveille Claude Code avec une pulsation, un rôle, un objectif et un tableau d’issues, avec l’abonnement que vous payez déjà.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   faq: {
     title: "FAQ skills Claude Code",
@@ -228,7 +228,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Faites travailler vos skills Claude Code selon un planning.",
     text: "Crewmark transforme les sessions Claude Code, Codex et DeepSeek Harness en employés IA avec des rôles, des objectifs, des horaires de travail et une pulsation.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   checked: "Vérifié dans la documentation de Claude Code (skills et plugins) le 6 novembre 2026.",
   disclaimer:

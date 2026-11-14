@@ -12,13 +12,25 @@ import { DurableObject } from "cloudflare:workers";
 //   GET  /connect?token=…  a socket; the token comes from the web app (/api/agent/realtime for daemons, an action for
 //                          the dashboard)
 //   POST /notify           the web app: {organizationId, kind, employeeIds} for daemons, or {organizationId, kind:
-//                          "activity", issueId} for the dashboard, with Authorization: Bearer REALTIME_SECRET
+//                          "activity", issueId} or {organizationId, kind: "messages"} for the dashboard, with
+//                          Authorization: Bearer REALTIME_SECRET
+//   POST /schedule         the web app: {organizationId, at} sets the organization's timer to when its next repeating
+//                          issue comes round (ISO time; null for none). Then the object calls the web app's
+//                          POST /api/realtime/recur with the same secret, and sets the timer to the next time it answers.
 
 interface Env {
   ORGANIZATIONS: DurableObjectNamespace<Organization>;
-  /** Shared with the web app: it signs connect tokens and authorizes /notify. */
+  /** Shared with the web app: it signs connect tokens and authorizes /notify, /schedule and the timer's calls. */
   REALTIME_SECRET: string;
+  /** The web app, e.g. https://crewmark.ai, which the timer calls. */
+  APP_URL: string;
 }
+
+/** How long the timer waits to try again when the web app didn't answer. */
+const RETRY_MS = 5 * 60_000;
+
+/** The soonest the timer goes off again, so a time the web app keeps answering can't make it spin. */
+const MIN_WAIT_MS = 60_000;
 
 /** What a daemon is told: new events for its agent, or new heartbeat settings. */
 const DAEMON_KINDS = ["events", "heartbeat"];
@@ -50,6 +62,37 @@ export class Organization extends DurableObject<Env> {
   /** Tells the dashboard's tabs that the issue's Activity changed. */
   notifyActivity(issueId: string) {
     return this.send(PEOPLE, { type: "activity", issueId });
+  }
+
+  /** Tells the dashboard's tabs that a direct conversation changed; each fetches its own person's. */
+  notifyMessages() {
+    return this.send(PEOPLE, { type: "messages" });
+  }
+
+  /** Sets the timer for the organization's repeating issues to `at` (ms), or clears it. */
+  async schedule(organizationId: string, at: number | null) {
+    await this.ctx.storage.put("organizationId", organizationId);
+    if (at === null) await this.ctx.storage.deleteAlarm();
+    else await this.ctx.storage.setAlarm(at);
+  }
+
+  /** The timer: the web app handles the issues that came round and says when the next one does. */
+  async alarm() {
+    const organizationId = await this.ctx.storage.get<string>("organizationId");
+    if (!organizationId) return;
+    try {
+      const response = await fetch(`${this.env.APP_URL.replace(/\/$/, "")}/api/realtime/recur`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${this.env.REALTIME_SECRET}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ organizationId }),
+      });
+      if (!response.ok) throw new Error(`The web app answered ${response.status}`);
+      const { next } = (await response.json()) as { next: string | null };
+      if (next) await this.ctx.storage.setAlarm(Math.max(Date.parse(next), Date.now() + MIN_WAIT_MS));
+    } catch (error) {
+      console.error("Repeating issues: couldn't reach the web app", error);
+      await this.ctx.storage.setAlarm(Date.now() + RETRY_MS);
+    }
   }
 
   private send(tag: string, message: object) {
@@ -84,6 +127,18 @@ export default {
       target.search = new URLSearchParams({ tag: claims.e ?? PEOPLE }).toString();
       return env.ORGANIZATIONS.getByName(claims.o).fetch(new Request(target, request));
     }
+    if (url.pathname === "/schedule" && request.method === "POST") {
+      if (!(await sameSecret(request.headers.get("Authorization") ?? "", `Bearer ${env.REALTIME_SECRET}`))) {
+        return new Response("Unauthorized", { status: 401 });
+      }
+      const body = (await request.json().catch(() => null)) as { organizationId?: unknown; at?: unknown } | null;
+      const at = typeof body?.at === "string" ? Date.parse(body.at) : body?.at === null ? null : NaN;
+      if (typeof body?.organizationId !== "string" || Number.isNaN(at)) {
+        return new Response("Expected {organizationId, at}: an ISO time, or null", { status: 400 });
+      }
+      await env.ORGANIZATIONS.getByName(body.organizationId).schedule(body.organizationId, at);
+      return Response.json({ scheduled: at === null ? null : new Date(at).toISOString() });
+    }
     if (url.pathname === "/notify" && request.method === "POST") {
       if (!(await sameSecret(request.headers.get("Authorization") ?? "", `Bearer ${env.REALTIME_SECRET}`))) {
         return new Response("Unauthorized", { status: 401 });
@@ -100,6 +155,7 @@ export default {
       if (kind === "activity" && typeof issueId === "string") {
         return Response.json({ told: await organization.notifyActivity(issueId) });
       }
+      if (kind === "messages") return Response.json({ told: await organization.notifyMessages() });
       if (
         typeof kind === "string" &&
         DAEMON_KINDS.includes(kind) &&
@@ -108,7 +164,7 @@ export default {
       ) {
         return Response.json({ told: await organization.notify(employeeIds, kind) });
       }
-      return new Response("Expected {organizationId, kind, employeeIds} or {organizationId, kind: activity, issueId}", {
+      return new Response("Expected {organizationId, kind, employeeIds}, {organizationId, kind: activity, issueId} or {organizationId, kind: messages}", {
         status: 400,
       });
     }

@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import type { CSSProperties, ReactNode } from "react";
 import type { Locale } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
+import NextLink from "next/link";
 
-import { EarlyAccess } from "@/components/landing/early-access";
+import { SignUpLinks } from "@/components/landing/sign-up-links";
 import { HeroBoard } from "@/components/landing/hero-board";
 import { LandingIcons } from "@/components/landing/landing-icons";
 import { LatestPosts } from "@/components/landing/latest-posts";
@@ -73,12 +74,12 @@ export default async function LandingPage() {
             <a href="#faq">{t("nav.faq")}</a>
           </div>
           <div className="nav-right">
-            <button type="button" className="signin" data-signin data-early-access="nav">
+            <NextLink className="signin" href="/login" prefetch={false} data-signin="nav">
               {t("nav.signIn")}
-            </button>
-            <button type="button" className="btn btn-dark btn-sm" data-early-access="nav">
+            </NextLink>
+            <NextLink className="btn btn-dark btn-sm" href="/login" prefetch={false} data-signup="nav">
               {t("nav.getStarted")}
-            </button>
+            </NextLink>
           </div>
         </div>
       </nav>
@@ -91,9 +92,9 @@ export default async function LandingPage() {
           </h1>
           <p className="sub reveal d1">{t("hero.sub")}</p>
           <div className="actions reveal d2">
-            <button type="button" className="btn btn-dark" data-early-access="hero">
+            <NextLink className="btn btn-dark" href="/login" prefetch={false} data-signup="hero">
               {t("hero.hire")} <Arrow />
-            </button>
+            </NextLink>
             <a className="btn btn-line" href="#how">
               {t("hero.seeHow")}
             </a>
@@ -512,10 +513,10 @@ export default async function LandingPage() {
                     <Logo id="logo-claude" />
                     <Logo id="logo-codex" />
                   </span>
-                  <button type="button" className="hire" data-early-access="marketplace">
+                  <NextLink className="hire" href="/login" prefetch={false} data-signup="marketplace">
                     {t("marketplace.hire")}
                     <span className="ok">{t("marketplace.hired")}</span>
-                  </button>
+                  </NextLink>
                 </footer>
               </article>
             ))}
@@ -571,9 +572,9 @@ export default async function LandingPage() {
             <h2>{t("cta.title")}</h2>
             <p>{t("cta.text")}</p>
             <div className="actions">
-              <button type="button" className="btn btn-yellow" data-early-access="cta">
+              <NextLink className="btn btn-yellow" href="/login" prefetch={false} data-signup="cta">
                 {t("cta.start")} <Arrow />
-              </button>
+              </NextLink>
               <a className="btn btn-line" href="#marketplace">
                 {t("cta.browse")}
               </a>
@@ -632,14 +633,14 @@ export default async function LandingPage() {
             <h4>{t("footer.account")}</h4>
             <ul>
               <li>
-                <button type="button" data-signin data-early-access="footer">
+                <NextLink href="/login" prefetch={false} data-signin="footer">
                   {t("footer.signIn")}
-                </button>
+                </NextLink>
               </li>
               <li>
-                <button type="button" data-early-access="footer">
-                  {t("footer.earlyAccess")}
-                </button>
+                <NextLink href="/login" prefetch={false} data-signup="footer">
+                  {t("nav.getStarted")}
+                </NextLink>
               </li>
             </ul>
           </div>
@@ -669,7 +670,7 @@ export default async function LandingPage() {
         </div>
       </footer>
 
-      <EarlyAccess />
+      <SignUpLinks />
       <LandingMotion />
     </>
   );

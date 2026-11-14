@@ -24,7 +24,7 @@ const verdict = `// Allow the request
 export const claudeInferenceHooks: Partial<Record<"en", GuideCopy>> = {
   en: {
     meta: {
-      title: "Claude Inference Hooks: How They Work, Setup and vs Claude Code Hooks | Crewmark",
+      title: "Claude Inference Hooks: How They Work, Setup | Crewmark AI",
       description:
         "Claude inference hooks, generally available since November 5, 2026, send every prompt and tool call to your security server for an allow or deny verdict. How they work, setup, limits, and how they differ from Claude Code hooks.",
     },
@@ -35,7 +35,7 @@ export const claudeInferenceHooks: Partial<Record<"en", GuideCopy>> = {
       kicker: "Blog · Claude",
       title: "Claude inference hooks: an allow-or-deny check before every prompt",
       lead: "Inference hooks let a Claude Enterprise organization send every prompt, and optionally every tool call, to its own security server and wait for an allow or deny verdict before Claude runs. They became generally available on November 5, 2026, alongside a new security center in beta. Because the check happens on Anthropic's servers, one setup covers claude.ai, Claude Code, Cowork and the other Claude products, with nothing installed on laptops. This guide covers how they work, how to set them up, their limits, and how they differ from the hooks you write in Claude Code.",
-      cta: "Get early access",
+      cta: "Get started",
       secondary: "How to set them up",
       secondaryHref: "#how-to",
     },
@@ -153,7 +153,7 @@ export const claudeInferenceHooks: Partial<Record<"en", GuideCopy>> = {
     mid: {
       title: "Security is set. Now give Claude Code a job.",
       text: "Crewmark wakes Claude Code on a heartbeat with a role, a goal and a board of issues, on the plan you already pay for.",
-      button: "Get early access",
+      button: "Get started",
     },
     faq: {
       title: "Claude inference hooks FAQ",
@@ -191,7 +191,7 @@ export const claudeInferenceHooks: Partial<Record<"en", GuideCopy>> = {
     cta: {
       title: "AI employees on Claude Code, inside your guardrails.",
       text: "Crewmark turns Claude Code, Codex and DeepSeek Harness sessions into AI employees with roles, goals, working hours and a heartbeat.",
-      button: "Get early access",
+      button: "Get started",
     },
     checked: "Checked against Anthropic's announcement, the Claude Help Center and the Claude Platform docs on November 6, 2026.",
     disclaimer:

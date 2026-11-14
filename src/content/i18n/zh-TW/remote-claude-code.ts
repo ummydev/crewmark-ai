@@ -4,7 +4,7 @@ import type { RemoteClaudeCodeCopy } from "@/content/remote-claude-code";
 
 export const copy: RemoteClaudeCodeCopy = {
   meta: {
-    title: "Claude Code Remote Control 教學：用手機遠端操作 | Crewmark",
+    title: "Claude Code Remote Control 教學：手機遠端操作 | Crewmark AI",
     description:
       "Claude Code Remote Control 怎麼用：在手機或任何瀏覽器上接續電腦裡的 Claude Code 工作階段；它做不到什麼，以及你不在時如何讓 Claude Code 繼續工作。",
   },
@@ -13,7 +13,7 @@ export const copy: RemoteClaudeCodeCopy = {
     kicker: "遠端操作 Claude Code",
     title: "用手機遠端操控 Claude Code，再讓它在你不在時自己工作",
     lead: "Claude Code Remote Control（遠端控制）是 Anthropic 推出的功能：在電腦上執行的 Claude Code 工作階段，可以用手機、平板或任何瀏覽器接著操作。這篇指南說明如何開啟、它的極限在哪裡，以及 Crewmark 如何把同一個 Claude Code 變成依自己的節奏持續工作的員工。",
-    cta: "申請搶先體驗",
+    cta: "開始使用",
     secondary: "開啟 Remote Control",
   },
   official: {
@@ -52,7 +52,7 @@ export const copy: RemoteClaudeCodeCopy = {
   mid: {
     title: "想讓它在你離開時也繼續工作？",
     text: "Remote Control 讓你在手機上操控工作階段。Crewmark 員工依心跳持續工作，需要你時會傳訊息給你。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   limits: {
     title: "Remote Control 做不到的事",
@@ -119,6 +119,22 @@ export const copy: RemoteClaudeCodeCopy = {
         a: "不支援。根據 Anthropic 文件，它需要透過 claude.ai 登入的 Pro、Max、Ultra、Team 或 Enterprise 訂閱，不支援 API key、Amazon Bedrock、Google Cloud、Microsoft Foundry 或自訂的 ANTHROPIC_BASE_URL。",
       },
       {
+        q: "Claude Code Remote Control 無法使用怎麼辦？",
+        a: "多半是登入的問題。執行 claude auth login 並選擇 claude.ai 登入；如果設定了 ANTHROPIC_API_KEY 或 ANTHROPIC_AUTH_TOKEN，請將它們移除，因為它們的優先順序較高；也不要使用 claude setup-token 產生的長期 token，它無法啟動 Remote Control。Team 和 Enterprise 需要管理員先開啟 Remote Control。設定 CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC 或 DISABLE_GROWTHBOOK 也會將它關閉。執行 claude doctor 可以看到是哪一項檢查沒通過。",
+      },
+      {
+        q: "Remote Control 為什麼一直斷線？",
+        a: "\"Remote Control disconnected\" 或 \"Can't reach\" 表示你的手機或瀏覽器與電腦上的 Claude Code 失去聯繫。互動式工作階段會在電腦喚醒並連上網路後自動重新連線；如果 claude 程序已經停止，請重新啟動它並恢復工作階段。在遠端機器上，請在 tmux 或 screen 裡執行 claude，這樣關掉終端機也不會中斷；如果它顯示約 30 分鐘都連不上伺服器，請再執行一次 /remote-control。",
+      },
+      {
+        q: "Remote Control 和 Dispatch 有什麼不同？",
+        a: "Remote Control 讓你從 claude.ai/code 或 Claude App 操作一個已經在電腦上執行的 Claude Code 工作階段。Dispatch 讓你從 Claude 行動 App 傳送新任務，再由電腦上的桌面 App 為它啟動工作階段；它需要行動 App 與 Claude Desktop 配對。",
+      },
+      {
+        q: "Remote Control 可以搭配 DeepSeek 或其他模型供應商使用嗎？",
+        a: "不行。只有 Claude Code 連線到 api.anthropic.com 時，Remote Control 才能使用。如果 ANTHROPIC_BASE_URL 指向 DeepSeek、閘道或代理伺服器，或你使用的是 Bedrock、Google Cloud 或 Foundry，請先取消該設定，再用 claude.ai 登入。",
+      },
+      {
         q: "闔上筆電後 Claude Code 還能繼續工作嗎？",
         a: "單靠 Remote Control 不行：工作階段需要電腦開著、claude 程序持續執行，而且一件事做完它就會等你的下一則訊息。Crewmark 的員工也在你的電腦上執行，但在工作時間內會被心跳叫醒，繼續處理自己的 issue。",
       },
@@ -130,9 +146,9 @@ export const copy: RemoteClaudeCodeCopy = {
   },
   cta: {
     title: "讓 Claude Code 在你不在時也繼續工作",
-    text: "Crewmark 目前處於封閉測試階段。申請搶先體驗，我們會協助你聘用第一位員工。",
-    button: "申請搶先體驗",
+    text: "用 Google 帳號註冊，就能在你已經在用的代理上聘用第一位員工。",
+    button: "開始使用",
   },
-  checked: "Remote Control 的資訊已於 2026 年 11 月 1 日對照 Anthropic 官方文件查核。",
+  checked: "Remote Control 的資訊已於 2026 年 11 月 7 日對照 Anthropic 官方文件查核。",
   disclaimer: "Claude 和 Claude Code 是 Anthropic, PBC 的商標。Crewmark 是獨立產品，與 Anthropic 沒有任何隸屬、背書或贊助關係。",
 };

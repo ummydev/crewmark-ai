@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { RepeatIcon } from "lucide-react";
 import { toast } from "sonner";
 
 import { useCrewStore } from "@/components/crew-store";
@@ -16,6 +17,7 @@ import { UserAvatar } from "@/components/user-avatar";
 import { commentOnIssue, getIssueActivity } from "@/lib/actions";
 import { track } from "@/lib/analytics";
 import { fullDate, timeAgo } from "@/lib/format";
+import { describeRecurrence, parseRecurrence } from "@/lib/recurrence";
 import { ISSUE_PRIORITIES, ISSUE_STATUSES, type Issue, type IssueActivity } from "@/lib/types";
 
 /**
@@ -95,7 +97,7 @@ function useActivity(issue: Issue) {
   }, [load, pushed]);
 
   // The person's own changes to the properties show up once saved.
-  const properties = `${issue.status} ${issue.priority} ${issue.assigneeId} ${issue.projectId}`;
+  const properties = `${issue.status} ${issue.priority} ${issue.assigneeId} ${issue.projectId} ${issue.recurrence}`;
   const shown = React.useRef(properties);
   React.useEffect(() => {
     if (shown.current === properties) return;
@@ -133,6 +135,8 @@ export function IssueActivitySection({ issue }: { issue: Issue }) {
           entries.map((entry) =>
             entry.kind === "comment" ? (
               <Comment key={entry.id} entry={entry} />
+            ) : entry.kind === "recurred" ? (
+              <Recurred key={entry.id} entry={entry} />
             ) : (
               <Event key={entry.id} userId={entry.userId} employeeId={entry.employeeId} at={entry.createdAt}>
                 <Change entry={entry} />
@@ -241,9 +245,52 @@ function Change({ entry }: { entry: IssueActivity }) {
         </>
       );
     }
+    case "repeat": {
+      if (to === null) return <>stopped the issue repeating</>;
+      return (
+        <>
+          {from === null ? "set the issue to repeat" : "changed the repeat to"} <Strong>{scheduleWords(to)}</Strong>
+        </>
+      );
+    }
     default:
       return null;
   }
+}
+
+/** A schedule in words, e.g. "every 2 days at 10:00". */
+function scheduleWords(recurrence: string) {
+  try {
+    return describeRecurrence(parseRecurrence(recurrence));
+  } catch {
+    return "a custom schedule";
+  }
+}
+
+/** Crewmark's entry when the issue's schedule came round: it reopened the issue, or the issue was still open. */
+function Recurred({ entry }: { entry: IssueActivity }) {
+  const label = (value: string | null) => ISSUE_STATUSES.find((s) => s.value === value)?.label ?? value;
+  return (
+    <li className="flex items-start gap-2 text-[13px] text-muted-foreground">
+      <span className="mt-px flex size-[18px] shrink-0 items-center justify-center rounded-full bg-muted">
+        <RepeatIcon className="size-3" />
+      </span>
+      <p className="min-w-0">
+        <span className="font-medium text-foreground">Crewmark</span>{" "}
+        {entry.from !== entry.to ? (
+          <>
+            moved the issue back to <Strong>{label(entry.to)}</Strong>: it&apos;s due again
+          </>
+        ) : (
+          <>
+            noted the issue is due again while still <Strong>{label(entry.to)}</Strong>
+          </>
+        )}
+        <span aria-hidden> · </span>
+        <When at={entry.createdAt} />
+      </p>
+    </li>
+  );
 }
 
 function Comment({ entry }: { entry: IssueActivity }) {

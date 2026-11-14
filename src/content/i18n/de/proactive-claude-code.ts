@@ -3,7 +3,7 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 // German translation of /proactive-claude-code; the English master is src/content/proactive-claude-code.ts.
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code proaktiv: Heartbeat, /loop, Zeitplan | Crewmark",
+    title: "Claude Code proaktiv: Heartbeat, /loop, Cron | Crewmark AI",
     description:
       "So startet Claude Code Arbeit von selbst: Proactive output style, auto mode, /goal, /loop, geplante Aufgaben und ein Heartbeat für eine feste Aufgabe.",
   },
@@ -12,7 +12,7 @@ export const copy: GuideCopy = {
     kicker: "Proaktives Claude Code",
     title: "So machst du Claude Code proaktiv",
     lead: "Ein proaktiver Claude-Code-Agent wartet nicht auf deine nächste Nachricht. Er trifft Routineentscheidungen selbst, macht weiter, bis die Aufgabe erledigt ist, wacht nach Zeitplan auf und reagiert, wenn etwas passiert. Für jedes davon hat Claude Code einen eingebauten Baustein. Diese Anleitung zeigt, wie du sie einschaltest, wo jeder an Grenzen stößt und wie du Claude Code eine feste Aufgabe statt eines einmaligen Prompts gibst. Der Baustein, der bei den eingebauten Funktionen fehlt, ist ein Heartbeat: dieselbe Session in einem festen Rhythmus wecken, damit sie ihre nächste Aufgabe übernimmt. Wir zeigen, wie du ihn von Hand einrichtest und wie Crewmark das für dich erledigt.",
-    cta: "Early Access anfragen",
+    cta: "Loslegen",
     secondary: "Direkt zu den Schritten",
     secondaryHref: "#how-to",
   },
@@ -163,7 +163,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Spar dir den Cronjob und die offene Session",
     text: "Crewmark weckt deine Claude-Code-Session während der Arbeitszeit im Heartbeat-Takt und gibt ihr das nächste Issue vom Board.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   faq: {
     title: "FAQ",
@@ -201,7 +201,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Mach Claude Code zu deinem ersten KI-Mitarbeiter",
     text: "Gib ihm eine Rolle, ein Ziel, Arbeitszeiten und einen Heartbeat und weise ihm dann sein erstes Issue zu.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   checked: "Am 2. November 2026 mit der Claude-Code-Dokumentation von Anthropic abgeglichen.",
   disclaimer:

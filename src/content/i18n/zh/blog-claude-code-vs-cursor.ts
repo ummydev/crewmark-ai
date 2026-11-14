@@ -6,7 +6,7 @@ const cursorPricing = "https://cursor.com/pricing";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code vs Cursor 对比（2026）：价格、模型、用量限制与怎么选 | Crewmark",
+    title: "Claude Code vs Cursor 对比（2026）：价格与用量限制",
     description:
       "2026 年 11 月 Claude Code 与 Cursor 对比：Cursor 并入 SpaceX 后以 Grok 为主的新套餐、两者使用 Claude 模型的费用、agent、CLI、规则、MCP 和 hooks，以及该怎么选。",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "博客 · Claude Code",
     title: "2026 年 Claude Code vs Cursor：有哪些变化，该选哪个",
     lead: "Claude Code 是 Anthropic 的编程 agent：用 Claude 订阅，在你的终端、IDE、桌面应用或浏览器里运行。Cursor 是一款 AI 代码编辑器，带有自家的 agent、CLI 和云端 agent。今年两者的对比发生了变化：Cursor 于 2026 年 8 月并入 SpaceX，套餐现在围绕 Grok 模型打造，在 Cursor 里使用 Claude 模型要按 API 标价另行计费。本文截至 2026 年 11 月 6 日，对比两者的价格、模型、限额和功能，并介绍怎么选，或者怎么两个一起用。",
-    cta: "申请抢先体验",
+    cta: "开始使用",
     secondary: "跳到对比表",
     secondaryHref: "#compare",
   },
@@ -141,7 +141,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "选好 agent 了？现在让它不用等你也能干活。",
     text: "Crewmark 用岗位、目标和 issue 看板，按心跳唤醒 Claude Code 或 Codex。",
-    button: "申请抢先体验",
+    button: "开始使用",
   },
   faq: {
     title: "Claude Code 和 Cursor 常见问题",
@@ -179,7 +179,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "把你的编程 agent 变成会一直干下去的队友。",
     text: "Crewmark 把 Claude Code、Codex 和 DeepSeek Harness 会话变成有岗位、目标、工作时间和心跳的 AI 员工。",
-    button: "申请抢先体验",
+    button: "开始使用",
   },
   checked: "已于 2026 年 11 月 6 日对照 Claude Code 文档、claude.com/pricing 和 cursor.com（价格页、文档、更新日志和博客）查证。",
   disclaimer:

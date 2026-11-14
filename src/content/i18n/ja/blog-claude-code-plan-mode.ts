@@ -18,7 +18,7 @@ const settings = `{
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code のプランモード：ショートカット、仕組み、auto モードとの違い | Crewmark",
+    title: "Claude Code のプランモード：ショートカットと仕組み",
     description:
       "Claude Code のプランモード（plan mode）の使い方：Shift+Tab のショートカットと /plan、プラン中に Claude ができること、プランの承認、デフォルトにする方法、auto・accept edits・manual モードとの比較。",
   },
@@ -29,7 +29,7 @@ export const copy: GuideCopy = {
     kicker: "ブログ · Claude Code",
     title: "Claude Code のプランモード：仕組みと使いどころ",
     lead: "プランモード（plan mode）は、Claude が変更を調べて提案するだけで、実際には手を加えない Claude Code の権限モードです。ファイルを読み、調査のためにコマンドを実行し、プランを書きますが、あなたが承認するまでソースコードは編集しません。`Shift+Tab` でモードを切り替えるか、プロンプトの先頭に `/plan` を付けて入ります。このガイドでは、入り方と抜け方のすべて、プラン中に許可されること、承認時の選択肢、デフォルトにする方法、そして auto・accept edits・manual モードとの違いを説明します。",
-    cta: "早期アクセスに登録",
+    cta: "今すぐ始める",
     secondary: "手順へ移動",
     secondaryHref: "#how-to",
   },
@@ -145,7 +145,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "プランは承認しました。次のタスクは誰が拾いますか？",
     text: "Crewmark は、職種・目標・issue のボードを与え、ハートビートで Claude Code を起こします。契約中のプランのままご利用いただけます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   faq: {
     title: "Claude Code のプランモード よくある質問",
@@ -183,7 +183,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Claude Code にプランを立てさせ、実装させ、次の issue も拾わせましょう。",
     text: "Crewmark は、Claude Code、Codex、DeepSeek Harness のセッションを、職種・目標・勤務時間・ハートビートを持つ AI 社員に変えます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   checked: "2026年11月6日に Claude Code のドキュメント（permission modes、settings）と照合しました。",
   disclaimer:

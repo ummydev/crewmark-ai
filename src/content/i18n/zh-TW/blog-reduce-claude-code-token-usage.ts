@@ -23,7 +23,7 @@ const hook = `{
 
 export const copy: GuideCopy = {
   meta: {
-    title: "如何減少 Claude Code token 用量：12 個實用技巧 | Crewmark",
+    title: "如何減少 Claude Code token 用量：12 個實用技巧 | Crewmark AI",
     description:
       "Claude Code 為什麼這麼耗 token，以及怎麼省：用 /usage 和 /context 查看用量，適時 clear 和 compact，選對模型和 effort，精簡 CLAUDE.md 和 MCP，善用 hook、skill 和 subagent。",
   },
@@ -34,7 +34,7 @@ export const copy: GuideCopy = {
     kicker: "部落格 · Claude Code",
     title: "如何減少 Claude Code 的 token 用量（不再一直撞到額度上限）",
     lead: "Claude Code 每次請求都會帶上整段對話，所以 token 用量會隨著上下文增加：在長工作階段的後段問一個一句話的問題，比在新的工作階段問同樣的問題貴得多。本文先教你看清 token 花在哪裡，再整理 Anthropic 官方文件中 12 個能減少用量的做法，從 `/clear` 和 `/compact`，到選擇模型和 effort、精簡 CLAUDE.md 和 MCP 伺服器，再到把雜訊多的工作交給 hook、skill 和 subagent。",
-    cta: "申請搶先體驗",
+    cta: "開始使用",
     secondary: "直接看技巧",
     secondaryHref: "#how-to",
   },
@@ -157,7 +157,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "把 token 花在工作上，而不是等待上。",
     text: "Crewmark 在工作時間內喚醒 Claude Code，帶著職位、目標和看板上的下一個 issue。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   faq: {
     title: "Claude Code token 用量常見問題",
@@ -195,7 +195,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "讓 Claude Code 照你定的時間表工作。",
     text: "Crewmark 把 Claude Code、Codex 和 DeepSeek Harness 工作階段變成有職位、目標、工作時間和心跳的 AI 員工。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   checked: "已於 2026 年 11 月 6 日對照 Claude Code 文件（Manage costs effectively）查核。",
   disclaimer:

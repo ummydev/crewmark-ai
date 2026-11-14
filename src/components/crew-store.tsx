@@ -114,6 +114,7 @@ const TRACKED_ISSUE_FIELDS = [
   ["priority", "priority"],
   ["assigneeId", "assignee"],
   ["projectId", "project"],
+  ["recurrence", "repeat"],
 ] as const;
 
 /** A position between the moved issue's new neighbours, so only that issue needs saving. */
@@ -289,6 +290,11 @@ export function useCrewStore() {
   const store = React.useContext(CrewStoreContext);
   if (!store) throw new Error("useCrewStore must be used within CrewStoreProvider");
   return store;
+}
+
+/** The store where there is one: for components also shown outside the dashboard. */
+export function useOptionalCrewStore() {
+  return React.useContext(CrewStoreContext);
 }
 
 /** Turns a dashboard path into one inside the current organization: "/issues" → "/org/<slug>/issues". */

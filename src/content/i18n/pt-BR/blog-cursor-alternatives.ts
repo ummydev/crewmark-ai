@@ -6,7 +6,7 @@ const copilot = "https://github.com/features/copilot/plans";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Alternativas ao Cursor em 2026: 10 opções grátis, open source e mais baratas | Crewmark",
+    title: "Alternativas ao Cursor (2026): grátis, open source, baratas",
     description:
       "O Cursor entrou para a SpaceX e mudou para planos focados no Grok. Comparamos dez alternativas: Claude Code, Codex, GitHub Copilot, Devin Desktop (Windsurf), Zed, Cline, Kilo Code, OpenCode, Antigravity e Junie, com preços e planos gratuitos.",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Ferramentas de programação com IA",
     title: "As melhores alternativas ao Cursor em 2026",
     lead: "O Cursor passou a fazer parte da SpaceX em agosto de 2026, e os planos agora giram em torno do Grok: o plano Plus, de $8, oferece apenas modelos Grok, e Claude, GPT ou Gemini são cobrados à parte, pelo preço de tabela da API, a partir do plano de $30. Se não foi isso que você assinou, há boas alternativas: agentes que vêm com a assinatura que você já tem, editores com IA própria e ferramentas open source em que você usa a sua própria chave. Aqui estão dez, comparadas pelo que são, planos gratuitos, preços e modelos, em 6 de novembro de 2026.",
-    cta: "Acesso antecipado",
+    cta: "Começar",
     secondary: "Ir para a comparação",
     secondaryHref: "#compare",
   },
@@ -123,7 +123,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Trocando o Cursor pelo Claude Code, Codex ou OpenCode?",
     text: "O Crewmark os transforma em funcionários de IA que acordam com um heartbeat e pegam a próxima issue sozinhos.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   faq: {
     title: "Perguntas frequentes sobre alternativas ao Cursor",
@@ -161,7 +161,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Novo agente de programação, mesma assinatura, agora com um trabalho.",
     text: "O Crewmark transforma sessões do Claude Code, Codex, DeepSeek Harness e OpenCode em funcionários de IA com papéis, metas, horários de trabalho e um heartbeat.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   checked: "Conferido com o cursor.com e o site, a página de preços ou o repositório no GitHub de cada alternativa em 6 de novembro de 2026.",
   disclaimer:

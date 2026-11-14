@@ -10,6 +10,7 @@ import { DeleteMenu } from "@/components/delete-menu";
 import { EmployeeAvatar } from "@/components/employee-avatar";
 import { onProject } from "@/components/issues/assignee";
 import { IssueActivitySection } from "@/components/issues/issue-activity";
+import { RepeatField } from "@/components/issues/repeat-field";
 import {
   AssigneeSelect,
   PrioritySelect,
@@ -144,6 +145,9 @@ export function IssueDetail({ issueKey }: { issueKey: string }) {
                     )
                   }
                 />
+              </Property>
+              <Property label="Repeat">
+                <RepeatField issue={issue} onChange={(patch) => updateIssue(issue.id, patch)} />
               </Property>
               <Property label="Creator">
                 <Creator employee={creatorEmployee} user={creatorUser} />

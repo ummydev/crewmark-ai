@@ -6,7 +6,7 @@ const announcement = "https://openai.com/index/introducing-dots/";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "ChatGPT dots 是什么：用法与价格 | Crewmark",
+    title: "ChatGPT dots 是什么：用法与价格 | Crewmark AI",
     description:
       "ChatGPT dots 是 OpenAI 的常驻 agent。它能做什么、哪些套餐可用、如何设置、自定义规则、限制，以及与同类产品的对比。",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "博客 · ChatGPT",
     title: "ChatGPT dots 是什么，怎么用",
     lead: "dots 是 ChatGPT 里的常驻 agent，于 2026 年 9 月 29 日在 OpenAI DevDay 上发布。每个 dot 都有自己的云端电脑和浏览器，能连接你的应用，从反馈中学习，并在你不在的时候继续朝你的目标推进。本文介绍谁能用、要花多少钱、如何设置、约束它的规则，以及它目前还做不到什么。",
-    cta: "申请抢先体验",
+    cta: "开始使用",
     secondary: "跳到设置步骤",
     secondaryHref: "#how-to",
   },
@@ -120,7 +120,7 @@ export const copy: GuideCopy = {
         ["如何开始工作", "你的消息、定时安排、它自己的调研", "通过观察你工作来学习例行流程", "工作时间内每 15–60 分钟一次心跳"],
         ["工作队列", "对话串和 Scheduled", "未公开说明", "看板上的任务"],
         ["目标", "你描述的目标", "未公开说明", "用数字表示的 KPI，例如每月点击量 +10%"],
-        ["套餐", "Pro、Business Premium、Enterprise beta", "SuperGrok 和 Cursor 套餐，beta", "抢先体验；用你现有的 Claude 或 ChatGPT 套餐运行"],
+        ["套餐", "Pro、Business Premium、Enterprise beta", "SuperGrok 和 Cursor 套餐，beta", "开放注册；用你现有的 Claude 或 ChatGPT 套餐运行"],
       ],
     },
     {
@@ -151,7 +151,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "想给你的代码库配一个常驻 agent？",
     text: "Crewmark 用心跳让你的 Claude Code 或 Codex 会话持续工作，用的就是你已经付费的套餐。",
-    button: "申请抢先体验",
+    button: "开始使用",
   },
   faq: {
     title: "ChatGPT dots 常见问题",
@@ -185,7 +185,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "让你已经在用的 agent 始终在线。",
     text: "Crewmark 把 Claude Code 和 Codex 会话变成有岗位、有目标、有工作时间和心跳的 AI 员工。",
-    button: "申请抢先体验",
+    button: "开始使用",
   },
   checked: "已于 2026 年 11 月 2 日对照 OpenAI 的发布公告、帮助中心、更新日志和价格页面核对。",
   disclaimer:

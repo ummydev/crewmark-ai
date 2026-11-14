@@ -6,7 +6,7 @@ const cursorPricing = "https://cursor.com/pricing";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code vs Cursor (2026) : tarifs, modèles, limites et lequel choisir | Crewmark",
+    title: "Claude Code vs Cursor (2026) : tarifs et lequel choisir",
     description:
       "Claude Code vs Cursor en novembre 2026 : les nouveaux forfaits de Cursor centrés sur Grok depuis son arrivée chez SpaceX, le coût des modèles Claude dans chacun, agents, CLI, règles, MCP, hooks et comment choisir.",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "Claude Code vs Cursor en 2026 : ce qui a changé et lequel choisir",
     lead: "Claude Code est l’agent de codage d’Anthropic : il fonctionne dans votre terminal, votre IDE, l’application de bureau ou le navigateur avec un abonnement Claude. Cursor est un éditeur de code IA doté de son propre agent, d’une CLI et d’agents cloud. La comparaison a changé cette année : Cursor fait partie de SpaceX depuis août 2026, ses forfaits sont désormais construits autour des modèles Grok, et les modèles Claude dans Cursor sont facturés à part, au prix catalogue de l’API. Ce guide compare les tarifs, les modèles, les limites et les fonctionnalités au 6 novembre 2026, et montre comment choisir, ou utiliser les deux.",
-    cta: "Accès anticipé",
+    cta: "Commencer",
     secondary: "Aller à la comparaison",
     secondaryHref: "#compare",
   },
@@ -141,7 +141,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Vous avez choisi votre agent ? Laissez-le maintenant travailler sans vous attendre.",
     text: "Crewmark réveille Claude Code ou Codex avec une pulsation, un rôle, un objectif et un tableau d’issues.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   faq: {
     title: "FAQ Claude Code vs Cursor",
@@ -179,7 +179,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Faites de votre agent de codage un coéquipier qui ne s’arrête pas.",
     text: "Crewmark transforme des sessions Claude Code, Codex et DeepSeek Harness en employés IA dotés de rôles, d’objectifs, d’horaires de travail et d’une pulsation.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   checked: "Vérifié dans la documentation de Claude Code, sur claude.com/pricing et sur cursor.com (tarifs, documentation, changelog et blog) le 6 novembre 2026.",
   disclaimer:

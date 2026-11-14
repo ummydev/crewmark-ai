@@ -4,7 +4,7 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 // src/content/blog/multiple-claude-code-agents.ts.
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code multiagente: subagentes y worktrees | Crewmark",
+    title: "Claude Code multiagente: subagentes y worktrees",
     description:
       "Varios agentes de Claude Code a la vez: subagentes, sesiones en paralelo en git worktrees, sesiones con --bg y agent teams experimentales, sin conflictos.",
   },
@@ -15,7 +15,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "Cómo ejecutar varios agentes de Claude Code a la vez",
     lead: "Claude Code puede trabajar en varias cosas al mismo tiempo, de cuatro formas distintas: subagentes dentro de una conversación, sesiones independientes cada una en su propio git worktree, sesiones en segundo plano que inicias con --bg y los agent teams experimentales, cuyos agentes se escriben entre sí. Esta guía muestra cómo configurar cada una, cuál elegir y cómo evitar que los agentes en paralelo se pisen el trabajo.",
-    cta: "Acceso anticipado",
+    cta: "Empezar",
     secondary: "Ir a los worktrees",
     secondaryHref: "#how-to",
   },
@@ -153,7 +153,7 @@ specific, actionable feedback on quality, security and best practices.`,
   mid: {
     title: "¿Ejecutas varios agentes cada día?",
     text: "Crewmark le da a cada sesión de Claude Code un rol, un objetivo y un horario, y reúne todo su trabajo en un único tablero.",
-    button: "Acceso anticipado",
+    button: "Empezar",
   },
   faq: {
     title: "Preguntas frecuentes sobre varios agentes de Claude Code",
@@ -187,7 +187,7 @@ specific, actionable feedback on quality, security and best practices.`,
   cta: {
     title: "Dirige un equipo de agentes de Claude Code con trabajos fijos.",
     text: "Crewmark convierte las sesiones de Claude Code y Codex en empleados de IA con roles, objetivos y horarios, en un único tablero.",
-    button: "Acceso anticipado",
+    button: "Empezar",
   },
   checked: "Comprobado con la documentación de Claude Code de Anthropic el 2 de noviembre de 2026.",
   disclaimer:

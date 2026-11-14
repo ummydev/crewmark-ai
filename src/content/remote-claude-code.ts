@@ -35,7 +35,7 @@ export const remoteClaudeCode: Record<RemoteClaudeCodeLocale, RemoteClaudeCodeCo
   ...remoteClaudeCodeTranslations,
   en: {
     meta: {
-      title: "Claude Code Remote Control: Run Claude Code From Your Phone | Crewmark",
+      title: "Claude Code Remote Control From Your Phone | Crewmark AI",
       description:
         "How to use Claude Code Remote Control to continue a local session from your phone or any browser, what it can't do, and how to keep Claude Code working while you're away.",
     },
@@ -44,7 +44,7 @@ export const remoteClaudeCode: Record<RemoteClaudeCodeLocale, RemoteClaudeCodeCo
       kicker: "Remote Claude Code",
       title: "Control Claude Code from your phone, then let it work without you",
       lead: "Claude Code Remote Control is Anthropic's feature for continuing a Claude Code session that runs on your computer from your phone, a tablet or any browser. This guide shows how to set it up, where it stops, and how Crewmark turns that same Claude Code into an employee that keeps working on its own schedule.",
-      cta: "Get early access",
+      cta: "Get started",
       secondary: "Set up Remote Control",
     },
     official: {
@@ -83,7 +83,7 @@ export const remoteClaudeCode: Record<RemoteClaudeCodeLocale, RemoteClaudeCodeCo
     mid: {
       title: "Want it to keep working while you're away?",
       text: "Remote Control lets you steer a session from your phone. A Crewmark employee keeps working on its heartbeat and messages you when it needs you.",
-      button: "Get early access",
+      button: "Get started",
     },
     limits: {
       title: "What Remote Control doesn't do",
@@ -150,6 +150,22 @@ export const remoteClaudeCode: Record<RemoteClaudeCodeLocale, RemoteClaudeCodeCo
           a: "No. According to Anthropic's docs it needs a Pro, Max, Ultra, Team or Enterprise plan signed in through claude.ai. It doesn't work with API keys, Amazon Bedrock, Google Cloud, Microsoft Foundry or a custom ANTHROPIC_BASE_URL.",
         },
         {
+          q: "Why is Claude Code Remote Control not working?",
+          a: "Usually it's the login. Run claude auth login and choose the claude.ai option; remove ANTHROPIC_API_KEY or ANTHROPIC_AUTH_TOKEN if they're set, because they take precedence; and don't use a long-lived token from claude setup-token, which can't start Remote Control. On Team and Enterprise an Owner must turn Remote Control on first. CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC or DISABLE_GROWTHBOOK also turn it off. claude doctor shows which check failed.",
+        },
+        {
+          q: "Why does Remote Control keep disconnecting?",
+          a: "\"Remote Control disconnected\" or \"Can't reach\" means your phone or browser lost contact with Claude Code on your computer. An interactive session reconnects by itself once the computer is awake and online; if the claude process stopped, start it again and resume the session. On a remote machine, run claude inside tmux or screen so it survives a closed terminal, and if it says it couldn't reach the server for about 30 minutes, run /remote-control again.",
+        },
+        {
+          q: "Remote Control vs Dispatch: what's the difference?",
+          a: "Remote Control lets you drive a Claude Code session that's already running on your computer, from claude.ai/code or the Claude app. Dispatch lets you message a new task from the Claude mobile app, and the desktop app on your computer starts a session for it; it needs the mobile app paired with Claude Desktop.",
+        },
+        {
+          q: "Can I use Remote Control with DeepSeek or another model provider?",
+          a: "No. Remote Control only works when Claude Code talks to api.anthropic.com. If ANTHROPIC_BASE_URL points at DeepSeek, a gateway or a proxy, or you use Bedrock, Google Cloud or Foundry, unset that setting and sign in with claude.ai to use it.",
+        },
+        {
           q: "Can Claude Code keep working when I close my laptop?",
           a: "Not on its own: a Remote Control session needs the computer on and the claude process running, and after a task it waits for your next message. Crewmark employees still run on your computer, but a heartbeat wakes them during their working hours to keep going through their issues.",
         },
@@ -161,16 +177,16 @@ export const remoteClaudeCode: Record<RemoteClaudeCodeLocale, RemoteClaudeCodeCo
     },
     cta: {
       title: "Let Claude Code keep working while you're away",
-      text: "Crewmark is in private beta. Ask for early access and we'll help you hire your first employee.",
-      button: "Get early access",
+      text: "Sign up with Google and hire your first employee on the agent you already use.",
+      button: "Get started",
     },
-    checked: "Remote Control details checked against Anthropic's documentation on November 1, 2026.",
+    checked: "Remote Control details checked against Anthropic's documentation on November 7, 2026.",
     disclaimer:
       "Claude and Claude Code are trademarks of Anthropic, PBC. Crewmark is an independent product and is not affiliated with, endorsed by or sponsored by Anthropic.",
   },
   zh: {
     meta: {
-      title: "Claude Code Remote Control 远程控制教程：用手机操作 Claude Code | Crewmark",
+      title: "Claude Code Remote Control 教程：手机远程操作 | Crewmark AI",
       description:
         "Claude Code Remote Control 怎么用：在手机或任意浏览器上继续电脑里的 Claude Code 会话；它做不到什么，以及人不在时怎么让 Claude Code 自己接着干活。",
     },
@@ -179,7 +195,7 @@ export const remoteClaudeCode: Record<RemoteClaudeCodeLocale, RemoteClaudeCodeCo
       kicker: "远程 Claude Code",
       title: "用手机远程控制 Claude Code，再让它在你不在时自己干活",
       lead: "Claude Code Remote Control（远程控制）是 Anthropic 推出的功能：电脑上跑着的 Claude Code 会话，可以在手机、平板或任意浏览器上继续操作。这篇指南讲怎么开启、它的边界在哪，以及 Crewmark 怎样把同一个 Claude Code 变成按自己的节奏持续工作的员工。",
-      cta: "申请抢先体验",
+      cta: "开始使用",
       secondary: "开启 Remote Control",
     },
     official: {
@@ -218,7 +234,7 @@ export const remoteClaudeCode: Record<RemoteClaudeCodeLocale, RemoteClaudeCodeCo
     mid: {
       title: "想让它在你离开时也继续干活？",
       text: "远程控制让你在手机上操控会话。Crewmark 员工按心跳持续工作，需要你时会给你发消息。",
-      button: "申请抢先体验",
+      button: "开始使用",
     },
     limits: {
       title: "Remote Control 做不到的事",
@@ -285,6 +301,22 @@ export const remoteClaudeCode: Record<RemoteClaudeCodeLocale, RemoteClaudeCodeCo
           a: "不支持。按 Anthropic 文档的说法，它需要通过 claude.ai 登录的 Pro、Max、Ultra、Team 或 Enterprise 订阅，不支持 API key、Amazon Bedrock、Google Cloud、Microsoft Foundry 或自定义的 ANTHROPIC_BASE_URL。",
         },
         {
+          q: "Claude Code Remote Control 用不了怎么办？",
+          a: "多半是登录的问题。运行 claude auth login 并选择 claude.ai 登录；如果设置了 ANTHROPIC_API_KEY 或 ANTHROPIC_AUTH_TOKEN，把它们去掉，因为它们的优先级更高；也不要用 claude setup-token 生成的长期 token，它没法启动 Remote Control。Team 和 Enterprise 需要管理员先开启 Remote Control。设置了 CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC 或 DISABLE_GROWTHBOOK 也会把它关掉。运行 claude doctor 可以看到是哪一项检查没通过。",
+        },
+        {
+          q: "Remote Control 为什么老是断开？",
+          a: "\"Remote Control disconnected\" 或 \"Can't reach\" 表示你的手机或浏览器和电脑上的 Claude Code 失去了联系。交互式会话会在电脑唤醒并联网后自动重连；如果 claude 进程已经停了，重新启动它并恢复会话。在远程机器上，把 claude 放在 tmux 或 screen 里运行，这样关掉终端它也不会退出；如果它提示大约 30 分钟都连不上服务器，再运行一次 /remote-control。",
+        },
+        {
+          q: "Remote Control 和 Dispatch 有什么区别？",
+          a: "Remote Control 让你在 claude.ai/code 或 Claude App 里操作一个已经在电脑上运行的 Claude Code 会话。Dispatch 让你在 Claude 手机 App 里发一个新任务，由电脑上的桌面 App 为它启动会话；它需要手机 App 和 Claude Desktop 配对。",
+        },
+        {
+          q: "Remote Control 能搭配 DeepSeek 或其他模型服务商使用吗？",
+          a: "不能。只有 Claude Code 连接 api.anthropic.com 时，Remote Control 才能用。如果 ANTHROPIC_BASE_URL 指向 DeepSeek、某个网关或代理，或者你在用 Bedrock、Google Cloud 或 Foundry，要先取消这个设置，再用 claude.ai 登录。",
+        },
+        {
           q: "合上电脑后 Claude Code 还能继续干活吗？",
           a: "单靠 Remote Control 不行：会话需要电脑开着、claude 进程在运行，而且一件事做完它就等你的下一条消息。Crewmark 的员工也跑在你的电脑上，但在工作时间内会被心跳叫醒，继续处理自己的 issue。",
         },
@@ -296,10 +328,10 @@ export const remoteClaudeCode: Record<RemoteClaudeCodeLocale, RemoteClaudeCodeCo
     },
     cta: {
       title: "让 Claude Code 在你不在时也继续干活",
-      text: "Crewmark 正在内测。申请抢先体验，我们会帮你招到第一名员工。",
-      button: "申请抢先体验",
+      text: "用 Google 账号注册，就能在你已经在用的 agent 上招到第一名员工。",
+      button: "开始使用",
     },
-    checked: "Remote Control 的信息于 2026 年 11 月 1 日对照 Anthropic 官方文档核对。",
+    checked: "Remote Control 的信息于 2026 年 11 月 7 日对照 Anthropic 官方文档核对。",
     disclaimer:
       "Claude 和 Claude Code 是 Anthropic, PBC 的商标。Crewmark 是独立产品，与 Anthropic 没有任何隶属、背书或赞助关系。",
   },

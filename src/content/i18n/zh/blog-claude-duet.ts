@@ -6,7 +6,7 @@ const announcement = "https://claude.com/resources/articles/claude-duet";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Duet 是什么：Anthropic 主动式 agent 的候补名单、使用资格与限制 | Crewmark",
+    title: "Claude Duet 是什么：候补名单、使用资格与限制 | Crewmark AI",
     description:
       "Claude Duet 是 Anthropic 的主动式 agent 应用，自 2026 年 10 月 21 日起进入研究预览。它能做什么、谁能用、如何加入候补名单、费用、安全限制，以及与同类产品的对比。",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "博客 · Claude",
     title: "Claude Duet 是什么，谁能用，怎么用",
     lead: "Claude Duet 是 Anthropic 推出的新应用，让 Claude 成为一个主动式 agent：它会主动告诉你哪些事需要关注，完成你交给它的任务，在你离开时继续工作，并在代你行动之前先征得你的同意。它于 2026 年 10 月 21 日以需要候补的研究预览形式上线，面向美国的 Pro、Max 和 Ultra 订阅用户。本文介绍它能做什么、如何获得使用资格、费用、安全限制，以及与同类产品的对比。",
-    cta: "申请抢先体验",
+    cta: "开始使用",
     secondary: "如何获得使用资格",
     secondaryHref: "#how-to",
   },
@@ -108,8 +108,8 @@ export const copy: GuideCopy = {
         ["如何开始工作", "你的消息，以及每隔几小时的检查", "你的消息、定时任务和它自己的调研", "工作时间内每 15 到 60 分钟一次心跳"],
         ["最擅长", "收件箱、日历、发票、简报和仪表盘", "跨已连接应用的调研和任务", "代码、SEO 等代码仓库里的工作，一个岗位一名员工"],
         ["工作队列", "一个持续的对话串", "对话串和 Scheduled", "看板上的 issue"],
-        ["费用", "包含在 Pro、Max 和 Ultra 内（美国）", "Pro 和 Business Premium 套餐", "抢先体验；使用你已有的 agent 和套餐"],
-        ["状态", "研究预览，需候补", "逐步开放中", "抢先体验"],
+        ["费用", "包含在 Pro、Max 和 Ultra 内（美国）", "Pro 和 Business Premium 套餐", "开放注册；使用你已有的 agent 和套餐"],
+        ["状态", "研究预览，需候补", "逐步开放中", "开放注册"],
       ],
     },
     {
@@ -140,7 +140,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "喜欢会主动给你发消息的 agent 吗？",
     text: "Crewmark 为 Claude Code 和 Codex 做到了这一点：心跳、工作时间和 issue 看板，用的就是你已经在付费的套餐。",
-    button: "申请抢先体验",
+    button: "开始使用",
   },
   faq: {
     title: "Claude Duet 常见问题",
@@ -178,7 +178,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "也让你的 Claude Code 会话主动工作起来。",
     text: "Crewmark 把 Claude Code、Codex 和 DeepSeek Harness 会话变成有岗位、目标、工作时间和心跳的 AI 员工。",
-    button: "申请抢先体验",
+    button: "开始使用",
   },
   checked: "已于 2026 年 11 月 5 日对照 Anthropic 的 Claude Duet 公告、产品页和安全文章查证。",
   disclaimer:

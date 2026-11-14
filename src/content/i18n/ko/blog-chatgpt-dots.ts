@@ -6,7 +6,7 @@ const announcement = "https://openai.com/index/introducing-dots/";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "ChatGPT dots란? 사용법·가격 총정리 | Crewmark",
+    title: "ChatGPT dots란? 사용법·가격 총정리 | Crewmark AI",
     description:
       "ChatGPT dots는 OpenAI의 상시 가동 에이전트예요. 할 수 있는 일, 이용 가능한 요금제, 설정 방법, 맞춤 규칙, 한계, 비교까지 정리했어요.",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "블로그 · ChatGPT",
     title: "ChatGPT dots란 무엇이고 어떻게 쓸까",
     lead: "dots는 ChatGPT 안에서 늘 켜져 있는 에이전트로, 2026년 9월 29일 OpenAI DevDay에서 발표됐어요. 각 dot은 자기만의 클라우드 컴퓨터와 브라우저를 갖고, 내 앱에 연결되며, 피드백으로 배우고, 내가 자리를 비운 동안에도 목표를 향해 계속 일해요. 이 가이드에서는 누가 쓸 수 있는지, 비용은 얼마인지, 설정 방법, dot을 통제하는 규칙, 그리고 아직 못 하는 일을 다뤄요.",
-    cta: "얼리 액세스 신청",
+    cta: "시작하기",
     secondary: "설정 방법으로 이동",
     secondaryHref: "#how-to",
   },
@@ -120,7 +120,7 @@ export const copy: GuideCopy = {
         ["일을 시작하는 방식", "내 메시지, 예약 일정, 자체 조사", "내가 일하는 모습을 보고 루틴을 학습", "근무 시간 중 15~60분마다 하트비트"],
         ["업무 대기열", "대화 스레드와 Scheduled", "공개된 정보 없음", "칸반 보드의 이슈"],
         ["목표", "내가 설명한 목표", "공개된 정보 없음", "숫자로 정한 KPI, 예: 월 클릭 수 +10%"],
-        ["요금제", "Pro, Business Premium, Enterprise beta", "SuperGrok과 Cursor 요금제, beta", "얼리 액세스, 기존 Claude나 ChatGPT 요금제로 실행"],
+        ["요금제", "Pro, Business Premium, Enterprise beta", "SuperGrok과 Cursor 요금제, beta", "누구나 가입 가능, 기존 Claude나 ChatGPT 요금제로 실행"],
       ],
     },
     {
@@ -151,7 +151,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "코드베이스를 위한 상시 가동 에이전트가 필요하세요?",
     text: "Crewmark는 이미 결제한 요금제 그대로, Claude Code나 Codex 세션을 하트비트로 계속 일하게 해요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   faq: {
     title: "ChatGPT dots 자주 묻는 질문",
@@ -185,7 +185,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "지금 쓰는 에이전트를 늘 켜 두세요.",
     text: "Crewmark는 Claude Code와 Codex 세션을 직무, 목표, 근무 시간, 하트비트를 갖춘 AI 직원으로 바꿔 줘요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   checked: "2026년 11월 2일에 OpenAI의 발표, 도움말 센터, 릴리스 노트, 가격 페이지와 대조해 확인했습니다.",
   disclaimer:

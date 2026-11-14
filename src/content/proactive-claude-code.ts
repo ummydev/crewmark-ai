@@ -17,7 +17,7 @@ export const proactiveClaudeCode: Record<ProactiveClaudeCodeLocale, GuideCopy> =
   ...proactiveClaudeCodeTranslations,
   en: {
     meta: {
-      title: "How to Make Claude Code Proactive: Heartbeats, /loop and Scheduled Tasks | Crewmark",
+      title: "Proactive Claude Code: Scheduled Tasks, /loop | Crewmark AI",
       description:
         "Make Claude Code start work without waiting for you: the Proactive output style, auto mode, /goal, /loop, scheduled tasks, and a heartbeat that gives it a standing job.",
     },
@@ -26,7 +26,7 @@ export const proactiveClaudeCode: Record<ProactiveClaudeCodeLocale, GuideCopy> =
       kicker: "Proactive Claude Code",
       title: "How to make Claude Code proactive",
       lead: "A proactive Claude Code agent doesn't wait for your next message. It makes routine decisions itself, keeps going until the job is done, wakes up on a schedule and reacts when something happens. Claude Code has a built-in piece for each of these. This guide shows how to turn them on, where each one stops, and how to give Claude Code a standing job instead of a one-off prompt. The piece the built-in features leave out is a heartbeat: waking the same session on a rhythm to take its next task. We show how to wire one up by hand, and how Crewmark does it for you.",
-      cta: "Get early access",
+      cta: "Get started",
       secondary: "Jump to the steps",
       secondaryHref: "#how-to",
     },
@@ -174,7 +174,7 @@ export const proactiveClaudeCode: Record<ProactiveClaudeCodeLocale, GuideCopy> =
     mid: {
       title: "Skip the cron job and the open session",
       text: "Crewmark wakes your Claude Code session on a heartbeat during working hours and hands it the next issue from a board.",
-      button: "Get early access",
+      button: "Get started",
     },
     faq: {
       title: "FAQ",
@@ -212,7 +212,7 @@ export const proactiveClaudeCode: Record<ProactiveClaudeCodeLocale, GuideCopy> =
     cta: {
       title: "Make Claude Code your first AI employee",
       text: "Give it a role, a goal, working hours and a heartbeat, then assign its first issue.",
-      button: "Get early access",
+      button: "Get started",
     },
     checked: "Checked against Anthropic's Claude Code documentation on November 2, 2026.",
     disclaimer:
@@ -220,7 +220,7 @@ export const proactiveClaudeCode: Record<ProactiveClaudeCodeLocale, GuideCopy> =
   },
   zh: {
     meta: {
-      title: "Claude Code 定时任务与 /loop 用法：让 Claude Code 主动干活 | Crewmark",
+      title: "Claude Code 定时任务与 /loop：让它主动干活 | Crewmark AI",
       description:
         "让 Claude Code 不等你开口就开工：Proactive 输出风格、自动模式、/goal、/loop、Claude Code 定时任务，以及用心跳（heartbeat）给它一份长期的工作。",
     },
@@ -229,7 +229,7 @@ export const proactiveClaudeCode: Record<ProactiveClaudeCodeLocale, GuideCopy> =
       kicker: "Claude Code 定时任务",
       title: "怎么让 Claude Code 主动干活",
       lead: "主动的 Claude Code 不会等你发下一条消息：常规决定自己拿主意，一直干到任务完成，按时间表醒来，有事发生就处理。Claude Code 对这几件事各有一个内置功能。这篇教程讲怎么开启它们、每个功能的边界在哪里，以及怎么给 Claude Code 一份长期的工作，而不是一次性的提示词。内置功能缺的一块是心跳：按固定节奏唤醒同一个会话，让它去领下一个任务。我们会讲怎么手动搭一个，以及 Crewmark 怎么替你做好。",
-      cta: "申请抢先体验",
+      cta: "开始使用",
       secondary: "直接看步骤",
       secondaryHref: "#how-to",
     },
@@ -375,7 +375,7 @@ export const proactiveClaudeCode: Record<ProactiveClaudeCodeLocale, GuideCopy> =
     mid: {
       title: "不用写 cron，也不用一直开着会话",
       text: "Crewmark 在工作时间内按心跳唤醒你的 Claude Code 会话，从看板上给它派下一个任务。",
-      button: "申请抢先体验",
+      button: "开始使用",
     },
     faq: {
       title: "常见问题",
@@ -413,7 +413,7 @@ export const proactiveClaudeCode: Record<ProactiveClaudeCodeLocale, GuideCopy> =
     cta: {
       title: "让 Claude Code 成为你的第一个 AI 员工",
       text: "给它一个岗位、一个目标、工作时间和心跳，然后派给它第一个 issue。",
-      button: "申请抢先体验",
+      button: "开始使用",
     },
     checked: "已于 2026 年 11 月 2 日对照 Anthropic 的 Claude Code 官方文档核对。",
     disclaimer: "Crewmark 是独立产品，与 Anthropic 无关，也未获其背书。Claude 和 Claude Code 是 Anthropic 的商标。",

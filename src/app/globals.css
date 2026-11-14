@@ -192,6 +192,10 @@
   .tiptap a {
     @apply text-primary underline underline-offset-2;
   }
+  /* An issue key turned into a link (MC-185): in the text's own colour, so it reads in a dark chat bubble too. */
+  .tiptap a.issue-ref {
+    @apply font-medium text-inherit decoration-current/35 hover:decoration-current;
+  }
   .tiptap hr {
     @apply my-4;
   }

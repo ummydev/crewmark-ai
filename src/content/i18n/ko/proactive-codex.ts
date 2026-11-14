@@ -3,7 +3,7 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 // Korean translation of /proactive-codex; the English master is src/content/proactive-codex.ts.
 export const copy: GuideCopy = {
   meta: {
-    title: "Codex 예약 작업·cron·하트비트 가이드 | Crewmark",
+    title: "Codex 예약 작업·cron·하트비트 가이드 | Crewmark AI",
     description:
       "먼저 일하는 Codex와 ChatGPT: 예약 작업(구 Automations), codex exec와 cron, GitHub Action, 하트비트.",
   },
@@ -12,7 +12,7 @@ export const copy: GuideCopy = {
     kicker: "능동적인 Codex",
     title: "Codex를 능동적으로 일하게 만드는 방법",
     lead: "능동적인 Codex 에이전트는 채팅창에서 가만히 기다리지 않아요. 일상적인 승인은 스스로 처리하고, 일정에 맞춰 실행되고, 풀 리퀘스트나 Slack 메시지에 반응하고, 결과를 보고해요. OpenAI는 이 각각을 위한 기능을 제공하고, 그중 일부는 ChatGPT와 공유돼요. 이 가이드에서는 설정 방법과 각 기능의 한계, 그리고 일회성 프롬프트 대신 Codex에게 고정 업무를 주는 방법을 보여 드려요. 어떤 기능도 주지 않는 것이 하트비트예요. 같은 대화를 일정한 리듬으로 깨워 다음 작업을 가져가게 하는 것이죠. 가장 가까운 기본 기능과, Crewmark가 하트비트를 더하는 방법을 소개할게요.",
-    cta: "얼리 액세스 신청",
+    cta: "시작하기",
     secondary: "단계로 바로 가기",
     secondaryHref: "#how-to",
   },
@@ -162,7 +162,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "예약된 프롬프트가 아니라 고정 업무를 주세요",
     text: "Crewmark는 근무 시간 동안 하트비트에 맞춰 Codex 대화를 깨우고, 보드에서 다음 이슈를 넘겨줘요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   faq: {
     title: "자주 묻는 질문",
@@ -200,7 +200,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Codex를 첫 AI 직원으로 만드세요",
     text: "직무, 목표, 근무 시간, 하트비트를 정하고 첫 이슈를 배정하세요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   checked: "2026년 11월 2일에 OpenAI의 Codex 문서와 대조해 확인했습니다.",
   disclaimer:

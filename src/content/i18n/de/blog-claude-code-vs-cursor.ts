@@ -6,7 +6,7 @@ const cursorPricing = "https://cursor.com/pricing";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code vs Cursor (2026): Preise, Modelle, Limits und was du wählen solltest | Crewmark",
+    title: "Claude Code vs Cursor (2026): Preise, Modelle, Limits",
     description:
       "Claude Code vs Cursor im November 2026: Cursors neue Grok-zentrierte Pläne nach dem Wechsel zu SpaceX, was Claude-Modelle jeweils kosten, Agenten, CLI, Regeln, MCP, Hooks und wie du dich entscheidest.",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "Claude Code vs Cursor 2026: Was sich geändert hat und was du wählen solltest",
     lead: "Claude Code ist Anthropics Coding-Agent: Er läuft in deinem Terminal, deiner IDE, der Desktop-App oder im Browser mit einem Claude-Abo. Cursor ist ein KI-Code-Editor mit eigenem Agenten, einer CLI und Cloud-Agenten. Der Vergleich hat sich dieses Jahr verschoben: Cursor gehört seit August 2026 zu SpaceX, seine Pläne sind jetzt um Grok-Modelle herum gebaut, und Claude-Modelle in Cursor werden separat zum API-Listenpreis abgerechnet. Dieser Leitfaden vergleicht Preise, Modelle, Limits und Funktionen, Stand 6. November 2026, und zeigt, wie du dich entscheidest oder beide nutzt.",
-    cta: "Early Access anfragen",
+    cta: "Loslegen",
     secondary: "Direkt zum Vergleich",
     secondaryHref: "#compare",
   },
@@ -141,7 +141,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Agent gewählt? Jetzt lass ihn arbeiten, ohne auf dich zu warten.",
     text: "Crewmark weckt Claude Code oder Codex per Heartbeat, mit einer Rolle, einem Ziel und einem Board mit Issues.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   faq: {
     title: "FAQ zu Claude Code vs Cursor",
@@ -179,7 +179,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Mach deinen Coding-Agenten zu einem Teamkollegen, der dranbleibt.",
     text: "Crewmark macht aus Sessions in Claude Code, Codex und DeepSeek Harness KI-Mitarbeiter mit Rollen, Zielen, Arbeitszeiten und einem Heartbeat.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   checked: "Am 6. November 2026 mit der Claude-Code-Dokumentation, claude.com/pricing und cursor.com (Preise, Dokumentation, Changelog und Blog) abgeglichen.",
   disclaimer:

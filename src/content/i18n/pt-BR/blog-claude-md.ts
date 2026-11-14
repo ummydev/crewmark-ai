@@ -23,7 +23,7 @@ paths: ["src/api/**/*.ts"]
 
 export const copy: GuideCopy = {
   meta: {
-    title: "CLAUDE.md: onde fica, boas práticas, template e AGENTS.md | Crewmark",
+    title: "CLAUDE.md: onde fica, boas práticas, template e AGENTS.md",
     description:
       "Como o CLAUDE.md funciona no Claude Code: onde os arquivos ficam e em que ordem carregam, imports, regras, o que escrever nele, um template e a relação com o AGENTS.md.",
   },
@@ -34,7 +34,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "CLAUDE.md: onde colocar, o que escrever e como ele convive com o AGENTS.md",
     lead: "O CLAUDE.md é um arquivo markdown de instruções que o Claude Code lê no início de cada sessão: os comandos a executar, as convenções a seguir e as armadilhas a evitar no seu projeto. Este guia cobre todos os lugares onde um CLAUDE.md pode ficar e a ordem em que carregam, imports e arquivos de regras, o que deve e o que não deve entrar nele, um template curto e a relação com o AGENTS.md.",
-    cta: "Acesso antecipado",
+    cta: "Começar",
     secondary: "Ir para o template",
     secondaryHref: "#how-to",
   },
@@ -167,7 +167,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Seu CLAUDE.md está pronto. Quem começa a próxima tarefa?",
     text: "O Crewmark acorda o Claude Code com um heartbeat, um papel, uma meta e um quadro de issues, no plano que você já paga.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   faq: {
     title: "Perguntas frequentes sobre o CLAUDE.md",
@@ -205,7 +205,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Dê um trabalho ao seu Claude Code bem informado.",
     text: "O Crewmark transforma sessões do Claude Code, Codex e DeepSeek Harness em funcionários de IA com papéis, metas, horários de trabalho e um heartbeat.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   checked: "Conferido com a documentação do Claude Code, o agents.md e a documentação do Codex da OpenAI em 5 de novembro de 2026.",
   disclaimer:

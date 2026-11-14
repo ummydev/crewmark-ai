@@ -6,14 +6,19 @@ import { db } from "@/db";
 import { notifyAssigned } from "@/db/agent-events";
 import { recordChanges, type Transaction } from "@/db/issue-activity";
 import { issueKey, toIssue } from "@/db/queries";
+import { reschedule } from "@/db/recurrence";
 import { employeeProjects, employees, issues, members, organizations, projects } from "@/db/schema";
+import { RecurrenceError, formatRecurrence, nextOccurrence, parseRecurrence } from "@/lib/recurrence";
 import type { Issue } from "@/lib/types";
 import { InputError, NotFoundError, PRIORITY_VALUES, STATUS_VALUES, idOrNull, oneOf, text } from "@/lib/validate";
 
 // Writing issues, shared by the dashboard's Server Functions and the agent API. Callers check that whoever asks
 // belongs to the organization; these only touch that organization's rows.
 
-export type NewIssueInput = Pick<Issue, "title" | "description" | "status" | "priority" | "assigneeId" | "projectId">;
+export type NewIssueInput = Pick<Issue, "title" | "description" | "status" | "priority" | "assigneeId" | "projectId"> & {
+  /** A schedule to repeat on (iCalendar text, see lib/recurrence.ts); none by default. */
+  recurrence?: string | null;
+};
 
 export type IssuePatch = Partial<
   Omit<Issue, "id" | "key" | "createdByUserId" | "createdByEmployeeId" | "createdAt">
@@ -80,6 +85,22 @@ function offProjectError({ employee, project }: { employee: string; project: str
   );
 }
 
+/**
+ * The columns for a schedule as iCalendar text, written back in Crewmark's own form, with when it next comes round;
+ * null stops the issue repeating. Issue.nextRecurAt in a patch is ignored: it follows from the schedule.
+ */
+function recurrenceColumns(value: unknown) {
+  if (value === null) return { recurrence: null, nextRecurAt: null };
+  if (typeof value !== "string") throw new InputError("Invalid recurrence");
+  try {
+    const recurrence = parseRecurrence(value);
+    return { recurrence: formatRecurrence(recurrence), nextRecurAt: nextOccurrence(recurrence, new Date()) };
+  } catch (error) {
+    if (error instanceof RecurrenceError) throw new InputError(error.message);
+    throw error;
+  }
+}
+
 /** Throws when an update matched nothing: the id doesn't exist in this organization. */
 export function found(rows: unknown[]) {
   if (rows.length === 0) throw new NotFoundError("Not found in this organization");
@@ -91,6 +112,7 @@ export async function insertIssue(organizationId: string, input: NewIssueInput, 
   await assertInOrganization(projects, [projectId], organizationId);
   const off = assignee.assigneeEmployeeId && projectId && (await offProject(db, assignee.assigneeEmployeeId, projectId));
   if (off) throw offProjectError(off);
+  const repeats = input.recurrence ? recurrenceColumns(input.recurrence) : {};
   const issue = await db.transaction(async (tx) => {
     // Numbers count up per organization. Holding its row makes two issues filed at once take turns.
     await tx.select({ id: organizations.id }).from(organizations).where(eq(organizations.id, organizationId)).for("update");
@@ -109,11 +131,13 @@ export async function insertIssue(organizationId: string, input: NewIssueInput, 
         createdByEmployeeId: "employeeId" in creator ? creator.employeeId : null,
         // New issues go to the end of the board.
         position: sql`(select coalesce(max(${issues.position}), 0) + 1 from ${issues} where ${issues.organizationId} = ${organizationId})`,
+        ...repeats,
       })
       .returning();
     return toIssue(row);
   });
   await notifyAssigned(organizationId, { ...issue, assigneeId: assignee.assigneeEmployeeId }, creator);
+  if (issue.recurrence) await reschedule(organizationId);
   return issue;
 }
 
@@ -138,6 +162,7 @@ export async function updateIssue(
     if (typeof patch.position !== "number" || !Number.isFinite(patch.position)) throw new InputError("Invalid position");
     values.position = patch.position;
   }
+  if ("recurrence" in patch) Object.assign(values, recurrenceColumns(patch.recurrence));
   if (Object.keys(values).length === 0) return;
   const issueId = text(id, "id", { required: true });
   const where = and(eq(issues.id, issueId), eq(issues.organizationId, organizationId));
@@ -172,6 +197,8 @@ export async function updateIssue(
     const issue = { key: issueKey(after.number), title: after.title, assigneeId: after.assigneeEmployeeId };
     await notifyAssigned(organizationId, issue, actor);
   }
+  // Setting the same schedule again still moves when it next comes round, so this tells the timer either way.
+  if ("recurrence" in values) await reschedule(organizationId);
 }
 
 /** The values whose changes show in an issue's Activity; the assignee is whichever of its two columns is set. */
@@ -181,8 +208,9 @@ const TRACKED = {
   assigneeId: sql<string | null>`coalesce(${issues.assigneeEmployeeId}, ${issues.assigneeUserId})`,
   assigneeEmployeeId: issues.assigneeEmployeeId,
   projectId: issues.projectId,
+  recurrence: issues.recurrence,
 };
-const TRACKED_COLUMNS = ["status", "priority", "assigneeEmployeeId", "assigneeUserId", "projectId"];
+const TRACKED_COLUMNS = ["status", "priority", "assigneeEmployeeId", "assigneeUserId", "projectId", "recurrence"];
 
 export async function deleteIssue(organizationId: string, id: string): Promise<void> {
   found(

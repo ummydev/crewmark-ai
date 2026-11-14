@@ -18,7 +18,7 @@ const settings = `{
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code plan mode：快捷键、工作原理及与 auto mode 对比 | Crewmark",
+    title: "Claude Code plan mode：快捷键、工作原理及与 auto mode 对比",
     description:
       "Claude Code 的 plan mode（计划模式）怎么用：Shift+Tab 快捷键和 /plan、计划期间 Claude 能做什么、如何批准计划、如何设为默认，以及 plan mode 与 auto、accept edits 和 manual 模式的对比。",
   },
@@ -29,7 +29,7 @@ export const copy: GuideCopy = {
     kicker: "博客 · Claude Code",
     title: "Claude Code plan mode：工作原理与适用场景",
     lead: "plan mode（计划模式）是 Claude Code 的一种权限模式：Claude 只调研、提出改动方案，但不动手修改。它会读文件、运行命令来摸清情况，然后写出计划，在你批准之前不会编辑你的源码。按 `Shift+Tab` 循环切换到它，或者在提示词开头加上 `/plan`。本文介绍进入和退出的所有方式、计划期间允许做什么、批准时的选项、如何设为默认，以及它与 auto mode、accept edits 和 manual 模式的对比。",
-    cta: "申请抢先体验",
+    cta: "开始使用",
     secondary: "直接看步骤",
     secondaryHref: "#how-to",
   },
@@ -145,7 +145,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "计划已经批准了，下一项任务谁来接？",
     text: "Crewmark 用岗位、目标和 issue 看板，按心跳唤醒 Claude Code，用的就是你已经在付费的套餐。",
-    button: "申请抢先体验",
+    button: "开始使用",
   },
   faq: {
     title: "Claude Code plan mode 常见问题",
@@ -183,7 +183,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "让 Claude Code 自己计划、动手，再接手下一个 issue。",
     text: "Crewmark 把 Claude Code、Codex 和 DeepSeek Harness 会话变成有岗位、目标、工作时间和心跳的 AI 员工。",
-    button: "申请抢先体验",
+    button: "开始使用",
   },
   checked: "已于 2026 年 11 月 6 日对照 Claude Code 文档（permission modes 和 settings）查证。",
   disclaimer:

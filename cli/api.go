@@ -45,6 +45,8 @@ type agentEvent struct {
 	Type      string `json:"type"`
 	Message   string `json:"message"`
 	CreatedAt string `json:"createdAt"`
+	// A person is waiting on it: it goes to the agent even while it's working.
+	Urgent bool `json:"urgent"`
 }
 
 type heartbeatResponse struct {
@@ -80,10 +82,21 @@ type agentIssue struct {
 	CreatedBy   *creator  `json:"createdBy"`
 	CreatedAt   string    `json:"createdAt"`
 	URL         string    `json:"url"`
+	// When the issue repeats; nil if it doesn't.
+	Repeat *issueRepeat `json:"repeat"`
 }
 
-// activity is one entry in an issue's Activity: a comment, or a change to its status, priority, assignee or project,
-// with the values before and after as the dashboard shows them.
+// issueRepeat is an issue's schedule: in words, e.g. "every 2 days at 10:00", its time zone, and when it next comes
+// round (RFC 3339). Then Crewmark moves the issue back to Todo if it's done and tells its employee.
+type issueRepeat struct {
+	Schedule string  `json:"schedule"`
+	TimeZone string  `json:"timeZone"`
+	Next     *string `json:"next"`
+}
+
+// activity is one entry in an issue's Activity: a comment, a change to its status, priority, assignee, project or
+// repeat, with the values before and after as the dashboard shows them, or Crewmark's own entry ("recurred") when
+// the issue's schedule came round.
 type activity struct {
 	Kind      string   `json:"kind"`
 	By        *creator `json:"by"`

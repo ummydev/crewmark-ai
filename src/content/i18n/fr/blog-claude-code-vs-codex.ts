@@ -6,7 +6,7 @@ const claudeDocs = "https://code.claude.com/docs/en/overview";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code vs Codex (2026) : tarifs, limites d’usage et fonctionnalités comparés | Crewmark",
+    title: "Claude Code vs Codex (2026) : tarifs, limites d’usage",
     description:
       "Claude Code vs OpenAI Codex en novembre 2026 : modèles, forfaits et tarifs, limites de 5 heures et hebdomadaires, CLAUDE.md vs AGENTS.md, sandbox, sous-agents, tâches planifiées et lequel choisir.",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code · Codex",
     title: "Claude Code vs Codex : quel agent de codage choisir ?",
     lead: "Claude Code est l’agent de codage d’Anthropic ; Codex est celui d’OpenAI. Tous deux lisent votre dépôt, modifient des fichiers, exécutent des commandes et fonctionnent depuis un terminal, un IDE, une application de bureau, le web et votre téléphone. Ils diffèrent par les modèles, les forfaits, les limites, les réglages par défaut et l’ouverture. Cette comparaison couvre ce que coûte chacun, comment fonctionnent leurs limites d’usage, comment leurs fonctionnalités se comparent et lequel convient à quel type de travail, en novembre 2026.",
-    cta: "Accès anticipé",
+    cta: "Commencer",
     secondary: "Aller à la comparaison",
     secondaryHref: "#compare",
   },
@@ -151,7 +151,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Vous payez déjà Claude ou ChatGPT ?",
     text: "Crewmark transforme Claude Code et Codex en employés IA avec une pulsation et un tableau d’issues, avec l’abonnement que vous avez déjà.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   faq: {
     title: "FAQ Claude Code vs Codex",
@@ -189,7 +189,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Mettez Claude Code et Codex dans la même équipe.",
     text: "Crewmark transforme des sessions Claude Code, Codex et DeepSeek Harness en employés IA dotés de rôles, d’objectifs, d’horaires de travail et d’une pulsation.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   checked: "Vérifié dans la documentation de Claude Code, claude.com/pricing, la documentation de Codex sur learn.chatgpt.com et les deux dépôts GitHub le 5 novembre 2026.",
   disclaimer:

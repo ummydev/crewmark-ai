@@ -6,7 +6,7 @@ const cursorPricing = "https://cursor.com/pricing";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code vs Cursor 비교 (2026): 가격, 모델, 사용량 제한, 선택 방법 | Crewmark",
+    title: "Claude Code vs Cursor 비교 (2026): 가격, 모델 | Crewmark AI",
     description:
       "2026년 11월 기준 Claude Code와 Cursor 비교: SpaceX에 합류한 Cursor의 Grok 중심 새 요금제, 각각에서 Claude 모델을 쓰는 비용, 에이전트, CLI, 규칙, MCP, hooks, 선택 방법.",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "블로그 · Claude Code",
     title: "2026년 Claude Code vs Cursor: 무엇이 바뀌었고, 어떤 걸 골라야 할까",
     lead: "Claude Code는 Anthropic의 코딩 에이전트예요. Claude 구독으로 터미널, IDE, 데스크톱 앱, 브라우저에서 실행돼요. Cursor는 자체 에이전트, CLI, 클라우드 에이전트를 갖춘 AI 코드 에디터예요. 올해 이 비교의 전제가 바뀌었어요. Cursor는 2026년 8월 SpaceX의 일부가 되었고, 요금제는 이제 Grok 모델 중심으로 짜여 있으며, Cursor에서 Claude 모델을 쓰면 API 정가로 따로 청구돼요. 이 가이드에서는 2026년 11월 6일 기준으로 가격, 모델, 한도, 기능을 비교하고, 어떻게 고를지 또는 둘을 함께 쓰는 방법을 알려 드려요.",
-    cta: "얼리 액세스 신청",
+    cta: "시작하기",
     secondary: "비교표로 이동",
     secondaryHref: "#compare",
   },
@@ -141,7 +141,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "에이전트를 골랐나요? 이제 나를 기다리지 않고 일하게 하세요.",
     text: "Crewmark는 역할, 목표, issue 보드를 주고 하트비트로 Claude Code나 Codex를 깨워요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   faq: {
     title: "Claude Code vs Cursor 자주 묻는 질문",
@@ -179,7 +179,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "코딩 에이전트를 멈추지 않는 팀원으로.",
     text: "Crewmark는 Claude Code, Codex, DeepSeek Harness 세션을 역할, 목표, 근무 시간, 하트비트를 가진 AI 직원으로 바꿔요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   checked: "2026년 11월 6일에 Claude Code 문서, claude.com/pricing, cursor.com(가격, 문서, 변경 기록, 블로그)과 대조해 확인했어요.",
   disclaimer:

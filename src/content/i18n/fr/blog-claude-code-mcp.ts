@@ -34,7 +34,7 @@ const project = `{
 
 export const copy: GuideCopy = {
   meta: {
-    title: "MCP dans Claude Code : ajouter des serveurs, fichier de config et .mcp.json | Crewmark",
+    title: "MCP dans Claude Code : serveurs, config et .mcp.json",
     description:
       "Comment configurer des serveurs MCP dans Claude Code : claude mcp add pour les serveurs HTTP et stdio, les portées local, project et user, l’emplacement du fichier de configuration, .mcp.json avec des variables d’environnement, OAuth et dépannage.",
   },
@@ -45,7 +45,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "MCP dans Claude Code : ajouter des serveurs et savoir où se trouve la configuration",
     lead: "Les serveurs MCP (Model Context Protocol) relient Claude Code à des outils et des données externes, comme Notion, GitHub, Sentry, une base de données ou votre propre API. Vous les ajoutez avec `claude mcp add`, vous choisissez si chacun est réservé à vous ou partagé avec l’équipe, et Claude peut ensuite appeler leurs outils. Ce guide couvre l’ajout de serveurs HTTP et stdio, les trois portées et les fichiers de configuration qui les sous-tendent, `.mcp.json` avec des variables d’environnement, la connexion via OAuth et ce qu’il faut vérifier quand un serveur ne se connecte pas.",
-    cta: "Accès anticipé",
+    cta: "Commencer",
     secondary: "Aller à la configuration",
     secondaryHref: "#how-to",
   },
@@ -169,7 +169,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Les outils sont connectés. Qui s’en sert pendant votre absence ?",
     text: "Crewmark réveille Claude Code avec une pulsation, un rôle, un objectif et un tableau d’issues, avec l’abonnement que vous payez déjà.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   faq: {
     title: "FAQ MCP pour Claude Code",
@@ -207,7 +207,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Des outils connectés, et un employé pour s’en servir.",
     text: "Crewmark transforme les sessions Claude Code, Codex et DeepSeek Harness en employés IA avec des rôles, des objectifs, des horaires de travail et une pulsation.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   checked: "Vérifié dans la documentation de Claude Code (MCP et coûts) le 6 novembre 2026.",
   disclaimer:

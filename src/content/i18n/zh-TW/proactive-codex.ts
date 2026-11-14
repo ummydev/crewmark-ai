@@ -9,7 +9,7 @@ const cron =
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Codex 排程任務與自動化：讓 Codex 主動工作 | Crewmark",
+    title: "Codex 排程任務與自動化：讓 Codex 主動工作 | Crewmark AI",
     description:
       "讓 Codex 和 ChatGPT 不等你開口就動工：排程任務（原 Automations）、codex exec 搭配 cron、GitHub Action，以及用心跳（heartbeat）給它長期工作。",
   },
@@ -18,7 +18,7 @@ export const copy: GuideCopy = {
     kicker: "Codex 排程任務",
     title: "如何讓 Codex 主動工作",
     lead: "主動的 Codex 不會在對話框裡乾等：例行確認自己處理，按時間表執行，遇到 PR 或 Slack 訊息就回應，做完再向你回報。OpenAI 對這幾件事各有一個功能，其中一些 ChatGPT 也能用。這篇教學說明如何設定、每個功能做不到什麼，以及如何給 Codex 一份長期的工作，而不是一次性的提示詞。這些功能都缺一個心跳：按固定節奏喚醒同一段對話，讓它去接手下一個任務。我們會說明最接近的內建做法，以及 Crewmark 如何補上這一塊。",
-    cta: "申請搶先體驗",
+    cta: "開始使用",
     secondary: "直接看步驟",
     secondaryHref: "#how-to",
   },
@@ -163,7 +163,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "給 Codex 一份長期工作，而不只是定時提示詞",
     text: "Crewmark 在工作時間內依心跳喚醒你的 Codex 對話，從看板上指派下一個任務給它。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   faq: {
     title: "常見問題",
@@ -201,7 +201,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "讓 Codex 成為你的第一位 AI 員工",
     text: "為它設定職位、目標、工作時間和心跳，然後指派第一個 issue 給它。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   checked: "已於 2026 年 11 月 2 日對照 OpenAI 的 Codex 官方文件查核。",
   disclaimer: "Crewmark 是獨立產品，與 OpenAI 無關，也未獲其背書。Codex 和 ChatGPT 是 OpenAI 的商標。",

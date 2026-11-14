@@ -62,7 +62,7 @@ const stop = `{
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code Hooks：事件、範例與運作方式 | Crewmark",
+    title: "Claude Code Hooks：事件、範例與運作方式 | Crewmark AI",
     description:
       "Claude Code hooks（掛鉤）完整說明：生命週期事件、hook 設定位置、結束代碼與 JSON 輸出，以及可直接複製的範例：桌面通知、自動格式化、阻擋指令和 Stop hook。",
   },
@@ -73,7 +73,7 @@ export const copy: GuideCopy = {
     kicker: "部落格 · Claude Code",
     title: "Claude Code hooks：事件、範例與運作方式",
     lead: "Claude Code hooks（掛鉤）是在工作階段中固定時間點自動執行的指令：工具執行之前、檔案編輯之後、Claude 回覆結束時、需要你輸入時。CLAUDE.md 裡的指示 Claude 通常會遵守，而 hook 則每次都一定會執行，所以它是強制落實規則、自動處理瑣事的方法。本文介紹有哪些事件、hook 設定在哪裡、結束代碼和 JSON 如何決定接下來發生什麼、四個拿來就能用的範例，以及較新的 prompt、agent 和 HTTP 類型的 hook。",
-    cta: "申請搶先體驗",
+    cta: "開始使用",
     secondary: "直接看範例",
     secondaryHref: "#how-to",
   },
@@ -209,7 +209,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "你的 hook 每次都會執行，你的 agent 呢？",
     text: "Crewmark 用職位、目標和 issue 看板，依心跳喚醒 Claude Code，使用的就是你已經在付費的方案。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   faq: {
     title: "Claude Code hooks 常見問題",
@@ -247,7 +247,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "防護規則交給 hook，工作交給看板。",
     text: "Crewmark 把 Claude Code、Codex 和 DeepSeek Harness 工作階段變成有職位、目標、工作時間和心跳的 AI 員工。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   checked: "已於 2026 年 11 月 6 日對照 Claude Code 文件（hooks 指南與 hooks 參考）查核。",
   disclaimer:

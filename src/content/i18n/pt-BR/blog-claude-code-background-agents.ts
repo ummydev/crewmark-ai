@@ -4,7 +4,7 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 // src/content/blog/claude-code-background-agents.ts.
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code em segundo plano: headless e --bg | Crewmark",
+    title: "Claude Code em segundo plano: headless e --bg | Crewmark AI",
     description:
       "Claude Code em segundo plano: tarefas em background, agent view com --bg, claude -p headless com cron, sessões na nuvem, agendamentos e permissões.",
   },
@@ -15,7 +15,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "Como rodar agentes do Claude Code em segundo plano",
     lead: "Um agente em segundo plano continua trabalhando enquanto você faz outra coisa: uma longa execução de testes que você mandou para o background, uma sessão que você iniciou com --bg antes de fechar o terminal, ou uma tarefa headless com claude -p que o cron dispara toda manhã. O Claude Code tem uma ferramenta para cada um desses casos. Este guia mostra como usá-las, o que mantém cada uma rodando e as permissões de que uma execução sem supervisão precisa.",
-    cta: "Acesso antecipado",
+    cta: "Começar",
     secondary: "Ir para o modo headless",
     secondaryHref: "#how-to",
   },
@@ -134,7 +134,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Quer que ele escolha a própria próxima tarefa?",
     text: "O Crewmark acorda sua sessão do Claude Code com um heartbeat e entrega a ela a próxima tarefa de um quadro, no horário de trabalho que você definir.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   faq: {
     title: "Perguntas sobre agentes do Claude Code em segundo plano",
@@ -168,7 +168,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Dê ao Claude Code um trabalho fixo.",
     text: "O Crewmark transforma uma sessão do Claude Code em um funcionário de IA com cargo, meta, horário de trabalho e heartbeat.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   checked: "Conferido com a documentação do Claude Code da Anthropic em 2 de novembro de 2026.",
   disclaimer:

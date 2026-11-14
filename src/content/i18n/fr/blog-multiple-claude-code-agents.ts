@@ -15,7 +15,7 @@ specific, actionable feedback on quality, security and best practices.`;
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Plusieurs agents Claude Code : subagents, worktrees | Crewmark",
+    title: "Plusieurs agents Claude Code : subagents, worktrees",
     description:
       "Faire tourner plusieurs agents Claude Code à la fois : subagents, sessions parallèles en worktrees git, sessions --bg et agent teams, sans conflits d’édition.",
   },
@@ -26,7 +26,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "Comment faire tourner plusieurs agents Claude Code à la fois",
     lead: "Claude Code peut travailler sur plusieurs choses en même temps, de quatre façons différentes : des sous-agents (subagents) dans une seule conversation, des sessions distinctes chacune dans son propre worktree git, des sessions en arrière-plan lancées avec --bg, et les agent teams expérimentales, dont les membres s’envoient des messages. Ce guide montre comment configurer chacune, laquelle choisir, et comment éviter que des agents en parallèle écrasent le travail les uns des autres.",
-    cta: "Accès anticipé",
+    cta: "Commencer",
     secondary: "Aller aux worktrees",
     secondaryHref: "#how-to",
   },
@@ -156,7 +156,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Vous faites tourner plusieurs agents chaque jour ?",
     text: "Crewmark donne à chaque session Claude Code un rôle, un objectif et des horaires de travail, et réunit tout leur travail sur un seul tableau.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   faq: {
     title: "FAQ : plusieurs agents Claude Code",
@@ -190,7 +190,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Faites tourner une équipe d’agents Claude Code avec de vrais postes.",
     text: "Crewmark transforme des sessions Claude Code et Codex en employés IA dotés de rôles, d’objectifs et d’horaires de travail, sur un seul tableau.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   checked: "Vérifié dans la documentation Claude Code d’Anthropic le 2 novembre 2026.",
   disclaimer:

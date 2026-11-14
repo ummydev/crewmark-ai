@@ -17,7 +17,7 @@ const verdict = `// Autoriser la requête
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Inference hooks de Claude : fonctionnement, configuration, Claude Code | Crewmark",
+    title: "Inference hooks Claude : fonctionnement, configuration",
     description:
       "Les inference hooks de Claude, disponibles depuis le 5 novembre 2026, envoient chaque prompt et chaque appel d’outil à votre serveur de sécurité, qui autorise ou refuse. Fonctionnement, configuration, limites et différences avec les hooks de Claude Code.",
   },
@@ -28,7 +28,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude",
     title: "Inference hooks de Claude : un contrôle autoriser ou refuser avant chaque prompt",
     lead: "Les inference hooks (hooks d’inférence) permettent à une organisation Claude Enterprise d’envoyer chaque prompt, et en option chaque appel d’outil, à son propre serveur de sécurité et d’attendre un verdict d’autorisation ou de refus avant que Claude ne s’exécute. Ils sont disponibles pour tous depuis le 5 novembre 2026, avec un nouveau centre de sécurité en bêta. Comme le contrôle a lieu sur les serveurs d’Anthropic, une seule configuration couvre claude.ai, Claude Code, Cowork et les autres produits Claude, sans rien installer sur les ordinateurs portables. Ce guide explique leur fonctionnement, leur configuration, leurs limites et ce qui les distingue des hooks que vous écrivez dans Claude Code.",
-    cta: "Accès anticipé",
+    cta: "Commencer",
     secondary: "Comment les configurer",
     secondaryHref: "#how-to",
   },
@@ -146,7 +146,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "La sécurité est en place. Donnez maintenant un travail à Claude Code.",
     text: "Crewmark réveille Claude Code avec une pulsation, un rôle, un objectif et un tableau d’issues, avec l’abonnement que vous payez déjà.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   faq: {
     title: "FAQ inference hooks de Claude",
@@ -184,7 +184,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Des employés IA sur Claude Code, dans le respect de vos garde-fous.",
     text: "Crewmark transforme les sessions Claude Code, Codex et DeepSeek Harness en employés IA avec des rôles, des objectifs, des horaires de travail et une pulsation.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   checked: "Vérifié dans l’annonce d’Anthropic, le centre d’aide de Claude et la documentation de Claude Platform le 6 novembre 2026.",
   disclaimer:

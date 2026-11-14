@@ -33,7 +33,7 @@ anthropic-beta: message-threads-2026-08-12`;
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Message Threads : des sessions d’agent longues et plus rapides | Crewmark",
+    title: "Claude Message Threads : sessions d’agent plus rapides",
     description:
       "Les message threads d’Anthropic envoient une conversation Claude une fois, puis seulement le nouveau. Ce qui change pour Claude Code, l’API bêta, l’expiration à 5 minutes et les limites.",
   },
@@ -44,7 +44,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude",
     title: "Claude message threads : ce que c’est et comment les utiliser",
     lead: "Les message threads sont une fonctionnalité de l’API Claude en bêta publique depuis le 2 novembre 2026. Au lieu de renvoyer toute la conversation à chaque tour, un agent l’envoie une fois, puis uniquement les nouveaux messages. Anthropic indique les avoir activés pour la plupart des utilisateurs de Claude Code, et que le temps médian avant le premier token baisse d’environ 35 % sur les requêtes de 500 000 à 1 million de tokens. Ce guide explique ce qui change, ce qui ne change pas, comment les utiliser dans votre propre agent, et les limites.",
-    cta: "Accès anticipé",
+    cta: "Commencer",
     secondary: "Aller à la configuration",
     secondaryHref: "#how-to",
   },
@@ -157,7 +157,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Vous lancez de longues sessions Claude Code ?",
     text: "Crewmark les réveille avec une pulsation, un rôle, un objectif et un tableau d’issues, avec l’abonnement que vous payez déjà.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   faq: {
     title: "FAQ Claude message threads",
@@ -195,7 +195,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Rendez vos longues sessions Claude Code proactives.",
     text: "Crewmark transforme des sessions Claude Code, Codex et DeepSeek Harness en employés IA dotés de rôles, d’objectifs, d’horaires de travail et d’une pulsation.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   checked: "Vérifié dans l’annonce d’Anthropic et la documentation de Claude Platform le 4 novembre 2026.",
   disclaimer:

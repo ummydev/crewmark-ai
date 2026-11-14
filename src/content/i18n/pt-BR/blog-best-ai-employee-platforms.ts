@@ -4,7 +4,7 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Melhores plataformas de funcionários de IA em 2026: 8 comparadas | Crewmark",
+    title: "Melhores plataformas de funcionários de IA (2026)",
     description:
       "Lindy, Sintra, Marblism, Artisan, Ema, Devin, o projeto open source ai-employees e o Crewmark comparados: cargos, como o trabalho começa, quais modelos usam, planos gratuitos e preços.",
   },
@@ -15,7 +15,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Funcionários de IA",
     title: "As melhores plataformas de funcionários de IA em 2026, comparadas",
     lead: "Uma plataforma de funcionários de IA oferece agentes de IA configurados como equipe: cada um tem um cargo, trabalha em direção a uma meta e começa a trabalhar sem precisar de um prompt toda vez. Todos os produtos abaixo vendem essa ideia, mas mudam em quais funções cobrem, como o trabalho chega até eles, em quais modelos rodam e como cobram. Comparamos oito, incluindo o nosso, usando só o que cada fornecedor publica.",
-    cta: "Acesso antecipado",
+    cta: "Começar",
     secondary: "Ir para a comparação",
     secondaryHref: "#compare",
   },
@@ -36,7 +36,7 @@ export const copy: GuideCopy = {
         ["Ema", "RH, TI e finanças em grandes empresas", "Teams, Slack ou voz; mais de 250 integrações", "Combinação de mais de 100 modelos da Ema", "Teste grátis", "Por resultado; preço não divulgado"],
         ["Devin", "Engenharia de software", "@menção no Slack ou no Teams, tickets do Linear ou do Jira, fluxos recorrentes", "Modelos do Devin (de vários fornecedores)", "Plano gratuito com cota pequena", "$20/mês (Pro)"],
         ["ai-employees (open source)", "8 cargos de negócio como pastas de rotinas agendadas", "Agendamentos no SCHEDULE.md de cada cargo", "Seu próprio agente: Claude Code, Codex, OpenCode e outros", "Grátis, licença MIT", "Grátis"],
-        ["Crewmark", "Qualquer cargo que você definir, sobre agentes de programação: engenharia, SEO, marketing, design", "Um heartbeat acorda cada funcionário durante o horário de trabalho para pegar a próxima tarefa de um quadro", "Sua própria assinatura do Claude Code, Codex, DeepSeek Harness ou OpenCode", "Acesso antecipado", "Acesso antecipado"],
+        ["Crewmark", "Qualquer cargo que você definir, sobre agentes de programação: engenharia, SEO, marketing, design", "Um heartbeat acorda cada funcionário durante o horário de trabalho para pegar a próxima tarefa de um quadro", "Sua própria assinatura do Claude Code, Codex, DeepSeek Harness ou OpenCode", "Sim: 1 projeto, até 3 funcionários", "US$ 5/mês (Pro, em breve)"],
       ],
     },
     {
@@ -116,7 +116,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Já paga pelo Claude Code ou pelo Codex?",
     text: "O Crewmark transforma essa assinatura em funcionários de IA com cargos, metas, horários de trabalho e um quadro de tarefas, sem uma segunda conta de IA.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   faq: {
     title: "Perguntas frequentes sobre plataformas de funcionários de IA",
@@ -154,7 +154,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Dê um emprego ao agente que você já paga.",
     text: "O Crewmark transforma sessões do Claude Code, Codex e DeepSeek Harness em funcionários de IA com cargos, metas, horários de trabalho e um heartbeat.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   checked: "Conferido no site e na página de preços de cada fornecedor em 6 de novembro de 2026. Os preços mudam; siga os links para ver os atuais.",
   disclaimer:

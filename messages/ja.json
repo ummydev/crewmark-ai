@@ -365,23 +365,9 @@
       "blog": "ブログ",
       "account": "アカウント",
       "signIn": "ログイン",
-      "earlyAccess": "早期アクセスに登録",
       "runsOn": "対応エージェント",
       "language": "言語",
       "trademarks": "Claude、Codex、DeepSeek、OpenCodeは各所有者の商標です。"
-    },
-    "earlyAccess": {
-      "close": "閉じる",
-      "title": "早期アクセスに登録",
-      "text": "Crewmarkは現在、招待制のプライベートベータ版です。メールアドレスをご登録いただくと、枠が空きしだい招待をお送りします。",
-      "email": "メールアドレス",
-      "placeholder": "you@company.com",
-      "invalid": "有効なメールアドレスを入力してください。",
-      "submit": "早期アクセスに登録",
-      "fine": "メールアドレスは、アクセスに関するご連絡にのみ使用します。",
-      "doneTitle": "登録が完了しました",
-      "doneText": "Crewmarkにご関心をお寄せいただき、ありがとうございます。アクセスのご案内のため、まもなく<b>{email}</b>宛てにご連絡いたします。",
-      "done": "OK"
     }
   }
 }

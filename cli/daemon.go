@@ -37,7 +37,8 @@ type pendingMessage struct {
 	Queued    time.Time `json:"queued"`
 }
 
-// urgentEvents are the Crewmark events that shouldn't wait for the agent to be idle.
+// urgentEvents are the Crewmark events that shouldn't wait for the agent to be idle, for servers that don't say so
+// in each event's urgent field yet.
 var urgentEvents = map[string]bool{"direct_message": true}
 
 // deliverMessage is deliver, swapped out in tests.
@@ -223,7 +224,7 @@ func pollEvents(profile employeeProfile, name string, state *daemonState, now ti
 	}
 	for _, event := range res.Events {
 		state.Pending = append(state.Pending, pendingMessage{
-			Text: "[Crewmark] " + event.Message, Urgent: urgentEvents[event.Type], Queued: now,
+			Text: "[Crewmark] " + event.Message, Urgent: event.Urgent || urgentEvents[event.Type], Queued: now,
 		})
 	}
 	cursor := res.Cursor

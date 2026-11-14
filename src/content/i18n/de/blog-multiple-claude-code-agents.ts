@@ -4,7 +4,7 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 // src/content/blog/multiple-claude-code-agents.ts.
 export const copy: GuideCopy = {
   meta: {
-    title: "Mehrere Claude-Code-Agenten: Subagents, Worktrees | Crewmark",
+    title: "Mehrere Claude-Code-Agenten: Subagents, Worktrees",
     description:
       "Mehrere Claude-Code-Agenten gleichzeitig: Subagents, parallele Sessions in git worktrees, --bg-Sessions und experimentelle agent teams, ohne Konflikte.",
   },
@@ -15,7 +15,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "So lässt du mehrere Claude-Code-Agenten gleichzeitig laufen",
     lead: "Claude Code kann auf vier verschiedene Arten an mehreren Dingen gleichzeitig arbeiten: Subagents innerhalb einer Unterhaltung, getrennte Sessions in eigenen git worktrees, Hintergrund-Sessions, die du mit --bg startest, und experimentelle agent teams, die sich gegenseitig Nachrichten schicken. Diese Anleitung zeigt, wie du jede davon einrichtest, welche du wählen solltest und wie du verhinderst, dass parallele Agenten gegenseitig ihre Arbeit überschreiben.",
-    cta: "Early Access anfragen",
+    cta: "Loslegen",
     secondary: "Direkt zu den Worktrees",
     secondaryHref: "#how-to",
   },
@@ -156,7 +156,7 @@ specific, actionable feedback on quality, security and best practices.`,
   mid: {
     title: "Du lässt jeden Tag mehrere Agenten laufen?",
     text: "Crewmark gibt jeder Claude-Code-Session eine Rolle, ein Ziel und Arbeitszeiten und bringt ihre gesamte Arbeit auf ein Board.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   faq: {
     title: "FAQ zu mehreren Claude-Code-Agenten",
@@ -190,7 +190,7 @@ specific, actionable feedback on quality, security and best practices.`,
   cta: {
     title: "Betreibe ein Team aus Claude-Code-Agenten mit festen Aufgaben.",
     text: "Crewmark macht aus Claude-Code- und Codex-Sessions KI-Mitarbeiter mit Rollen, Zielen und Arbeitszeiten, auf einem Board.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   checked: "Am 2. November 2026 mit der Claude-Code-Dokumentation von Anthropic abgeglichen.",
   disclaimer:

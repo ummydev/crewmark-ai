@@ -13,7 +13,7 @@ const announcement = "https://claude.com/resources/articles/claude-duet";
 export const claudeDuet: Partial<Record<"en", GuideCopy>> = {
   en: {
     meta: {
-      title: "Claude Duet: Anthropic's Proactive Agent, Waitlist, Access and Limits | Crewmark",
+      title: "Claude Duet: Waitlist, Access and Limits | Crewmark AI",
       description:
         "Claude Duet is Anthropic's proactive agent app, in research preview since October 21, 2026. What it does, who can get it, how to join the waitlist, what it costs, its safety limits, and how it compares.",
     },
@@ -24,7 +24,7 @@ export const claudeDuet: Partial<Record<"en", GuideCopy>> = {
       kicker: "Blog · Claude",
       title: "Claude Duet: what it is, who can get it, and how it works",
       lead: "Claude Duet is a new Anthropic app where Claude works as a proactive agent: it comes to you with what needs your attention, does the tasks you hand it, keeps working when you step away, and checks with you before it acts on your behalf. It opened as a waitlisted research preview on October 21, 2026, for Pro, Max and Ultra subscribers in the US. This guide covers what it does, how to get access, what it costs, its safety limits, and how it compares.",
-      cta: "Get early access",
+      cta: "Get started",
       secondary: "How to get access",
       secondaryHref: "#how-to",
     },
@@ -115,8 +115,8 @@ export const claudeDuet: Partial<Record<"en", GuideCopy>> = {
           ["Starts work", "Your messages and check-ins every few hours", "Your messages, schedules and its own research", "A heartbeat every 15–60 minutes in working hours"],
           ["Best at", "Inbox, calendar, invoices, briefs and dashboards", "Research and tasks across your connected apps", "Code, SEO and other work in a repository, one employee per role"],
           ["Work queue", "One ongoing thread", "Conversation threads and Scheduled", "Issues on a kanban board"],
-          ["Cost", "Included in Pro, Max and Ultra (US)", "Pro and Business Premium plans", "Early access; runs on the agent and plan you already have"],
-          ["Status", "Research preview, waitlist", "Rolling out", "Early access"],
+          ["Cost", "Included in Pro, Max and Ultra (US)", "Pro and Business Premium plans", "Open sign-up; runs on the agent and plan you already have"],
+          ["Status", "Research preview, waitlist", "Rolling out", "Open to sign-ups"],
         ],
       },
       {
@@ -147,7 +147,7 @@ export const claudeDuet: Partial<Record<"en", GuideCopy>> = {
     mid: {
       title: "Like the idea of an agent that messages you first?",
       text: "Crewmark does it for Claude Code and Codex: a heartbeat, working hours and a board of issues, on the plan you already pay for.",
-      button: "Get early access",
+      button: "Get started",
     },
     faq: {
       title: "Claude Duet FAQ",
@@ -185,7 +185,7 @@ export const claudeDuet: Partial<Record<"en", GuideCopy>> = {
     cta: {
       title: "Make your Claude Code sessions proactive too.",
       text: "Crewmark turns Claude Code, Codex and DeepSeek Harness sessions into AI employees with roles, goals, working hours and a heartbeat.",
-      button: "Get early access",
+      button: "Get started",
     },
     checked: "Checked against Anthropic's Claude Duet announcement, product page and safety article on November 5, 2026.",
     disclaimer:

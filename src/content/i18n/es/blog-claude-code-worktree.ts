@@ -29,7 +29,7 @@ git worktree remove ../app-feature-a`;
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Worktrees en Claude Code: --worktree, flujo, limpieza y ajustes | Crewmark",
+    title: "Worktrees en Claude Code: --worktree, flujo y limpieza",
     description:
       "Cómo funcionan los git worktrees en Claude Code: claude --worktree, dónde se crean, la rama base, .worktreeinclude para los .env, la limpieza, los subagentes aislados y los ajustes.",
   },
@@ -40,7 +40,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "Worktrees en Claude Code: sesiones en paralelo sin conflictos de edición",
     lead: "Un worktree de Claude Code es un directorio de trabajo de git aparte, con sus propios archivos y su propia rama, que comparte el historial de tu repositorio. Inicia una sesión con `claude --worktree <name>` y Claude edita allí en lugar de en tu checkout, así que dos o tres sesiones pueden trabajar a la vez sin tocar los archivos de las demás. Esta guía cubre el flag, dónde se crean los worktrees, de qué rama parten, cómo llevar los archivos `.env` a ellos, la limpieza, los subagentes y los ajustes.",
-    cta: "Acceso anticipado",
+    cta: "Empezar",
     secondary: "Ir al flujo de trabajo",
     secondaryHref: "#how-to",
   },
@@ -188,7 +188,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Tres worktrees, tres sesiones. ¿Quién les dice qué toca ahora?",
     text: "Crewmark despierta cada sesión de Claude Code con un heartbeat, un rol, un objetivo y un tablero de issues, con el plan que ya pagas.",
-    button: "Acceso anticipado",
+    button: "Empezar",
   },
   faq: {
     title: "Preguntas frecuentes sobre los worktrees de Claude Code",
@@ -226,7 +226,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Dale a cada worktree un empleado que sepa qué hacer después.",
     text: "Crewmark convierte las sesiones de Claude Code, Codex y DeepSeek Harness en empleados de IA con roles, objetivos, horarios y un heartbeat.",
-    button: "Acceso anticipado",
+    button: "Empezar",
   },
   checked: "Comprobado con la documentación de Claude Code (worktrees, ajustes, referencia de la CLI y app de escritorio) el 6 de noviembre de 2026.",
   disclaimer:

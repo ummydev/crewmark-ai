@@ -34,7 +34,7 @@ const project = `{
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code MCP：新增伺服器、設定檔位置、.mcp.json 與範圍 | Crewmark",
+    title: "Claude Code MCP：新增伺服器、設定檔位置、.mcp.json 與範圍",
     description:
       "如何在 Claude Code 設定 MCP 伺服器：用 claude mcp add 新增 HTTP 與 stdio 伺服器，local、project、user 三種範圍，設定檔放在哪裡，搭配環境變數的 .mcp.json，OAuth 登入與疑難排解。",
   },
@@ -45,7 +45,7 @@ export const copy: GuideCopy = {
     kicker: "部落格 · Claude Code",
     title: "Claude Code MCP：如何新增伺服器，設定存在哪裡",
     lead: "MCP（Model Context Protocol，模型上下文協定）伺服器把 Claude Code 連接到外部工具和資料，例如 Notion、GitHub、Sentry、資料庫或你自己的 API。你用 `claude mcp add` 新增伺服器，決定每個伺服器是只給自己用還是與團隊共享，之後 Claude 就能呼叫它們提供的工具。本文介紹如何新增 HTTP 和 stdio 伺服器、三種範圍（scope）及其背後的設定檔、搭配環境變數的 `.mcp.json`、用 OAuth 登入，以及伺服器連不上時該檢查什麼。",
-    cta: "申請搶先體驗",
+    cta: "開始使用",
     secondary: "直接看設定步驟",
     secondaryHref: "#how-to",
   },
@@ -169,7 +169,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "工具已經連好，你不在的時候誰來用？",
     text: "Crewmark 用職位、目標和 issue 看板，依心跳喚醒 Claude Code，使用的就是你已經在付費的方案。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   faq: {
     title: "Claude Code MCP 常見問題",
@@ -207,7 +207,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "工具連好了，再配一位會用它們的員工。",
     text: "Crewmark 把 Claude Code、Codex 和 DeepSeek Harness 工作階段變成有職位、目標、工作時間和心跳的 AI 員工。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   checked: "已於 2026 年 11 月 6 日對照 Claude Code 文件（MCP 與成本）查核。",
   disclaimer:

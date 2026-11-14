@@ -4,7 +4,7 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Die besten KI-Mitarbeiter-Plattformen 2026: 8 im Vergleich | Crewmark",
+    title: "Die besten KI-Mitarbeiter-Plattformen 2026 | Crewmark AI",
     description:
       "Lindy, Sintra, Marblism, Artisan, Ema, Devin, das Open-Source-Projekt ai-employees und Crewmark im Vergleich: Rollen, wie die Arbeit startet, welche Modelle laufen, Gratis-Pläne und Preise.",
   },
@@ -15,7 +15,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · KI-Mitarbeiter",
     title: "Die besten KI-Mitarbeiter-Plattformen 2026 im Vergleich",
     lead: "Eine KI-Mitarbeiter-Plattform gibt dir KI-Agenten, die wie Personal eingerichtet sind: Jeder hat eine Rolle, arbeitet auf ein Ziel hin und legt los, ohne dass du ihn jedes Mal anstoßen musst. Alle Produkte unten verkaufen diese Idee, unterscheiden sich aber darin, welche Aufgaben sie abdecken, wie die Arbeit zu ihnen kommt, auf welchen Modellen sie laufen und wie sie abrechnen. Wir haben acht verglichen, darunter unser eigenes, und dabei nur das genutzt, was jeder Anbieter selbst veröffentlicht.",
-    cta: "Early Access anfragen",
+    cta: "Loslegen",
     secondary: "Zum Vergleich",
     secondaryHref: "#compare",
   },
@@ -36,7 +36,7 @@ export const copy: GuideCopy = {
         ["Ema", "HR, IT und Finanzen in Großunternehmen", "Teams, Slack oder Sprache; über 250 Integrationen", "Emas Mix aus über 100 Modellen", "Kostenlose Testphase", "Ergebnisbasiert; nicht veröffentlicht"],
         ["Devin", "Softwareentwicklung", "@Erwähnung in Slack oder Teams, Tickets aus Linear oder Jira, wiederkehrende Workflows", "Devins Modelle (mehrere Anbieter)", "Gratis-Plan mit kleinem Kontingent", "$20/Monat (Pro)"],
         ["ai-employees (Open Source)", "8 Geschäftsrollen als Ordner mit geplanten Routinen", "Zeitpläne in der SCHEDULE.md jeder Rolle", "Dein eigener Agent: Claude Code, Codex, OpenCode und andere", "Gratis, MIT-Lizenz", "Gratis"],
-        ["Crewmark", "Jede Rolle, die du definierst, auf Coding-Agenten: Engineering, SEO, Marketing, Design", "Ein Heartbeat weckt jeden Mitarbeiter während seiner Arbeitszeiten, damit er das nächste Issue vom Board nimmt", "Dein eigenes Abo von Claude Code, Codex, DeepSeek Harness oder OpenCode", "Early Access", "Early Access"],
+        ["Crewmark", "Jede Rolle, die du definierst, auf Coding-Agenten: Engineering, SEO, Marketing, Design", "Ein Heartbeat weckt jeden Mitarbeiter während seiner Arbeitszeiten, damit er das nächste Issue vom Board nimmt", "Dein eigenes Abo von Claude Code, Codex, DeepSeek Harness oder OpenCode", "Ja: 1 Projekt, bis zu 3 Mitarbeiter", "5 $/Monat (Pro, bald verfügbar)"],
       ],
     },
     {
@@ -116,7 +116,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Du zahlst schon für Claude Code oder Codex?",
     text: "Crewmark macht daraus KI-Mitarbeiter mit Rollen, Zielen, Arbeitszeiten und einem Board voller Issues, ohne zweite KI-Rechnung.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   faq: {
     title: "FAQ zu KI-Mitarbeiter-Plattformen",
@@ -154,7 +154,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Gib dem Agenten, für den du schon zahlst, einen Job.",
     text: "Crewmark macht aus Sessions in Claude Code, Codex und DeepSeek Harness KI-Mitarbeiter mit Rollen, Zielen, Arbeitszeiten und einem Heartbeat.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   checked: "Am 6. November 2026 mit der Website und der Preisseite jedes Anbieters abgeglichen. Preise ändern sich; die Links führen zu den aktuellen.",
   disclaimer:

@@ -20,7 +20,7 @@ specific, actionable feedback on quality, security and best practices.`;
 export const multipleClaudeCodeAgents: Partial<Record<"en", GuideCopy>> = {
   en: {
     meta: {
-      title: "Multiple Claude Code Agents: Subagents, Worktrees and Agent Teams | Crewmark",
+      title: "Multiple Claude Code Agents: Subagents, Worktrees, Teams",
       description:
         "Run several Claude Code agents at once: subagents, parallel sessions in git worktrees, background sessions with --bg, and experimental agent teams, without edit conflicts.",
     },
@@ -31,7 +31,7 @@ export const multipleClaudeCodeAgents: Partial<Record<"en", GuideCopy>> = {
       kicker: "Blog · Claude Code",
       title: "How to run multiple Claude Code agents at once",
       lead: "Claude Code can work on several things at the same time, in four different ways: subagents inside one conversation, separate sessions in their own git worktrees, background sessions you start with --bg, and experimental agent teams that message each other. This guide shows how to set up each one, which to pick, and how to keep parallel agents from overwriting each other's work.",
-      cta: "Get early access",
+      cta: "Get started",
       secondary: "Jump to worktrees",
       secondaryHref: "#how-to",
     },
@@ -161,7 +161,7 @@ export const multipleClaudeCodeAgents: Partial<Record<"en", GuideCopy>> = {
     mid: {
       title: "Running several agents every day?",
       text: "Crewmark gives each Claude Code session a role, a goal and working hours, and puts all their work on one board.",
-      button: "Get early access",
+      button: "Get started",
     },
     faq: {
       title: "Multiple Claude Code agents FAQ",
@@ -195,7 +195,7 @@ export const multipleClaudeCodeAgents: Partial<Record<"en", GuideCopy>> = {
     cta: {
       title: "Run a team of Claude Code agents with jobs.",
       text: "Crewmark turns Claude Code and Codex sessions into AI employees with roles, goals and working hours, on one board.",
-      button: "Get early access",
+      button: "Get started",
     },
     checked: "Checked against Anthropic's Claude Code documentation on November 2, 2026.",
     disclaimer:

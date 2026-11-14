@@ -6,7 +6,7 @@ const cursorPricing = "https://cursor.com/pricing";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code vs Cursor を比較（2026）：料金・モデル・利用制限と選び方 | Crewmark",
+    title: "Claude Code vs Cursor 比較（2026）：料金・選び方",
     description:
       "2026年11月時点の Claude Code と Cursor を比較：SpaceX 傘下になった Cursor の Grok 中心の新プラン、それぞれで Claude モデルを使う費用、エージェント、CLI、ルール、MCP、hooks、選び方。",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "ブログ · Claude Code",
     title: "2026年の Claude Code vs Cursor：何が変わり、どちらを選ぶべきか",
     lead: "Claude Code は Anthropic のコーディングエージェントで、Claude の購読プランのまま、ターミナル、IDE、デスクトップアプリ、ブラウザで動きます。Cursor は独自のエージェント、CLI、クラウドエージェントを備えた AI コードエディタです。今年、この比較の前提が変わりました。Cursor は2026年8月に SpaceX の一員となり、プランは Grok モデルを中心に組み直され、Cursor で Claude モデルを使うと API の定価で別途課金されます。このガイドでは、2026年11月6日時点の料金、モデル、制限、機能を比較し、どちらを選ぶか、あるいは両方をどう使うかを説明します。",
-    cta: "早期アクセスに登録",
+    cta: "今すぐ始める",
     secondary: "比較表へ移動",
     secondaryHref: "#compare",
   },
@@ -141,7 +141,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "エージェントは決まりましたか？次は、あなたを待たずに働かせましょう。",
     text: "Crewmark は、職種・目標・issue のボードを与え、ハートビートで Claude Code や Codex を起こします。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   faq: {
     title: "Claude Code と Cursor のよくある質問",
@@ -179,7 +179,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "コーディングエージェントを、働き続けるチームメイトに。",
     text: "Crewmark は、Claude Code、Codex、DeepSeek Harness のセッションを、職種・目標・勤務時間・ハートビートを持つ AI 社員に変えます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   checked: "2026年11月6日に Claude Code のドキュメント、claude.com/pricing、cursor.com（料金、ドキュメント、変更履歴、ブログ）と照合しました。",
   disclaimer:

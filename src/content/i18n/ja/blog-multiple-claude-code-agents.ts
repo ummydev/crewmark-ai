@@ -15,7 +15,7 @@ specific, actionable feedback on quality, security and best practices.`;
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code の並列実行：サブエージェント・worktree・agent teams | Crewmark",
+    title: "Claude Code の並列実行：サブエージェント・worktree",
     description:
       "複数の Claude Code を同時に動かす：サブエージェント、git worktree の並列セッション、--bg、実験的な agent teams。編集の衝突も防げます。",
   },
@@ -26,7 +26,7 @@ export const copy: GuideCopy = {
     kicker: "ブログ · Claude Code",
     title: "複数の Claude Code エージェントを同時に動かす方法",
     lead: "Claude Code は、4 つの方法で複数の仕事を同時に進められます。1 つの会話の中のサブエージェント、それぞれの git worktree で動く別々のセッション、--bg で始めるバックグラウンドセッション、そして互いにメッセージをやり取りする実験的な agent teams です。このガイドでは、それぞれの設定方法、どれを選ぶべきか、そして並列のエージェントが互いの仕事を上書きしないようにする方法を説明します。",
-    cta: "早期アクセスに登録",
+    cta: "今すぐ始める",
     secondary: "worktree へ移動",
     secondaryHref: "#how-to",
   },
@@ -156,7 +156,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "毎日複数のエージェントを動かしているなら",
     text: "Crewmark は、Claude Code の各セッションに職種・目標・勤務時間を与え、すべての仕事を 1 つのボードにまとめます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   faq: {
     title: "複数の Claude Code エージェントに関するよくある質問",
@@ -190,7 +190,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "仕事を持つ Claude Code エージェントのチームを動かしましょう。",
     text: "Crewmark は、Claude Code や Codex のセッションを、職種・目標・勤務時間を持つ AI 社員に変え、1 つのボードで管理します。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   checked: "2026年11月2日に Anthropic の Claude Code ドキュメントと照合しました。",
   disclaimer:

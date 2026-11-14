@@ -6,7 +6,7 @@ const copilot = "https://github.com/features/copilot/plans";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "2026 年最佳 Cursor 替代方案：10 款免費、開源和更便宜的選擇 | Crewmark",
+    title: "2026 年最佳 Cursor 替代方案：10 款免費、開源和更便宜的選擇",
     description:
       "Cursor 加入 SpaceX 後改為以 Grok 為主的方案。比較 10 款 Cursor 替代方案：Claude Code、Codex、GitHub Copilot、Devin Desktop（Windsurf）、Zed、Cline、Kilo Code、OpenCode、Antigravity 和 Junie，附價格與免費方案。",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "部落格 · AI 程式設計工具",
     title: "2026 年最好的 Cursor 替代方案",
     lead: "Cursor 在 2026 年 8 月成為 SpaceX 的一部分，方案現在以 Grok 為核心：$8 的 Plus 方案只提供 Grok 模型，而從 $30 的方案起，Claude、GPT 或 Gemini 要依 API 定價另外計費。如果這不是你當初訂閱時想要的，還有不少好選擇：你現有訂閱就包含的 agent、內建 AI 的編輯器，以及用自己的 API 金鑰就能用的開源工具。本文截至 2026 年 11 月 6 日，從定位、免費方案、價格和模型四個面向比較其中 10 款。",
-    cta: "申請搶先體驗",
+    cta: "開始使用",
     secondary: "跳到比較表",
     secondaryHref: "#compare",
   },
@@ -123,7 +123,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "要從 Cursor 換到 Claude Code、Codex 或 OpenCode？",
     text: "Crewmark 把它們變成 AI 員工，依心跳醒來，自己接手下一個 issue。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   faq: {
     title: "Cursor 替代方案常見問題",
@@ -161,7 +161,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "換了程式設計 agent，訂閱不變，現在還多了一份工作。",
     text: "Crewmark 把 Claude Code、Codex、DeepSeek Harness 和 OpenCode 工作階段變成有職務、目標、工作時間和心跳的 AI 員工。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   checked: "已於 2026 年 11 月 6 日對照 cursor.com 以及各替代方案的官網、價格頁面或 GitHub 儲存庫查證。",
   disclaimer:

@@ -18,7 +18,7 @@ const settings = `{
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Plan mode de Claude Code: atajo, cómo funciona y auto mode | Crewmark",
+    title: "Plan mode de Claude Code: atajo y cómo funciona",
     description:
       "Cómo funciona el plan mode (modo plan) de Claude Code: el atajo Shift+Tab y /plan, qué puede hacer Claude mientras planifica, aprobar un plan, usarlo por defecto y la comparación con auto, accept edits y manual.",
   },
@@ -29,7 +29,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "Plan mode de Claude Code: cómo funciona y cuándo usarlo",
     lead: "El plan mode (modo plan) es el modo de permisos de Claude Code en el que Claude investiga y propone cambios sin hacerlos: lee archivos, ejecuta comandos para explorar y escribe un plan, pero no toca tu código hasta que lo apruebas. Pulsa `Shift+Tab` para llegar a él o empieza un prompt con `/plan`. Esta guía cubre todas las formas de entrar y salir, qué se permite mientras planifica, las opciones para aprobar, cómo hacerlo el modo por defecto y cómo se compara con los modos auto, accept edits y manual.",
-    cta: "Acceso anticipado",
+    cta: "Empezar",
     secondary: "Ir a los pasos",
     secondaryHref: "#how-to",
   },
@@ -145,7 +145,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Ya aprobaste el plan. ¿Quién toma la siguiente tarea?",
     text: "Crewmark despierta a Claude Code con un heartbeat, un rol, un objetivo y un tablero de issues, con el plan que ya pagas.",
-    button: "Acceso anticipado",
+    button: "Empezar",
   },
   faq: {
     title: "Preguntas frecuentes sobre el plan mode de Claude Code",
@@ -183,7 +183,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Deja que Claude Code planifique, construya y tome la siguiente issue.",
     text: "Crewmark convierte las sesiones de Claude Code, Codex y DeepSeek Harness en empleados de IA con roles, objetivos, horarios y un heartbeat.",
-    button: "Acceso anticipado",
+    button: "Empezar",
   },
   checked: "Comprobado con la documentación de Claude Code (modos de permisos y ajustes) el 6 de noviembre de 2026.",
   disclaimer:

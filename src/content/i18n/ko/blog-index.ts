@@ -3,7 +3,7 @@ import type { BlogIndexCopy } from "@/content/blog";
 // Korean translation of /blog; the English master is blogIndex.en in src/content/blog/index.ts.
 export const copy: BlogIndexCopy = {
   meta: {
-    title: "Crewmark 블로그: Claude Code·Codex 튜토리얼 | Crewmark",
+    title: "Crewmark 블로그: Claude Code·Codex 튜토리얼 | Crewmark AI",
     description:
       "Claude Code와 Codex를 에이전트로 돌리는 실전 튜토리얼: 헤드리스, 예약 실행, 백그라운드, 멀티 에이전트, 목표.",
   },

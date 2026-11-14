@@ -17,7 +17,7 @@ const verdict = `// リクエストを許可する
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude の inference hooks：仕組み、設定方法、Claude Code hooks との違い | Crewmark",
+    title: "Claude の inference hooks：仕組みと設定方法 | Crewmark AI",
     description:
       "2026年11月5日に一般提供が始まった Claude の inference hooks（推論フック）は、すべてのプロンプトとツール呼び出しを自社のセキュリティサーバーに送り、許可か拒否かを判定させます。仕組み、設定手順、制限、Claude Code hooks との違いを解説します。",
   },
@@ -28,7 +28,7 @@ export const copy: GuideCopy = {
     kicker: "ブログ · Claude",
     title: "Claude の inference hooks：すべてのプロンプトの前に許可・拒否のチェック",
     lead: "inference hooks（推論フック）を使うと、Claude Enterprise の組織はすべてのプロンプト（必要ならすべてのツール呼び出しも）を自社のセキュリティサーバーに送り、許可（allow）か拒否（deny）かの判定を受けてから Claude を動かせます。2026年11月5日に一般提供が始まり、同時にベータ版のセキュリティセンター（security center）も発表されました。チェックは Anthropic のサーバー上で行われるため、一度の設定で claude.ai、Claude Code、Cowork などの Claude 製品をすべてカバーでき、社員の PC には何もインストールする必要がありません。このガイドでは、仕組み、設定方法、制限、そして Claude Code で自分で書く hooks との違いを説明します。",
-    cta: "早期アクセスに登録",
+    cta: "今すぐ始める",
     secondary: "設定手順へ移動",
     secondaryHref: "#how-to",
   },
@@ -146,7 +146,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "セキュリティは整いました。次は Claude Code に仕事を。",
     text: "Crewmark は、職種・目標・issue のボードを与え、ハートビートで Claude Code を起こします。契約中のプランのままご利用いただけます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   faq: {
     title: "Claude の inference hooks よくある質問",
@@ -184,7 +184,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Claude Code で動く AI 社員を、あなたのガードレールの内側で。",
     text: "Crewmark は、Claude Code、Codex、DeepSeek Harness のセッションを、職種・目標・勤務時間・ハートビートを持つ AI 社員に変えます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   checked: "2026年11月6日に Anthropic の発表、Claude ヘルプセンター、Claude Platform のドキュメントと照合しました。",
   disclaimer:

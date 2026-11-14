@@ -33,7 +33,7 @@ anthropic-beta: message-threads-2026-08-12`;
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude 메시지 스레드란? 긴 에이전트 세션을 빠르게 | Crewmark",
+    title: "Claude 메시지 스레드란? 긴 에이전트 세션을 빠르게",
     description:
       "Anthropic의 메시지 스레드는 Claude와의 대화를 한 번만 보내고 이후에는 새 내용만 보내는 기능이에요. Claude Code에 달라지는 점, 베타 API 사용법, 5분 만료와 제한을 정리했어요.",
   },
@@ -44,7 +44,7 @@ export const copy: GuideCopy = {
     kicker: "블로그 · Claude",
     title: "Claude 메시지 스레드란 무엇이고 어떻게 쓸까",
     lead: "메시지 스레드는 2026년 11월 2일부터 퍼블릭 베타로 제공되는 Claude API 기능이에요. 매 턴마다 대화 전체를 업로드하는 대신, 에이전트가 대화를 한 번만 보내고 그 뒤로는 새 메시지만 보내요. Anthropic은 Claude Code 사용자 대부분에게 이미 켜 두었고, 50만~100만 토큰짜리 요청에서 첫 토큰까지 걸리는 시간의 중앙값이 약 35% 줄어든다고 해요. 이 가이드에서는 무엇이 달라지고 무엇이 그대로인지, 내 에이전트에서 쓰는 방법, 그리고 제한 사항을 다뤄요.",
-    cta: "얼리 액세스 신청",
+    cta: "시작하기",
     secondary: "설정 방법으로 이동",
     secondaryHref: "#how-to",
   },
@@ -157,7 +157,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "긴 Claude Code 세션을 돌리고 있나요?",
     text: "Crewmark는 직무, 목표, 이슈 보드를 주고 하트비트로 세션을 깨워요. 이미 결제한 요금제 그대로 쓸 수 있어요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   faq: {
     title: "Claude 메시지 스레드 자주 묻는 질문",
@@ -195,7 +195,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "긴 Claude Code 세션을 능동적으로 만드세요.",
     text: "Crewmark는 Claude Code, Codex, DeepSeek Harness 세션을 직무, 목표, 근무 시간, 하트비트를 갖춘 AI 직원으로 바꿔 줘요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   checked: "2026년 11월 4일에 Anthropic의 발표 및 Claude Platform 문서와 대조해 확인했습니다.",
   disclaimer:

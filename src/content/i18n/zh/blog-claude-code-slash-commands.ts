@@ -28,7 +28,7 @@ argument-hint: [component] [from] [to]
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code 斜杠命令：速查表、自定义命令与 skill | Crewmark",
+    title: "Claude Code 斜杠命令：速查表、自定义命令与 skill",
     description:
       "Claude Code 斜杠命令（slash commands）速查表：值得掌握的内置命令、如何编写带参数的自定义斜杠命令，以及命令和 skill 的关系。",
   },
@@ -39,7 +39,7 @@ export const copy: GuideCopy = {
     kicker: "博客 · Claude Code",
     title: "Claude Code 斜杠命令：速查表，以及如何自己写",
     lead: "斜杠命令是你在 Claude Code 消息开头输入的快捷方式，比如 `/init`、`/compact` 或 `/code-review`，用来控制会话或运行保存好的提示词。本文先给出一份按使用时机分组的常用命令速查表，再讲怎样创建带参数的自定义斜杠命令，以及它们和 skill 的关系。",
-    cta: "申请抢先体验",
+    cta: "开始使用",
     secondary: "跳到自定义命令",
     secondaryHref: "#how-to",
   },
@@ -191,7 +191,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "输入已经自动化了，那下一步输入什么由谁来决定？",
     text: "Crewmark 用岗位、目标和 issue 看板，按心跳唤醒 Claude Code，用的就是你已经在付费的套餐。",
-    button: "申请抢先体验",
+    button: "开始使用",
   },
   faq: {
     title: "Claude Code 斜杠命令常见问题",
@@ -229,7 +229,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "给你的 Claude Code skill 配一名员工来运行它们。",
     text: "Crewmark 把 Claude Code、Codex 和 DeepSeek Harness 会话变成有岗位、目标、工作时间和心跳的 AI 员工。",
-    button: "申请抢先体验",
+    button: "开始使用",
   },
   checked: "已于 2026 年 11 月 6 日对照 Claude Code 文档（commands 和 skills）查证。",
   disclaimer:

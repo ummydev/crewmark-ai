@@ -29,7 +29,7 @@ git worktree remove ../app-feature-a`;
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code Worktree: --worktree, Workflow, Aufräumen und Einstellungen | Crewmark",
+    title: "Claude Code Worktree: --worktree, Workflow, Aufräumen",
     description:
       "So funktionieren Git Worktrees in Claude Code: claude --worktree, Speicherort, Basis-Branch, .worktreeinclude für .env-Dateien, Aufräumen, Subagents und die Einstellungen.",
   },
@@ -40,7 +40,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "Claude Code Worktrees: parallele Sessions ohne Konflikte beim Bearbeiten",
     lead: "Ein Claude Code Worktree ist ein separates Git-Arbeitsverzeichnis mit eigenen Dateien und eigenem Branch, das sich die History deines Repositorys teilt. Starte eine Session mit `claude --worktree <name>`, und Claude arbeitet dort statt in deinem Checkout. So können zwei oder drei Sessions gleichzeitig laufen, ohne sich gegenseitig in die Dateien zu pfuschen. Diese Anleitung behandelt das Flag, den Speicherort der Worktrees, den Branch, von dem sie starten, wie `.env`-Dateien hineinkommen, das Aufräumen, Subagents und die Einstellungen.",
-    cta: "Early Access anfragen",
+    cta: "Loslegen",
     secondary: "Direkt zum Workflow",
     secondaryHref: "#how-to",
   },
@@ -188,7 +188,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Drei Worktrees, drei Sessions. Wer sagt ihnen, was als Nächstes kommt?",
     text: "Crewmark weckt jede Claude-Code-Session per Heartbeat mit Rolle, Ziel und einem Board voller Issues, mit dem Tarif, den du ohnehin zahlst.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   faq: {
     title: "FAQ zu Claude Code Worktrees",
@@ -226,7 +226,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Gib jedem Worktree einen Mitarbeiter, der weiß, was als Nächstes zu tun ist.",
     text: "Crewmark macht aus Sessions von Claude Code, Codex und DeepSeek Harness KI-Mitarbeiter mit Rollen, Zielen, Arbeitszeiten und einem Heartbeat.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   checked: "Am 6. November 2026 mit der Claude-Code-Dokumentation (Worktrees, Einstellungen, CLI-Referenz und Desktop-App) abgeglichen.",
   disclaimer:

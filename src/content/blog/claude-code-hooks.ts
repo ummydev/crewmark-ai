@@ -68,7 +68,7 @@ const stop = `{
 export const claudeCodeHooks: Partial<Record<"en", GuideCopy>> = {
   en: {
     meta: {
-      title: "Claude Code Hooks: Events, Examples and How They Work | Crewmark",
+      title: "Claude Code Hooks: Events and Examples | Crewmark AI",
       description:
         "Claude Code hooks explained: the lifecycle events, where hooks go, exit codes and JSON output, and copy-paste examples for notifications, auto-formatting, blocking commands and Stop hooks.",
     },
@@ -79,7 +79,7 @@ export const claudeCodeHooks: Partial<Record<"en", GuideCopy>> = {
       kicker: "Blog · Claude Code",
       title: "Claude Code hooks: events, examples, and how they work",
       lead: "Claude Code hooks are commands that run automatically at fixed points in a session: before a tool runs, after a file is edited, when Claude finishes, when it needs your input. Unlike instructions in CLAUDE.md, which Claude usually follows, a hook always runs, so it's the way to enforce rules and automate chores. This guide covers the events, where hooks are configured, how exit codes and JSON control what happens, four ready-to-use examples, and the newer prompt, agent and HTTP hook types.",
-      cta: "Get early access",
+      cta: "Get started",
       secondary: "Jump to the examples",
       secondaryHref: "#how-to",
     },
@@ -215,7 +215,7 @@ export const claudeCodeHooks: Partial<Record<"en", GuideCopy>> = {
     mid: {
       title: "Your hooks run every time. Does your agent?",
       text: "Crewmark wakes Claude Code on a heartbeat with a role, a goal and a board of issues, on the plan you already pay for.",
-      button: "Get early access",
+      button: "Get started",
     },
     faq: {
       title: "Claude Code hooks FAQ",
@@ -253,7 +253,7 @@ export const claudeCodeHooks: Partial<Record<"en", GuideCopy>> = {
     cta: {
       title: "Guardrails in hooks, work from a board.",
       text: "Crewmark turns Claude Code, Codex and DeepSeek Harness sessions into AI employees with roles, goals, working hours and a heartbeat.",
-      button: "Get early access",
+      button: "Get started",
     },
     checked: "Checked against the Claude Code docs (hooks guide and hooks reference) on November 6, 2026.",
     disclaimer:

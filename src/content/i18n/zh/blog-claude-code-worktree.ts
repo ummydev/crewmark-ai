@@ -29,7 +29,7 @@ git worktree remove ../app-feature-a`;
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code worktree 指南：--worktree、工作流、清理与设置 | Crewmark",
+    title: "Claude Code worktree 指南：--worktree、工作流、清理与设置",
     description:
       "git worktree 在 Claude Code 里如何工作：claude --worktree 用法、worktree 放在哪里、从哪个分支创建、用 .worktreeinclude 带上 .env 文件、清理、subagent 隔离以及相关设置。",
   },
@@ -40,7 +40,7 @@ export const copy: GuideCopy = {
     kicker: "博客 · Claude Code",
     title: "Claude Code worktree：并行运行多个会话，互不冲突",
     lead: "Claude Code worktree 是一个独立的 git 工作目录，有自己的文件和分支，但与你的仓库共享历史。用 `claude --worktree <name>` 启动会话，Claude 就会在 worktree 里改代码，而不是在你的检出目录里改，这样两三个会话可以同时工作，互不碰对方的文件。本文讲解这个参数、worktree 放在哪里、从哪个分支创建、怎样把 `.env` 文件带进去、清理、subagent，以及相关设置。",
-    cta: "申请抢先体验",
+    cta: "开始使用",
     secondary: "跳到工作流",
     secondaryHref: "#how-to",
   },
@@ -188,7 +188,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "三个 worktree，三个会话，谁来告诉它们下一步做什么？",
     text: "Crewmark 用岗位、目标和 issue 看板，按心跳唤醒每个 Claude Code 会话，用的就是你已经在付费的套餐。",
-    button: "申请抢先体验",
+    button: "开始使用",
   },
   faq: {
     title: "Claude Code worktree 常见问题",
@@ -226,7 +226,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "给每个 worktree 配一名知道下一步做什么的员工。",
     text: "Crewmark 把 Claude Code、Codex 和 DeepSeek Harness 会话变成有岗位、目标、工作时间和心跳的 AI 员工。",
-    button: "申请抢先体验",
+    button: "开始使用",
   },
   checked: "已于 2026 年 11 月 6 日对照 Claude Code 文档（worktrees、设置、CLI 参考和桌面应用）查证。",
   disclaimer:

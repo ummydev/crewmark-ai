@@ -16,13 +16,13 @@ const others = (except: Alternative) =>
 const closing = (product: string) => ({
   title: `试试用 Crewmark 替代 ${product}。`,
   text: "给你的 Claude Code 或 Codex agent 一个岗位、一个目标和工作时间，在看板上给它派活。",
-  button: "申请抢先体验",
+  button: "开始使用",
 });
 
 const mid = {
   title: "用你已经付费的套餐招一个 AI 员工",
   text: "Crewmark 按心跳唤醒你的 Claude Code 或 Codex 会话，从看板上给它派下一个 issue。",
-  button: "申请抢先体验",
+  button: "开始使用",
 };
 
 const disclaimer = (owner: string) =>
@@ -33,7 +33,7 @@ const newToIdea = "第一次听说这个概念？读读[什么是 AI 员工](/ai
 export const copy: Record<Alternative, GuideCopy> = {
   paperclip: {
     meta: {
-      title: "Paperclip 替代品：Crewmark 与 Paperclip 对比 | Crewmark",
+      title: "Paperclip AI 替代方案：Crewmark vs Paperclip | Crewmark AI",
       description:
         "在找 Paperclip AI 的替代品？从部署方式、agent、心跳、目标和上手难度对比 Crewmark 和 Paperclip，看哪个更适合你的团队。",
     },
@@ -42,7 +42,7 @@ export const copy: Record<Alternative, GuideCopy> = {
       kicker: "Paperclip 替代品",
       title: "Crewmark 与 Paperclip 对比",
       lead: "Paperclip 和 Crewmark 都能把 Claude Code、Codex 这类编程 agent 变成一个按计划领活的团队。Paperclip 是你自己部署的开源服务器，用来编排一整个公司的 agent；Crewmark 是托管的看板，每个 agent 都是一名员工，有岗位、数字目标和工作时间。下面是两者的对比。",
-      cta: "申请抢先体验",
+      cta: "开始使用",
       secondary: "看对比",
       secondaryHref: "#compare",
     },
@@ -62,7 +62,7 @@ export const copy: Record<Alternative, GuideCopy> = {
         headers: ["", "Paperclip", "Crewmark"],
         rows: [
           ["部署方式", "自托管（Node.js 24+ 或 Docker）；云端版在等候名单中", "托管的网页应用，加上你电脑上的一个小 daemon"],
-          ["许可证", "开源，MIT", "商业产品，抢先体验中"],
+          ["许可证", "开源，MIT", "商业产品，开放注册"],
           ["Agent", "Claude Code、Codex、Cursor、Gemini CLI、OpenCode、OpenClaw 等，或 API key", "Claude Code、Codex、DeepSeek Harness 和 OpenCode"],
           ["工作单位", "关联到公司和项目目标的 issue", "看板上的 issue"],
           ["组织方式", "组织架构图：岗位、汇报关系、预算", "员工：岗位、数字 KPI、工作时间"],
@@ -125,6 +125,10 @@ export const copy: Record<Alternative, GuideCopy> = {
           q: "Crewmark 可以自托管吗？",
           a: "不可以。Crewmark 是托管应用，只有唤醒 agent 的 daemon 跑在你的电脑上。",
         },
+        {
+          q: "Paperclip 和 OpenClaw、Hermes Agent 有什么区别？",
+          a: "Paperclip 自称是公司，而 OpenClaw 是员工：OpenClaw 和 Hermes 是个人 agent，Paperclip 则把这类 agent 组织进一张有目标和预算的组织架构图。两个 agent 的对比见 [Hermes Agent vs OpenClaw](/blog/hermes-agent-vs-openclaw)。",
+        },
       ],
     },
     cta: closing("Paperclip"),
@@ -133,7 +137,7 @@ export const copy: Record<Alternative, GuideCopy> = {
   },
   multica: {
     meta: {
-      title: "Multica 替代品：Crewmark 与 Multica 对比 | Crewmark",
+      title: "Multica 替代方案：Crewmark vs Multica | Crewmark AI",
       description:
         "在找 Multica 的替代品？从 agent、调度、目标、许可证和上手难度对比 Crewmark 和 Multica，看哪个更适合你的团队。",
     },
@@ -142,7 +146,7 @@ export const copy: Record<Alternative, GuideCopy> = {
       kicker: "Multica 替代品",
       title: "Crewmark 与 Multica 对比",
       lead: "Multica 和 Crewmark 都能让你像给同事派活一样，把 issue 分配给 Claude Code、Codex 这类编程 agent。Multica 是面向软件团队的工作空间，有云端版也能自托管；Crewmark 把每个 agent 当作一名员工，有数字目标、工作时间，还有让它自己醒来的心跳。下面是两者的对比。",
-      cta: "申请抢先体验",
+      cta: "开始使用",
       secondary: "看对比",
       secondaryHref: "#compare",
     },
@@ -162,7 +166,7 @@ export const copy: Record<Alternative, GuideCopy> = {
         headers: ["", "Multica", "Crewmark"],
         rows: [
           ["部署方式", "云端版，或用 Docker、Helm 自托管", "托管的网页应用，加上你电脑上的一个小 daemon"],
-          ["许可证", "源码可见（附加条件的 Apache 2.0）；托管给他人使用需要商业许可", "商业产品，抢先体验中"],
+          ["许可证", "源码可见（附加条件的 Apache 2.0）；托管给他人使用需要商业许可", "商业产品，开放注册"],
           ["Agent", "26 个 agent CLI，包括 Claude Code、Codex、Cursor 和 DeepSeek Harness", "Claude Code、Codex、DeepSeek Harness 和 OpenCode"],
           ["工作单位", "看板上的 issue、squad、聊天和频道", "看板上的 issue"],
           ["定时工作", "Autopilot 按 cron 或 webhook 创建 issue", "心跳每 15、30 或 60 分钟唤醒每名员工"],
@@ -225,6 +229,18 @@ export const copy: Record<Alternative, GuideCopy> = {
           q: "Crewmark 可以自托管吗？",
           a: "不可以。Crewmark 是托管应用，只有唤醒 agent 的 daemon 跑在你的电脑上。",
         },
+        {
+          q: "Multica 免费吗？",
+          a: "Multica 是源码可见的：在你自己的组织内自托管使用是免费的，提供给他人则需要商业许可。它的云服务有免费试用，但还没有公布套餐价格。",
+        },
+        {
+          q: "Multica 和 Linear 有什么区别？",
+          a: "Linear 是给人用的 issue 跟踪工具。Multica 是把编程 agent 当作队友的看板：你把 issue 分配给它们，它们通过你电脑上的 daemon 或云端运行时领取、处理并汇报。",
+        },
+        {
+          q: "Multica 和 Hermes Agent 有什么区别？",
+          a: "两者处在不同层面。Hermes Agent 是 Nous Research 出品的个人 agent；Multica 可以把 Hermes 连同 Claude Code、Codex、OpenClaw 等 20 多个 agent CLI 当作运行时，跑在它的看板上。参见 [Hermes Agent vs OpenClaw](/blog/hermes-agent-vs-openclaw)。",
+        },
       ],
     },
     cta: closing("Multica"),
@@ -233,7 +249,7 @@ export const copy: Record<Alternative, GuideCopy> = {
   },
   crewai: {
     meta: {
-      title: "CrewAI 替代品，不用写代码：Crewmark 对比 | Crewmark",
+      title: "CrewAI 替代品，不用写代码：Crewmark 对比 | Crewmark AI",
       description:
         "在找 CrewAI 的替代品？从是否写代码、模型、价格和派活方式对比 Crewmark 和 CrewAI，看哪个更适合你的团队。",
     },
@@ -242,7 +258,7 @@ export const copy: Record<Alternative, GuideCopy> = {
       kicker: "CrewAI 替代品",
       title: "Crewmark 与 CrewAI 对比",
       lead: "CrewAI 是一个用来搭建多 agent 工作流的 Python 框架，上面还有一个商业平台。Crewmark 不是框架：它把你已经在用的 Claude Code 或 Codex agent 变成 AI 员工，在看板上给它派活，不用写代码，也没有 API 账单。下面是两者的对比。",
-      cta: "申请抢先体验",
+      cta: "开始使用",
       secondary: "看对比",
       secondaryHref: "#compare",
     },
@@ -268,7 +284,7 @@ export const copy: Record<Alternative, GuideCopy> = {
           ["工作单位", "crew 或 flow 里的任务", "看板上的 issue"],
           ["调度", "平台上的 cron 定时", "工作时间内每 15、30 或 60 分钟一次心跳"],
           ["目标", "每个 agent 提示词里的 goal 字段", "每名员工一个数字 KPI，持续追踪"],
-          ["价格", "免费版每月 50 次执行；Enterprise 定制报价", "抢先体验中；在你的套餐之外不另收 token 费"],
+          ["价格", "免费版每月 50 次执行；Enterprise 定制报价", "开放注册；在你的套餐之外不另收 token 费"],
         ],
       },
       {

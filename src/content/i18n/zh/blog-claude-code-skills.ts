@@ -45,7 +45,7 @@ disable-model-invocation: true
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code Skills：创建方法、示例与最佳实践 | Crewmark",
+    title: "Claude Code Skills：创建方法、示例与最佳实践 | Crewmark AI",
     description:
       "Claude Code skill 是什么、如何加载、怎样用 SKILL.md 创建 skill，附示例、辅助文件、在 subagent 中运行 skill、从插件安装 skill，以及最佳实践。",
   },
@@ -56,7 +56,7 @@ export const copy: GuideCopy = {
     kicker: "博客 · Claude Code",
     title: "Claude Code skill：如何创建，附示例与最佳实践",
     lead: "Claude Code 的 skill 就是一个包含 `SKILL.md` 文件的文件夹：里面写着什么时候该用它，以及要遵循的指令。在需要某个 skill 之前，Claude 只看得到它的描述，用到时才加载全部内容，所以你可以把很长的流程和参考资料随时备着，又不用在每条消息上为它们付费。本文介绍 skill 如何加载、怎样写出第一个 skill、示例、辅助文件、subagent skill、从插件安装 skill，以及怎样让 Claude 真正用上它们。",
-    cta: "申请抢先体验",
+    cta: "开始使用",
     secondary: "创建你的第一个 skill",
     secondaryHref: "#how-to",
   },
@@ -190,7 +190,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "skill 已经准备好了，你不在时谁来运行它们？",
     text: "Crewmark 用岗位、目标和 issue 看板，按心跳唤醒 Claude Code，用的就是你已经在付费的套餐。",
-    button: "申请抢先体验",
+    button: "开始使用",
   },
   faq: {
     title: "Claude Code skill 常见问题",
@@ -228,7 +228,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "让你的 Claude Code skill 按计划开工。",
     text: "Crewmark 把 Claude Code、Codex 和 DeepSeek Harness 会话变成有岗位、目标、工作时间和心跳的 AI 员工。",
-    button: "申请抢先体验",
+    button: "开始使用",
   },
   checked: "已于 2026 年 11 月 6 日对照 Claude Code 文档（skills 和 plugins）查证。",
   disclaimer:

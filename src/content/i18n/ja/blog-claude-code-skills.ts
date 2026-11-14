@@ -45,7 +45,7 @@ disable-model-invocation: true
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code のスキル：作り方、例、ベストプラクティス | Crewmark",
+    title: "Claude Code のスキル：作り方と例 | Crewmark AI",
     description:
       "Claude Code のスキルとは何か、どう読み込まれるか、SKILL.md での作り方と例、補助ファイル、サブエージェントでの実行、プラグインからのインストール、ベストプラクティスまで解説します。",
   },
@@ -56,7 +56,7 @@ export const copy: GuideCopy = {
     kicker: "ブログ · Claude Code",
     title: "Claude Code のスキル：作り方と例、ベストプラクティス",
     lead: "Claude Code のスキルは、`SKILL.md` ファイルを入れたフォルダです。中身は、いつ使うかの説明と、従うべき指示です。Claude は必要になるまで説明だけを見ていて、必要になったときに全体を読み込みます。そのため、長い手順や参考資料を手元に置いておいても、メッセージのたびにコストがかかることはありません。このガイドでは、スキルの読み込まれ方、最初のスキルの書き方、例、補助ファイル、サブエージェントで動くスキル、プラグインからのインストール、そして Claude に実際に使わせるコツを説明します。",
-    cta: "早期アクセスに登録",
+    cta: "今すぐ始める",
     secondary: "最初のスキルを作る",
     secondaryHref: "#how-to",
   },
@@ -190,7 +190,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "スキルは準備できました。あなたがいない間、誰が実行しますか？",
     text: "Crewmark は、職種・目標・issue のボードを与え、ハートビートで Claude Code を起こします。契約中のプランのままご利用いただけます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   faq: {
     title: "Claude Code のスキルのよくある質問",
@@ -228,7 +228,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Claude Code のスキルを、スケジュールどおりに動かしましょう。",
     text: "Crewmark は、Claude Code、Codex、DeepSeek Harness のセッションを、職種・目標・勤務時間・ハートビートを持つ AI 社員に変えます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   checked: "2026年11月6日に Claude Code のドキュメント（skills、plugins）と照合しました。",
   disclaimer:

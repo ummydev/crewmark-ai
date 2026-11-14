@@ -4,7 +4,7 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 // src/content/blog/claude-code-background-agents.ts.
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code en arrière-plan : headless, --bg, cron | Crewmark",
+    title: "Claude Code en arrière-plan : headless et --bg | Crewmark AI",
     description:
       "Lancer Claude Code en arrière-plan : tâches de fond, agent view avec --bg, claude -p en headless avec cron, sessions cloud, tâches planifiées et permissions.",
   },
@@ -15,7 +15,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "Comment lancer des agents Claude Code en arrière-plan",
     lead: "Un agent en arrière-plan continue de travailler pendant que vous faites autre chose : une longue série de tests envoyée en arrière-plan, une session lancée avec --bg dont vous avez fermé le terminal, ou une tâche headless claude -p que cron lance chaque matin. Claude Code propose un outil pour chacun de ces cas. Ce guide montre comment les utiliser, ce qui maintient chacun en vie, et les permissions dont une exécution sans surveillance a besoin.",
-    cta: "Accès anticipé",
+    cta: "Commencer",
     secondary: "Aller au mode headless",
     secondaryHref: "#how-to",
   },
@@ -134,7 +134,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Vous voulez qu’il choisisse lui-même sa tâche suivante ?",
     text: "Crewmark réveille votre session Claude Code au rythme d’une pulsation et lui confie le ticket suivant du tableau, pendant les horaires de travail que vous définissez.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   faq: {
     title: "FAQ : agents Claude Code en arrière-plan",
@@ -168,7 +168,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Confiez un poste permanent à Claude Code.",
     text: "Crewmark transforme une session Claude Code en employé IA doté d’un rôle, d’un objectif, d’horaires de travail et d’une pulsation.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   checked: "Vérifié dans la documentation Claude Code d’Anthropic le 2 novembre 2026.",
   disclaimer:

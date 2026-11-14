@@ -52,13 +52,18 @@ export interface AgentIssue {
   createdAt: string;
   /** The issue in the dashboard. */
   url: string;
+  /**
+   * When the issue repeats: the schedule in words (e.g. "every 2 days at 10:00"), its time zone, and when it next
+   * comes round (ISO). Then Crewmark moves it back to Todo if it's done and tells its employee. Null if it doesn't.
+   */
+  repeat: { schedule: string; timeZone: string; next: string | null } | null;
 }
 
 /** One entry in an issue's Activity: a comment, or a change to its status, priority, assignee or project. */
 export interface AgentActivity {
   kind: IssueActivityKind;
-  /** Who did it; null once they're deleted. */
-  by: { kind: "user" | "employee"; name: string } | null;
+  /** Who did it; null once they're deleted. Crewmark itself for "recurred": the schedule came round. */
+  by: { kind: "user" | "employee" | "crewmark"; name: string } | null;
   /** A comment's text, in Markdown, its images linked like the description's; "" for changes. */
   body: string;
   /** A change's value before and after, as shown in the dashboard (e.g. "In Progress", a name); null for none. */
@@ -66,6 +71,40 @@ export interface AgentActivity {
   to: string | null;
   /** ISO timestamp. */
   createdAt: string;
+}
+
+/** A direct message as the CLI shows it (MC-169): who wrote it, Markdown, ISO time. */
+export interface AgentDirectMessage {
+  from: { kind: "user" | "employee"; name: string };
+  body: string;
+  createdAt: string;
+}
+
+/** A direct conversation, as `crewmark dm` lists them: with whom, how many of their messages are unread. */
+export interface AgentDirectThread {
+  with: Named & { kind: "user" | "employee" };
+  unread: number;
+  last: AgentDirectMessage | null;
+  lastMessageAt: string;
+}
+
+/**
+ * GET /api/agent/dm/<who> (and /api/cli/dm/<who>): the conversation, oldest first, its latest messages only (hasMore
+ * when there are older ones). Reading it marks it read.
+ */
+export interface DirectThreadResponse {
+  with: AgentDirectThread["with"];
+  messages: AgentDirectMessage[];
+  hasMore: boolean;
+}
+
+/**
+ * POST /api/agent/dm: the employee messages a person (a member: id, name, username or email; when the organization
+ * has one person, `to` can be left out). POST /api/cli/dm: the logged-in person messages an employee (id or name).
+ */
+export interface DirectMessageInput {
+  to?: string;
+  body: string;
 }
 
 /** GET /api/agent/issues/<key>: the issue and its Activity, oldest first. */
@@ -102,7 +141,6 @@ export interface SetupResponse {
   organization: Organization;
 }
 
-/** GET /api/agent/me: who the agent is and what it's working on. */
 /** Something on Crewmark the agent should hear about, e.g. an issue assigned to it. */
 export interface AgentEvent {
   /** Counts up; ask for the events after the last one seen. */
@@ -111,6 +149,11 @@ export interface AgentEvent {
   /** What to tell the agent, already worded. */
   message: string;
   createdAt: string;
+  /**
+   * A person is waiting on it (they commented, or mentioned the employee): it goes to the agent even while it's
+   * working, which reads it between steps. The rest waits until the agent is idle.
+   */
+  urgent: boolean;
 }
 
 /** GET /api/agent/events?after=<id>: the events after that one, and the id to ask after next time. */
@@ -119,6 +162,7 @@ export interface EventsResponse {
   cursor: number;
 }
 
+/** GET /api/agent/me: who the agent is and what it's working on. */
 export interface MeResponse {
   employee: AgentEmployee;
   organization: Organization;
@@ -165,4 +209,12 @@ export interface IssueInput {
   priority?: IssuePriority;
   assigneeId?: string | null;
   projectId?: string | null;
+  /**
+   * A schedule to repeat on, in words: "daily", "weekdays", "every 2 days", "weekly on mon,thu", "every 2 weeks on
+   * fri", "monthly on 1" or "monthly on last", optionally followed by "at 10:00" (else 09:00); or iCalendar text as
+   * the dashboard stores it (lib/recurrence.ts). "off" or null stops it repeating.
+   */
+  repeat?: string | null;
+  /** The schedule's IANA time zone; else the one it had, the employee's heartbeat's, or UTC. */
+  timeZone?: string;
 }

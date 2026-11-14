@@ -33,7 +33,7 @@ anthropic-beta: message-threads-2026-08-12`;
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Message Threads: schnellere lange Agent-Sessions erklärt | Crewmark",
+    title: "Claude Message Threads: schnellere lange Agent-Sessions",
     description:
       "Anthropics Message Threads senden eine Claude-Konversation einmal und danach nur noch das Neue. Was sich für Claude Code ändert, wie du die Beta-API nutzt, die 5-Minuten-Frist und die Grenzen.",
   },
@@ -44,7 +44,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude",
     title: "Claude Message Threads: was sie sind und wie du sie nutzt",
     lead: "Message Threads sind eine Funktion der Claude API und seit dem 2. November 2026 in der öffentlichen Beta. Statt bei jedem Turn die ganze Konversation hochzuladen, sendet ein Agent sie einmal und danach nur noch die neuen Nachrichten. Anthropic sagt, die Funktion sei für die meisten Claude-Code-Nutzer aktiviert, und die mediane Zeit bis zum ersten Token sinke bei Anfragen mit 500.000 bis 1 Mio. Tokens um etwa 35 %. Diese Anleitung zeigt, was sich ändert, was nicht, wie du Threads in deinem eigenen Agenten nutzt und wo die Grenzen liegen.",
-    cta: "Early Access anfragen",
+    cta: "Loslegen",
     secondary: "Direkt zur Einrichtung",
     secondaryHref: "#how-to",
   },
@@ -157,7 +157,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Du lässt lange Claude-Code-Sessions laufen?",
     text: "Crewmark weckt sie per Heartbeat mit Rolle, Ziel und einem Board mit Issues, mit dem Plan, für den du schon zahlst.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   faq: {
     title: "FAQ zu Claude Message Threads",
@@ -195,7 +195,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Mach deine langen Claude-Code-Sessions proaktiv.",
     text: "Crewmark macht aus Sessions in Claude Code, Codex und DeepSeek Harness KI-Mitarbeiter mit Rollen, Zielen, Arbeitszeiten und einem Heartbeat.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   checked: "Am 4. November 2026 mit Anthropics Ankündigung und der Claude-Platform-Dokumentation abgeglichen.",
   disclaimer:

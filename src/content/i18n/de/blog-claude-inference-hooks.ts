@@ -17,7 +17,7 @@ const verdict = `// Anfrage erlauben
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Inference Hooks: Funktionsweise, Einrichtung, vs. Claude Code Hooks | Crewmark",
+    title: "Claude Inference Hooks: Funktionsweise und Einrichtung",
     description:
       "Claude Inference Hooks, seit dem 5. November 2026 allgemein verfügbar, schicken jeden Prompt und Tool-Call an deinen Sicherheitsserver, der erlaubt oder ablehnt. Funktionsweise, Einrichtung, Grenzen und der Unterschied zu Claude Code Hooks.",
   },
@@ -28,7 +28,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude",
     title: "Claude Inference Hooks: eine Erlauben-oder-Ablehnen-Prüfung vor jedem Prompt",
     lead: "Mit Inference Hooks kann eine Claude-Enterprise-Organisation jeden Prompt, und optional jeden Tool-Call, an ihren eigenen Sicherheitsserver schicken und auf ein Urteil warten, ob erlaubt oder abgelehnt wird, bevor Claude läuft. Seit dem 5. November 2026 sind sie allgemein verfügbar, zusammen mit einem neuen Security Center in der Beta. Weil die Prüfung auf Anthropics Servern stattfindet, deckt eine einzige Einrichtung claude.ai, Claude Code, Cowork und die anderen Claude-Produkte ab, ohne dass auf Laptops etwas installiert wird. Diese Anleitung zeigt, wie sie funktionieren, wie du sie einrichtest, wo ihre Grenzen liegen und worin sie sich von den Hooks unterscheiden, die du in Claude Code schreibst.",
-    cta: "Early Access anfragen",
+    cta: "Loslegen",
     secondary: "So richtest du sie ein",
     secondaryHref: "#how-to",
   },
@@ -146,7 +146,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Die Sicherheit steht. Jetzt gib Claude Code einen Job.",
     text: "Crewmark weckt Claude Code per Heartbeat mit Rolle, Ziel und einem Board voller Issues, mit dem Tarif, den du ohnehin zahlst.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   faq: {
     title: "FAQ zu Claude Inference Hooks",
@@ -184,7 +184,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "KI-Mitarbeiter auf Claude Code, innerhalb deiner Leitplanken.",
     text: "Crewmark macht aus Sessions von Claude Code, Codex und DeepSeek Harness KI-Mitarbeiter mit Rollen, Zielen, Arbeitszeiten und einem Heartbeat.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   checked: "Am 6. November 2026 mit Anthropics Ankündigung, dem Claude Help Center und der Claude-Platform-Dokumentation abgeglichen.",
   disclaimer:

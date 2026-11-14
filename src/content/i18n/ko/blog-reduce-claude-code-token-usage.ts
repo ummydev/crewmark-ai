@@ -23,7 +23,7 @@ const hook = `{
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code 토큰 사용량 줄이는 법: 효과 있는 팁 12가지 | Crewmark",
+    title: "Claude Code 토큰 사용량 줄이는 팁 12가지 | Crewmark AI",
     description:
       "Claude Code가 토큰을 많이 쓰는 이유와 줄이는 법: /usage와 /context로 사용량 확인, clear와 compact, 모델과 effort 선택, CLAUDE.md와 MCP 정리, 훅·스킬·서브에이전트 활용까지.",
   },
@@ -34,7 +34,7 @@ export const copy: GuideCopy = {
     kicker: "블로그 · Claude Code",
     title: "Claude Code 토큰 사용량 줄이는 법 (한도에 그만 걸리기)",
     lead: "Claude Code는 요청할 때마다 대화 전체를 보내기 때문에, 토큰 사용량은 컨텍스트와 함께 늘어나요. 긴 세션 막바지에 던진 한 줄짜리 질문은 새 세션에서 같은 질문을 할 때보다 훨씬 비싸요. 이 가이드에서는 먼저 토큰이 어디에 쓰이는지 확인하는 법을 보여 주고, 이어서 Anthropic 공식 문서에 나온 사용량 절감법 12가지를 소개해요. `/clear`와 `/compact`부터 모델과 effort 고르기, CLAUDE.md와 MCP 서버 정리, 출력이 시끄러운 작업을 훅, 스킬, 서브에이전트로 옮기는 법까지 다뤄요.",
-    cta: "얼리 액세스 신청",
+    cta: "시작하기",
     secondary: "팁으로 이동",
     secondaryHref: "#how-to",
   },
@@ -157,7 +157,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "토큰은 기다리는 데가 아니라 일하는 데 쓰세요.",
     text: "Crewmark는 직무, 목표, 보드의 다음 이슈를 주고 근무 시간에 Claude Code를 깨워요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   faq: {
     title: "Claude Code 토큰 사용량 FAQ",
@@ -195,7 +195,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "내가 정한 일정대로 Claude Code가 일하게 하세요.",
     text: "Crewmark는 Claude Code, Codex, DeepSeek Harness 세션을 직무, 목표, 근무 시간, 하트비트를 갖춘 AI 직원으로 바꿔 줘요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   checked: "2026년 11월 6일에 Claude Code 문서(Manage costs effectively)와 대조해 확인했습니다.",
   disclaimer:

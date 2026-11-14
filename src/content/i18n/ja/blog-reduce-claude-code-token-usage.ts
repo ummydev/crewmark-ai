@@ -23,7 +23,7 @@ const hook = `{
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code のトークン使用量を減らす方法：効果のある 12 のコツ | Crewmark",
+    title: "Claude Code のトークン使用量を減らす 12 のコツ | Crewmark AI",
     description:
       "Claude Code がトークンを大量に使う理由と減らし方。/usage と /context で使用量を確認し、clear と compact を使い分け、モデルと effort を選び、CLAUDE.md と MCP を絞り込み、フック、スキル、サブエージェントを活用します。",
   },
@@ -34,7 +34,7 @@ export const copy: GuideCopy = {
     kicker: "ブログ · Claude Code",
     title: "Claude Code のトークン使用量を減らす方法（もう上限に悩まない）",
     lead: "Claude Code はリクエストのたびに会話全体を送るので、トークン使用量はコンテキストとともに増えていきます。長いセッションの終盤に投げる一行の質問は、新しいセッションで同じ質問をするよりはるかに高くつきます。このガイドでは、まずトークンがどこに使われているかを確認する方法を紹介し、続いて Anthropic 自身のドキュメントにある 12 の削減策を解説します。`/clear` と `/compact` から、モデルと effort の選び方、CLAUDE.md と MCP サーバーの整理、出力の多い作業をフック、スキル、サブエージェントに移す方法まで扱います。",
-    cta: "早期アクセスに登録",
+    cta: "今すぐ始める",
     secondary: "コツへ移動",
     secondaryHref: "#how-to",
   },
@@ -157,7 +157,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "トークンは待ち時間ではなく、仕事に使おう。",
     text: "Crewmark は、職種・目標・ボードの次の issue を持たせて、勤務時間中に Claude Code を起こします。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   faq: {
     title: "Claude Code のトークン使用量に関するよくある質問",
@@ -195,7 +195,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "あなたが決めたスケジュールで Claude Code を働かせよう。",
     text: "Crewmark は、Claude Code、Codex、DeepSeek Harness のセッションを、職種・目標・勤務時間・ハートビートを持つ AI 社員に変えます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   checked: "2026年11月6日に Claude Code のドキュメント（Manage costs effectively）と照合しました。",
   disclaimer:

@@ -18,13 +18,13 @@ const newToIdea = "¿Te suena nuevo? Lee [qué es un empleado de IA](/ai-employe
 const closing = (product: string) => ({
   title: `Prueba Crewmark como alternativa a ${product}.`,
   text: "Dale a tu agente de Claude Code o Codex un rol, un objetivo y un horario, y asígnale trabajo en un tablero.",
-  button: "Acceso anticipado",
+  button: "Empezar",
 });
 
 const mid = {
   title: "Contrata un empleado de IA con el plan que ya pagas",
   text: "Crewmark despierta tu sesión de Claude Code o Codex con un latido y le pasa la siguiente tarea de un tablero.",
-  button: "Acceso anticipado",
+  button: "Empezar",
 };
 
 const disclaimer = (owner: string) =>
@@ -33,7 +33,7 @@ const disclaimer = (owner: string) =>
 export const copy: Record<Alternative, GuideCopy> = {
   paperclip: {
     meta: {
-      title: "Alternativa a Paperclip AI: Crewmark vs Paperclip | Crewmark",
+      title: "Alternativa a Paperclip AI: Crewmark vs Paperclip",
       description:
         "¿Buscas una alternativa a Paperclip? Compara Crewmark y Paperclip en alojamiento, agentes, latidos, objetivos y configuración, y elige la mejor opción.",
     },
@@ -42,7 +42,7 @@ export const copy: Record<Alternative, GuideCopy> = {
       kicker: "Alternativa a Paperclip",
       title: "Crewmark vs Paperclip",
       lead: "Paperclip y Crewmark convierten agentes de programación como Claude Code y Codex en un equipo que toma trabajo según un horario. Paperclip es un servidor de código abierto que ejecutas tú mismo para orquestar toda una empresa de agentes; Crewmark es un tablero alojado donde cada agente es un empleado con un rol, un objetivo numérico y un horario. Así se comparan.",
-      cta: "Acceso anticipado",
+      cta: "Empezar",
       secondary: "Ver la comparativa",
       secondaryHref: "#compare",
     },
@@ -62,7 +62,7 @@ export const copy: Record<Alternative, GuideCopy> = {
         headers: ["", "Paperclip", "Crewmark"],
         rows: [
           ["Alojamiento", "Autoalojado (Node.js 24+ o Docker); nube en lista de espera", "App web alojada, más un pequeño daemon en tu ordenador"],
-          ["Licencia", "Código abierto, MIT", "Comercial, en acceso anticipado"],
+          ["Licencia", "Código abierto, MIT", "Comercial, con registro abierto"],
           ["Agentes", "Claude Code, Codex, Cursor, Gemini CLI, OpenCode, OpenClaw y más, o claves de API", "Claude Code, Codex, DeepSeek Harness y OpenCode"],
           ["Unidad de trabajo", "Tareas vinculadas a objetivos de empresa y de proyecto", "Tareas en un tablero kanban"],
           ["Estructura", "Organigrama: roles, líneas de reporte, presupuestos", "Empleados: rol, KPI numérico, horario"],
@@ -125,6 +125,10 @@ export const copy: Record<Alternative, GuideCopy> = {
           q: "¿Puedo alojar Crewmark yo mismo?",
           a: "No. Crewmark es una app alojada; solo el daemon que despierta a tus agentes se ejecuta en tu ordenador.",
         },
+        {
+          q: "¿Paperclip vs OpenClaw o Hermes Agent?",
+          a: "Paperclip se describe como la empresa y a OpenClaw como un empleado: OpenClaw y Hermes son agentes personales, y Paperclip organiza agentes como ellos en un organigrama con objetivos y presupuestos. Compara los dos agentes en [Hermes Agent vs OpenClaw](/blog/hermes-agent-vs-openclaw).",
+        },
       ],
     },
     cta: closing("Paperclip"),
@@ -133,7 +137,7 @@ export const copy: Record<Alternative, GuideCopy> = {
   },
   multica: {
     meta: {
-      title: "Alternativa a Multica: Crewmark vs Multica | Crewmark",
+      title: "Alternativa a Multica: Crewmark vs Multica | Crewmark AI",
       description:
         "¿Buscas una alternativa a Multica? Compara Crewmark y Multica en agentes, horarios, objetivos, licencia y configuración, y elige la mejor para tu equipo.",
     },
@@ -142,7 +146,7 @@ export const copy: Record<Alternative, GuideCopy> = {
       kicker: "Alternativa a Multica",
       title: "Crewmark vs Multica",
       lead: "Multica y Crewmark te permiten asignar tareas a agentes de programación como Claude Code y Codex como si fueran compañeros de equipo. Multica es un espacio de trabajo para equipos de software, disponible en la nube o autoalojado; Crewmark trata a cada agente como un empleado con un objetivo numérico, un horario y un latido (heartbeat) que lo despierta por su cuenta. Así se comparan.",
-      cta: "Acceso anticipado",
+      cta: "Empezar",
       secondary: "Ver la comparativa",
       secondaryHref: "#compare",
     },
@@ -162,7 +166,7 @@ export const copy: Record<Alternative, GuideCopy> = {
         headers: ["", "Multica", "Crewmark"],
         rows: [
           ["Alojamiento", "En la nube, o autoalojado con Docker o Helm", "App web alojada, más un pequeño daemon en tu ordenador"],
-          ["Licencia", "Código disponible (Apache 2.0 con condiciones); alojarlo para terceros requiere una licencia comercial", "Comercial, en acceso anticipado"],
+          ["Licencia", "Código disponible (Apache 2.0 con condiciones); alojarlo para terceros requiere una licencia comercial", "Comercial, con registro abierto"],
           ["Agentes", "26 CLI de agentes, entre ellas Claude Code, Codex, Cursor y DeepSeek Harness", "Claude Code, Codex, DeepSeek Harness y OpenCode"],
           ["Unidad de trabajo", "Tareas en un tablero, squads, chat y canales", "Tareas en un tablero kanban"],
           ["Trabajo programado", "Los Autopilots crean tareas con cron o webhooks", "Un latido despierta a cada empleado cada 15, 30 o 60 minutos"],
@@ -225,6 +229,18 @@ export const copy: Record<Alternative, GuideCopy> = {
           q: "¿Puedo alojar Crewmark yo mismo?",
           a: "No. Crewmark es una app alojada; solo el daemon que despierta a tus agentes se ejecuta en tu ordenador.",
         },
+        {
+          q: "¿Multica es gratis?",
+          a: "Multica es de código disponible: alojarlo tú mismo es gratis para usarlo dentro de tu propia organización, y ofrecerlo a terceros requiere una licencia comercial. Su nube tiene una prueba gratuita; aún no ha publicado los precios de sus planes.",
+        },
+        {
+          q: "Multica vs Linear: ¿en qué se diferencian?",
+          a: "Linear es un gestor de tareas para personas. Multica es un tablero donde los agentes de programación son compañeros de equipo: les asignas tareas y ellos las toman, las trabajan e informan a través de un daemon en tu ordenador o de un runtime en la nube.",
+        },
+        {
+          q: "¿Multica vs Hermes Agent?",
+          a: "Son capas distintas. Hermes Agent es un agente personal de Nous Research; Multica puede ejecutar Hermes, junto con Claude Code, Codex, OpenClaw y más de otras 20 CLI de agentes, como runtimes en su tablero. Consulta [Hermes Agent vs OpenClaw](/blog/hermes-agent-vs-openclaw).",
+        },
       ],
     },
     cta: closing("Multica"),
@@ -233,7 +249,7 @@ export const copy: Record<Alternative, GuideCopy> = {
   },
   crewai: {
     meta: {
-      title: "Alternativa sin código a CrewAI: comparativa | Crewmark",
+      title: "Alternativa sin código a CrewAI: comparativa | Crewmark AI",
       description:
         "¿Buscas una alternativa a CrewAI? Compara Crewmark y CrewAI en programación, modelos, precios y asignación de trabajo, y elige la mejor para tu equipo.",
     },
@@ -242,7 +258,7 @@ export const copy: Record<Alternative, GuideCopy> = {
       kicker: "Alternativa a CrewAI",
       title: "Crewmark vs CrewAI",
       lead: "CrewAI es un framework de Python para crear flujos de trabajo multiagente, con una plataforma comercial por encima. Crewmark no es un framework: convierte el agente de Claude Code o Codex que ya usas en un empleado de IA y le da trabajo en un tablero, sin escribir código y sin factura de API. Así se comparan.",
-      cta: "Acceso anticipado",
+      cta: "Empezar",
       secondary: "Ver la comparativa",
       secondaryHref: "#compare",
     },
@@ -268,7 +284,7 @@ export const copy: Record<Alternative, GuideCopy> = {
           ["Unidad de trabajo", "Tareas dentro de un crew o un flow", "Tareas en un tablero kanban"],
           ["Programación", "Programación con cron en la plataforma", "Un latido cada 15, 30 o 60 minutos durante el horario"],
           ["Objetivos", "Un campo de objetivo en el prompt de cada agente", "Un KPI numérico por empleado, con seguimiento en el tiempo"],
-          ["Precios", "Plan gratuito con 50 ejecuciones al mes; Enterprise a medida", "Acceso anticipado; sin coste extra de tokens además de tu plan"],
+          ["Precios", "Plan gratuito con 50 ejecuciones al mes; Enterprise a medida", "Registro abierto; sin coste extra de tokens además de tu plan"],
         ],
       },
       {

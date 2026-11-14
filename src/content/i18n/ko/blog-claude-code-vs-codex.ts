@@ -6,7 +6,7 @@ const claudeDocs = "https://code.claude.com/docs/en/overview";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code vs Codex 비교 (2026): 가격, 사용량 제한, 기능 | Crewmark",
+    title: "Claude Code vs Codex 비교 (2026): 가격, 기능 | Crewmark AI",
     description:
       "2026년 11월 기준 Claude Code와 OpenAI Codex 비교: 모델, 요금제와 가격, 5시간·주간 한도, CLAUDE.md와 AGENTS.md, 샌드박스, 서브에이전트, 예약 작업, 선택 방법.",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "블로그 · Claude Code · Codex",
     title: "Claude Code vs Codex: 어떤 코딩 에이전트를 써야 할까",
     lead: "Claude Code는 Anthropic의 코딩 에이전트이고, Codex는 OpenAI의 코딩 에이전트예요. 둘 다 저장소를 읽고, 파일을 수정하고, 명령을 실행하며, 터미널, IDE, 데스크톱 앱, 웹, 휴대폰에서 쓸 수 있어요. 차이는 모델, 요금제, 한도, 기본 설정, 개방성에 있어요. 이 비교에서는 2026년 11월 기준으로 각각의 비용, 사용량 제한이 작동하는 방식, 기능 대응 관계, 어떤 작업에 어느 쪽이 맞는지를 다뤄요.",
-    cta: "얼리 액세스 신청",
+    cta: "시작하기",
     secondary: "비교표로 이동",
     secondaryHref: "#compare",
   },
@@ -151,7 +151,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "이미 Claude나 ChatGPT를 쓰고 있나요?",
     text: "Crewmark는 지금 쓰는 요금제 그대로, Claude Code와 Codex를 하트비트와 issue 보드를 갖춘 AI 직원으로 만들어 줘요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   faq: {
     title: "Claude Code vs Codex 자주 묻는 질문",
@@ -189,7 +189,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Claude Code와 Codex를 한 팀으로.",
     text: "Crewmark는 Claude Code, Codex, DeepSeek Harness 세션을 역할, 목표, 근무 시간, 하트비트를 가진 AI 직원으로 바꿔요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   checked: "2026년 11월 5일에 Claude Code 문서, claude.com/pricing, learn.chatgpt.com의 Codex 문서, 두 GitHub 저장소와 대조해 확인했어요.",
   disclaimer:

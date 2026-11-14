@@ -6,7 +6,7 @@ const repo = "https://github.com/deepseek-ai/dsh-superagent-prototype";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "DeepSeek Super-Agent とは？ 導入手順 | Crewmark",
+    title: "DeepSeek Super-Agent とは？ 導入手順 | Crewmark AI",
     description:
       "DeepSeek のオープンソース Super-Agent（dsh-superagent）は、1つの GitHub リポジトリ向けの自律型コーディングエージェント。できること、必要環境、導入、安全面、比較を解説します。",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "ブログ · DeepSeek",
     title: "DeepSeek Super-Agent とは？ 概要と導入方法",
     lead: "dsh-superagent は、1つの GitHub リポジトリ向けに DeepSeek が公開したオープンソースの自律型コーディングエージェントで、2026年10月31日に MIT ライセンスで公開されました。DeepSeek Harness 上で動き、GitHub（任意で Feishu も）を監視し、依頼をプルリクエストに変えます。依頼ごとに専用のセッションとディレクトリで作業します。このガイドでは、できること、必要なもの、導入方法、「自律的」とは実際にどういうことか、そして他サービスとの比較を説明します。",
-    cta: "早期アクセスに登録",
+    cta: "今すぐ始める",
     secondary: "導入手順へ移動",
     secondaryHref: "#how-to",
   },
@@ -110,8 +110,8 @@ export const copy: GuideCopy = {
         ["仕事の始まり方", "許可された人の @メンション、または `auto` モードのルール", "あなたのメッセージ、スケジュール、自身の調査", "勤務時間中、15〜60分ごとのハートビート"],
         ["作業キュー", "GitHub と Feishu のスレッド由来の Ticket", "会話スレッドと Scheduled", "カンバンボード上の issue"],
         ["対象範囲", "導入1つにつき GitHub リポジトリ1つ", "接続したアプリ", "SEO やエンジニアリングなど、職種ごとに1人の社員"],
-        ["料金", "無料、MIT ライセンス。モデルプロバイダの利用料はご自身で負担", "Pro と Business Premium プラン", "早期アクセス。すでにお使いのエージェントとプランで動作"],
-        ["状況", "研究用プロトタイプ", "順次提供中", "早期アクセス"],
+        ["料金", "無料、MIT ライセンス。モデルプロバイダの利用料はご自身で負担", "Pro と Business Premium プラン", "登録受付中。すでにお使いのエージェントとプランで動作"],
+        ["状況", "研究用プロトタイプ", "順次提供中", "登録受付中"],
       ],
     },
     {
@@ -142,7 +142,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "すでに DeepSeek Harness、Claude Code、Codex を使っていますか？",
     text: "Crewmark は、そのセッションを自律的に動かします。ハートビート、勤務時間、issue のボードで、契約中のプランのままご利用いただけます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   faq: {
     title: "DeepSeek Super-Agent のよくある質問",
@@ -180,7 +180,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "いま使っているエージェントを、自律的に動かそう。",
     text: "Crewmark は、DeepSeek Harness、Claude Code、Codex のセッションを、職種・目標・勤務時間・ハートビートを持つ AI 社員に変えます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   checked: "2026年11月3日に GitHub 上の dsh-superagent と DeepSeek Harness のリポジトリと照合しました。",
   disclaimer:

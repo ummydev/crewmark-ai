@@ -286,8 +286,11 @@ func resumeClaude(employeeID string, profile employeeProfile, text string, app c
 		return errors.New("the claude command here isn't logged in, so the conversation can't be resumed in the " +
 			"background: run `claude` once and log in, or open the conversation in Claude Code")
 	}
-	logFile, err := os.OpenFile(filepath.Join(home, "employees", employeeID, "claude.log"),
-		os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0o600)
+	dir := filepath.Join(home, "employees", employeeID)
+	if err := os.MkdirAll(dir, 0o700); err != nil {
+		return err
+	}
+	logFile, err := os.OpenFile(filepath.Join(dir, "claude.log"), os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0o600)
 	if err != nil {
 		return err
 	}

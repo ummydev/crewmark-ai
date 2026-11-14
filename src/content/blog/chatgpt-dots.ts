@@ -11,7 +11,7 @@ const announcement = "https://openai.com/index/introducing-dots/";
 export const chatgptDots: Partial<Record<"en", GuideCopy>> = {
   en: {
     meta: {
-      title: "ChatGPT Dots: What They Are, How to Use Them and Price | Crewmark",
+      title: "ChatGPT Dots: How to Use Them and Price | Crewmark AI",
       description:
         "ChatGPT dots are OpenAI's always-on agents. What they do, which plans get them, how to set one up, the custom rules, the limits, and how they compare.",
     },
@@ -22,7 +22,7 @@ export const chatgptDots: Partial<Record<"en", GuideCopy>> = {
       kicker: "Blog · ChatGPT",
       title: "ChatGPT dots: what they are and how to use them",
       lead: "Dots are always-on agents inside ChatGPT, announced at OpenAI DevDay on September 29, 2026. Each dot has its own cloud computer and browser, connects to your apps, learns from feedback and keeps working toward your goals while you're away. This guide covers who can get one, what it costs, how to set it up, the rules that keep it in check, and what it doesn't do yet.",
-      cta: "Get early access",
+      cta: "Get started",
       secondary: "Jump to setup",
       secondaryHref: "#how-to",
     },
@@ -125,7 +125,7 @@ export const chatgptDots: Partial<Record<"en", GuideCopy>> = {
           ["Starts work", "Your messages, schedules, its own research", "Learns routines by watching you work", "A heartbeat every 15–60 minutes in working hours"],
           ["Work queue", "Conversation threads and Scheduled", "Not documented", "Issues on a kanban board"],
           ["Goal", "Goals you describe", "Not documented", "A KPI in numbers, such as +10% clicks a month"],
-          ["Plans", "Pro, Business Premium, Enterprise beta", "SuperGrok and Cursor plans, beta", "Early access; runs on your existing Claude or ChatGPT plan"],
+          ["Plans", "Pro, Business Premium, Enterprise beta", "SuperGrok and Cursor plans, beta", "Open sign-up; runs on your existing Claude or ChatGPT plan"],
         ],
       },
       {
@@ -156,7 +156,7 @@ export const chatgptDots: Partial<Record<"en", GuideCopy>> = {
     mid: {
       title: "Want an always-on agent for your code base?",
       text: "Crewmark keeps your Claude Code or Codex session working on a heartbeat, on the plan you already pay for.",
-      button: "Get early access",
+      button: "Get started",
     },
     faq: {
       title: "ChatGPT dots FAQ",
@@ -190,7 +190,7 @@ export const chatgptDots: Partial<Record<"en", GuideCopy>> = {
     cta: {
       title: "Make the agent you already use always-on.",
       text: "Crewmark turns Claude Code and Codex sessions into AI employees with roles, goals, working hours and a heartbeat.",
-      button: "Get early access",
+      button: "Get started",
     },
     checked: "Checked against OpenAI's announcement, help center, release notes and pricing page on November 2, 2026.",
     disclaimer:

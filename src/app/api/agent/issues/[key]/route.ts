@@ -2,7 +2,16 @@ import { listActivity } from "@/db/issue-activity";
 import { updateIssue, type IssuePatch } from "@/db/issues";
 import { getOrganizationData } from "@/db/queries";
 import type { AgentIssue, IssueInput, IssueResponse } from "@/lib/agent-api";
-import { agentLinks, findAssignee, issueByKey, readJson, toAgentActivity, toAgentIssue } from "@/lib/agent-data";
+import {
+  agentLinks,
+  findAssignee,
+  issueByKey,
+  readJson,
+  recurrenceInput,
+  recurrenceZone,
+  toAgentActivity,
+  toAgentIssue,
+} from "@/lib/agent-data";
 import { agentRoute } from "@/lib/agent-route";
 
 // `crewmark issues show <key>`: the issue and its Activity.
@@ -19,7 +28,7 @@ export const GET = agentRoute<{ key: string }>(async ({ agent, request, params }
 
 const FIELDS = ["title", "description", "status", "priority", "assigneeId", "projectId"] as const;
 
-// `crewmark issues update <key>`: changes only the fields sent.
+// `crewmark issues update <key>`: changes only the fields sent; repeat (with timeZone) sets or stops its schedule.
 export const PATCH = agentRoute<{ key: string }>(async ({ agent, request, params }): Promise<{ issue: AgentIssue }> => {
   const body = await readJson<IssueInput>(request);
   const before = await getOrganizationData(agent.organization.id);
@@ -29,6 +38,10 @@ export const PATCH = agentRoute<{ key: string }>(async ({ agent, request, params
     if (field in body) Object.assign(patch, { [field]: body[field] });
   }
   if ("assigneeId" in patch) patch.assigneeId = findAssignee(before, patch.assigneeId, agent.employeeId);
+  if ("repeat" in body) {
+    const heartbeatZone = before.employees.find((e) => e.id === agent.employeeId)?.heartbeat?.timeZone;
+    patch.recurrence = recurrenceInput(body.repeat, body.timeZone, [recurrenceZone(issue.recurrence), heartbeatZone]);
+  }
   await updateIssue(agent.organization.id, issue.id, patch, { employeeId: agent.employeeId });
 
   const data = await getOrganizationData(agent.organization.id);

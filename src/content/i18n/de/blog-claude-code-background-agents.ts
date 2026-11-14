@@ -4,7 +4,7 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 // src/content/blog/claude-code-background-agents.ts.
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code im Hintergrund: Headless, --bg, Cron | Crewmark",
+    title: "Claude Code im Hintergrund: Headless, --bg, Cron",
     description:
       "Claude Code im Hintergrund: Background Tasks, Agent View mit --bg, headless claude -p mit cron, Cloud-Sessions, geplante Aufgaben und Berechtigungen.",
   },
@@ -15,7 +15,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "So lässt du Claude Code als Hintergrund-Agent laufen",
     lead: "Ein Hintergrund-Agent arbeitet weiter, während du etwas anderes tust: ein langer Testlauf, den du in den Hintergrund geschickt hast, eine Session, die du mit --bg gestartet und deren Terminal du geschlossen hast, oder ein headless claude -p-Job, den cron jeden Morgen startet. Für jeden dieser Fälle hat Claude Code ein Werkzeug. Diese Anleitung zeigt, wie du sie nutzt, was jedes am Laufen hält und welche Berechtigungen ein unbeaufsichtigter Lauf braucht.",
-    cta: "Early Access anfragen",
+    cta: "Loslegen",
     secondary: "Direkt zum Headless-Modus",
     secondaryHref: "#how-to",
   },
@@ -137,7 +137,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Soll er sich seine nächste Aufgabe selbst nehmen?",
     text: "Crewmark weckt deine Claude-Code-Session im Heartbeat-Takt und gibt ihr das nächste Issue vom Board, während der Arbeitszeiten, die du festlegst.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   faq: {
     title: "FAQ zu Claude Code als Hintergrund-Agent",
@@ -171,7 +171,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Gib Claude Code eine feste Aufgabe.",
     text: "Crewmark macht aus einer Claude-Code-Session einen KI-Mitarbeiter mit Rolle, Ziel, Arbeitszeiten und Heartbeat.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   checked: "Am 2. November 2026 mit der Claude-Code-Dokumentation von Anthropic abgeglichen.",
   disclaimer:

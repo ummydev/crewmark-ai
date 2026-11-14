@@ -23,7 +23,7 @@ paths: ["src/api/**/*.ts"]
 
 export const copy: GuideCopy = {
   meta: {
-    title: "CLAUDE.md の書き方：置き場所・内容・テンプレートと AGENTS.md との関係 | Crewmark",
+    title: "CLAUDE.md の書き方：置き場所・テンプレート | Crewmark AI",
     description:
       "Claude Code での CLAUDE.md の仕組み：ファイルの置き場所と読み込み順、インポートとルール、何を書くか、テンプレート、AGENTS.md との関係を解説します。",
   },
@@ -34,7 +34,7 @@ export const copy: GuideCopy = {
     kicker: "ブログ · Claude Code",
     title: "CLAUDE.md：置き場所、書く内容、AGENTS.md との併用",
     lead: "CLAUDE.md は、Claude Code がセッションの開始時に毎回読み込む markdown の指示ファイルです。実行するコマンド、守る規約、避けるべき落とし穴をプロジェクトごとに書いておきます。このガイドでは、CLAUDE.md を置ける場所と読み込み順、インポートとルールファイル、書くべきこと・書かないほうがよいこと、短いテンプレート、AGENTS.md との関係を説明します。",
-    cta: "早期アクセスに登録",
+    cta: "今すぐ始める",
     secondary: "テンプレートへ移動",
     secondaryHref: "#how-to",
   },
@@ -167,7 +167,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "CLAUDE.md はできました。次のタスクは誰が始めますか？",
     text: "Crewmark は、職種・目標・issue のボードを与え、ハートビートで Claude Code を起こします。契約中のプランのままご利用いただけます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   faq: {
     title: "CLAUDE.md のよくある質問",
@@ -205,7 +205,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "十分に情報を持った Claude Code に、仕事を任せましょう。",
     text: "Crewmark は、Claude Code、Codex、DeepSeek Harness のセッションを、職種・目標・勤務時間・ハートビートを持つ AI 社員に変えます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   checked: "2026年11月5日に Claude Code のドキュメント、agents.md、OpenAI の Codex ドキュメントと照合しました。",
   disclaimer:

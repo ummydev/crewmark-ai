@@ -6,7 +6,7 @@ const docs = "https://code.claude.com/docs/en/agents";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code オーケストレーションツール 2026：組み込み機能と 10 アプリ比較 | Crewmark",
+    title: "Claude Code オーケストレーションツール比較 2026",
     description:
       "複数の Claude Code エージェントを同時に動かす方法。組み込み機能（Subagents、Agent view、Agent teams、ワークフロー）と、Claude Squad や Orca から Paperclip、Multica、Crewmark まで 10 のオーケストレーションツールを比較します。",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "ブログ · Claude Code",
     title: "2026年のおすすめ Claude Code オーケストレーションツール",
     lead: "Claude Code のオーケストレーションとは、複数の Claude Code エージェントを同時に動かし、連携させることです。それぞれにコードのコピー、タスク、結果を報告する手段を与えます。いまでは Claude Code 自体がその多くをこなし、さらにオープンソースや商用のツールが次々と登場して、インターフェース、ボード、スケジュールを上乗せしています。このガイドでは、まず組み込みの選択肢を紹介し、次に 10 のツールをインターフェース、分離の仕組み、対応エージェント、そして最も重要な問い、つまり「エージェントが自分で仕事を始めるのか、あなたを待つのか」で比較します。",
-    cta: "早期アクセスに登録",
+    cta: "今すぐ始める",
     secondary: "比較表へ移動",
     secondaryHref: "#compare",
   },
@@ -57,7 +57,7 @@ export const copy: GuideCopy = {
         ["Conductor", "Mac アプリ", "タスクごとにワークスペースとブランチ", "Claude Code、Codex、Cursor、OpenCode", "いいえ。Meta に合流し、クラウドは 2026年11月20日に終了", "クローズドソース"],
         ["Paperclip", "Web UI：組織図、目標、予算を持つ「AI 企業」", "worktree とサンドボックス（任意）", "Claude Code、Codex、Gemini CLI、Cursor、OpenCode など", "はい：スケジュールされたハートビート、割り当て、@メンション", "MIT、~111k"],
         ["Multica", "Web、デスクトップ、CLI、API", "手元のマシンで動くデーモン", "Claude Code、Codex、Cursor、Copilot、OpenCode など", "はい：エージェントが割り当てられた issue を拾い、Autopilots は cron で動く", "Multica License（ソース公開）、~55k"],
-        ["Crewmark", "Web ボード、CLI、手元のマシンで動くデーモン", "社員ごとに専用のセッションとチェックアウト", "Claude Code、Codex、DeepSeek Harness、OpenCode", "はい：勤務時間中のハートビートで次の issue を取る", "早期アクセス"],
+        ["Crewmark", "Web ボード、CLI、手元のマシンで動くデーモン", "社員ごとに専用のセッションとチェックアウト", "Claude Code、Codex、DeepSeek Harness、OpenCode", "はい：勤務時間中のハートビートで次の issue を取る", "登録受付中"],
       ],
     },
     {
@@ -131,7 +131,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "エージェントを 5 つ動かしているのに、プロンプトは毎回手入力？",
     text: "Crewmark は各 Claude Code セッションに職種、目標、ハートビートを与えるので、あなたがいなくても次の issue を取ります。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   faq: {
     title: "Claude Code オーケストレーションのよくある質問",
@@ -169,7 +169,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Claude Code エージェントに、次のタスクを自分で取らせましょう。",
     text: "Crewmark は、Claude Code、Codex、DeepSeek Harness のセッションを、職種・目標・勤務時間・ハートビートを持つ AI 社員に変えます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   checked: "2026年11月6日に Claude Code のドキュメント、各プロジェクトの README またはウェブサイト、GitHub API と照合しました。",
   disclaimer:

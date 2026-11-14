@@ -9,7 +9,7 @@ const cron =
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code 后台运行：headless、--bg 与定时任务 | Crewmark",
+    title: "Claude Code 后台运行：headless、--bg 与定时任务",
     description:
       "让 Claude Code 在后台干活：后台任务、--bg 和 agent view、claude -p 配 cron、云端会话、定时任务，以及每种方式需要的权限。",
   },
@@ -20,7 +20,7 @@ export const copy: GuideCopy = {
     kicker: "博客 · Claude Code",
     title: "怎么在后台运行 Claude Code agent",
     lead: "后台 agent 会在你忙别的事时继续干活：一个丢到后台的长测试、一个用 --bg 启动后关掉终端的会话，或者一个每天早上由 cron 启动的 headless claude -p 任务。Claude Code 对每种情况都有对应的工具。这篇教程讲怎么用它们、每种方式靠什么保持运行，以及无人值守时需要哪些权限。",
-    cta: "申请抢先体验",
+    cta: "开始使用",
     secondary: "直接看 headless 模式",
     secondaryHref: "#how-to",
   },
@@ -139,7 +139,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "想让它自己挑下一个任务？",
     text: "Crewmark 在你设定的工作时间内按心跳唤醒你的 Claude Code 会话，从看板上给它派下一个 issue。",
-    button: "申请抢先体验",
+    button: "开始使用",
   },
   faq: {
     title: "Claude Code 后台 agent 常见问题",
@@ -173,7 +173,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "给 Claude Code 一份长期的工作。",
     text: "Crewmark 把 Claude Code 会话变成有岗位、有目标、有工作时间和心跳的 AI 员工。",
-    button: "申请抢先体验",
+    button: "开始使用",
   },
   checked: "已于 2026 年 11 月 2 日对照 Anthropic 的 Claude Code 官方文档核对。",
   disclaimer: "Crewmark 是独立产品，与 Anthropic 无关，也未获其背书。Claude 和 Claude Code 是 Anthropic 的商标。",

@@ -365,23 +365,9 @@
       "blog": "部落格",
       "account": "帳號",
       "signIn": "登入",
-      "earlyAccess": "申請搶先體驗",
       "runsOn": "執行環境",
       "language": "語言",
       "trademarks": "Claude、Codex、DeepSeek 和 OpenCode 是其各自所有者的商標。"
-    },
-    "earlyAccess": {
-      "close": "關閉",
-      "title": "申請搶先體驗",
-      "text": "Crewmark 目前處於封閉測試階段。留下你的電子郵件，一有名額我們就寄邀請給你。",
-      "email": "電子郵件",
-      "placeholder": "you@company.com",
-      "invalid": "請輸入有效的電子郵件地址。",
-      "submit": "申請搶先體驗",
-      "fine": "我們只會用你的電子郵件聯絡你開通事宜。",
-      "doneTitle": "你已經在名單上了",
-      "doneText": "感謝你對 Crewmark 的關注。我們會盡快透過 <b>{email}</b> 與你聯絡，為你開通權限。",
-      "done": "好的"
     }
   }
 }

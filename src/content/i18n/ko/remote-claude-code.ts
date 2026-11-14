@@ -3,7 +3,7 @@ import type { RemoteClaudeCodeCopy } from "@/content/remote-claude-code";
 // Korean translation of /remote-claude-code; the English master is src/content/remote-claude-code.ts.
 export const copy: RemoteClaudeCodeCopy = {
   meta: {
-    title: "Claude Code Remote Control 휴대폰 사용법 | Crewmark",
+    title: "Claude Code Remote Control 휴대폰 사용법 | Crewmark AI",
     description:
       "Claude Code Remote Control로 휴대폰에서 로컬 세션을 이어 가는 법, 한계, 자리를 비워도 계속 일하게 하는 법.",
   },
@@ -12,7 +12,7 @@ export const copy: RemoteClaudeCodeCopy = {
     kicker: "Claude Code 원격 사용",
     title: "휴대폰으로 Claude Code를 제어하고, 나중엔 알아서 일하게 하세요",
     lead: "Claude Code Remote Control은 컴퓨터에서 실행 중인 Claude Code 세션을 휴대폰, 태블릿, 브라우저에서 이어 갈 수 있게 해 주는 Anthropic의 기능이에요. 이 가이드에서는 설정 방법과 한계를 설명하고, Crewmark가 같은 Claude Code를 자기 일정에 맞춰 스스로 일하는 직원으로 바꾸는 방법을 보여 드려요.",
-    cta: "얼리 액세스 신청",
+    cta: "시작하기",
     secondary: "Remote Control 설정하기",
   },
   official: {
@@ -51,7 +51,7 @@ export const copy: RemoteClaudeCodeCopy = {
   mid: {
     title: "자리를 비운 동안에도 계속 일하게 하고 싶나요?",
     text: "Remote Control로는 휴대폰에서 세션을 조종할 수 있어요. Crewmark 직원은 하트비트에 맞춰 계속 일하고, 필요할 때 메시지를 보내요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   limits: {
     title: "Remote Control이 하지 않는 일",
@@ -118,6 +118,22 @@ export const copy: RemoteClaudeCodeCopy = {
         a: "아니요. Anthropic 문서에 따르면 claude.ai로 로그인한 Pro, Max, Ultra, Team, Enterprise 요금제가 필요해요. API 키, Amazon Bedrock, Google Cloud, Microsoft Foundry, 사용자 지정 ANTHROPIC_BASE_URL로는 작동하지 않아요.",
       },
       {
+        q: "Claude Code Remote Control이 작동하지 않는 이유는 뭔가요?",
+        a: "대부분 로그인 문제예요. claude auth login을 실행하고 claude.ai 옵션을 고르세요. ANTHROPIC_API_KEY나 ANTHROPIC_AUTH_TOKEN이 설정돼 있으면 그쪽이 우선하니 지워 주세요. claude setup-token으로 만든 장기 토큰으로는 Remote Control을 시작할 수 없으니 쓰지 마세요. Team과 Enterprise에서는 먼저 Owner가 Remote Control을 켜야 해요. CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC이나 DISABLE_GROWTHBOOK을 설정해도 꺼져요. claude doctor를 실행하면 어떤 검사가 실패했는지 볼 수 있어요.",
+      },
+      {
+        q: "Remote Control 연결이 자꾸 끊기는 이유는 뭔가요?",
+        a: "\"Remote Control disconnected\"나 \"Can't reach\"는 휴대폰이나 브라우저가 내 컴퓨터의 Claude Code와 연결이 끊겼다는 뜻이에요. 대화형 세션은 컴퓨터가 깨어나 온라인 상태가 되면 저절로 다시 연결돼요. claude 프로세스가 멈췄다면 다시 시작하고 세션을 이어서 여세요. 원격 머신에서는 터미널을 닫아도 꺼지지 않도록 claude를 tmux나 screen 안에서 실행하고, 약 30분 동안 서버에 연결하지 못했다고 나오면 /remote-control을 다시 실행하세요.",
+      },
+      {
+        q: "Remote Control과 Dispatch는 뭐가 다른가요?",
+        a: "Remote Control은 내 컴퓨터에서 이미 실행 중인 Claude Code 세션을 claude.ai/code나 Claude 앱에서 조작하는 기능이에요. Dispatch는 Claude 모바일 앱에서 새 작업을 메시지로 보내면 내 컴퓨터의 데스크톱 앱이 그 작업용 세션을 시작하는 기능으로, 모바일 앱과 Claude Desktop을 페어링해야 해요.",
+      },
+      {
+        q: "Remote Control을 DeepSeek 같은 다른 모델 제공업체와 함께 쓸 수 있나요?",
+        a: "아니요. Remote Control은 Claude Code가 api.anthropic.com과 통신할 때만 작동해요. ANTHROPIC_BASE_URL이 DeepSeek, 게이트웨이, 프록시를 가리키거나 Bedrock, Google Cloud, Foundry를 쓰고 있다면, 그 설정을 해제하고 claude.ai로 로그인해야 쓸 수 있어요.",
+      },
+      {
         q: "노트북을 닫아도 Claude Code가 계속 일할 수 있나요?",
         a: "혼자서는 안 돼요. Remote Control 세션은 컴퓨터가 켜져 있고 claude 프로세스가 돌아가야 하며, 작업이 끝나면 다음 메시지를 기다려요. Crewmark 직원도 내 컴퓨터에서 실행되지만, 근무 시간 동안 하트비트가 직원을 깨워 이슈를 계속 처리하게 해요.",
       },
@@ -129,10 +145,10 @@ export const copy: RemoteClaudeCodeCopy = {
   },
   cta: {
     title: "자리를 비운 동안에도 Claude Code가 계속 일하게 하세요",
-    text: "Crewmark는 비공개 베타 중이에요. 얼리 액세스를 신청하시면 첫 직원 채용을 도와드릴게요.",
-    button: "얼리 액세스 신청",
+    text: "Google 계정으로 가입하고, 지금 쓰는 에이전트에서 첫 직원을 채용하세요.",
+    button: "시작하기",
   },
-  checked: "Remote Control 관련 내용은 2026년 11월 1일에 Anthropic 문서와 대조해 확인했습니다.",
+  checked: "Remote Control 관련 내용은 2026년 11월 7일에 Anthropic 문서와 대조해 확인했습니다.",
   disclaimer:
     "Claude와 Claude Code는 Anthropic, PBC의 상표입니다. Crewmark는 독립 제품이며 Anthropic과 제휴하거나 Anthropic의 보증 또는 후원을 받지 않았습니다.",
 };

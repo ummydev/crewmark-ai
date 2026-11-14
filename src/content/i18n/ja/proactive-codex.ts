@@ -3,7 +3,7 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 // Japanese translation of /proactive-codex; the English master is src/content/proactive-codex.ts.
 export const copy: GuideCopy = {
   meta: {
-    title: "Codex を自律的に動かす方法：定期実行・cron・ハートビート | Crewmark",
+    title: "Codex を自律的に動かす方法：定期実行・cron | Crewmark AI",
     description:
       "指示を待たずに Codex と ChatGPT を動かす：Scheduled tasks（旧 Automations）、codex exec と cron、GitHub Action、ハートビート。",
   },
@@ -12,7 +12,7 @@ export const copy: GuideCopy = {
     kicker: "自律的に動く Codex",
     title: "Codex を自律的に動かす方法",
     lead: "自律的に動く Codex のエージェントは、チャットでじっと待ってはいません。定型的な承認は自分でこなし、スケジュールどおりに動き、プルリクエストや Slack のメッセージに反応し、結果を報告します。OpenAI はそれぞれに対応する機能を提供しており、一部は ChatGPT とも共通です。このガイドでは、それらの設定方法、それぞれにできないこと、そして単発のプロンプトではなく継続的な仕事を Codex に与える方法を紹介します。どの機能にもないのがハートビート、つまり同じ会話を一定のリズムで起こして次のタスクを取らせる仕組みです。最も近い組み込みの方法と、Crewmark がハートビートを加える方法も紹介します。",
-    cta: "早期アクセスに登録",
+    cta: "今すぐ始める",
     secondary: "手順へ移動",
     secondaryHref: "#how-to",
   },
@@ -162,7 +162,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "定期実行のプロンプトではなく、継続的な仕事を Codex に",
     text: "Crewmark は、勤務時間中にハートビートで Codex の会話を起こし、ボードから次のタスクを渡します。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   faq: {
     title: "よくある質問",
@@ -200,7 +200,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Codex を最初の AI 社員に",
     text: "職種、目標、勤務時間、ハートビートを与えて、最初のタスクを割り当てましょう。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   checked: "2026年11月2日に OpenAI の Codex ドキュメントと照合しました。",
   disclaimer:

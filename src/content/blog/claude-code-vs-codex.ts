@@ -14,7 +14,7 @@ const claudeDocs = "https://code.claude.com/docs/en/overview";
 export const claudeCodeVsCodex: Partial<Record<"en", GuideCopy>> = {
   en: {
     meta: {
-      title: "Claude Code vs Codex (2026): Pricing, Usage Limits, Features Compared | Crewmark",
+      title: "Claude Code vs Codex (2026): Pricing, Limits | Crewmark AI",
       description:
         "Claude Code vs OpenAI Codex in November 2026: models, plans and prices, 5-hour and weekly limits, CLAUDE.md vs AGENTS.md, sandboxing, subagents, scheduling, and which to pick.",
     },
@@ -25,7 +25,7 @@ export const claudeCodeVsCodex: Partial<Record<"en", GuideCopy>> = {
       kicker: "Blog · Claude Code · Codex",
       title: "Claude Code vs Codex: which coding agent should you use?",
       lead: "Claude Code is Anthropic's coding agent; Codex is OpenAI's. Both read your repository, edit files, run commands, and work from a terminal, an IDE, a desktop app, the web and your phone. They differ in models, plans, limits, defaults and openness. This comparison covers what each costs, how their usage limits work, how their features line up, and which one fits which kind of work, as of November 2026.",
-      cta: "Get early access",
+      cta: "Get started",
       secondary: "Jump to the comparison",
       secondaryHref: "#compare",
     },
@@ -159,7 +159,7 @@ export const claudeCodeVsCodex: Partial<Record<"en", GuideCopy>> = {
     mid: {
       title: "Already pay for Claude or ChatGPT?",
       text: "Crewmark turns Claude Code and Codex into AI employees with a heartbeat and a board of issues, on the plan you already have.",
-      button: "Get early access",
+      button: "Get started",
     },
     faq: {
       title: "Claude Code vs Codex FAQ",
@@ -197,7 +197,7 @@ export const claudeCodeVsCodex: Partial<Record<"en", GuideCopy>> = {
     cta: {
       title: "Put Claude Code and Codex on the same team.",
       text: "Crewmark turns Claude Code, Codex and DeepSeek Harness sessions into AI employees with roles, goals, working hours and a heartbeat.",
-      button: "Get early access",
+      button: "Get started",
     },
     checked: "Checked against the Claude Code docs, claude.com/pricing, the Codex docs at learn.chatgpt.com and both GitHub repositories on November 5, 2026.",
     disclaimer:

@@ -34,7 +34,7 @@ anthropic-beta: message-threads-2026-08-12`;
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude message threads：讓長時間代理工作階段更快，一文看懂 | Crewmark",
+    title: "Claude message threads：讓長時間代理工作階段更快，一文看懂",
     description:
       "Anthropic 的 message threads 讓 Claude 的對話只送出一次，之後只送新增內容。Claude Code 有什麼變化、如何使用 beta API、5 分鐘到期與各項限制。",
   },
@@ -45,7 +45,7 @@ export const copy: GuideCopy = {
     kicker: "部落格 · Claude",
     title: "Claude message threads 是什麼，怎麼用",
     lead: "Message threads 是 Claude API 的一項功能，自 2026 年 11 月 2 日起進入公開測試（beta）。代理（agent）不再每一輪都上傳整段對話，而是先送出一次，之後只送新訊息。Anthropic 表示已為多數 Claude Code 使用者開啟此功能，在 50 萬到 100 萬 token 的請求上，首個 token 的中位耗時下降約 35%。本文說明哪些會變、哪些不變、如何在自己的代理中使用，以及各項限制。",
-    cta: "申請搶先體驗",
+    cta: "開始使用",
     secondary: "跳到使用步驟",
     secondaryHref: "#how-to",
   },
@@ -158,7 +158,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "在跑很長的 Claude Code 工作階段？",
     text: "Crewmark 用職位、目標和 issue 看板，依心跳喚醒它們，使用的就是你已經在付費的方案。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   faq: {
     title: "Claude message threads 常見問題",
@@ -196,7 +196,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "讓你長時間執行的 Claude Code 工作階段主動做事。",
     text: "Crewmark 把 Claude Code、Codex 和 DeepSeek Harness 工作階段變成有職位、目標、工作時間和心跳的 AI 員工。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   checked: "已於 2026 年 11 月 4 日對照 Anthropic 的公告和 Claude Platform 文件查核。",
   disclaimer:

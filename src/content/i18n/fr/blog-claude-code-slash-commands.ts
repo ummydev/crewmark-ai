@@ -28,7 +28,7 @@ Conserve tous les comportements existants et garde les tests au vert.`;
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Commandes slash Claude Code : aide-mémoire, commandes personnalisées et skills | Crewmark",
+    title: "Commandes slash Claude Code : aide-mémoire et skills",
     description:
       "Un aide-mémoire des commandes slash de Claude Code à connaître, comment écrire vos propres commandes slash personnalisées avec arguments, et le lien entre commandes et skills.",
   },
@@ -39,7 +39,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "Commandes slash Claude Code : l’aide-mémoire, et comment écrire les vôtres",
     lead: "Les commandes slash sont les raccourcis que vous tapez au début d’un message Claude Code, comme `/init`, `/compact` ou `/code-review`, pour piloter la session ou lancer un prompt enregistré. Ce guide propose un aide-mémoire des commandes à connaître, classées selon le moment où vous en avez besoin, puis montre comment créer des commandes slash personnalisées avec arguments, et leur lien avec les skills.",
-    cta: "Accès anticipé",
+    cta: "Commencer",
     secondary: "Aller aux commandes personnalisées",
     secondaryHref: "#how-to",
   },
@@ -191,7 +191,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Vous avez automatisé la saisie. Qui décide de ce qu’il faut taper ensuite ?",
     text: "Crewmark réveille Claude Code avec une pulsation, un rôle, un objectif et un tableau d’issues, avec l’abonnement que vous payez déjà.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   faq: {
     title: "FAQ commandes slash Claude Code",
@@ -229,7 +229,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Donnez à vos skills Claude Code un employé pour les lancer.",
     text: "Crewmark transforme les sessions Claude Code, Codex et DeepSeek Harness en employés IA avec des rôles, des objectifs, des horaires de travail et une pulsation.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   checked: "Vérifié dans la documentation de Claude Code (commandes et skills) le 6 novembre 2026.",
   disclaimer:

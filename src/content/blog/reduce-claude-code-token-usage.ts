@@ -29,7 +29,7 @@ const hook = `{
 export const reduceClaudeCodeTokenUsage: Partial<Record<"en", GuideCopy>> = {
   en: {
     meta: {
-      title: "How to Reduce Claude Code Token Usage: 12 Tips That Work | Crewmark",
+      title: "Claude Code Token Usage: 12 Tips to Reduce It | Crewmark AI",
       description:
         "Why Claude Code uses so many tokens and how to cut it: check usage with /usage and /context, clear and compact, pick the model and effort, trim CLAUDE.md and MCP, use hooks, skills and subagents.",
     },
@@ -40,7 +40,7 @@ export const reduceClaudeCodeTokenUsage: Partial<Record<"en", GuideCopy>> = {
       kicker: "Blog · Claude Code",
       title: "How to reduce Claude Code token usage (and stop hitting limits)",
       lead: "Claude Code sends your whole conversation with every request, so token usage grows with context: a one-line question late in a long session costs far more than the same question in a fresh one. This guide shows how to see where your tokens go, then twelve changes from Anthropic's own docs that cut usage, from `/clear` and `/compact` to choosing the model and effort, trimming CLAUDE.md and MCP servers, and moving noisy work into hooks, skills and subagents.",
-      cta: "Get early access",
+      cta: "Get started",
       secondary: "Jump to the tips",
       secondaryHref: "#how-to",
     },
@@ -163,7 +163,7 @@ export const reduceClaudeCodeTokenUsage: Partial<Record<"en", GuideCopy>> = {
     mid: {
       title: "Spend your tokens on work, not on waiting.",
       text: "Crewmark wakes Claude Code during working hours with a role, a goal and the next issue from a board.",
-      button: "Get early access",
+      button: "Get started",
     },
     faq: {
       title: "Claude Code token usage FAQ",
@@ -201,7 +201,7 @@ export const reduceClaudeCodeTokenUsage: Partial<Record<"en", GuideCopy>> = {
     cta: {
       title: "Put Claude Code to work on a schedule you control.",
       text: "Crewmark turns Claude Code, Codex and DeepSeek Harness sessions into AI employees with roles, goals, working hours and a heartbeat.",
-      button: "Get early access",
+      button: "Get started",
     },
     checked: "Checked against the Claude Code docs (Manage costs effectively) on November 6, 2026.",
     disclaimer:

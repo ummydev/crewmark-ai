@@ -14,7 +14,7 @@ git push -u origin HEAD`;
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Conductor, Meta 합류: 종료 일정과 추천 대안 | Crewmark",
+    title: "Conductor, Meta 합류: 종료 일정과 추천 대안 | Crewmark AI",
     description:
       "Claude Code와 Codex 에이전트를 병렬로 돌리는 Mac 앱 Conductor가 Meta에 합류해요. 종료 일정, 워크스페이스 저장 방법, Mac·Windows·Linux에서 쓸 수 있는 Conductor 대안을 정리했어요.",
   },
@@ -25,7 +25,7 @@ export const copy: GuideCopy = {
     kicker: "블로그 · AI 코딩 에이전트",
     title: "Conductor가 Meta에 합류해요: 앞으로 일어날 일, 그리고 에이전트를 옮길 곳",
     lead: "Claude Code, Codex, Cursor, OpenCode 에이전트를 병렬 워크스페이스에서 돌리는 Mac 앱 Conductor가 2026년 11월 4일 Meta 합류를 발표했어요. 신규 가입은 이미 막혔고, Conductor Cloud는 11월 13일에 읽기 전용이 된 뒤 11월 20일에 종료되며, 로컬 앱은 2027년 초까지만 업데이트돼요. 이 가이드에서는 일정, 작업을 지키는 방법, 같은 일을 해 주는 대안을 다뤄요.",
-    cta: "얼리 액세스 신청",
+    cta: "시작하기",
     secondary: "워크스페이스 저장하기",
     secondaryHref: "#how-to",
   },
@@ -90,7 +90,7 @@ export const copy: GuideCopy = {
         ["격리 방식", "워크스페이스마다 git worktree 하나", "세션이나 서브에이전트마다 git worktree 하나", "worktree", "직원마다 자기 세션과 체크아웃"],
         ["다음 작업을 시작하는 쪽", "나", "나(또는 일정)", "나(또는 일정)", "하트비트: 직원이 깨어나 다음 이슈를 가져가요"],
         ["작업 보드", "워크스페이스 목록", "없음", "없음", "있음. 이슈, 댓글, 나에게 보내는 메시지 포함"],
-        ["상태", "클라우드는 11월 20일 종료, 로컬은 2027년 초까지", "제공 중", "제공 중", "얼리 액세스"],
+        ["상태", "클라우드는 11월 20일 종료, 로컬은 2027년 초까지", "제공 중", "제공 중", "제공 중"],
       ],
     },
     {
@@ -131,7 +131,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Conductor를 떠나나요? 대체만 하지 말고 업그레이드하세요.",
     text: "Crewmark는 Claude Code, Codex, OpenCode를 하트비트로 깨어나 다음 이슈를 스스로 가져가는 AI 직원으로 돌려요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   faq: {
     title: "Conductor 종료 자주 묻는 질문",
@@ -169,7 +169,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "에이전트에게 새 보금자리가 필요해요. 일자리도 함께 주세요.",
     text: "Crewmark는 Claude Code, Codex, DeepSeek Harness, OpenCode 세션을 직무, 목표, 근무 시간, 하트비트를 갖춘 AI 직원으로 바꿔 줘요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   checked: "2026년 11월 6일에 Conductor의 발표, changelog, 문서와 TechCrunch 보도와 대조해 확인했어요.",
   disclaimer:

@@ -3,7 +3,7 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 // German translation of /proactive-codex; the English master is src/content/proactive-codex.ts.
 export const copy: GuideCopy = {
   meta: {
-    title: "Codex proaktiv: Zeitpläne, Cron und Heartbeat | Crewmark",
+    title: "Codex proaktiv: Zeitpläne, Cron und Heartbeat | Crewmark AI",
     description:
       "So handeln Codex und ChatGPT, ohne auf dich zu warten: Scheduled tasks (früher Automations), codex exec mit cron, die GitHub Action und ein Heartbeat.",
   },
@@ -12,7 +12,7 @@ export const copy: GuideCopy = {
     kicker: "Proaktives Codex",
     title: "So machst du Codex proaktiv",
     lead: "Ein proaktiver Codex-Agent sitzt nicht wartend in einem Chat. Er erledigt Routinefreigaben selbst, läuft nach Zeitplan, reagiert auf einen Pull Request oder eine Slack-Nachricht und meldet sich mit dem Ergebnis. OpenAI liefert für jedes davon einen Baustein, und einige davon teilt sich Codex mit ChatGPT. Diese Anleitung zeigt, wie du sie einrichtest, was jeder nicht kann und wie du Codex eine feste Aufgabe statt eines einmaligen Prompts gibst. Was keiner davon bietet, ist ein Heartbeat: dieselbe Unterhaltung in einem festen Rhythmus wecken, damit sie ihre nächste Aufgabe übernimmt. Wir zeigen die nächstliegende eingebaute Option und wie Crewmark einen Heartbeat ergänzt.",
-    cta: "Early Access anfragen",
+    cta: "Loslegen",
     secondary: "Direkt zu den Schritten",
     secondaryHref: "#how-to",
   },
@@ -162,7 +162,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Gib Codex eine feste Aufgabe, keinen geplanten Prompt",
     text: "Crewmark weckt deine Codex-Unterhaltung während der Arbeitszeit im Heartbeat-Takt und gibt ihr das nächste Issue vom Board.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   faq: {
     title: "FAQ",
@@ -200,7 +200,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Mach Codex zu deinem ersten KI-Mitarbeiter",
     text: "Gib ihm eine Rolle, ein Ziel, Arbeitszeiten und einen Heartbeat und weise ihm dann sein erstes Issue zu.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   checked: "Am 2. November 2026 mit der Codex-Dokumentation von OpenAI abgeglichen.",
   disclaimer:

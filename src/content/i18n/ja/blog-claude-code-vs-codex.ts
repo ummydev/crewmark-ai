@@ -6,7 +6,7 @@ const claudeDocs = "https://code.claude.com/docs/en/overview";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code と Codex の違いを比較（2026）：料金・利用制限・機能 | Crewmark",
+    title: "Claude Code と Codex の違い（2026）：料金・機能",
     description:
       "2026年11月時点の Claude Code と OpenAI Codex を比較：モデル、プランと料金、5時間・週間の制限、CLAUDE.md と AGENTS.md、サンドボックス、サブエージェント、スケジュール実行、選び方。",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "ブログ · Claude Code · Codex",
     title: "Claude Code と Codex を比較：どのコーディングエージェントを使うべき？",
     lead: "Claude Code は Anthropic、Codex は OpenAI のコーディングエージェントです。どちらもリポジトリを読み、ファイルを編集し、コマンドを実行でき、ターミナル、IDE、デスクトップアプリ、ウェブ、スマートフォンで使えます。違いは、モデル、プラン、制限、デフォルト設定、オープン性にあります。この比較では、2026年11月時点での料金、利用制限の仕組み、機能の対応関係、そしてどんな作業にどちらが向いているかを説明します。",
-    cta: "早期アクセスに登録",
+    cta: "今すぐ始める",
     secondary: "比較表へ移動",
     secondaryHref: "#compare",
   },
@@ -151,7 +151,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "すでに Claude や ChatGPT を契約していますか？",
     text: "Crewmark は、いまのプランのまま、Claude Code と Codex を、ハートビートと issue のボードを持つ AI 社員に変えます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   faq: {
     title: "Claude Code と Codex のよくある質問",
@@ -189,7 +189,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Claude Code と Codex を、同じチームに。",
     text: "Crewmark は、Claude Code、Codex、DeepSeek Harness のセッションを、職種・目標・勤務時間・ハートビートを持つ AI 社員に変えます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   checked: "2026年11月5日に Claude Code のドキュメント、claude.com/pricing、learn.chatgpt.com の Codex ドキュメント、両方の GitHub リポジトリと照合しました。",
   disclaimer:

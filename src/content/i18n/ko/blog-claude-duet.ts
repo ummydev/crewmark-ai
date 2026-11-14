@@ -6,7 +6,7 @@ const announcement = "https://claude.com/resources/articles/claude-duet";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Duet란? Anthropic의 선제적 에이전트 대기자 명단·이용 조건·제한 | Crewmark",
+    title: "Claude Duet란? 대기자 명단·이용 조건 | Crewmark AI",
     description:
       "Claude Duet는 2026년 10월 21일부터 리서치 프리뷰로 공개된 Anthropic의 선제적 에이전트 앱이에요. 할 수 있는 일, 이용 가능한 사람, 대기자 명단 참여 방법, 비용, 안전 제한, 다른 서비스와의 비교를 정리했어요.",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "블로그 · Claude",
     title: "Claude Duet란 무엇이고, 누가 쓸 수 있고, 어떻게 동작할까",
     lead: "Claude Duet는 Claude가 선제적 에이전트로 일하는 Anthropic의 새 앱이에요. 주의가 필요한 일을 먼저 알려 주고, 맡긴 작업을 처리하고, 자리를 비운 사이에도 계속 일하고, 대신 행동하기 전에 먼저 확인을 받아요. 2026년 10월 21일에 대기자 명단 방식의 리서치 프리뷰로 열렸고, 미국의 Pro, Max, Ultra 구독자가 대상이에요. 이 가이드에서는 할 수 있는 일, 이용 방법, 비용, 안전 제한, 다른 서비스와의 비교를 다뤄요.",
-    cta: "얼리 액세스 신청",
+    cta: "시작하기",
     secondary: "이용 방법",
     secondaryHref: "#how-to",
   },
@@ -108,8 +108,8 @@ export const copy: GuideCopy = {
         ["작업 시작 방식", "내 메시지와 몇 시간마다 하는 확인", "내 메시지, 일정, 스스로 하는 리서치", "근무 시간 중 15~60분마다 하트비트"],
         ["강점", "받은편지함, 캘린더, 청구서, 브리프, 대시보드", "연결한 앱 전반의 리서치와 작업", "코드, SEO 등 리포지토리의 작업, 직무당 직원 한 명"],
         ["작업 대기열", "하나의 이어지는 스레드", "대화 스레드와 Scheduled", "칸반 보드의 issue"],
-        ["비용", "Pro, Max, Ultra에 포함(미국)", "Pro와 Business Premium 요금제", "얼리 액세스, 이미 쓰는 에이전트와 요금제로 실행"],
-        ["상태", "리서치 프리뷰, 대기자 명단", "순차 제공 중", "얼리 액세스"],
+        ["비용", "Pro, Max, Ultra에 포함(미국)", "Pro와 Business Premium 요금제", "누구나 가입 가능, 이미 쓰는 에이전트와 요금제로 실행"],
+        ["상태", "리서치 프리뷰, 대기자 명단", "순차 제공 중", "누구나 가입 가능"],
       ],
     },
     {
@@ -140,7 +140,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "먼저 메시지를 보내 주는 에이전트가 마음에 드시나요?",
     text: "Crewmark는 Claude Code와 Codex에서 이를 해 줘요. 하트비트, 근무 시간, issue 보드를 쓰고, 이미 결제 중인 요금제 그대로 쓸 수 있어요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   faq: {
     title: "Claude Duet 자주 묻는 질문",
@@ -178,7 +178,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Claude Code 세션도 선제적으로 일하게 만드세요.",
     text: "Crewmark는 Claude Code, Codex, DeepSeek Harness 세션을 직무, 목표, 근무 시간, 하트비트를 가진 AI 직원으로 바꿔 줘요.",
-    button: "얼리 액세스 신청",
+    button: "시작하기",
   },
   checked: "2026년 11월 5일에 Anthropic의 Claude Duet 발표, 제품 페이지, 안전 관련 글과 대조해 확인했어요.",
   disclaimer:

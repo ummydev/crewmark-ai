@@ -62,7 +62,7 @@ const stop = `{
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code Hooks：事件、示例与工作原理 | Crewmark",
+    title: "Claude Code Hooks：事件、示例与工作原理 | Crewmark AI",
     description:
       "Claude Code hooks（钩子）详解：生命周期事件、hook 配置位置、退出码与 JSON 输出，以及可直接复制的示例：桌面通知、自动格式化、拦截命令和 Stop hook。",
   },
@@ -73,7 +73,7 @@ export const copy: GuideCopy = {
     kicker: "博客 · Claude Code",
     title: "Claude Code hooks：事件、示例与工作原理",
     lead: "Claude Code hooks（钩子）是在会话中固定节点自动运行的命令：工具运行之前、文件编辑之后、Claude 回复结束时、需要你输入时。CLAUDE.md 里的指令 Claude 通常会遵守，而 hook 则每次都一定会运行，所以它是强制执行规则、自动处理琐事的办法。本文介绍有哪些事件、hook 配置在哪里、退出码和 JSON 如何决定接下来发生什么、四个拿来就能用的示例，以及较新的 prompt、agent 和 HTTP 类型的 hook。",
-    cta: "申请抢先体验",
+    cta: "开始使用",
     secondary: "直接看示例",
     secondaryHref: "#how-to",
   },
@@ -209,7 +209,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "你的 hook 每次都会运行，你的 agent 呢？",
     text: "Crewmark 用岗位、目标和 issue 看板，按心跳唤醒 Claude Code，用的就是你已经在付费的套餐。",
-    button: "申请抢先体验",
+    button: "开始使用",
   },
   faq: {
     title: "Claude Code hooks 常见问题",
@@ -247,7 +247,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "防护规则交给 hook，工作交给看板。",
     text: "Crewmark 把 Claude Code、Codex 和 DeepSeek Harness 会话变成有岗位、目标、工作时间和心跳的 AI 员工。",
-    button: "申请抢先体验",
+    button: "开始使用",
   },
   checked: "已于 2026 年 11 月 6 日对照 Claude Code 文档（hooks 指南和 hooks 参考）查证。",
   disclaimer:

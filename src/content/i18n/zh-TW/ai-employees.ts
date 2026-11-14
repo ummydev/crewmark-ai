@@ -4,7 +4,7 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "什麼是 AI 員工？定義、職位範例與聘用方法 | Crewmark",
+    title: "什麼是 AI 員工？定義、職位範例與聘用方法 | Crewmark AI",
     description:
       "AI 員工是有職位、有目標、有工作時間、從看板領取任務的 AI agent。看它和 AI agent、聊天機器人有何不同，有哪些職位範例，以及如何聘用第一位 AI 員工。",
   },
@@ -13,7 +13,7 @@ export const copy: GuideCopy = {
     kicker: "AI 員工",
     title: "什麼是 AI 員工？",
     lead: "AI 員工是你交給它一份工作、而不是一句提示詞的 AI agent：有職位，有用數字衡量的目標，有工作時間，也有領取工作的地方。它會自己醒來、接手下一個任務、回報進度，卡關時就來問你，就像一位新同事。這篇說明它和 AI agent、聊天機器人的差別，依職位舉例，並一步步帶你聘用第一位 AI 員工。",
-    cta: "申請搶先體驗",
+    cta: "開始使用",
     secondary: "看職位範例",
     secondaryHref: "#examples",
   },
@@ -51,12 +51,12 @@ export const copy: GuideCopy = {
       title: "AI 員工職位範例",
       text: ["產出能檢查、目標能計數的工作，最適合交給 AI 員工。目前效果不錯的六個職位："],
       points: [
-        "SEO 專員：找出缺漏的關鍵字，修改標題和內部連結，提交 sitemap，回報變化。目標：Search Console 點擊數。",
-        "成長行銷專員：分析漏斗，做 A/B 測試，撰寫廣告文案，留下效果好的版本。目標：試用註冊數。",
-        "社群經理：撰寫貼文、排程發布、回覆提及，摸清什麼內容受歡迎。目標：追蹤人數或互動。",
-        "軟體工程師：接手 bug，提交附測試的 PR，請你審核。目標：合併的 PR 數。",
-        "UI 設計師：在實際程式碼裡統一字型、間距和元件，檢查深色模式和無障礙。目標：交付的頁面數。",
-        "App UI 設計師：設計 iOS 和 Android 畫面，在模擬器裡檢查。目標：交付的 App 畫面數。",
+        "[SEO 專員](/ai-employees/seo-specialist)：找出缺漏的關鍵字，修改標題和內部連結，提交 sitemap，回報變化。目標：Search Console 點擊數。",
+        "[成長行銷專員](/ai-employees/marketing-agent)：分析漏斗，做 A/B 測試，撰寫廣告文案，留下效果好的版本。目標：試用註冊數。",
+        "[社群經理](/ai-employees/social-media-manager)：撰寫貼文、排程發布、回覆提及，摸清什麼內容受歡迎。目標：追蹤人數或互動。",
+        "[軟體工程師](/ai-employees/software-engineer)：接手 bug，提交附測試的 PR，請你審核。目標：合併的 PR 數。",
+        "[UI 設計師](/ai-employees/ui-designer)：在實際程式碼裡統一字型、間距和元件，檢查深色模式和無障礙。目標：交付的頁面數。",
+        "[App UI 設計師](/ai-employees/app-designer)：設計 iOS 和 Android 畫面，在模擬器裡檢查。目標：交付的 App 畫面數。",
       ],
     },
     {
@@ -134,7 +134,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "聘用 AI 員工，不必另付 token 費用",
     text: "Crewmark 為你的 Claude Code 或 Codex agent 設定職位、目標和工作時間，在你已經付費的方案上執行。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   faq: {
     title: "AI 員工常見問題",
@@ -168,7 +168,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "聘用你的第一位 AI 員工。",
     text: "為你的 Claude Code 或 Codex agent 設定職位、目標和工作時間，在看板上指派工作給它。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   checked: "最後查核日期：2026 年 11 月 2 日。",
   disclaimer:

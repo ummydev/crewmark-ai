@@ -18,7 +18,7 @@ const settings = `{
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Plan mode de Claude Code : raccourci, fonctionnement, auto mode | Crewmark",
+    title: "Plan mode Claude Code : raccourci et auto mode | Crewmark AI",
     description:
       "Comment fonctionne le plan mode (mode plan) de Claude Code : le raccourci Shift+Tab et /plan, ce que Claude peut faire pendant la planification, valider un plan, en faire le mode par défaut, et la comparaison avec auto, accept edits et manuel.",
   },
@@ -29,7 +29,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "Plan mode de Claude Code : comment il fonctionne et quand l’utiliser",
     lead: "Le plan mode (mode plan) est le mode de permissions de Claude Code dans lequel Claude étudie et propose des modifications sans les appliquer : il lit les fichiers, lance des commandes pour explorer et rédige un plan, mais ne touche pas à votre code tant que vous n’avez pas validé. Appuyez sur `Shift+Tab` pour y passer, ou commencez un prompt par `/plan`. Ce guide couvre toutes les façons d’y entrer et d’en sortir, ce qui est permis pendant la planification, les options de validation, comment en faire le mode par défaut et comment il se compare aux modes auto, accept edits et manuel.",
-    cta: "Accès anticipé",
+    cta: "Commencer",
     secondary: "Aller aux étapes",
     secondaryHref: "#how-to",
   },
@@ -145,7 +145,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Vous avez validé le plan. Qui prend la tâche suivante ?",
     text: "Crewmark réveille Claude Code avec une pulsation, un rôle, un objectif et un tableau d’issues, avec l’abonnement que vous payez déjà.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   faq: {
     title: "FAQ plan mode Claude Code",
@@ -183,7 +183,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Laissez Claude Code planifier, construire et prendre la prochaine issue.",
     text: "Crewmark transforme les sessions Claude Code, Codex et DeepSeek Harness en employés IA avec des rôles, des objectifs, des horaires de travail et une pulsation.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   checked: "Vérifié dans la documentation de Claude Code (modes de permissions et paramètres) le 6 novembre 2026.",
   disclaimer:

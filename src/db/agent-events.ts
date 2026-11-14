@@ -8,6 +8,7 @@ import { agentEvents, employees, users } from "@/db/schema";
 import type { AgentEvent } from "@/lib/agent-api";
 import { mentionedEmployees } from "@/lib/mentions";
 import { pushToDaemons } from "@/lib/realtime";
+import { ISSUE_STATUSES } from "@/lib/types";
 
 // Events for employees' agents: written when something on Crewmark concerns an employee, read by the crewmark CLI's
 // daemon from GET /api/agent/events, which hands each message to the agent's conversation. The daemon fetches when
@@ -15,6 +16,12 @@ import { pushToDaemons } from "@/lib/realtime";
 
 /** How many events one poll returns at most; the CLI asks again from the last one it got. */
 const PAGE = 50;
+
+/**
+ * Events a person is waiting on, which reach the agent even while it's working (AgentEvent.urgent): what people
+ * write. What other employees write waits until the agent is idle, so they don't keep interrupting each other.
+ */
+const URGENT = new Set(["direct_message", "person_comment", "person_mention"]);
 
 /** How the person or employee who did something is named in a message to an agent. */
 async function actorName(actor: IssueCreator) {
@@ -47,6 +54,24 @@ export async function notifyAssigned(
   pushToDaemons(organizationId, [issue.assigneeId], "events");
 }
 
+/**
+ * Tells an employee's agent that the schedule of an issue it's assigned came round (db/recurrence.ts): Crewmark
+ * reopened it, or it's still open from last time.
+ */
+export async function notifyRecurred(
+  organizationId: string,
+  issue: { key: string; title: string; employeeId: string; status: string; reopened: boolean; schedule: string },
+) {
+  const status = ISSUE_STATUSES.find((s) => s.value === issue.status)?.label ?? issue.status;
+  const message = issue.reopened
+    ? `${issue.key} "${issue.title}" repeats ${issue.schedule}, and it's due again, so Crewmark moved it back to ` +
+      `Todo. Run \`crewmark issues show ${issue.key}\`, do this round of it, and set it to done when you've finished.`
+    : `${issue.key} "${issue.title}" repeats ${issue.schedule}, and it's due again, but last time's round isn't done ` +
+      `yet (it's ${status}). Run \`crewmark issues show ${issue.key}\`, finish it, and set it to done when you have.`;
+  await db.insert(agentEvents).values({ organizationId, employeeId: issue.employeeId, type: "issue_recurred", message });
+  pushToDaemons(organizationId, [issue.employeeId], "events");
+}
+
 /** How much of a comment an agent is told; it reads the rest with `crewmark issues show`. */
 const COMMENT_PREVIEW = 1500;
 
@@ -72,7 +97,8 @@ export async function notifyCommented(organizationId: string, issue: CommentedIs
   const employeeId = issue.assigneeId;
   if (!employeeId || ("employeeId" in actor && actor.employeeId === employeeId)) return;
   const message = await commentMessage(issue, body, actor, "commented on");
-  await db.insert(agentEvents).values({ organizationId, employeeId, type: "issue_comment", message });
+  const type = "userId" in actor ? "person_comment" : "issue_comment";
+  await db.insert(agentEvents).values({ organizationId, employeeId, type, message });
   pushToDaemons(organizationId, [employeeId], "events");
 }
 
@@ -92,7 +118,14 @@ export async function notifyMentioned(organizationId: string, issue: CommentedIs
   const message = await commentMessage(issue, body, actor, "mentioned you in a comment on");
   await db
     .insert(agentEvents)
-    .values(employeeIds.map((employeeId) => ({ organizationId, employeeId, type: "issue_mention", message })));
+    .values(
+      employeeIds.map((employeeId) => ({
+        organizationId,
+        employeeId,
+        type: "userId" in actor ? "person_mention" : "issue_mention",
+        message,
+      })),
+    );
   pushToDaemons(organizationId, employeeIds, "events");
 }
 
@@ -117,7 +150,13 @@ export async function eventsAfter(employeeId: string, after: number | null): Pro
     .orderBy(asc(agentEvents.id))
     .limit(PAGE);
   return {
-    events: rows.map((e) => ({ id: e.id, type: e.type, message: e.message, createdAt: e.createdAt.toISOString() })),
+    events: rows.map((e) => ({
+      id: e.id,
+      type: e.type,
+      message: e.message,
+      createdAt: e.createdAt.toISOString(),
+      urgent: URGENT.has(e.type),
+    })),
     cursor: rows.at(-1)?.id ?? after,
   };
 }

@@ -3,7 +3,7 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 // Japanese translation of /proactive-claude-code; the English master is src/content/proactive-claude-code.ts.
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code を自律的に動かす方法：/loop・定期実行・ハートビート | Crewmark",
+    title: "Claude Code を自律的に動かす方法：/loop | Crewmark AI",
     description:
       "指示を待たずに Claude Code を動かす：Proactive output style、auto mode、/goal、/loop、スケジュールタスク、ハートビート。",
   },
@@ -12,7 +12,7 @@ export const copy: GuideCopy = {
     kicker: "自律的に動く Claude Code",
     title: "Claude Code を自律的に動かす方法",
     lead: "自律的に動く Claude Code のエージェントは、あなたの次のメッセージを待ちません。定型的な判断は自分で下し、仕事が終わるまで続け、スケジュールどおりに起動し、何かが起きれば反応します。Claude Code には、それぞれに対応する組み込み機能があります。このガイドでは、それらの有効化の方法、それぞれの限界、そして単発のプロンプトではなく継続的な仕事を Claude Code に与える方法を紹介します。組み込み機能に欠けているのはハートビート、つまり同じセッションを一定のリズムで起こして次のタスクを取らせる仕組みです。手作業での組み方と、Crewmark がそれを代わりに用意する方法も紹介します。",
-    cta: "早期アクセスに登録",
+    cta: "今すぐ始める",
     secondary: "手順へ移動",
     secondaryHref: "#how-to",
   },
@@ -163,7 +163,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "cron ジョブも、開きっぱなしのセッションも不要に",
     text: "Crewmark は、勤務時間中にハートビートで Claude Code のセッションを起こし、ボードから次のタスクを渡します。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   faq: {
     title: "よくある質問",
@@ -201,7 +201,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Claude Code を最初の AI 社員に",
     text: "職種、目標、勤務時間、ハートビートを与えて、最初のタスクを割り当てましょう。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   checked: "2026年11月2日に Anthropic の Claude Code ドキュメントと照合しました。",
   disclaimer:

@@ -4,6 +4,7 @@ import { NextResponse, type NextRequest } from "next/server";
 
 import { posts } from "./i18n/blog";
 import { pageLocales } from "./i18n/guides";
+import { roles } from "./i18n/roles";
 import { routing } from "./i18n/routing";
 
 // Sends / to /zh for visitors whose browser prefers Chinese (or who picked it before) and serves the English pages
@@ -13,6 +14,9 @@ const handleI18nRouting = createMiddleware(routing);
 
 /** A blog post URL, with or without a locale prefix: /blog/<slug> or /zh/blog/<slug>. */
 const BLOG_POST = /^(?:\/[a-z]{2}(?:-[a-z]{2})?)?\/blog\/([^/]+)\/?$/i;
+
+/** A role page URL, with or without a locale prefix: /ai-employees/<slug> or /zh/ai-employees/<slug>. */
+const ROLE = /^(?:\/[a-z]{2}(?:-[a-z]{2})?)?\/ai-employees\/([^/]+)\/?$/i;
 
 /** Dashboard links from before organizations, e.g. /issues/MC-7. */
 const OLD_DASHBOARD = /^\/(issues|employees|projects)(\/|$)/;
@@ -32,6 +36,10 @@ export default function proxy(request: NextRequest) {
   const post = BLOG_POST.exec(pathname);
   if (post && !posts.some(({ slug }) => slug === post[1])) {
     return NextResponse.rewrite(new URL("/en/blog/not-found/404", request.url));
+  }
+  const role = ROLE.exec(pathname);
+  if (role && !roles.some(({ slug }) => slug === role[1])) {
+    return NextResponse.rewrite(new URL("/en/ai-employees/not-found/404", request.url));
   }
 
   if (!pathname.startsWith("/org/")) {
@@ -68,10 +76,12 @@ export const config = {
     "/(issues|employees|projects)/:path*",
     "/",
     "/ai-employees",
+    "/ai-employees/:path*",
     "/remote-claude-code",
     "/proactive-claude-code",
     "/proactive-codex",
     "/alternatives/:path*",
+    "/pricing",
     "/blog",
     "/blog/:path*",
     "/(en|zh|zh-tw|zh-TW|ja|ko|es|pt-br|pt-BR|fr|de)",

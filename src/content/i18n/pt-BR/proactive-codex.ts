@@ -3,7 +3,7 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 // pt-BR translation of /proactive-codex; the English master is src/content/proactive-codex.ts.
 export const copy: GuideCopy = {
   meta: {
-    title: "Codex proativo: agendamento, cron e heartbeat | Crewmark",
+    title: "Codex proativo: agendamento, cron e heartbeat | Crewmark AI",
     description:
       "Faça o Codex e o ChatGPT agirem sem esperar por você: tarefas agendadas (antigas Automations), codex exec com cron, a GitHub Action e um heartbeat.",
   },
@@ -12,7 +12,7 @@ export const copy: GuideCopy = {
     kicker: "Codex proativo",
     title: "Como deixar o Codex proativo",
     lead: "Um agente proativo do Codex não fica parado esperando em um chat. Ele cuida sozinho das aprovações de rotina, roda em horários agendados, reage a um pull request ou a uma mensagem no Slack e informa o resultado. A OpenAI oferece um recurso para cada uma dessas coisas, e o ChatGPT compartilha alguns deles. Este guia mostra como configurá-los, o que cada um não consegue fazer e como dar ao Codex um trabalho fixo em vez de um prompt avulso. O que nenhum deles oferece é um heartbeat: acordar a mesma conversa em um ritmo regular para pegar a próxima tarefa. Mostramos a opção nativa mais próxima e como o Crewmark acrescenta um.",
-    cta: "Acesso antecipado",
+    cta: "Começar",
     secondary: "Ir para o passo a passo",
     secondaryHref: "#how-to",
   },
@@ -162,7 +162,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Dê ao Codex um trabalho fixo, não um prompt agendado",
     text: "O Crewmark acorda sua conversa do Codex com um heartbeat durante o horário de trabalho e entrega a ela a próxima tarefa de um quadro.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   faq: {
     title: "Perguntas frequentes",
@@ -200,7 +200,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Faça do Codex seu primeiro funcionário de IA",
     text: "Dê a ele um cargo, uma meta, horário de trabalho e um heartbeat, e atribua a primeira tarefa.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   checked: "Conferido com a documentação do Codex da OpenAI em 2 de novembro de 2026.",
   disclaimer:

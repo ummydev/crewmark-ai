@@ -9,6 +9,8 @@ export type EmployeeStatus = "working" | "idle" | "paused";
 export interface Employee {
   id: string;
   name: string;
+  /** Its avatar, shown on a light grey circle; one of EMPLOYEE_EMOJIS. */
+  emoji: string;
   /** Free-text job title, e.g. "SEO Specialist". */
   role: string;
   /** What its agent runs in, as the agent reported when it connected; null until one connects. */
@@ -198,11 +200,44 @@ export interface Issue {
   createdByEmployeeId: string | null;
   /** ISO timestamp. */
   createdAt: string;
+  /** When it repeats, as iCalendar text (see lib/recurrence.ts); null for a one-off issue. */
+  recurrence: string | null;
+  /** ISO timestamp of when the schedule next comes round; null when it doesn't repeat. */
+  nextRecurAt: string | null;
+}
+
+/** A message in a direct conversation between a person and an employee (MC-169). */
+export interface DirectMessage {
+  /** Counts up, so it orders the messages. */
+  id: number;
+  /** Written by the employee; else by the person. */
+  fromEmployee: boolean;
+  /** Markdown. */
+  body: string;
+  /** ISO timestamp. */
+  createdAt: string;
+}
+
+/** The signed-in person's conversation with an employee, as the Messages list shows it. */
+export interface DirectThread {
+  id: string;
+  employeeId: string;
+  /** The latest message, or null before the first. */
+  last: DirectMessage | null;
+  /** Messages from the employee the person hasn't seen yet. */
+  unread: number;
+  /** ISO timestamp of the latest message. */
+  lastMessageAt: string;
 }
 
 /** The issue properties whose changes show in its Activity. */
-export const TRACKED_ISSUE_PROPERTIES = ["status", "priority", "assignee", "project"] as const;
-export type IssueActivityKind = "comment" | (typeof TRACKED_ISSUE_PROPERTIES)[number];
+export const TRACKED_ISSUE_PROPERTIES = ["status", "priority", "assignee", "project", "repeat"] as const;
+/**
+ * What an Activity entry is: a comment, a change to a tracked property, or "recurred": Crewmark's own entry when the
+ * schedule came round, with the status before and after (Done to Todo when it reopened the issue; unchanged when the
+ * issue was still open and its employee was reminded).
+ */
+export type IssueActivityKind = "comment" | (typeof TRACKED_ISSUE_PROPERTIES)[number] | "recurred";
 
 /** One entry in an issue's Activity: a comment, or a change to one of its tracked properties. */
 export interface IssueActivity {
@@ -281,6 +316,17 @@ export const PROJECT_EMOJIS = [
   "🛠️", "🔍", "📣", "✨", "📦", "🧪", "🌍", "📝",
   "💬", "⚡", "🔥", "🏆", "📊", "🧭", "🛰️", "🪴",
   "🌊", "🍀", "🦊", "🐙", "🎬", "📚", "💰", "🤖",
+];
+
+/**
+ * Emoji an employee can wear as its avatar: creatures, so employees read apart from projects' objects. Picked from a
+ * grid, so keep it a multiple of eight; a new employee gets the first one nobody in its organization wears yet.
+ */
+export const EMPLOYEE_EMOJIS = [
+  "🐵", "🦉", "🐼", "🦄", "🐸", "🐳", "🦁", "🐧",
+  "🐨", "🐯", "🐝", "🦋", "🐢", "🐬", "🦔", "🐰",
+  "🐻", "🐱", "🐶", "🦜", "🦦", "🦩", "🐲", "🦕",
+  "🐞", "🦭", "🐹", "🐮", "🐷", "🐺", "🦒", "🐿️",
 ];
 
 export function runtimeLabel(runtime: AgentRuntime | null) {

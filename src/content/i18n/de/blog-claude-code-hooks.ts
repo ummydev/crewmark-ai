@@ -62,7 +62,7 @@ const stop = `{
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code Hooks: Events, Beispiele und Funktionsweise | Crewmark",
+    title: "Claude Code Hooks: Events, Beispiele und Funktionsweise",
     description:
       "Claude Code Hooks erklärt: die Lifecycle-Events, wo Hooks hingehören, Exit-Codes und JSON-Ausgabe sowie Beispiele zum Kopieren für Benachrichtigungen, automatisches Formatieren, das Blockieren von Befehlen und Stop-Hooks.",
   },
@@ -73,7 +73,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude Code",
     title: "Claude Code Hooks: Events, Beispiele und wie sie funktionieren",
     lead: "Claude Code Hooks sind Befehle, die an festen Punkten einer Session automatisch laufen: bevor ein Tool läuft, nachdem eine Datei bearbeitet wurde, wenn Claude fertig ist, wenn es deine Eingabe braucht. Anders als Anweisungen in der CLAUDE.md, die Claude meistens befolgt, läuft ein Hook immer. Damit setzt du Regeln durch und automatisierst lästige Routinearbeit. Diese Anleitung zeigt die Events, wo Hooks konfiguriert werden, wie Exit-Codes und JSON steuern, was passiert, vier sofort nutzbare Beispiele und die neueren Hook-Typen prompt, agent und HTTP.",
-    cta: "Early Access anfragen",
+    cta: "Loslegen",
     secondary: "Zu den Beispielen",
     secondaryHref: "#how-to",
   },
@@ -209,7 +209,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Deine Hooks laufen jedes Mal. Dein Agent auch?",
     text: "Crewmark weckt Claude Code per Heartbeat mit Rolle, Ziel und einem Board voller Issues, mit dem Tarif, den du ohnehin zahlst.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   faq: {
     title: "FAQ zu Claude Code Hooks",
@@ -247,7 +247,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Leitplanken in Hooks, Arbeit von einem Board.",
     text: "Crewmark macht aus Sessions von Claude Code, Codex und DeepSeek Harness KI-Mitarbeiter mit Rollen, Zielen, Arbeitszeiten und einem Heartbeat.",
-    button: "Early Access anfragen",
+    button: "Loslegen",
   },
   checked: "Am 6. November 2026 mit der Claude-Code-Dokumentation (Hooks-Anleitung und Hooks-Referenz) abgeglichen.",
   disclaimer:

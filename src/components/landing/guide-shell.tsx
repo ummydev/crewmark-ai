@@ -1,17 +1,18 @@
 import type { Locale } from "next-intl";
 import type { ReactNode } from "react";
 import { getTranslations } from "next-intl/server";
+import NextLink from "next/link";
 
-import { EarlyAccess } from "@/components/landing/early-access";
 import { LandingIcons } from "@/components/landing/landing-icons";
 import { LatestPosts } from "@/components/landing/latest-posts";
+import { SignUpLinks } from "@/components/landing/sign-up-links";
 import { guideLocale, guides } from "@/i18n/guides";
 import { getPathname, Link } from "@/i18n/navigation";
 import { localeNames } from "@/i18n/routing";
 
 /**
  * The frame around a guide page (e.g. /remote-claude-code): the nav and footer of the home page, linking back to it,
- * and the early-access dialog that any [data-early-access] button opens. `locales` are the languages the guide is
+ * and the click counting for its sign-up and sign-in links (see SignUpLinks). `locales` are the languages the guide is
  * written in, which the footer links to.
  */
 export async function GuideShell({
@@ -41,12 +42,12 @@ export async function GuideShell({
             Crewmark
           </Link>
           <div className="nav-right" style={{ marginLeft: "auto" }}>
-            <button type="button" className="signin" data-signin data-early-access="nav">
+            <NextLink className="signin" href="/login" prefetch={false} data-signin="nav">
               {t("nav.signIn")}
-            </button>
-            <button type="button" className="btn btn-dark btn-sm" data-early-access="nav">
+            </NextLink>
+            <NextLink className="btn btn-dark btn-sm" href="/login" prefetch={false} data-signup="nav">
               {t("nav.getStarted")}
-            </button>
+            </NextLink>
           </div>
         </div>
       </nav>
@@ -103,7 +104,7 @@ export async function GuideShell({
         </div>
       </footer>
 
-      <EarlyAccess />
+      <SignUpLinks />
     </>
   );
 }

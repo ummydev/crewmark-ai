@@ -23,7 +23,7 @@ paths: ["src/api/**/*.ts"]
 
 export const copy: GuideCopy = {
   meta: {
-    title: "CLAUDE.md 怎麼寫：放哪裡、寫什麼、範本，以及和 AGENTS.md 的關係 | Crewmark",
+    title: "CLAUDE.md 怎麼寫：放哪裡、範本與 AGENTS.md | Crewmark AI",
     description:
       "CLAUDE.md 在 Claude Code 裡如何運作：檔案放在哪裡、依什麼順序載入，匯入與規則檔，該寫什麼，一份範本，以及它和 AGENTS.md 的關係。",
   },
@@ -34,7 +34,7 @@ export const copy: GuideCopy = {
     kicker: "部落格 · Claude Code",
     title: "CLAUDE.md：放在哪裡、寫什麼，以及如何與 AGENTS.md 搭配",
     lead: "CLAUDE.md 是一份 markdown 指令檔，Claude Code 在每個工作階段開始時都會讀取它：要執行的指令、要遵守的慣例、要避開的坑，都寫在專案裡。本文說明 CLAUDE.md 可以放在哪些位置、載入順序如何，匯入與規則檔，哪些該寫、哪些不該寫，一份簡短的範本，以及它和 AGENTS.md 的關係。",
-    cta: "申請搶先體驗",
+    cta: "開始使用",
     secondary: "跳到範本",
     secondaryHref: "#how-to",
   },
@@ -167,7 +167,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "CLAUDE.md 寫好了，誰來啟動下一個任務？",
     text: "Crewmark 用職位、目標和 issue 看板，依心跳喚醒 Claude Code，使用的就是你已經在付費的方案。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   faq: {
     title: "CLAUDE.md 常見問題",
@@ -205,7 +205,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "給已經掌握狀況的 Claude Code 一份工作。",
     text: "Crewmark 把 Claude Code、Codex 和 DeepSeek Harness 工作階段變成有職位、目標、工作時間和心跳的 AI 員工。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   checked: "已於 2026 年 11 月 5 日對照 Claude Code 文件、agents.md 和 OpenAI 的 Codex 文件查核。",
   disclaimer:

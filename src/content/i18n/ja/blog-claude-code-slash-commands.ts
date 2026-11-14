@@ -28,7 +28,7 @@ $0 コンポーネントを $1 から $2 に移行してください。
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code のスラッシュコマンド：早見表、カスタムコマンド、スキル | Crewmark",
+    title: "Claude Code のスラッシュコマンド早見表 | Crewmark AI",
     description:
       "Claude Code で覚えておきたいスラッシュコマンドの早見表と、引数付きのカスタムスラッシュコマンドの作り方、コマンドとスキルの関係を解説します。",
   },
@@ -39,7 +39,7 @@ export const copy: GuideCopy = {
     kicker: "ブログ · Claude Code",
     title: "Claude Code のスラッシュコマンド：早見表と、自作コマンドの書き方",
     lead: "スラッシュコマンドは、`/init`、`/compact`、`/code-review` のように Claude Code のメッセージの先頭に入力するショートカットで、セッションを操作したり保存したプロンプトを実行したりします。このガイドでは、覚えておきたいコマンドを使う場面ごとにまとめた早見表を紹介し、引数付きのカスタムスラッシュコマンドの作り方と、スキルとの関係を説明します。",
-    cta: "早期アクセスに登録",
+    cta: "今すぐ始める",
     secondary: "カスタムコマンドへ移動",
     secondaryHref: "#how-to",
   },
@@ -191,7 +191,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "入力は自動化できました。次に何を入力するかは誰が決めますか？",
     text: "Crewmark は、職種・目標・issue のボードを与え、ハートビートで Claude Code を起こします。契約中のプランのままご利用いただけます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   faq: {
     title: "Claude Code のスラッシュコマンドのよくある質問",
@@ -229,7 +229,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Claude Code のスキルを実行する社員を。",
     text: "Crewmark は、Claude Code、Codex、DeepSeek Harness のセッションを、職種・目標・勤務時間・ハートビートを持つ AI 社員に変えます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   checked: "2026年11月6日に Claude Code のドキュメント（commands、skills）と照合しました。",
   disclaimer:

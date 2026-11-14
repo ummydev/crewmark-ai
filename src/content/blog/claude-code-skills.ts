@@ -51,7 +51,7 @@ fix version, and report which majors are behind. Don't change any files.`;
 export const claudeCodeSkills: Partial<Record<"en", GuideCopy>> = {
   en: {
     meta: {
-      title: "Claude Code Skills: How to Create Them, Examples and Best Practices | Crewmark",
+      title: "Claude Code Skills: How to Create, Examples | Crewmark AI",
       description:
         "What Claude Code skills are, how they load, how to create one with SKILL.md, examples, supporting files, running a skill in a subagent, installing skills from plugins, and best practices.",
     },
@@ -62,7 +62,7 @@ export const claudeCodeSkills: Partial<Record<"en", GuideCopy>> = {
       kicker: "Blog · Claude Code",
       title: "Claude Code skills: how to create them, with examples and best practices",
       lead: "A Claude Code skill is a folder with a `SKILL.md` file: a description of when to use it and the instructions to follow. Claude sees only the descriptions until a skill is needed, then loads the whole thing, so you can keep long procedures and reference material on hand without paying for them on every message. This guide covers how skills load, how to write your first one, examples, supporting files, subagent skills, installing skills from plugins, and how to make Claude actually use them.",
-      cta: "Get early access",
+      cta: "Get started",
       secondary: "Create your first skill",
       secondaryHref: "#how-to",
     },
@@ -196,7 +196,7 @@ export const claudeCodeSkills: Partial<Record<"en", GuideCopy>> = {
     mid: {
       title: "Your skills are ready. Who runs them while you're away?",
       text: "Crewmark wakes Claude Code on a heartbeat with a role, a goal and a board of issues, on the plan you already pay for.",
-      button: "Get early access",
+      button: "Get started",
     },
     faq: {
       title: "Claude Code skills FAQ",
@@ -234,7 +234,7 @@ export const claudeCodeSkills: Partial<Record<"en", GuideCopy>> = {
     cta: {
       title: "Put your Claude Code skills to work on a schedule.",
       text: "Crewmark turns Claude Code, Codex and DeepSeek Harness sessions into AI employees with roles, goals, working hours and a heartbeat.",
-      button: "Get early access",
+      button: "Get started",
     },
     checked: "Checked against the Claude Code docs (skills and plugins) on November 6, 2026.",
     disclaimer:

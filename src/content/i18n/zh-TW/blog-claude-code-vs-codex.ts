@@ -6,7 +6,7 @@ const claudeDocs = "https://code.claude.com/docs/en/overview";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Code 和 Codex 比較（2026）：價格、用量限制與功能 | Crewmark",
+    title: "Claude Code 和 Codex 比較（2026）：價格、用量限制與功能",
     description:
       "2026 年 11 月 Claude Code 與 OpenAI Codex 比較：模型、方案與價格、5 小時和每週額度、CLAUDE.md 與 AGENTS.md、沙盒、subagent、排程任務，以及該怎麼選。",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "部落格 · Claude Code · Codex",
     title: "Claude Code 和 Codex 比較：該用哪個程式設計 agent？",
     lead: "Claude Code 是 Anthropic 的程式設計 agent，Codex 是 OpenAI 的。兩者都能讀取你的程式碼儲存庫、編輯檔案、執行指令，並可在終端機、IDE、桌面應用程式、網頁和手機上使用。它們的差別在於模型、方案、額度、預設設定和開放程度。本文截至 2026 年 11 月，介紹兩者的費用、用量限制的運作方式、功能比較，以及各自適合哪類工作。",
-    cta: "搶先體驗",
+    cta: "開始使用",
     secondary: "跳到比較表",
     secondaryHref: "#compare",
   },
@@ -151,7 +151,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "已經在付費使用 Claude 或 ChatGPT？",
     text: "Crewmark 在你已有的方案上，把 Claude Code 和 Codex 變成有心跳和 issue 看板的 AI 員工。",
-    button: "搶先體驗",
+    button: "開始使用",
   },
   faq: {
     title: "Claude Code 和 Codex 常見問題",
@@ -189,7 +189,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "讓 Claude Code 和 Codex 在同一個團隊裡。",
     text: "Crewmark 把 Claude Code、Codex 和 DeepSeek Harness 工作階段變成有職務、目標、工作時間和心跳的 AI 員工。",
-    button: "搶先體驗",
+    button: "開始使用",
   },
   checked: "已於 2026 年 11 月 5 日對照 Claude Code 文件、claude.com/pricing、learn.chatgpt.com 上的 Codex 文件以及兩個 GitHub 儲存庫查證。",
   disclaimer:

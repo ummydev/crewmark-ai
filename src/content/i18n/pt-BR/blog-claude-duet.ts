@@ -6,7 +6,7 @@ const announcement = "https://claude.com/resources/articles/claude-duet";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Claude Duet: o agente proativo da Anthropic, lista de espera, acesso e limites | Crewmark",
+    title: "Claude Duet: o agente proativo, lista de espera e acesso",
     description:
       "O Claude Duet é o app de agente proativo da Anthropic, em prévia de pesquisa desde 21 de outubro de 2026. O que faz, quem pode ter, como entrar na lista de espera, quanto custa, seus limites de segurança e como se compara.",
   },
@@ -17,7 +17,7 @@ export const copy: GuideCopy = {
     kicker: "Blog · Claude",
     title: "Claude Duet: o que é, quem pode ter e como funciona",
     lead: "O Claude Duet é um novo app da Anthropic em que o Claude trabalha como agente proativo: ele avisa o que precisa da sua atenção, faz as tarefas que você entrega, continua trabalhando quando você se afasta e consulta você antes de agir em seu nome. Foi aberto como prévia de pesquisa com lista de espera em 21 de outubro de 2026, para assinantes do Pro, Max e Ultra nos EUA. Este guia explica o que ele faz, como conseguir acesso, quanto custa, seus limites de segurança e como se compara.",
-    cta: "Acesso antecipado",
+    cta: "Começar",
     secondary: "Como conseguir acesso",
     secondaryHref: "#how-to",
   },
@@ -108,8 +108,8 @@ export const copy: GuideCopy = {
         ["Inicia o trabalho", "Suas mensagens e verificações a cada poucas horas", "Suas mensagens, agendamentos e a própria pesquisa dele", "Um heartbeat a cada 15–60 minutos no horário de trabalho"],
         ["Melhor em", "Caixa de entrada, agenda, faturas, resumos e painéis", "Pesquisa e tarefas nos seus apps conectados", "Código, SEO e outros trabalhos em um repositório, um funcionário por cargo"],
         ["Fila de trabalho", "Uma conversa contínua", "Conversas e Scheduled", "Issues em um quadro kanban"],
-        ["Custo", "Incluído no Pro, Max e Ultra (EUA)", "Planos Pro e Business Premium", "Acesso antecipado; roda com o agente e o plano que você já tem"],
-        ["Status", "Prévia de pesquisa, lista de espera", "Em liberação gradual", "Acesso antecipado"],
+        ["Custo", "Incluído no Pro, Max e Ultra (EUA)", "Planos Pro e Business Premium", "Cadastro aberto; roda com o agente e o plano que você já tem"],
+        ["Status", "Prévia de pesquisa, lista de espera", "Em liberação gradual", "Cadastro aberto"],
       ],
     },
     {
@@ -140,7 +140,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Gostou da ideia de um agente que manda mensagem primeiro?",
     text: "O Crewmark faz isso para o Claude Code e o Codex: um heartbeat, horário de trabalho e um quadro de issues, no plano que você já paga.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   faq: {
     title: "FAQ do Claude Duet",
@@ -178,7 +178,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Deixe proativas também as suas sessões do Claude Code.",
     text: "O Crewmark transforma sessões do Claude Code, do Codex e do DeepSeek Harness em funcionários de IA com cargos, metas, horário de trabalho e um heartbeat.",
-    button: "Acesso antecipado",
+    button: "Começar",
   },
   checked: "Conferido com o anúncio do Claude Duet da Anthropic, a página do produto e o artigo de segurança em 5 de novembro de 2026.",
   disclaimer:

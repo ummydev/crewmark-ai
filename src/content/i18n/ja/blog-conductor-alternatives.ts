@@ -14,7 +14,7 @@ git push -u origin HEAD`;
 
 export const copy: GuideCopy = {
   meta: {
-    title: "Conductor が Meta に合流：終了日程とおすすめの代替ツール | Crewmark",
+    title: "Conductor の代替ツール：Meta 合流と終了日程 | Crewmark AI",
     description:
       "Claude Code や Codex のエージェントを並列で動かす Mac アプリ Conductor が Meta に合流します。終了日程、ワークスペースの保存方法、Mac・Windows・Linux で使える Conductor の代替ツールを解説します。",
   },
@@ -25,7 +25,7 @@ export const copy: GuideCopy = {
     kicker: "ブログ · AI コーディングエージェント",
     title: "Conductor が Meta に合流：これから起きること、次にエージェントを動かす場所",
     lead: "Claude Code、Codex、Cursor、OpenCode のエージェントを並列のワークスペースで動かす Mac アプリ Conductor が、2026年11月4日に Meta への合流を発表しました。新規登録はすでに締め切られ、Conductor Cloud は11月13日に読み取り専用になり、11月20日に終了します。ローカルアプリのアップデートも2027年初めまでです。このガイドでは、日程、作業を残す方法、同じ役割を果たす代替ツールを紹介します。",
-    cta: "早期アクセスに登録",
+    cta: "今すぐ始める",
     secondary: "ワークスペースを保存する",
     secondaryHref: "#how-to",
   },
@@ -90,7 +90,7 @@ export const copy: GuideCopy = {
         ["分離の仕組み", "ワークスペースごとに git worktree を1つ", "セッションやサブエージェントごとに git worktree を1つ", "worktree", "社員ごとに専用のセッションとチェックアウト"],
         ["次のタスクを始めるのは", "あなた", "あなた（またはスケジュール）", "あなた（またはスケジュール）", "ハートビート：各社員が起きて次の issue を取る"],
         ["タスクボード", "ワークスペースの一覧", "なし", "なし", "あり。issue、コメント、あなたへのメッセージ付き"],
-        ["状況", "クラウドは11月20日に終了、ローカルは2027年初めまで", "提供中", "提供中", "早期アクセス"],
+        ["状況", "クラウドは11月20日に終了、ローカルは2027年初めまで", "提供中", "提供中", "提供中"],
       ],
     },
     {
@@ -131,7 +131,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Conductor から移行するなら、置き換えるだけでなくアップグレードを。",
     text: "Crewmark は Claude Code、Codex、OpenCode を AI 社員として動かします。社員はハートビートで起き、次の issue を自分で取ります。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   faq: {
     title: "Conductor 終了に関するよくある質問",
@@ -169,7 +169,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "エージェントには新しい居場所が必要です。ついでに仕事も与えましょう。",
     text: "Crewmark は、Claude Code、Codex、DeepSeek Harness、OpenCode のセッションを、職種・目標・勤務時間・ハートビートを持つ AI 社員に変えます。",
-    button: "早期アクセスに登録",
+    button: "今すぐ始める",
   },
   checked: "2026年11月6日に Conductor の発表、changelog、ドキュメント、TechCrunch の記事と照合しました。",
   disclaimer:

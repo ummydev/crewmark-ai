@@ -3,7 +3,7 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 // French translation of /proactive-codex; the English master is src/content/proactive-codex.ts.
 export const copy: GuideCopy = {
   meta: {
-    title: "Rendre Codex proactif : tâches planifiées et cron | Crewmark",
+    title: "Codex proactif : tâches planifiées et cron | Crewmark AI",
     description:
       "Codex et ChatGPT qui agissent sans vous attendre : tâches planifiées (ex-Automations), codex exec et cron, GitHub Action, pulsation (heartbeat).",
   },
@@ -12,7 +12,7 @@ export const copy: GuideCopy = {
     kicker: "Codex proactif",
     title: "Comment rendre Codex proactif",
     lead: "Un agent Codex proactif n’attend pas dans une conversation. Il gère lui-même les validations de routine, tourne selon un planning, réagit à une pull request ou à un message Slack, et rend compte. OpenAI propose une brique pour chacun de ces points, et ChatGPT en partage certaines. Ce guide montre comment les configurer, ce que chacune ne sait pas faire, et comment confier à Codex un poste permanent plutôt qu’un prompt ponctuel. Aucune ne vous donne une pulsation (heartbeat) : réveiller la même conversation à intervalles réguliers pour qu’elle prenne sa tâche suivante. Nous présentons l’option intégrée la plus proche et la façon dont Crewmark en ajoute une.",
-    cta: "Accès anticipé",
+    cta: "Commencer",
     secondary: "Aller aux étapes",
     secondaryHref: "#how-to",
   },
@@ -164,7 +164,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "Un poste permanent pour Codex, pas un prompt planifié",
     text: "Crewmark réveille votre conversation Codex au rythme d’une pulsation pendant les heures de travail et lui confie le ticket suivant du tableau.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   faq: {
     title: "FAQ",
@@ -202,7 +202,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "Faites de Codex votre premier employé IA",
     text: "Donnez-lui un rôle, un objectif, des horaires de travail et une pulsation, puis assignez-lui son premier ticket.",
-    button: "Accès anticipé",
+    button: "Commencer",
   },
   checked: "Vérifié dans la documentation Codex d’OpenAI le 2 novembre 2026.",
   disclaimer:

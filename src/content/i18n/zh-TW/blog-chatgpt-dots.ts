@@ -7,7 +7,7 @@ const announcement = "https://openai.com/index/introducing-dots/";
 
 export const copy: GuideCopy = {
   meta: {
-    title: "ChatGPT dots 是什麼：用法與價格 | Crewmark",
+    title: "ChatGPT dots 是什麼：用法與價格 | Crewmark AI",
     description:
       "ChatGPT dots 是 OpenAI 的常駐代理。它能做什麼、哪些方案可用、如何設定、自訂規則、限制，以及與同類產品的比較。",
   },
@@ -18,7 +18,7 @@ export const copy: GuideCopy = {
     kicker: "部落格 · ChatGPT",
     title: "ChatGPT dots 是什麼，怎麼用",
     lead: "dots 是 ChatGPT 裡的常駐代理（agent），於 2026 年 9 月 29 日在 OpenAI DevDay 上發表。每個 dot 都有自己的雲端電腦和瀏覽器，能連接你的應用程式，從回饋中學習，並在你不在的時候繼續朝你的目標推進。本文說明誰能使用、要花多少錢、如何設定、約束它的規則，以及它目前還做不到什麼。",
-    cta: "申請搶先體驗",
+    cta: "開始使用",
     secondary: "跳到設定步驟",
     secondaryHref: "#how-to",
   },
@@ -121,7 +121,7 @@ export const copy: GuideCopy = {
         ["如何開始工作", "你的訊息、排程、它自己的研究", "透過觀察你工作來學習例行流程", "工作時間內每 15–60 分鐘一次心跳"],
         ["工作佇列", "對話串和 Scheduled", "未公開說明", "看板上的任務"],
         ["目標", "你描述的目標", "未公開說明", "以數字表示的 KPI，例如每月點擊數 +10%"],
-        ["方案", "Pro、Business Premium、Enterprise beta", "SuperGrok 和 Cursor 方案，beta", "搶先體驗；用你現有的 Claude 或 ChatGPT 方案執行"],
+        ["方案", "Pro、Business Premium、Enterprise beta", "SuperGrok 和 Cursor 方案，beta", "開放註冊；用你現有的 Claude 或 ChatGPT 方案執行"],
       ],
     },
     {
@@ -152,7 +152,7 @@ export const copy: GuideCopy = {
   mid: {
     title: "想為你的程式碼庫配一個常駐代理？",
     text: "Crewmark 用心跳讓你的 Claude Code 或 Codex 工作階段持續工作，用的就是你已經付費的方案。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   faq: {
     title: "ChatGPT dots 常見問題",
@@ -186,7 +186,7 @@ export const copy: GuideCopy = {
   cta: {
     title: "讓你已經在用的代理始終在線。",
     text: "Crewmark 把 Claude Code 和 Codex 工作階段變成有職位、有目標、有工作時間和心跳的 AI 員工。",
-    button: "申請搶先體驗",
+    button: "開始使用",
   },
   checked: "已於 2026 年 11 月 2 日對照 OpenAI 的發表公告、說明中心、版本資訊和價格頁面查核。",
   disclaimer:
