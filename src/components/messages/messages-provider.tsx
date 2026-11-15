@@ -8,7 +8,7 @@ import { getDirectThreads } from "@/lib/actions";
 import type { DirectThread } from "@/lib/types";
 
 // The signed-in person's direct conversations with employees (MC-169), kept current for the whole dashboard: the
-// sidebar's unread badge, the tab title's count and the Messages page. Crewmark pushes when a conversation changes;
+// sidebar's unread badge, the tab title's count (with the Inbox's, see InboxProvider) and the Messages page. Crewmark pushes when a conversation changes;
 // without pushes it checks every so often while someone's at the page.
 
 interface Messages {
@@ -68,7 +68,6 @@ export function MessagesProvider({ children }: { children: React.ReactNode }) {
   }, [pushed, refresh]);
 
   const unread = threads?.reduce((sum, thread) => sum + thread.unread, 0) ?? 0;
-  useTitleCount(unread);
 
   const value = React.useMemo(() => ({ threads, unread, refresh }), [threads, unread, refresh]);
   return <MessagesContext.Provider value={value}>{children}</MessagesContext.Provider>;
@@ -81,7 +80,7 @@ export function useMessages() {
 }
 
 /** Puts the unread count in front of the tab's title, e.g. "(2) Issues", whatever page sets the title. */
-function useTitleCount(count: number) {
+export function useTitleCount(count: number) {
   React.useEffect(() => {
     const apply = () => {
       const base = document.title.replace(/^\(\d+\) /, "");

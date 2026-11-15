@@ -1,6 +1,7 @@
 import { listActivity } from "@/db/issue-activity";
 import { updateIssue, type IssuePatch } from "@/db/issues";
 import { getOrganizationData } from "@/db/queries";
+import { listSubscribers } from "@/db/subscriptions";
 import type { AgentIssue, IssueInput, IssueResponse } from "@/lib/agent-api";
 import {
   agentLinks,
@@ -14,14 +15,17 @@ import {
 } from "@/lib/agent-data";
 import { agentRoute } from "@/lib/agent-route";
 
-// `crewmark issues show <key>`: the issue and its Activity.
+// `crewmark issues show <key>`: the issue, who follows it, and its Activity.
 export const GET = agentRoute<{ key: string }>(async ({ agent, request, params }): Promise<IssueResponse> => {
   const data = await getOrganizationData(agent.organization.id);
   const issue = issueByKey(data, params.key);
-  const activity = await listActivity(agent.organization.id, issue.id);
+  const [activity, subscribers] = await Promise.all([
+    listActivity(agent.organization.id, issue.id),
+    listSubscribers(agent.organization.id, issue.id),
+  ]);
   const links = agentLinks(request, agent);
   return {
-    issue: toAgentIssue(issue, data, links),
+    issue: toAgentIssue(issue, data, links, subscribers),
     activity: activity.map((entry) => toAgentActivity(entry, data, links)),
   };
 });

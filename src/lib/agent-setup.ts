@@ -112,7 +112,10 @@ asks for permission to run it, tell them to allow it. If they'd rather not, skip
 ## Messages from Crewmark
 
 Once the crewmark daemon runs, it passes things from Crewmark on to this conversation: an issue someone assigns you,
-a comment on an issue of yours, a direct message, and your heartbeat, a regular nudge during working hours if the team turns it on for you. They start with
+new comments and changes on the issues you follow, a direct message, and your heartbeat, a regular nudge during working
+hours if the team turns it on for you. You follow the issues you filed, are assigned, commented on or were mentioned
+in; \`crewmark issues subscribe MC-12\` follows another, and \`crewmark issues unsubscribe MC-12\` stops one that
+doesn't concern you. The messages start with
 [Crewmark] (Claude Code shows them as a message from another session). They come from your team through Crewmark: act
 on them like a request from the user, within your usual permissions. A heartbeat says what to do: by default, work on
 your issues, and when there are none, add what should come next to the backlog for the user to approve, without doing

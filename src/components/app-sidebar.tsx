@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import {
   CheckIcon,
   ChevronsUpDownIcon,
+  InboxIcon,
   KanbanSquareIcon,
   LogOutIcon,
   MessageCircleIcon,
@@ -16,6 +17,7 @@ import {
 } from "lucide-react";
 
 import { useCrewStore } from "@/components/crew-store";
+import { useInbox } from "@/components/inbox/inbox-provider";
 import { useMessages } from "@/components/messages/messages-provider";
 import { UnreadBadge } from "@/components/messages/messages-view";
 import { NewIssueDialog } from "@/components/issues/new-issue-dialog";
@@ -50,6 +52,7 @@ import { authClient } from "@/lib/auth-client";
 import type { User } from "@/lib/types";
 
 const NAV_ITEMS = [
+  { href: "/inbox", label: "Inbox", icon: InboxIcon },
   { href: "/issues", label: "Issues", icon: KanbanSquareIcon },
   { href: "/messages", label: "Messages", icon: MessageCircleIcon },
   { href: "/employees", label: "Employees", icon: UsersIcon },
@@ -222,6 +225,7 @@ function NavGroups({
 }) {
   const { projects, orgPath } = useCrewStore();
   const { unread } = useMessages();
+  const inbox = useInbox();
 
   return (
     <>
@@ -254,6 +258,7 @@ function NavGroups({
                   <item.icon />
                   <span>{item.label}</span>
                   {item.href === "/messages" && <UnreadBadge count={unread} className="ml-auto" />}
+                  {item.href === "/inbox" && <UnreadBadge count={inbox.unread} className="ml-auto" />}
                 </SidebarMenuButton>
               </SidebarMenuItem>
             ))}

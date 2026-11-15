@@ -1,14 +1,16 @@
 import "server-only";
 
-import { and, asc, desc, eq, gt } from "drizzle-orm";
+import { and, asc, desc, eq, gt, inArray } from "drizzle-orm";
 
 import { db } from "@/db";
 import type { IssueCreator } from "@/db/issues";
-import { agentEvents, employees, users } from "@/db/schema";
+import { agentEvents, employees, projects, users } from "@/db/schema";
+import { subscribedEmployees } from "@/db/subscriptions";
 import type { AgentEvent } from "@/lib/agent-api";
 import { mentionedEmployees } from "@/lib/mentions";
 import { pushToDaemons } from "@/lib/realtime";
-import { ISSUE_STATUSES } from "@/lib/types";
+import { describeRecurrence, parseRecurrence } from "@/lib/recurrence";
+import { ISSUE_PRIORITIES, ISSUE_STATUSES, type IssueActivityKind } from "@/lib/types";
 
 // Events for employees' agents: written when something on Crewmark concerns an employee, read by the crewmark CLI's
 // daemon from GET /api/agent/events, which hands each message to the agent's conversation. The daemon fetches when
@@ -75,17 +77,27 @@ export async function notifyRecurred(
 /** How much of a comment an agent is told; it reads the rest with `crewmark issues show`. */
 const COMMENT_PREVIEW = 1500;
 
-type CommentedIssue = { key: string; title: string; assigneeId: string | null };
+type CommentedIssue = { id: string; key: string; title: string; assigneeId: string | null };
 
 /** What an agent is told about a comment: who wrote it, how it concerns the agent ("commented on", "mentioned you
- * in a comment on"), the comment, and what to do about it. */
-async function commentMessage(issue: CommentedIssue, body: string, actor: IssueCreator, how: string) {
+ * in a comment on"), the comment, and what to do about it (by default, act on it and answer). */
+async function commentMessage(issue: CommentedIssue, body: string, actor: IssueCreator, how: string, then?: string) {
   const preview = body.length > COMMENT_PREVIEW ? `${body.slice(0, COMMENT_PREVIEW)}…` : body;
   return (
     `${await actorName(actor)} ${how} ${issue.key} "${issue.title}":\n\n` +
     `${preview.replace(/^/gm, "> ")}\n\n` +
-    `Run \`crewmark issues show ${issue.key}\` for the issue and its whole conversation. Act on the comment, and ` +
-    `answer with \`crewmark issues comment ${issue.key} "<your reply>"\` when it asks you something or you have news.`
+    `Run \`crewmark issues show ${issue.key}\` for the issue and its whole conversation. ` +
+    (then ??
+      `Act on the comment, and answer with \`crewmark issues comment ${issue.key} "<your reply>"\` when it asks you ` +
+        "something or you have news.")
+  );
+}
+
+/** What a subscriber is told to do about news of an issue: only what concerns it, and how to stop hearing. */
+function asSubscriber(key: string) {
+  return (
+    "You're told because you're subscribed to it: act or answer only if it concerns you. To stop hearing about it, " +
+    `run \`crewmark issues unsubscribe ${key}\`.`
   );
 }
 
@@ -104,17 +116,23 @@ export async function notifyCommented(organizationId: string, issue: CommentedIs
 
 /**
  * Tells the agents of the employees a comment mentions (@name, see mentionedEmployees) that it did, besides the
- * assignee's, which notifyCommented tells, and the author's.
+ * assignee's, which notifyCommented tells, and the author's. Returns everyone it mentions but the author.
  */
-export async function notifyMentioned(organizationId: string, issue: CommentedIssue, body: string, actor: IssueCreator) {
-  if (!body.includes("@")) return;
+export async function notifyMentioned(
+  organizationId: string,
+  issue: CommentedIssue,
+  body: string,
+  actor: IssueCreator,
+): Promise<string[]> {
+  if (!body.includes("@")) return [];
   const staff = await db
     .select({ id: employees.id, name: employees.name })
     .from(employees)
     .where(eq(employees.organizationId, organizationId));
   const author = "employeeId" in actor ? actor.employeeId : null;
-  const employeeIds = mentionedEmployees(body, staff).filter((id) => id !== author && id !== issue.assigneeId);
-  if (employeeIds.length === 0) return;
+  const mentioned = mentionedEmployees(body, staff).filter((id) => id !== author);
+  const employeeIds = mentioned.filter((id) => id !== issue.assigneeId);
+  if (employeeIds.length === 0) return mentioned;
   const message = await commentMessage(issue, body, actor, "mentioned you in a comment on");
   await db
     .insert(agentEvents)
@@ -126,6 +144,109 @@ export async function notifyMentioned(organizationId: string, issue: CommentedIs
         message,
       })),
     );
+  pushToDaemons(organizationId, employeeIds, "events");
+  return mentioned;
+}
+
+/** Tells the employees who follow the issue (MC-200) about a comment, but for its author and those in `told`. */
+export async function notifySubscribersOfComment(
+  organizationId: string,
+  issue: CommentedIssue,
+  body: string,
+  actor: IssueCreator,
+  told: (string | null)[],
+) {
+  const author = "employeeId" in actor ? actor.employeeId : null;
+  const employeeIds = await subscribedEmployees(issue.id, [author, ...told]);
+  if (employeeIds.length === 0) return;
+  const message = await commentMessage(
+    issue,
+    body,
+    actor,
+    "commented on an issue you're subscribed to,",
+    asSubscriber(issue.key),
+  );
+  await db
+    .insert(agentEvents)
+    .values(employeeIds.map((employeeId) => ({ organizationId, employeeId, type: "subscribed_comment", message })));
+  pushToDaemons(organizationId, employeeIds, "events");
+}
+
+/** A change to one of an issue's tracked properties, its values as stored (an enum value, an id, a schedule). */
+export type IssueChange = { kind: IssueActivityKind; from: string | null; to: string | null };
+
+const CHANGE_LABELS: Partial<Record<IssueActivityKind, string>> = {
+  status: "Status",
+  priority: "Priority",
+  assignee: "Assignee",
+  project: "Project",
+  repeat: "Repeats",
+};
+
+/** The changes as lines of "Status: In Progress → Done", with names for the people, employees and projects. */
+async function changeLines(changes: IssueChange[]) {
+  const ids = (kind: IssueActivityKind) =>
+    changes.filter((c) => c.kind === kind).flatMap((c) => [c.from, c.to].filter((v) => v !== null));
+  const [people, staff, places] = await Promise.all([
+    ids("assignee").length
+      ? db.select({ id: users.id, name: users.name, username: users.username }).from(users).where(inArray(users.id, ids("assignee")))
+      : [],
+    ids("assignee").length
+      ? db.select({ id: employees.id, name: employees.name }).from(employees).where(inArray(employees.id, ids("assignee")))
+      : [],
+    ids("project").length
+      ? db.select({ id: projects.id, name: projects.name }).from(projects).where(inArray(projects.id, ids("project")))
+      : [],
+  ]);
+  const label = (kind: IssueActivityKind, value: string | null) => {
+    if (value === null) return kind === "repeat" ? "off" : "none";
+    switch (kind) {
+      case "status":
+        return ISSUE_STATUSES.find((s) => s.value === value)?.label ?? value;
+      case "priority":
+        return ISSUE_PRIORITIES.find((p) => p.value === value)?.label ?? value;
+      case "assignee": {
+        const person = people.find((u) => u.id === value);
+        return staff.find((e) => e.id === value)?.name ?? (person ? person.name || person.username : "someone deleted since");
+      }
+      case "project":
+        return places.find((p) => p.id === value)?.name ?? "a deleted project";
+      case "repeat":
+        try {
+          const schedule = parseRecurrence(value);
+          return `${describeRecurrence(schedule)} (${schedule.timeZone})`;
+        } catch {
+          return value;
+        }
+      default:
+        return value;
+    }
+  };
+  return changes.map((c) => `- ${CHANGE_LABELS[c.kind] ?? c.kind}: ${label(c.kind, c.from)} → ${label(c.kind, c.to)}`);
+}
+
+/**
+ * Tells the employees who follow the issue (MC-200) that someone changed its status, priority, assignee, project or
+ * schedule, but for whoever did it and those in `told` (a new assignee, told it was assigned the issue).
+ */
+export async function notifySubscribersOfChanges(
+  organizationId: string,
+  issue: { id: string; key: string; title: string },
+  changes: IssueChange[],
+  actor: IssueCreator,
+  told: (string | null)[],
+) {
+  if (changes.length === 0) return;
+  const author = "employeeId" in actor ? actor.employeeId : null;
+  const employeeIds = await subscribedEmployees(issue.id, [author, ...told]);
+  if (employeeIds.length === 0) return;
+  const message =
+    `${await actorName(actor)} changed ${issue.key} "${issue.title}", an issue you're subscribed to:\n\n` +
+    `${(await changeLines(changes)).join("\n")}\n\n` +
+    `Run \`crewmark issues show ${issue.key}\` for the issue. ${asSubscriber(issue.key)}`;
+  await db
+    .insert(agentEvents)
+    .values(employeeIds.map((employeeId) => ({ organizationId, employeeId, type: "subscribed_change", message })));
   pushToDaemons(organizationId, employeeIds, "events");
 }
 

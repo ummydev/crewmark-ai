@@ -20,10 +20,12 @@ type fakeCrewmark struct {
 	calls    map[string]int
 	sockets  []*websocket.Conn
 	noPushes bool
+	// What the daemon sent up the socket, other than pings.
+	received chan []byte
 }
 
 func newFakeCrewmark(t *testing.T) *fakeCrewmark {
-	f := &fakeCrewmark{calls: map[string]int{}}
+	f := &fakeCrewmark{calls: map[string]int{}, received: make(chan []byte, 64)}
 	f.Server = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		f.mu.Lock()
 		f.calls[r.URL.Path]++
@@ -54,6 +56,8 @@ func newFakeCrewmark(t *testing.T) *fakeCrewmark {
 				}
 				if string(data) == "ping" {
 					conn.Write(context.Background(), websocket.MessageText, []byte("pong"))
+				} else {
+					f.received <- data
 				}
 			}
 		case "/api/agent/events":
@@ -79,6 +83,15 @@ func (f *fakeCrewmark) push(kind string) {
 	defer f.mu.Unlock()
 	for _, conn := range f.sockets {
 		conn.Write(context.Background(), websocket.MessageText, []byte(`{"type":"`+kind+`"}`))
+	}
+}
+
+// say sends this message down the open sockets, as the Worker relays the web's.
+func (f *fakeCrewmark) say(message string) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	for _, conn := range f.sockets {
+		conn.Write(context.Background(), websocket.MessageText, []byte(message))
 	}
 }
 

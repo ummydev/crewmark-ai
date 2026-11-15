@@ -346,6 +346,37 @@ export const issueActivity = pgTable(
 );
 
 /**
+ * Who follows an issue (MC-200): people and digital employees told about its new comments and changes, as in
+ * Linear. Its creator, its assignees, whoever comments and the employees a comment mentions are added on their own;
+ * anyone can add or remove themselves or others, except the assignee, who stays while assigned (db/subscriptions.ts).
+ * A person hears in their Inbox, which the two timestamps keep; an employee's agent through agent events.
+ */
+export const issueSubscriptions = pgTable(
+  "issue_subscriptions",
+  {
+    id: id(),
+    organizationId: organizationId(),
+    issueId: text("issue_id")
+      .notNull()
+      .references(() => issues.id, { onDelete: "cascade" }),
+    userId: text("user_id").references(() => users.id, { onDelete: "cascade" }),
+    employeeId: text("employee_id").references(() => employees.id, { onDelete: "cascade" }),
+    /** A person's: when someone else last commented on or changed the issue; null until then. */
+    notifiedAt: timestamp("notified_at", { withTimezone: true }),
+    /** A person's: when they last saw the issue. It's unread in their Inbox while notifiedAt is later. */
+    readAt: timestamp("read_at", { withTimezone: true }),
+    createdAt: createdAt(),
+  },
+  (t) => [
+    uniqueIndex().on(t.issueId, t.userId),
+    uniqueIndex().on(t.issueId, t.employeeId),
+    index().on(t.userId, t.notifiedAt),
+    index().on(t.employeeId),
+    check("issue_subscriptions_one_subscriber", sql`(${t.userId} is null) <> (${t.employeeId} is null)`),
+  ],
+);
+
+/**
  * Images pasted or dropped into an issue's description or a comment, which link to them as /api/attachments/<id>.
  * The file is in object storage under <organization id>/<id> (src/lib/attachments.ts); only the organization's
  * members, and agents through signed links, can open it.

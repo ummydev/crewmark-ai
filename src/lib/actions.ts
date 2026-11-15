@@ -21,6 +21,7 @@ import { insertAttachment } from "@/db/attachments";
 import { directThreadsOfUser, readDirectMessages, sendDirectMessage } from "@/db/direct-messages";
 import { addComment, listActivity } from "@/db/issue-activity";
 import { insertProject, saveProject, type ProjectPatch } from "@/db/projects";
+import { inboxOf, listSubscribers, markInboxRead, markIssueRead, setSubscribed } from "@/db/subscriptions";
 import { employees } from "@/db/schema";
 import { createSetupToken, getConnection } from "@/lib/agent-auth";
 import { storage, uploadTarget } from "@/lib/attachments";
@@ -33,6 +34,7 @@ import type {
   DirectThread,
   Employee,
   ImageUpload,
+  InboxItem,
   Issue,
   IssueActivity,
   Project,
@@ -89,6 +91,40 @@ export async function deleteIssue(organizationId: string, id: string): Promise<v
 export async function getIssueActivity(organizationId: string, issueId: string): Promise<IssueActivity[]> {
   await requireMember(organizationId);
   return listActivity(organizationId, text(issueId, "issueId", { required: true }));
+}
+
+/** The ids of the people and employees who follow the issue (MC-200). */
+export async function getIssueSubscribers(organizationId: string, issueId: string): Promise<string[]> {
+  await requireMember(organizationId);
+  return listSubscribers(organizationId, text(issueId, "issueId", { required: true }));
+}
+
+/**
+ * Adds someone to the issue's subscribers or removes them: the signed-in person, a member or an employee, by id. The
+ * assignee can't be removed.
+ */
+export async function setIssueSubscription(
+  organizationId: string,
+  issueId: string,
+  subscriberId: string,
+  subscribed: boolean,
+): Promise<void> {
+  await requireMember(organizationId);
+  if (typeof subscribed !== "boolean") throw new Error("subscribed must be true or false");
+  await setSubscribed(organizationId, issueId, subscriberId, subscribed);
+}
+
+/** The signed-in person's Inbox: issues they follow on which someone else did something, latest first. */
+export async function getInbox(organizationId: string): Promise<InboxItem[]> {
+  const userId = await requireMember(organizationId);
+  return inboxOf(organizationId, userId);
+}
+
+/** The signed-in person has seen the issue (or, without one, everything in their Inbox). */
+export async function markInboxSeen(organizationId: string, issueId?: string): Promise<void> {
+  const userId = await requireMember(organizationId);
+  if (issueId === undefined) await markInboxRead(organizationId, userId);
+  else await markIssueRead(organizationId, text(issueId, "issueId", { required: true }), userId);
 }
 
 /** Where this tab opens its socket for pushes, or null when Crewmark has none (see src/lib/realtime.ts). */

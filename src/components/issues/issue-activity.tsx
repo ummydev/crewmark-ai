@@ -6,15 +6,24 @@ import { toast } from "sonner";
 
 import { useCrewStore } from "@/components/crew-store";
 import { EmployeeAvatar } from "@/components/employee-avatar";
+import { useInbox } from "@/components/inbox/inbox-provider";
 import { useFindAssignee } from "@/components/issues/assignee";
 import { MarkdownEditor, MarkdownView } from "@/components/markdown-editor";
 import { useImageUpload } from "@/components/use-image-upload";
 import { useRealtime } from "@/components/use-realtime";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Skeleton } from "@/components/ui/skeleton";
 import { UserAvatar } from "@/components/user-avatar";
-import { commentOnIssue, getIssueActivity } from "@/lib/actions";
+import { commentOnIssue, getIssueActivity, getIssueSubscribers, setIssueSubscription } from "@/lib/actions";
 import { track } from "@/lib/analytics";
 import { fullDate, timeAgo } from "@/lib/format";
 import { describeRecurrence, parseRecurrence } from "@/lib/recurrence";
@@ -39,19 +48,26 @@ const ACTIVITY_EVENTS = ["pointermove", "pointerdown", "keydown", "wheel", "touc
 const AFTER_SAVE_MS = 1500;
 
 /**
- * Loads the issue's Activity and keeps it current. `append` shows an entry this page just added, and stops answers
- * to requests made before it from hiding it.
+ * Loads the issue's Activity and who follows it, and keeps them current. `append` shows an entry this page just
+ * added, and stops answers to requests made before it from hiding it; `setSubscribers` shows a change to the list
+ * before it's saved.
  */
 function useActivity(issue: Issue) {
   const { organization } = useCrewStore();
   const [entries, setEntries] = React.useState<IssueActivity[] | null>(null);
+  const [subscribers, setSubscribers] = React.useState<string[] | null>(null);
   const version = React.useRef(0);
 
   const load = React.useCallback(async () => {
     const asked = version.current;
     try {
-      const latest = await getIssueActivity(organization.id, issue.id);
-      if (asked === version.current) setEntries(latest);
+      const [latest, following] = await Promise.all([
+        getIssueActivity(organization.id, issue.id),
+        getIssueSubscribers(organization.id, issue.id),
+      ]);
+      if (asked !== version.current) return;
+      setEntries(latest);
+      setSubscribers(following);
     } catch (error) {
       console.error(error);
     }
@@ -111,18 +127,40 @@ function useActivity(issue: Issue) {
     setEntries((prev) => [...(prev ?? []), entry]);
   }, []);
 
-  return { entries, append };
+  const changeSubscribers = React.useCallback((next: React.SetStateAction<string[] | null>) => {
+    version.current++;
+    setSubscribers(next);
+  }, []);
+
+  return { entries, append, subscribers, setSubscribers: changeSubscribers };
+}
+
+/** While the person has the issue open in front of them, it's read in their Inbox, news that arrives included. */
+function useMarkRead(issueId: string) {
+  const { items, markRead } = useInbox();
+  const unread = items?.some((item) => item.issueId === issueId && item.unread) ?? false;
+  React.useEffect(() => {
+    if (!unread) return;
+    const mark = () => document.visibilityState === "visible" && markRead(issueId);
+    mark();
+    document.addEventListener("visibilitychange", mark);
+    return () => document.removeEventListener("visibilitychange", mark);
+  }, [unread, issueId, markRead]);
 }
 
 /** The Activity under an issue, like Linear's: when it was filed, changes to it, and comments, with a comment box. */
 export function IssueActivitySection({ issue }: { issue: Issue }) {
-  const { entries, append } = useActivity(issue);
+  const { entries, append, subscribers, setSubscribers } = useActivity(issue);
+  useMarkRead(issue.id);
 
   return (
     <section aria-labelledby="issue-activity" className="mt-8 grid gap-4 border-t border-rule pt-6">
-      <h2 id="issue-activity" className="text-[13px] font-medium">
-        Activity
-      </h2>
+      <div className="flex min-h-7 items-center gap-3">
+        <h2 id="issue-activity" className="text-[13px] font-medium">
+          Activity
+        </h2>
+        {subscribers && <Subscribers issue={issue} ids={subscribers} onChange={setSubscribers} />}
+      </div>
       <ol className="grid gap-4">
         <Event userId={issue.createdByUserId} employeeId={issue.createdByEmployeeId} at={issue.createdAt}>
           created the issue
@@ -150,8 +188,113 @@ export function IssueActivitySection({ issue }: { issue: Issue }) {
   );
 }
 
+/**
+ * Who follows the issue (MC-200), as in Linear: a Subscribe / Unsubscribe button for the signed-in person, and their
+ * faces, which open a list of everyone to tick or untick. The assignee stays ticked while assigned.
+ */
+function Subscribers({
+  issue,
+  ids,
+  onChange,
+}: {
+  issue: Issue;
+  ids: string[];
+  onChange: (next: React.SetStateAction<string[] | null>) => void;
+}) {
+  const { organization, currentUser, members, employees } = useCrewStore();
+  const subscribed = ids.includes(currentUser.id);
+  const assignedToMe = issue.assigneeId === currentUser.id;
+
+  async function toggle(id: string, on: boolean) {
+    if (!on && id === issue.assigneeId) return;
+    onChange((prev) => (on ? [...(prev ?? []), id] : (prev ?? []).filter((x) => x !== id)));
+    try {
+      await setIssueSubscription(organization.id, issue.id, id, on);
+      track("issue subscription changed", {
+        subscribed: on,
+        self: id === currentUser.id,
+        employee: employees.some((e) => e.id === id),
+      });
+    } catch (error) {
+      console.error(error);
+      onChange((prev) => (on ? (prev ?? []).filter((x) => x !== id) : [...(prev ?? []), id]));
+      toast.error("Couldn't change who follows the issue. Try again.");
+    }
+  }
+
+  // Everyone who can follow it: those who do first, in the order they started, then the rest, people before employees.
+  const everyone = [
+    ...members.map((m) => ({ id: m.id, name: m.name || m.username, avatar: <UserAvatar user={m} /> })),
+    ...employees
+      .map((e) => ({ id: e.id, name: e.name, avatar: <EmployeeAvatar employee={e} size="sm" /> }))
+      .sort((a, b) => a.name.localeCompare(b.name)),
+  ];
+  const following = ids.flatMap((id) => everyone.filter((p) => p.id === id));
+  const rest = everyone.filter((p) => !ids.includes(p.id));
+  const faces = following.slice(0, 3);
+
+  return (
+    <div className="ml-auto flex items-center gap-2">
+      <Button
+        variant="ghost"
+        size="sm"
+        className="text-muted-foreground"
+        disabled={subscribed && assignedToMe}
+        title={subscribed && assignedToMe ? "You follow it while it's assigned to you" : undefined}
+        onClick={() => toggle(currentUser.id, !subscribed)}
+      >
+        {subscribed ? "Unsubscribe" : "Subscribe"}
+      </Button>
+      <DropdownMenu>
+        <DropdownMenuTrigger
+          aria-label={`Subscribers: ${following.map((p) => p.name).join(", ") || "none"}`}
+          className="flex h-7 items-center rounded-full px-1 outline-none hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/30 data-popup-open:bg-muted"
+        >
+          {faces.length === 0 ? (
+            <span className="px-1 text-xs text-muted-foreground">No subscribers</span>
+          ) : (
+            <span className="flex items-center -space-x-1.5">
+              {faces.map((p) => (
+                <span key={p.id} className="flex rounded-full ring-2 ring-background">
+                  {p.avatar}
+                </span>
+              ))}
+              {following.length > faces.length && (
+                <span className="flex size-[18px] items-center justify-center rounded-full bg-muted text-[10px] font-medium text-muted-foreground ring-2 ring-background">
+                  +{following.length - faces.length}
+                </span>
+              )}
+            </span>
+          )}
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-64">
+          <DropdownMenuGroup>
+            <DropdownMenuLabel>Subscribers hear about new comments and changes</DropdownMenuLabel>
+            {[...following, ...rest].map((p) => {
+              const assignee = p.id === issue.assigneeId;
+              return (
+                <DropdownMenuCheckboxItem
+                  key={p.id}
+                  checked={ids.includes(p.id)}
+                  disabled={assignee && ids.includes(p.id)}
+                  closeOnClick={false}
+                  onCheckedChange={(on) => toggle(p.id, on)}
+                >
+                  {p.avatar}
+                  <span className="min-w-0 truncate">{p.name}</span>
+                  {assignee && <span className="shrink-0 text-xs text-muted-foreground">Assignee</span>}
+                </DropdownMenuCheckboxItem>
+              );
+            })}
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
+  );
+}
+
 /** Whoever did something: a digital employee, a person, or "Someone" once deleted. */
-function useActor(userId: string | null, employeeId: string | null) {
+export function useActor(userId: string | null, employeeId: string | null) {
   const { employees, users } = useCrewStore();
   const employee = employeeId ? employees.find((e) => e.id === employeeId) : undefined;
   const user = userId ? users.find((u) => u.id === userId) : undefined;
@@ -201,7 +344,7 @@ function Strong({ children }: { children: React.ReactNode }) {
 }
 
 /** What a change did, after the name of whoever made it. */
-function Change({ entry }: { entry: IssueActivity }) {
+export function Change({ entry }: { entry: IssueActivity }) {
   const { projects } = useCrewStore();
   const findAssignee = useFindAssignee();
   const { from, to } = entry;

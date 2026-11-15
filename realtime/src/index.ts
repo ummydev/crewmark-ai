@@ -9,6 +9,14 @@ import { DurableObject } from "cloudflare:workers";
 // from the web app as themselves. Only the kind of news goes through here, never its content. Sockets hibernate while
 // idle and pings are answered without waking the object, so an open socket costs next to nothing.
 //
+// The one exception is an employee's work (MC-186): while someone has it open in the dashboard, the object relays
+// between their tab and the employee's daemon, which reads the conversation on its computer. The tab says
+// {type: "worklog.watch", employeeId}, "worklog.unwatch" or {type: "worklog.more", employeeId, before}; the daemon
+// hears {type: "worklog.watch", watching} when the first tab starts watching and the last one stops, and the
+// "worklog.more" requests; what it sends back ("worklog" pages and turns, "worklog.unavailable") goes to the tabs
+// watching it, with the employeeId added. A tab whose employee has no daemon connected hears "worklog.offline".
+// None of it is kept.
+//
 //   GET  /connect?token=…  a socket; the token comes from the web app (/api/agent/realtime for daemons, an action for
 //                          the dashboard)
 //   POST /notify           the web app: {organizationId, kind, employeeIds} for daemons, or {organizationId, kind:
@@ -51,6 +59,8 @@ export class Organization extends DurableObject<Env> {
     if (!tag) return new Response("No tag", { status: 400 });
     const [client, server] = Object.values(new WebSocketPair());
     this.ctx.acceptWebSocket(server, [tag]);
+    // A daemon back after a drop picks up where it was, if someone is watching its employee's work.
+    if (tag !== PEOPLE && this.watchers(tag).length > 0) server.send(JSON.stringify({ type: "worklog.watch", watching: true }));
     return new Response(null, { status: 101, webSocket: client });
   }
 
@@ -109,8 +119,73 @@ export class Organization extends DurableObject<Env> {
     return told;
   }
 
-  // Daemons send nothing but pings, which never get here.
-  webSocketMessage() {}
+  /** Messages about an employee's work, from a dashboard tab or a daemon; pings never get here. */
+  webSocketMessage(socket: WebSocket, message: string | ArrayBuffer) {
+    if (typeof message !== "string" || !message.startsWith("{")) return;
+    let data: { type?: unknown; employeeId?: unknown; before?: unknown };
+    try {
+      data = JSON.parse(message);
+    } catch {
+      return;
+    }
+    const [tag] = this.ctx.getTags(socket);
+    if (tag === PEOPLE) this.fromTab(socket, data);
+    else if (typeof data.type === "string" && data.type.startsWith("worklog")) {
+      this.toWatchers(tag, { ...data, employeeId: tag });
+    }
+  }
+
+  /** A tab that closes stops watching. */
+  webSocketClose(socket: WebSocket) {
+    const [tag] = this.ctx.getTags(socket);
+    if (tag === PEOPLE) this.unwatch(socket);
+    else if (this.ctx.getWebSockets(tag).length === 0) this.toWatchers(tag, { type: "worklog.offline", employeeId: tag });
+  }
+
+  private fromTab(socket: WebSocket, data: { type?: unknown; employeeId?: unknown; before?: unknown }) {
+    if (data.type === "worklog.unwatch") return this.unwatch(socket);
+    // Daemons' tags are employee ids; anything else is no employee of this organization's and simply has no daemon.
+    if (typeof data.employeeId !== "string" || data.employeeId === PEOPLE) return;
+    const employeeId = data.employeeId;
+    if (data.type === "worklog.watch") {
+      this.unwatch(socket);
+      socket.serializeAttachment({ watching: employeeId });
+      // Each new watcher gets the latest page: the daemon sends it again to everyone watching.
+      if (!this.send(employeeId, { type: "worklog.watch", watching: true })) {
+        socket.send(JSON.stringify({ type: "worklog.offline", employeeId }));
+      }
+    } else if (data.type === "worklog.more" && typeof data.before === "number") {
+      if (!this.send(employeeId, { type: "worklog.more", before: data.before })) {
+        socket.send(JSON.stringify({ type: "worklog.offline", employeeId }));
+      }
+    }
+  }
+
+  /** The tab no longer watches; the last one to stop tells the daemon. */
+  private unwatch(socket: WebSocket) {
+    const watching = (socket.deserializeAttachment() as { watching?: string } | null)?.watching;
+    if (!watching) return;
+    socket.serializeAttachment(null);
+    if (this.watchers(watching).length === 0) this.send(watching, { type: "worklog.watch", watching: false });
+  }
+
+  /** The dashboard tabs watching the employee's work. */
+  private watchers(employeeId: string) {
+    return this.ctx
+      .getWebSockets(PEOPLE)
+      .filter((socket) => (socket.deserializeAttachment() as { watching?: string } | null)?.watching === employeeId);
+  }
+
+  private toWatchers(employeeId: string, message: object) {
+    const text = JSON.stringify(message);
+    for (const socket of this.watchers(employeeId)) {
+      try {
+        socket.send(text);
+      } catch {
+        // Closing as we speak.
+      }
+    }
+  }
 }
 
 export default {

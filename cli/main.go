@@ -14,7 +14,7 @@ import (
 )
 
 // version is bumped for every release of the binaries.
-var version = "0.6.4"
+var version = "0.8.0"
 
 const defaultURL = "https://crewmark.ai"
 
@@ -32,12 +32,18 @@ Getting started
                                   Link this conversation to the employee by hand, when setup couldn't
 
 Issues
-  issues [--all] [--status <s,...>] [--project <id>] [--assignee me|none|<who>]
-                                  List issues; without options, your open ones
-  issues show <KEY>               One issue in full with its comments and changes, e.g. issues show MC-7
+  issues [--all] [--status <s,...>] [--project <id>] [--assignee me|none|<who>] [--subscribed]
+                                  List issues; without options, your open ones. --subscribed: those you
+                                  follow
+  issues show <KEY>               One issue in full with its comments, changes and subscribers, e.g.
+                                  issues show MC-7
   issues comment <KEY> <text>     Comment on an issue: report progress, ask or answer a question. Markdown
-                                  works; pass - instead of the text to read it from stdin. The assignee is
-                                  told; to tell another employee too, mention it: @<name>, e.g. @DevOps crewmark
+                                  works; pass - instead of the text to read it from stdin. Its subscribers
+                                  are told; to tell another employee too, mention it: @<name>, e.g.
+                                  @DevOps crewmark. You and those you mention follow the issue from then on
+  issues subscribe <KEY>          Follow an issue: you're told about its new comments and changes. You
+                                  already follow those you filed, are assigned or commented on
+  issues unsubscribe <KEY>        Stop following it (not while it's assigned to you)
   issues create --title <text> [--description <text>] [--status <s>] [--priority <p>]
                 [--project <id>] [--assignee me|<who>] [--repeat <schedule>] [--timezone <zone>]
                                   Filed as you, the employee; from a conversation that isn't an
@@ -281,7 +287,9 @@ func printIssues(issues []agentIssue, empty, indent string) {
 	}
 }
 
-func printIssue(issue agentIssue) {
+// printIssue prints the issue's fields and description; me is the employee reading it, named "you" among its
+// subscribers.
+func printIssue(issue agentIssue, me string) {
 	by := "unknown"
 	if issue.CreatedBy != nil {
 		by = fmt.Sprintf("%s (%s)", issue.CreatedBy.Name, issue.CreatedBy.Kind)
@@ -303,6 +311,9 @@ func printIssue(issue agentIssue) {
 	fmt.Printf("Filed by %s on %s · %s\n", by, day, issue.URL)
 	if issue.Repeat != nil {
 		fmt.Printf("Repeats %s\n", repeatLine(*issue.Repeat))
+	}
+	if issue.Subscribers != nil {
+		fmt.Println("Subscribers: " + subscriberList(issue.Subscribers, me))
 	}
 	if description := strings.TrimSpace(issue.Description); description != "" {
 		fmt.Printf("\n%s\n", description)
@@ -341,6 +352,21 @@ func printActivity(key string, entries []activity) {
 		fmt.Println("  No comments yet.")
 	}
 	fmt.Printf("\nComment with: crewmark issues comment %s \"<text>\"\n", key)
+}
+
+// subscriberList names an issue's subscribers, the employee reading it as "you", e.g. "Alex Doe, you".
+func subscriberList(subscribers []assignee, me string) string {
+	if len(subscribers) == 0 {
+		return "none"
+	}
+	names := make([]string, len(subscribers))
+	for i, s := range subscribers {
+		names[i] = s.Name
+		if s.ID == me {
+			names[i] = "you"
+		}
+	}
+	return strings.Join(names, ", ")
 }
 
 func orNone(value *string) string {
@@ -629,7 +655,7 @@ func issues(args []string) error {
 		if p.positional(0) == "" {
 			return fail("Usage: crewmark issues show <KEY>, e.g. MC-7")
 		}
-		_, profile, err := currentEmployee(p.strings["employee"])
+		me, profile, err := currentEmployee(p.strings["employee"])
 		if err != nil {
 			return err
 		}
@@ -644,8 +670,41 @@ func issues(args []string) error {
 				Activity []activity `json:"activity"`
 			}{res.Issue, res.Activity})
 		}
-		printIssue(res.Issue)
+		printIssue(res.Issue, me)
 		printActivity(res.Issue.Key, res.Activity)
+		return nil
+
+	case "subscribe", "unsubscribe":
+		p, err := parseArgs(args[1:], nil, nil)
+		if err != nil {
+			return err
+		}
+		if p.positional(0) == "" || len(p.positionals) > 1 {
+			return fail("Usage: crewmark issues %s <KEY>, e.g. MC-7", sub)
+		}
+		me, profile, err := currentEmployee(p.strings["employee"])
+		if err != nil {
+			return err
+		}
+		method := "POST"
+		if sub == "unsubscribe" {
+			method = "DELETE"
+		}
+		var res struct{ Issue agentIssue }
+		path := "/api/agent/issues/" + url.PathEscape(p.positional(0)) + "/subscription"
+		if err := api(profile, method, path, nil, &res); err != nil {
+			return err
+		}
+		if p.bools["json"] {
+			return printJSON(res.Issue)
+		}
+		if sub == "subscribe" {
+			fmt.Printf("Subscribed to %s: you'll be told about its new comments and changes.\n", res.Issue.Key)
+		} else {
+			fmt.Printf("Unsubscribed from %s: you won't hear about it any more unless you're mentioned or assigned it.\n",
+				res.Issue.Key)
+		}
+		fmt.Println("Subscribers: " + subscriberList(res.Issue.Subscribers, me))
 		return nil
 
 	case "comment":
@@ -756,7 +815,7 @@ func issues(args []string) error {
 		rest = args[1:]
 	}
 
-	p, err := parseArgs(rest, []string{"status", "project", "assignee"}, []string{"all"})
+	p, err := parseArgs(rest, []string{"status", "project", "assignee"}, []string{"all", "subscribed"})
 	if err != nil {
 		return err
 	}
@@ -767,7 +826,7 @@ func issues(args []string) error {
 	if err != nil {
 		return err
 	}
-	filtered := p.bools["all"] || p.has("status") || p.has("project") || p.has("assignee")
+	filtered := p.bools["all"] || p.has("status") || p.has("project") || p.has("assignee") || p.bools["subscribed"]
 	query := url.Values{}
 	if !filtered {
 		query.Set("assignee", "me")
@@ -777,6 +836,9 @@ func issues(args []string) error {
 		if p.has(option) {
 			query.Set(option, p.strings[option])
 		}
+	}
+	if p.bools["subscribed"] {
+		query.Set("subscribed", "me")
 	}
 	var res struct{ Issues []agentIssue }
 	if err := api(profile, "GET", "/api/agent/issues?"+query.Encode(), nil, &res); err != nil {

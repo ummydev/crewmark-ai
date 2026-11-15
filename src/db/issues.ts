@@ -3,11 +3,13 @@ import "server-only";
 import { and, eq, inArray, sql } from "drizzle-orm";
 
 import { db } from "@/db";
-import { notifyAssigned } from "@/db/agent-events";
+import { notifyAssigned, notifySubscribersOfChanges } from "@/db/agent-events";
 import { recordChanges, type Transaction } from "@/db/issue-activity";
 import { issueKey, toIssue } from "@/db/queries";
 import { reschedule } from "@/db/recurrence";
 import { employeeProjects, employees, issues, members, organizations, projects } from "@/db/schema";
+import { notifyPeople, subscribe, type Subscriber } from "@/db/subscriptions";
+import { pushActivity } from "@/lib/realtime";
 import { RecurrenceError, formatRecurrence, nextOccurrence, parseRecurrence } from "@/lib/recurrence";
 import type { Issue } from "@/lib/types";
 import { InputError, NotFoundError, PRIORITY_VALUES, STATUS_VALUES, idOrNull, oneOf, text } from "@/lib/validate";
@@ -101,6 +103,13 @@ function recurrenceColumns(value: unknown) {
   }
 }
 
+/** The assignee as a subscriber, from its two columns; null when unassigned. */
+function assigneeOf(columns: { assigneeEmployeeId: string | null; assigneeUserId: string | null }): Subscriber | null {
+  if (columns.assigneeEmployeeId) return { employeeId: columns.assigneeEmployeeId };
+  if (columns.assigneeUserId) return { userId: columns.assigneeUserId };
+  return null;
+}
+
 /** Throws when an update matched nothing: the id doesn't exist in this organization. */
 export function found(rows: unknown[]) {
   if (rows.length === 0) throw new NotFoundError("Not found in this organization");
@@ -134,9 +143,17 @@ export async function insertIssue(organizationId: string, input: NewIssueInput, 
         ...repeats,
       })
       .returning();
+    // Its creator and its assignee follow it (MC-200).
+    const assigneeSubscriber = assigneeOf(assignee);
+    await subscribe(tx, organizationId, row.id, assigneeSubscriber ? [creator, assigneeSubscriber] : [creator]);
     return toIssue(row);
   });
   await notifyAssigned(organizationId, { ...issue, assigneeId: assignee.assigneeEmployeeId }, creator);
+  // A person it's assigned to finds it in their Inbox.
+  if (assignee.assigneeUserId && !("userId" in creator && creator.userId === assignee.assigneeUserId)) {
+    await notifyPeople(organizationId, issue.id, creator);
+    pushActivity(organizationId, issue.id);
+  }
   if (issue.recurrence) await reschedule(organizationId);
   return issue;
 }
@@ -171,7 +188,7 @@ export async function updateIssue(
     found(await db.update(issues).set(values).where(where).returning({ id: issues.id }));
     return;
   }
-  const { before, after } = await db.transaction(async (tx) => {
+  const { before, after, changes } = await db.transaction(async (tx) => {
     const [before] = await tx.select(TRACKED).from(issues).where(where).for("update");
     found(before ? [before] : []);
     // Assigning an employee to an issue in a project they aren't on fails; moving the issue to such a project
@@ -188,14 +205,21 @@ export async function updateIssue(
       .update(issues)
       .set(values)
       .where(where)
-      .returning({ number: issues.number, title: issues.title, ...TRACKED });
-    await recordChanges(tx, organizationId, issueId, before, after, actor);
-    return { before, after };
+      .returning({ number: issues.number, title: issues.title, assigneeUserId: issues.assigneeUserId, ...TRACKED });
+    const changes = await recordChanges(tx, organizationId, issueId, before, after, actor);
+    // A new assignee follows the issue (MC-200), and stays when it's assigned to someone else later.
+    const assignee = after.assigneeId !== before.assigneeId && assigneeOf(after);
+    if (assignee) await subscribe(tx, organizationId, issueId, [assignee]);
+    return { before, after, changes };
   });
+  const issue = { id: issueId, key: issueKey(after.number), title: after.title };
   // Only an employee has an agent to tell.
-  if (after.assigneeEmployeeId && after.assigneeId !== before.assigneeId) {
-    const issue = { key: issueKey(after.number), title: after.title, assigneeId: after.assigneeEmployeeId };
-    await notifyAssigned(organizationId, issue, actor);
+  const newAssignee = after.assigneeEmployeeId && after.assigneeId !== before.assigneeId ? after.assigneeEmployeeId : null;
+  if (newAssignee) await notifyAssigned(organizationId, { ...issue, assigneeId: newAssignee }, actor);
+  // Everyone else who follows it hears what changed; the new assignee was told it's theirs.
+  if (changes.length > 0) {
+    await notifySubscribersOfChanges(organizationId, issue, changes, actor, [newAssignee]);
+    await notifyPeople(organizationId, issueId, actor);
   }
   // Setting the same schedule again still moves when it next comes round, so this tells the timer either way.
   if ("recurrence" in values) await reschedule(organizationId);

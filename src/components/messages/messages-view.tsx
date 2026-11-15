@@ -8,7 +8,11 @@ import { toast } from "sonner";
 import { useCrewStore } from "@/components/crew-store";
 import { EmployeeAvatar } from "@/components/employee-avatar";
 import { MarkdownEditor, MarkdownView } from "@/components/markdown-editor";
+import { useFollowBottom } from "@/components/messages/follow-bottom";
 import { useMessages } from "@/components/messages/messages-provider";
+import { useConversationView } from "@/components/messages/use-conversation-view";
+import { WorkLog } from "@/components/messages/work-log";
+import { segmentClass } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -67,7 +71,11 @@ export function MessagesView({ employeeId }: { employeeId?: string }) {
       </nav>
       <section className={cn("min-w-0 flex-1 flex-col", employeeId ? "flex" : "hidden lg:flex")}>
         {employee ? (
-          <Conversation key={employee.id} employee={employee} thread={threads?.find((t) => t.employeeId === employee.id)} />
+          <Conversation
+            key={employee.id}
+            employee={employee}
+            thread={threads?.find((t) => t.employeeId === employee.id)}
+          />
         ) : employeeId ? (
           <Centered>That employee doesn&apos;t exist any more.</Centered>
         ) : (
@@ -168,15 +176,75 @@ function dayLabel(iso: string) {
   return dayFormat.format(new Date(iso));
 }
 
-/** The conversation with one employee: its messages, newest at the bottom, and a box to write in. */
+/** The conversation with one employee: a header line, then the direct messages or the employee's work (MC-186). */
 function Conversation({ employee, thread }: { employee: Employee; thread?: DirectThread }) {
-  const { organization, orgPath } = useCrewStore();
+  const { orgPath } = useCrewStore();
+  // The tab the person last chose, whichever employee they open.
+  const [view, choose] = useConversationView();
+  return (
+    <>
+      {/* One line: who the conversation is with, and what of theirs is shown. */}
+      <header className="flex h-12 shrink-0 items-center gap-2 border-b border-rule px-4">
+        <Link
+          href={orgPath("/messages")}
+          aria-label="All conversations"
+          className="-ml-1.5 rounded-md p-1 text-muted-foreground hover:bg-muted lg:hidden"
+        >
+          <ChevronLeftIcon className="size-4" />
+        </Link>
+        <EmployeeAvatar employee={employee} size="title" />
+        <h2 className="flex min-w-0 items-baseline gap-2 text-sm">
+          <Link href={orgPath(`/employees/${employee.id}`)} className="truncate font-medium hover:underline">
+            {employee.name}
+          </Link>
+          {employee.role && <span className="hidden truncate text-muted-foreground md:inline">{employee.role}</span>}
+        </h2>
+        <div role="group" aria-label="Show" className="ml-auto flex shrink-0 items-center gap-1.5">
+          <button
+            type="button"
+            aria-pressed={view === "messages"}
+            onClick={() => choose("messages")}
+            className={segmentClass(view === "messages")}
+          >
+            DM
+          </button>
+          <button
+            type="button"
+            aria-pressed={view === "work"}
+            onClick={() => choose("work")}
+            className={segmentClass(view === "work")}
+          >
+            Work
+          </button>
+        </div>
+      </header>
+      {view === "work" ? (
+        <>
+          <WorkLog employee={employee} />
+          {/* As in Claude Code, the person can write while the employee works: the message goes in as a DM, which
+              reaches its conversation between steps, and shows up in the work once it's there. */}
+          <Composer
+            employee={employee}
+            hint="Reaches it even while it works"
+            onSent={() => toast.success(`Sent to ${employee.name}. It shows here once it reaches the conversation.`)}
+          />
+        </>
+      ) : view === "messages" ? (
+        <DirectMessages employee={employee} thread={thread} />
+      ) : (
+        <div className="min-h-0 flex-1" />
+      )}
+    </>
+  );
+}
+
+/** The direct messages with the employee, newest at the bottom, and a box to write in. */
+function DirectMessages({ employee, thread }: { employee: Employee; thread?: DirectThread }) {
+  const { organization } = useCrewStore();
   const [messages, setMessages] = React.useState<DirectMessage[] | null>(null);
   const [hasMore, setHasMore] = React.useState(false);
-  const scroller = React.useRef<HTMLDivElement>(null);
-  const content = React.useRef<HTMLDivElement>(null);
-  // Whether the person is at the latest message, so new ones (and messages still laying out) keep it in view.
-  const atBottom = React.useRef(true);
+  // While the person is at the latest message, new ones (and messages still laying out) keep it in view.
+  const { scrollerRef, contentRef, atBottomRef } = useFollowBottom();
 
   const load = React.useCallback(async () => {
     // Reading marks them read, so only while the person can see them.
@@ -205,24 +273,6 @@ function Conversation({ employee, thread }: { employee: Employee; thread?: Direc
     return () => document.removeEventListener("visibilitychange", onVisible);
   }, [load]);
 
-  React.useEffect(() => {
-    const view = scroller.current;
-    const inner = content.current;
-    if (!view || !inner) return;
-    const onScroll = () => {
-      atBottom.current = view.scrollHeight - view.scrollTop - view.clientHeight < 48;
-    };
-    const follow = new ResizeObserver(() => {
-      if (atBottom.current) view.scrollTop = view.scrollHeight;
-    });
-    view.addEventListener("scroll", onScroll, { passive: true });
-    follow.observe(inner);
-    return () => {
-      view.removeEventListener("scroll", onScroll);
-      follow.disconnect();
-    };
-  }, []);
-
   async function loadOlder() {
     if (!messages?.length) return;
     const older = await getDirectMessages(organization.id, employee.id, messages[0].id);
@@ -232,26 +282,8 @@ function Conversation({ employee, thread }: { employee: Employee; thread?: Direc
 
   return (
     <>
-      {/* One line: who the conversation is with. */}
-      <header className="flex h-12 shrink-0 items-center gap-2 border-b border-rule px-4">
-        <Link
-          href={orgPath("/messages")}
-          aria-label="All conversations"
-          className="-ml-1.5 rounded-md p-1 text-muted-foreground hover:bg-muted lg:hidden"
-        >
-          <ChevronLeftIcon className="size-4" />
-        </Link>
-        <EmployeeAvatar employee={employee} size="title" />
-        <h2 className="flex min-w-0 items-baseline gap-2 text-sm">
-          <Link href={orgPath(`/employees/${employee.id}`)} className="truncate font-medium hover:underline">
-            {employee.name}
-          </Link>
-          {employee.role && <span className="hidden truncate text-muted-foreground sm:inline">{employee.role}</span>}
-        </h2>
-      </header>
-
-      <div ref={scroller} className="min-h-0 flex-1 overflow-y-auto px-4 py-4">
-        <div ref={content}>
+      <div ref={scrollerRef} className="min-h-0 flex-1 overflow-y-auto px-4 py-4">
+        <div ref={contentRef}>
         {messages === null ? (
           <div className="grid gap-3">
             <Skeleton className="h-10 w-2/3" />
@@ -292,7 +324,7 @@ function Conversation({ employee, thread }: { employee: Employee; thread?: Direc
       <Composer
         employee={employee}
         onSent={(message) => {
-          atBottom.current = true;
+          atBottomRef.current = true;
           setMessages((prev) => [...(prev ?? []), message]);
         }}
       />
@@ -325,7 +357,16 @@ function Bubble({ message, employee }: { message: DirectMessage; employee: Emplo
   );
 }
 
-function Composer({ employee, onSent }: { employee: Employee; onSent: (message: DirectMessage) => void }) {
+function Composer({
+  employee,
+  onSent,
+  hint,
+}: {
+  employee: Employee;
+  onSent: (message: DirectMessage) => void;
+  /** A word on where the message goes, beside the send button. */
+  hint?: string;
+}) {
   const { organization } = useCrewStore();
   const [body, setBody] = React.useState("");
   // A new key empties the editor after sending.
@@ -364,6 +405,7 @@ function Composer({ employee, onSent }: { employee: Employee; onSent: (message: 
           contentClassName="max-h-48 min-h-10 overflow-y-auto py-2 [&_.tiptap]:min-h-6"
         />
         <div className="flex items-center justify-end gap-3">
+          {hint && <span className="mr-auto truncate text-xs text-muted-foreground">{hint}</span>}
           <span className="hidden text-xs text-muted-foreground sm:inline">⌘ Enter to send</span>
           <Button size="sm" disabled={empty || pending || uploading} onClick={send}>
             {pending ? "Sending…" : uploading ? "Uploading…" : "Send"}

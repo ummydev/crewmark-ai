@@ -7,11 +7,14 @@ import { pricing } from "@/content/pricing";
 import { proactiveCodex } from "@/content/proactive-codex";
 import { remoteClaudeCode } from "@/content/remote-claude-code";
 import { rolesCopy } from "@/content/roles";
+import { skillPagesCopy } from "@/content/skill-pages";
+import { skillsHub } from "@/content/skills-hub";
 import { posts } from "@/i18n/blog";
 import { type GuideHref, guides } from "@/i18n/guides";
 import { siteUrl } from "@/i18n/metadata";
 import { plan } from "@/lib/pricing";
 import { roles } from "@/i18n/roles";
+import { skillPages } from "@/i18n/skill-pages";
 
 // /llms.txt (llmstxt.org): a short Markdown summary of Crewmark for AI assistants, with links to the pages worth
 // reading. Titles and descriptions come from the pages themselves, so a new guide shows up once it's added to
@@ -26,6 +29,7 @@ const meta: Record<GuideHref, { title: string; description: string }> = {
   "/alternatives/multica": alternatives.multica.en.meta,
   "/alternatives/crewai": alternatives.crewai.en.meta,
   "/pricing": pricing.en.meta,
+  "/skills": skillsHub.en.meta,
   "/blog": blogIndex.en!.meta,
 };
 
@@ -54,6 +58,16 @@ ${roles
   .map(({ slug }) => {
     const { title: roleTitle, description } = rolesCopy[slug].en!.meta;
     return `- [${title(roleTitle)}](${url(`/ai-employees/${slug}`)}): ${description}`;
+  })
+  .join("\n")}
+
+## Claude skills
+
+- [${title(skillsHub.en.meta.title)}](${url("/skills")}): ${skillsHub.en.meta.description}
+${skillPages
+  .map(({ slug }) => {
+    const { title: pageTitle, description } = skillPagesCopy[slug].en!.meta;
+    return `- [${title(pageTitle)}](${url(`/skills/${slug}`)}): ${description}`;
   })
   .join("\n")}
 

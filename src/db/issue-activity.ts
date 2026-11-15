@@ -3,10 +3,11 @@ import "server-only";
 import { and, asc, eq } from "drizzle-orm";
 
 import { db } from "@/db";
-import { notifyCommented, notifyMentioned } from "@/db/agent-events";
+import { notifyCommented, notifyMentioned, notifySubscribersOfComment, type IssueChange } from "@/db/agent-events";
 import type { IssueCreator } from "@/db/issues";
 import { issueKey } from "@/db/queries";
 import { issueActivity, issues } from "@/db/schema";
+import { notifyPeople, subscribe } from "@/db/subscriptions";
 import { pushActivity } from "@/lib/realtime";
 import { TRACKED_ISSUE_PROPERTIES, type IssueActivity } from "@/lib/types";
 import { NotFoundError, text } from "@/lib/validate";
@@ -33,7 +34,7 @@ const COLUMNS = {
   repeat: "recurrence",
 } as const;
 
-function toActivity({ fromValue, toValue, createdAt, organizationId, ...row }: typeof issueActivity.$inferSelect): IssueActivity {
+export function toActivity({ fromValue, toValue, createdAt, organizationId, ...row }: typeof issueActivity.$inferSelect): IssueActivity {
   return { ...row, from: fromValue, to: toValue, createdAt: createdAt.toISOString() };
 }
 
@@ -54,7 +55,7 @@ export async function listActivity(organizationId: string, issueId: string): Pro
   return rows.map(toActivity);
 }
 
-/** Records one entry per tracked property that differs between `before` and `after`. */
+/** Records one entry per tracked property that differs between `before` and `after`, and returns the changes. */
 export async function recordChanges(
   tx: Transaction,
   organizationId: string,
@@ -62,7 +63,7 @@ export async function recordChanges(
   before: TrackedValues,
   after: TrackedValues,
   actor: IssueCreator,
-) {
+): Promise<IssueChange[]> {
   const rows = TRACKED_ISSUE_PROPERTIES.filter((kind) => before[COLUMNS[kind]] !== after[COLUMNS[kind]]).map(
     (kind) => ({
       organizationId,
@@ -73,12 +74,17 @@ export async function recordChanges(
       toValue: after[COLUMNS[kind]],
     }),
   );
-  if (rows.length === 0) return;
+  if (rows.length === 0) return [];
   await tx.insert(issueActivity).values(rows);
   pushActivity(organizationId, issueId);
+  return rows.map((row) => ({ kind: row.kind, from: row.fromValue, to: row.toValue }));
 }
 
-/** Adds a comment, and tells the agents of the assignee and of the employees it mentions (@name). */
+/**
+ * Adds a comment, subscribes its author and the employees it mentions (@name) to the issue, and tells everyone who
+ * follows it: the agents of the assignee and of the employees mentioned in their own words, the others' as
+ * subscribers, and people in their Inbox.
+ */
 export async function addComment(
   organizationId: string,
   issueId: string,
@@ -100,9 +106,13 @@ export async function addComment(
     .insert(issueActivity)
     .values({ organizationId, issueId, kind: "comment", ...actorColumns(actor), body: markdown })
     .returning();
-  const commented = { ...issue, key: issueKey(issue.number) };
+  const commented = { ...issue, id: issueId, key: issueKey(issue.number) };
   await notifyCommented(organizationId, commented, markdown, actor);
-  await notifyMentioned(organizationId, commented, markdown, actor);
+  const mentioned = await notifyMentioned(organizationId, commented, markdown, actor);
+  await notifySubscribersOfComment(organizationId, commented, markdown, actor, [issue.assigneeId, ...mentioned]);
+  // Those it mentions follow the issue from now on, and so does whoever writes on it, as in Linear.
+  await subscribe(db, organizationId, issueId, [actor, ...mentioned.map((employeeId) => ({ employeeId }))]);
+  await notifyPeople(organizationId, issueId, actor);
   pushActivity(organizationId, issueId);
   return toActivity(row);
 }

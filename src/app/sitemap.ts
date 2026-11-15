@@ -6,6 +6,7 @@ import { blogLocales } from "@/i18n/blog";
 import { guideLocales } from "@/i18n/guides";
 import { localizedUrls } from "@/i18n/metadata";
 import { roleLocales } from "@/i18n/roles";
+import { skillPageLocales } from "@/i18n/skill-pages";
 import { routing } from "@/i18n/routing";
 
 // The localized marketing pages and the languages each is written in. Add a new one here, or to i18n/guides.ts if
@@ -16,6 +17,7 @@ const pages: [href: string, locales: readonly Locale[]][] = [
   ...Object.entries(guideLocales),
   ...Object.entries(blogLocales),
   ...Object.entries(roleLocales),
+  ...Object.entries(skillPageLocales),
 ];
 
 // Every language version gets its own entry, each listing all its alternates, as Google asks for.

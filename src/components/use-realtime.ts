@@ -3,12 +3,18 @@
 import * as React from "react";
 
 import { getRealtimeConnection } from "@/lib/actions";
+import type { WorkTurn } from "@/lib/types";
 
 /**
  * A push from the realtime Worker to the dashboard: an issue's Activity changed, or a direct conversation did (each
- * tab then asks for its own person's).
+ * tab then asks for its own person's); or, for a tab watching an employee's work, what its daemon sent (MC-186).
  */
-export type Push = { type: "activity"; issueId: string } | { type: "messages" };
+export type Push =
+  | { type: "activity"; issueId: string }
+  | { type: "messages" }
+  | { type: "worklog"; employeeId: string; turns?: WorkTurn[]; page: "latest" | "earlier" | "live"; more?: boolean }
+  | { type: "worklog.unavailable"; employeeId: string; reason: string }
+  | { type: "worklog.offline"; employeeId: string };
 
 /** Keeps the socket open across a quiet connection, and lets the tab notice a dead one. */
 const PING_MS = 30_000;
@@ -77,6 +83,13 @@ class Channel {
     };
   }
 
+  /** Sends a message up the socket; false while it isn't open. */
+  send(message: object) {
+    if (this.socket?.readyState !== WebSocket.OPEN) return false;
+    this.socket.send(JSON.stringify(message));
+    return true;
+  }
+
   close() {
     this.stopped = true;
     clearTimeout(this.retry);
@@ -123,4 +136,9 @@ export function useRealtime(organizationId: string, onPush: (push: Push) => void
   }, [organizationId]);
 
   return open;
+}
+
+/** Sends a message to the realtime Worker on the organization's socket; false while it isn't open. */
+export function sendRealtime(organizationId: string, message: object) {
+  return channels.get(organizationId)?.send(message) ?? false;
 }

@@ -84,6 +84,9 @@ type agentIssue struct {
 	URL         string    `json:"url"`
 	// When the issue repeats; nil if it doesn't.
 	Repeat *issueRepeat `json:"repeat"`
+	// Who follows the issue and hears about its new comments and changes: people and employees. Only when one issue
+	// is read (issues show, subscribe, unsubscribe), not in lists.
+	Subscribers []assignee `json:"subscribers,omitempty"`
 }
 
 // issueRepeat is an issue's schedule: in words, e.g. "every 2 days at 10:00", its time zone, and when it next comes

@@ -57,6 +57,11 @@ export interface AgentIssue {
    * comes round (ISO). Then Crewmark moves it back to Todo if it's done and tells its employee. Null if it doesn't.
    */
   repeat: { schedule: string; timeZone: string; next: string | null } | null;
+  /**
+   * Who follows the issue (MC-200), told about its new comments and changes: people and employees. Only when one issue
+   * is read (issues show, subscribe and unsubscribe), not in lists.
+   */
+  subscribers?: (Named & { kind: "user" | "employee" })[];
 }
 
 /** One entry in an issue's Activity: a comment, or a change to its status, priority, assignee or project. */
@@ -114,8 +119,9 @@ export interface IssueResponse {
 }
 
 /**
- * POST /api/agent/issues/<key>/comments: comments on the issue as the employee. The assignee's agent hears about it;
- * so does any other employee the body mentions with @ and its name, e.g. "@DevOps crewmark ready to ship".
+ * POST /api/agent/issues/<key>/comments: comments on the issue as the employee, who then follows it. Everyone who
+ * follows it hears (its subscribers: creator, assignee, those who commented, and anyone added); so does any other
+ * employee the body mentions with @ and its name, e.g. "@DevOps crewmark ready to ship", who follows it from then on.
  */
 export interface CommentRequest {
   body: string;
@@ -123,6 +129,14 @@ export interface CommentRequest {
 
 export interface CommentResponse {
   comment: AgentActivity;
+}
+
+/**
+ * POST /api/agent/issues/<key>/subscription: the employee follows the issue, and hears about its new comments and
+ * changes; DELETE: it stops (not while it's the assignee). Both answer with the issue and its subscribers.
+ */
+export interface SubscriptionResponse {
+  issue: AgentIssue;
 }
 
 /** POST /api/agent/setup: exchanges a setup token for an API key. The only request without one. */

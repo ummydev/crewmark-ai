@@ -3,6 +3,7 @@ import { Suspense } from "react";
 
 import { AppSidebar } from "@/components/app-sidebar";
 import { CrewStoreProvider } from "@/components/crew-store";
+import { InboxProvider } from "@/components/inbox/inbox-provider";
 import { MessagesProvider } from "@/components/messages/messages-provider";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
@@ -56,13 +57,15 @@ async function OrganizationDashboard({
       initialData={data}
     >
       <MessagesProvider>
-        <SidebarProvider>
-          <AppSidebar />
-          {/* The white sheet sits in the grey frame with a hairline edge and no shadow. */}
-          <SidebarInset className="min-w-0 md:peer-data-[variant=inset]:border md:peer-data-[variant=inset]:shadow-none">
-            {children}
-          </SidebarInset>
-        </SidebarProvider>
+        <InboxProvider>
+          <SidebarProvider>
+            <AppSidebar />
+            {/* The white sheet sits in the grey frame with a hairline edge and no shadow. */}
+            <SidebarInset className="min-w-0 md:peer-data-[variant=inset]:border md:peer-data-[variant=inset]:shadow-none">
+              {children}
+            </SidebarInset>
+          </SidebarProvider>
+        </InboxProvider>
       </MessagesProvider>
     </CrewStoreProvider>
   );

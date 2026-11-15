@@ -168,6 +168,17 @@ func (r *realtime) connect(ctx context.Context, employeeID string, profile emplo
 			}
 		}
 	}()
+	// The employee's work goes up this socket to whoever looks at it in the web (worklog_watch.go).
+	work := newWorkWatch(logName(employeeID, profile), profile, func(message worklogMessage) error {
+		data, err := json.Marshal(message)
+		if err != nil {
+			return err
+		}
+		writeCtx, done := context.WithTimeout(ctx, 10*time.Second)
+		defer done()
+		return conn.Write(writeCtx, websocket.MessageText, data)
+	})
+	defer work.close()
 	for {
 		readCtx, done := context.WithTimeout(ctx, realtimeSilence)
 		_, data, err := conn.Read(readCtx)
@@ -177,9 +188,19 @@ func (r *realtime) connect(ctx context.Context, employeeID string, profile emplo
 		}
 		// Pushes are JSON; "pong" only shows the socket's alive.
 		var message struct {
-			Type string `json:"type"`
+			Type     string `json:"type"`
+			Watching bool   `json:"watching"`
+			Before   int    `json:"before"`
 		}
-		if json.Unmarshal(data, &message) == nil && message.Type != "" {
+		if json.Unmarshal(data, &message) != nil || message.Type == "" {
+			continue
+		}
+		switch message.Type {
+		case "worklog.watch":
+			work.watch(ctx, message.Watching)
+		case "worklog.more":
+			go work.more(message.Before)
+		default:
 			r.send(ctx, push{employeeID, message.Type})
 		}
 	}

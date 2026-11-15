@@ -5,6 +5,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { posts } from "./i18n/blog";
 import { pageLocales } from "./i18n/guides";
 import { roles } from "./i18n/roles";
+import { skillPages } from "./i18n/skill-pages";
 import { routing } from "./i18n/routing";
 
 // Sends / to /zh for visitors whose browser prefers Chinese (or who picked it before) and serves the English pages
@@ -17,6 +18,9 @@ const BLOG_POST = /^(?:\/[a-z]{2}(?:-[a-z]{2})?)?\/blog\/([^/]+)\/?$/i;
 
 /** A role page URL, with or without a locale prefix: /ai-employees/<slug> or /zh/ai-employees/<slug>. */
 const ROLE = /^(?:\/[a-z]{2}(?:-[a-z]{2})?)?\/ai-employees\/([^/]+)\/?$/i;
+
+/** A skills guide URL, with or without a locale prefix: /skills/<slug> or /zh/skills/<slug>. */
+const SKILL_PAGE = /^(?:\/[a-z]{2}(?:-[a-z]{2})?)?\/skills\/([^/]+)\/?$/i;
 
 /** Dashboard links from before organizations, e.g. /issues/MC-7. */
 const OLD_DASHBOARD = /^\/(issues|employees|projects)(\/|$)/;
@@ -40,6 +44,10 @@ export default function proxy(request: NextRequest) {
   const role = ROLE.exec(pathname);
   if (role && !roles.some(({ slug }) => slug === role[1])) {
     return NextResponse.rewrite(new URL("/en/ai-employees/not-found/404", request.url));
+  }
+  const skillPage = SKILL_PAGE.exec(pathname);
+  if (skillPage && !skillPages.some(({ slug }) => slug === skillPage[1])) {
+    return NextResponse.rewrite(new URL("/en/skills/not-found/404", request.url));
   }
 
   if (!pathname.startsWith("/org/")) {
@@ -82,6 +90,8 @@ export const config = {
     "/proactive-codex",
     "/alternatives/:path*",
     "/pricing",
+    "/skills",
+    "/skills/:path*",
     "/blog",
     "/blog/:path*",
     "/(en|zh|zh-tw|zh-TW|ja|ko|es|pt-br|pt-BR|fr|de)",

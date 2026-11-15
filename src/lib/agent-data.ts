@@ -89,7 +89,13 @@ export function findAssignee(data: OrganizationData, value: unknown, me: string)
   );
 }
 
-export function toAgentIssue(issue: Issue, data: OrganizationData, links: AgentLinks): AgentIssue {
+export function toAgentIssue(
+  issue: Issue,
+  data: OrganizationData,
+  links: AgentLinks,
+  /** The ids of who follows it, to list them; left out of lists. */
+  subscriberIds?: string[],
+): AgentIssue {
   const project = data.projects.find((p) => p.id === issue.projectId);
   return {
     id: issue.id,
@@ -104,6 +110,9 @@ export function toAgentIssue(issue: Issue, data: OrganizationData, links: AgentL
     createdAt: issue.createdAt,
     url: `${links.dashboard}/issues/${issue.key}`,
     repeat: issue.recurrence ? toAgentRepeat(issue.recurrence, issue.nextRecurAt) : null,
+    ...(subscriberIds && {
+      subscribers: subscriberIds.map((id) => assigneeById(id, data)).filter((s) => s !== null),
+    }),
   };
 }
 

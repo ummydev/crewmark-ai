@@ -257,6 +257,21 @@ export interface IssueActivity {
   createdAt: string;
 }
 
+/** An issue in the signed-in person's Inbox (MC-200): one they follow, on which someone else did something. */
+export interface InboxItem {
+  issueId: string;
+  /** The issue as it is now, for issues filed since the page loaded. */
+  key: string;
+  title: string;
+  status: IssueStatus;
+  /** ISO timestamp of when someone else last commented on or changed it. */
+  notifiedAt: string;
+  /** They haven't opened the issue since. */
+  unread: boolean;
+  /** What someone other than them did last; null when they were only assigned it as it was filed. */
+  latest: IssueActivity | null;
+}
+
 export const ISSUE_STATUSES: { value: IssueStatus; label: string }[] = [
   { value: "backlog", label: "Backlog" },
   { value: "todo", label: "Todo" },
@@ -317,6 +332,37 @@ export const PROJECT_EMOJIS = [
   "💬", "⚡", "🔥", "🏆", "📊", "🧭", "🛰️", "🪴",
   "🌊", "🍀", "🦊", "🐙", "🎬", "📚", "💰", "🤖",
 ];
+
+/**
+ * One turn of an employee's conversation, as its daemon reads it from the agent's transcript (MC-186, cli/worklog.go):
+ * what started it, what came in along the way, the steps it took and the reply it ended with.
+ */
+export interface WorkTurn {
+  /** The agent's own number for the turn. */
+  index: number;
+  at: string;
+  /** "human" (a person in the conversation), "peer" (another session: Crewmark's notices), "heartbeat", "task" (a
+   * background task finished), "compact" (the conversation was summarised to go on) or "other". */
+  origin: string;
+  prompt: string;
+  asides?: { origin: string; text: string; at: string }[];
+  /** The last steps; stepCount counts them all. */
+  steps: WorkStep[];
+  stepCount: number;
+  reply: string;
+  repliedAt?: string;
+  /** Whether the agent ended the turn, rather than still being at it (or having been stopped). */
+  done: boolean;
+}
+
+export interface WorkStep {
+  /** "text" for something it wrote along the way, "tool" for a tool it used. */
+  kind: "text" | "tool";
+  tool?: string;
+  summary: string;
+  result?: string;
+  error?: boolean;
+}
 
 /**
  * Emoji an employee can wear as its avatar: creatures, so employees read apart from projects' objects. Picked from a

@@ -16,6 +16,8 @@ type Events = {
   "issue moved": { status: string };
   "issue deleted": Record<string, never>;
   "issue commented": Record<string, never>;
+  // Someone followed or stopped following an issue (MC-200): themselves, or another person or an employee.
+  "issue subscription changed": { subscribed: boolean; self: boolean; employee: boolean };
   // An image pasted or dropped into a description or comment; size in bytes.
   "image uploaded": { type: string; size: number };
   "employee deleted": Record<string, never>;
