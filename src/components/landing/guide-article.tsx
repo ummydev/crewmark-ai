@@ -204,7 +204,9 @@ export function GuideArticle({
                     <tbody>
                       {section.rows.map(([label, ...cells]) => (
                         <tr key={label}>
-                          <th scope="row">{label}</th>
+                          <th scope="row">
+                            <RichText text={label} locale={locale} />
+                          </th>
                           {cells.map((cell, i) => (
                             <td key={i}>
                               <RichText text={cell} locale={locale} />

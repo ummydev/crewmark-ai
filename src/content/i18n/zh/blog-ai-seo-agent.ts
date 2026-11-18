@@ -65,7 +65,7 @@ export const copy: GuideCopy = {
         },
         {
           title: "把每日例行工作做成 skill",
-          text: "`.claude/skills/` 里的 skill 存放一步一步的例行流程，只在用到时才加载。每次会话都从它开始。参见 [Claude Code skill](/blog/claude-code-skills)。",
+          text: "`.claude/skills/` 里的 skill 存放一步一步的例行流程，只在用到时才加载。每次会话都从它开始。参见 [Claude Code skill](/blog/claude-code-skills)；现成的 skill 见 [最好用的 SEO Claude skill](/skills/seo)。",
           code: skill,
         },
         {

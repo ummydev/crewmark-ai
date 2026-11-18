@@ -1,6 +1,6 @@
 import "server-only";
 
-import { and, asc, eq, gt, inArray, or } from "drizzle-orm";
+import { and, asc, desc, eq, gt, inArray, or } from "drizzle-orm";
 import { connection } from "next/server";
 
 import { db } from "@/db";
@@ -48,6 +48,7 @@ export function issueKey(number: number) {
 export function toIssue({
   number,
   createdAt,
+  updatedAt,
   organizationId,
   assigneeEmployeeId,
   assigneeUserId,
@@ -59,6 +60,7 @@ export function toIssue({
     key: issueKey(number),
     assigneeId: assigneeEmployeeId ?? assigneeUserId,
     createdAt: createdAt.toISOString(),
+    updatedAt: updatedAt.toISOString(),
     nextRecurAt: nextRecurAt?.toISOString() ?? null,
   };
 }
@@ -107,7 +109,8 @@ export async function getOrganizationData(organizationId: string): Promise<Organ
       .from(employeeProjects)
       .innerJoin(employees, eq(employees.id, employeeProjects.employeeId))
       .where(eq(employees.organizationId, organizationId)),
-    db.select().from(issues).where(eq(issues.organizationId, organizationId)).orderBy(asc(issues.position)),
+    // Latest changed first (MC-263), as the board shows them.
+    db.select().from(issues).where(eq(issues.organizationId, organizationId)).orderBy(desc(issues.updatedAt)),
   ]);
 
   const projectIdsByEmployee = new Map<string, string[]>();

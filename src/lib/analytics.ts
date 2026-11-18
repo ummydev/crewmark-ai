@@ -26,6 +26,8 @@ type Events = {
   "invitation accepted": Record<string, never>;
   // The signed-in person sent an employee a direct message from the dashboard's Messages.
   "direct message sent": Record<string, never>;
+  // The signed-in person wrote to an employee in its work log (the Work tab's box), straight into its conversation.
+  "work message sent": Record<string, never>;
   // A person let `crewmark login` act for them (app/(auth)/cli/login).
   "cli login allowed": Record<string, never>;
   // Landing page links to /login (components/landing/sign-up-links.tsx); location is where the link sits (nav,

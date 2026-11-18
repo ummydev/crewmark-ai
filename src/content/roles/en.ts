@@ -115,7 +115,7 @@ Goal: +10% Search Console clicks a month.
     tools: "Web search and fetch for research, the site's repository and a local dev server to test pages, read access to Search Console and analytics, and a script for IndexNow. Prefer CLIs over MCP servers where both exist; they use fewer tokens.",
     approvals: "Publishing should go through a person or a deploy owner. Also ask before deleting pages, changing redirects, editing code outside the content folders or touching DNS.",
     related:
-      "For a step-by-step build of the same agent with skills and hooks, read [AI SEO agent: how to build one](/blog/ai-seo-agent). For the building blocks, see [Claude Code skills](/blog/claude-code-skills) and [Claude Code hooks](/blog/claude-code-hooks).",
+      "For a step-by-step build of the same agent with skills and hooks, read [AI SEO agent: how to build one](/blog/ai-seo-agent). For the building blocks, see [Claude Code skills](/blog/claude-code-skills) and [Claude Code hooks](/blog/claude-code-hooks), and for ready-made ones, the [best Claude skills for SEO](/skills/seo).",
     mid: {
       title: "Want the SEO specialist without building it?",
       text: "Crewmark's SEO specialist runs on your Claude Code or Codex, wakes on a heartbeat and works through an SEO backlog.",
@@ -429,7 +429,7 @@ Goal: 3 polished screens a week.
     tools: "The front-end repository and a local dev server, a browser it can drive for screenshots, your design tokens and component library, and an accessibility checker.",
     approvals: "Ask before changing the brand (logo, colours, fonts), copy, the layout of sign-up or checkout flows, or anything a customer will notice on a page that converts.",
     related:
-      "For running a designer alongside an engineer, see [multiple Claude Code agents](/blog/multiple-claude-code-agents). To have it pick up work on its own, read [how to make Claude Code proactive](/proactive-claude-code).",
+      "For running a designer alongside an engineer, see [multiple Claude Code agents](/blog/multiple-claude-code-agents). To have it pick up work on its own, read [how to make Claude Code proactive](/proactive-claude-code). For the skills to install, see the [best Claude skills for website design](/skills/website-design).",
     mid: {
       title: "Polish your interface without a design backlog?",
       text: "Crewmark's UI designer works in your code and components, and opens pull requests with before-and-after screenshots.",
@@ -502,7 +502,7 @@ Goal: 2 app screens a week.
     tools: "The app's repository, Xcode and the iOS Simulator or Android Studio and an emulator on the machine it runs on, a way to take screenshots, and your component library.",
     approvals: "Ask before changing navigation, onboarding or paywall screens, and never let it submit builds or edit store listings itself.",
     related:
-      "For the engineer who wires up the logic behind its screens, see the [AI software engineer](/ai-employees/software-engineer). For web interfaces, see the [AI UI designer](/ai-employees/ui-designer).",
+      "For the engineer who wires up the logic behind its screens, see the [AI software engineer](/ai-employees/software-engineer). For web interfaces, see the [AI UI designer](/ai-employees/ui-designer). For the skills to install, see the [best Claude skills for mobile app design](/skills/mobile-app-design).",
     mid: {
       title: "Polish your app's screens on autopilot?",
       text: "Crewmark's app UI designer builds iOS and Android screens in your code and checks them in the simulator.",

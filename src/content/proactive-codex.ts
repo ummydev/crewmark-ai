@@ -20,9 +20,9 @@ export const proactiveCodex: Record<ProactiveCodexLocale, GuideCopy> = {
   ...proactiveCodexTranslations,
   en: {
     meta: {
-      title: "Proactive Codex: Scheduled Tasks and Cron | Crewmark AI",
+      title: "Codex Scheduled Tasks, Cron and Heartbeat | Crewmark AI",
       description:
-        "Make Codex and ChatGPT act without waiting for you: scheduled tasks (formerly Automations), codex exec with cron, the GitHub Action, and a heartbeat for a standing job.",
+        "How to schedule Codex: scheduled tasks that message the same chat every few minutes, daily or weekly, codex exec with cron, why a task doesn't run, and a heartbeat that gives Codex a standing job.",
     },
     breadcrumb: "Proactive Codex",
     hero: {
@@ -198,12 +198,24 @@ export const proactiveCodex: Record<ProactiveCodexLocale, GuideCopy> = {
           a: "In the Codex app, ask for a scheduled task. From your own scheduler, call `codex exec` from a cron job, and pass `--sandbox workspace-write` if it needs to change files. In a repository you can also run the Codex GitHub Action from a workflow.",
         },
         {
+          q: "Why isn't my Codex scheduled task running?",
+          a: "Check four things. A task that works on local files needs the computer on, the Codex app running and the project still on disk. In ChatGPT web, scheduled tasks have to be enabled for your workspace. A task set to a model that has since been retired needs a new model. And in read-only mode, commands that change files or use the network fail; switch the task to `workspace-write` if it needs to edit.",
+        },
+        {
+          q: "Can a Codex scheduled task message me in an existing chat?",
+          a: "Yes. A task you create inside a chat returns to that same chat with its context, on an interval of minutes, daily or weekly. A standalone task starts a new chat for each run and reports in the Scheduled view.",
+        },
+        {
+          q: "Can I create Codex scheduled tasks from the CLI?",
+          a: "No. Scheduled tasks are created and managed in the Codex desktop app or ChatGPT web; the CLI and IDE extension don't have the Scheduled view. From the CLI, run `codex exec` from cron instead.",
+        },
+        {
           q: "Can ChatGPT message me proactively?",
           a: "Yes, through scheduled tasks and event-triggered tasks. ChatGPT Pulse, the proactive daily update, was retired in June 2026, and OpenAI suggests a scheduled task for a daily briefing instead.",
         },
         {
           q: "Does Codex keep working when my computer is off?",
-          a: "Web scheduled tasks, event triggers, Codex cloud tasks and the GitHub Action do. Anything that works on your local files, including local scheduled tasks, cron jobs and Crewmark, needs your computer on.",
+          a: "Web scheduled tasks, event triggers, Codex cloud tasks and the GitHub Action do. Anything that works on your local files, including local scheduled tasks, cron jobs and Crewmark, needs your computer on. For long runs, see [Codex long-running tasks](/blog/codex-long-running-tasks).",
         },
         {
           q: "Does Crewmark cost extra tokens?",
@@ -216,7 +228,7 @@ export const proactiveCodex: Record<ProactiveCodexLocale, GuideCopy> = {
       text: "Give it a role, a goal, working hours and a heartbeat, then assign its first issue.",
       button: "Get started",
     },
-    checked: "Checked against OpenAI's Codex documentation on November 2, 2026.",
+    checked: "Checked against OpenAI's Codex documentation on November 2, 2026; the scheduled-task answers on November 8, 2026.",
     disclaimer:
       "Crewmark is an independent product, not affiliated with or endorsed by OpenAI. Codex and ChatGPT are trademarks of OpenAI.",
   },
@@ -398,12 +410,24 @@ export const proactiveCodex: Record<ProactiveCodexLocale, GuideCopy> = {
           a: "在 Codex 应用里直接让它建一个定时任务；用自己的调度器的话，在 cron 里调用 `codex exec`，需要改文件就加 `--sandbox workspace-write`。代码仓库还可以在工作流里用 Codex 的 GitHub Action。",
         },
         {
+          q: "Codex 定时任务为什么没有运行？",
+          a: "查四件事。要用本地文件的任务，需要电脑开着、Codex 应用开着，项目也还在磁盘上。在 ChatGPT 网页版里，工作区要开启定时任务。任务用的模型如果已经下线，要换一个模型。还有，只读模式下改文件、联网的命令都会失败；任务需要改文件就换成 `workspace-write`。",
+        },
+        {
+          q: "Codex 定时任务能在原来的对话里给我发消息吗？",
+          a: "能。在对话里创建的任务会带着上下文回到同一个对话，可以按分钟、每天或每周运行。单独创建的任务每次运行都会新开一个对话，结果显示在 Scheduled 页面。",
+        },
+        {
+          q: "能用 Codex CLI 创建定时任务吗？",
+          a: "不能。定时任务在 Codex 桌面应用或 ChatGPT 网页版里创建和管理，CLI 和 IDE 插件没有 Scheduled 页面。用 CLI 的话，改用 cron 调用 `codex exec`。",
+        },
+        {
           q: "ChatGPT 能主动给我发消息吗？",
           a: "能，通过定时任务和事件触发的任务。主动推送每日简报的 ChatGPT Pulse 已在 2026 年 6 月停用，OpenAI 建议改用定时任务做每日简报。",
         },
         {
           q: "电脑关机时 Codex 还能干活吗？",
-          a: "网页端定时任务、事件触发、Codex 云端任务和 GitHub Action 可以。用到本地文件的方式，包括本地定时任务、cron 和 Crewmark，都需要电脑开着。",
+          a: "网页端定时任务、事件触发、Codex 云端任务和 GitHub Action 可以。用到本地文件的方式，包括本地定时任务、cron 和 Crewmark，都需要电脑开着。想让它通宵干活，请看 [Codex 长时间任务](/blog/codex-long-running-tasks)。",
         },
         {
           q: "用 Crewmark 要额外付 token 费吗？",
@@ -416,7 +440,7 @@ export const proactiveCodex: Record<ProactiveCodexLocale, GuideCopy> = {
       text: "给它一个岗位、一个目标、工作时间和心跳，然后派给它第一个 issue。",
       button: "开始使用",
     },
-    checked: "已于 2026 年 11 月 2 日对照 OpenAI 的 Codex 官方文档核对。",
+    checked: "已于 2026 年 11 月 2 日对照 OpenAI 的 Codex 官方文档核对；定时任务相关的回答于 2026 年 11 月 8 日核对。",
     disclaimer: "Crewmark 是独立产品，与 OpenAI 无关，也未获其背书。Codex 和 ChatGPT 是 OpenAI 的商标。",
   },
 };

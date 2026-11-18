@@ -159,18 +159,28 @@ func TestToolSummary(t *testing.T) {
 }
 
 // heard is the next message the daemon sent up the socket.
+// heard is the next message the daemon sent for whoever watches the employee's work; the latest turns it sends the
+// list of conversations after each reply (MC-280) are counted in f.latest instead.
 func heard(t *testing.T, f *fakeCrewmark) worklogMessage {
 	t.Helper()
-	select {
-	case data := <-f.received:
-		var message worklogMessage
-		if err := json.Unmarshal(data, &message); err != nil {
-			t.Fatalf("not JSON: %s", data)
+	for {
+		select {
+		case data := <-f.received:
+			var message worklogMessage
+			if err := json.Unmarshal(data, &message); err != nil {
+				t.Fatalf("not JSON: %s", data)
+			}
+			if message.Type == "worklog.latest" {
+				f.mu.Lock()
+				f.latest++
+				f.mu.Unlock()
+				continue
+			}
+			return message
+		case <-time.After(5 * time.Second):
+			t.Fatal("the daemon sent nothing within 5 seconds")
+			return worklogMessage{}
 		}
-		return message
-	case <-time.After(5 * time.Second):
-		t.Fatal("the daemon sent nothing within 5 seconds")
-		return worklogMessage{}
 	}
 }
 
@@ -221,8 +231,16 @@ func TestWorklogOverTheSocket(t *testing.T) {
 	file.Close()
 	select {
 	case data := <-crewmark.received:
-		t.Fatalf("sent while nobody watched: %s", data)
+		if !strings.Contains(string(data), `"worklog.latest"`) {
+			t.Fatalf("sent while nobody watched: %s", data)
+		}
 	case <-time.After(3 * worklogEvery):
+	}
+	// Crewmark was told of the reply there at first and of "Shipped.", each once (MC-280).
+	crewmark.mu.Lock()
+	defer crewmark.mu.Unlock()
+	if got := strings.Join(crewmark.replies, ","); got != "2026-11-07T11:00:02Z,2026-11-07T13:00:09Z" {
+		t.Errorf("replies told: %s", got)
 	}
 }
 
@@ -236,5 +254,138 @@ func TestWorklogUnavailable(t *testing.T) {
 	crewmark.say(`{"type":"worklog.watch","watching":true}`)
 	if m := heard(t, crewmark); m.Type != "worklog.unavailable" || m.Reason != "unsupported" {
 		t.Fatalf("a Codex conversation: %+v", m)
+	}
+}
+
+// The list of conversations gets a short copy of the latest turns (MC-277): no steps, prompts and replies cut short.
+func TestWorklogLatest(t *testing.T) {
+	config := t.TempDir()
+	t.Setenv("CLAUDE_CONFIG_DIR", config)
+	folder := filepath.Join(config, "projects", "x")
+	if err := os.MkdirAll(folder, 0o700); err != nil {
+		t.Fatal(err)
+	}
+	long := strings.Repeat("长", 500)
+	text := numberedTranscript + `{"parentUuid":"a","isSidechain":false,"type":"assistant","message":{"content":[{"type":"text","text":"` + long + `"}],"stop_reason":"end_turn"},"timestamp":"2026-11-07T13:00:03Z"}` + "\n"
+	if err := os.WriteFile(filepath.Join(folder, "sid.jsonl"), []byte(text), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	runtime, session := "claude-code", "sid"
+	var sent []worklogMessage
+	w := newWorkWatch("Sage", employeeProfile{Runtime: &runtime, SessionID: &session}, func(m worklogMessage) error {
+		sent = append(sent, m)
+		return nil
+	})
+	w.latest()
+	if len(sent) != 1 || sent[0].Type != "worklog.latest" {
+		t.Fatalf("one worklog.latest message, got %+v", sent)
+	}
+	turns := sent[0].Turns
+	if len(turns) != 4 {
+		t.Fatalf("the latest page, got %d turns", len(turns))
+	}
+	for _, turn := range turns {
+		if len(turn.Steps) != 0 {
+			t.Errorf("no steps: %+v", turn.Steps)
+		}
+	}
+	last := turns[3]
+	if n := len([]rune(last.Reply)); n != latestChars || !strings.HasSuffix(last.Reply, "…") {
+		t.Errorf("the reply cut to %d characters, got %d: %q", latestChars, n, last.Reply[:20])
+	}
+	if turns[0].Reply != "Fixed: the badge stays red." || len(turns[0].Asides) != 1 {
+		t.Errorf("short replies and asides kept: %+v", turns[0])
+	}
+	// The conversation it reads is left whole for the Work tab.
+	if len(w.tr.turns[0].Steps) == 0 || len([]rune(w.tr.turns[3].Reply)) != 500 {
+		t.Error("the transcript's own turns keep their steps and replies")
+	}
+
+	// No conversation linked: nothing is sent, and the list keeps what it had.
+	sent = nil
+	newWorkWatch("Gus", employeeProfile{}, func(m worklogMessage) error { sent = append(sent, m); return nil }).latest()
+	if len(sent) != 0 {
+		t.Errorf("nothing sent without a conversation, got %+v", sent)
+	}
+}
+
+// The daemon follows the conversation and tells Crewmark of each new reply the Work tab shows (MC-280).
+func TestFollowReportsReplies(t *testing.T) {
+	config := t.TempDir()
+	t.Setenv("CLAUDE_CONFIG_DIR", config)
+	folder := filepath.Join(config, "projects", "x")
+	if err := os.MkdirAll(folder, 0o700); err != nil {
+		t.Fatal(err)
+	}
+	path := filepath.Join(folder, "sid.jsonl")
+	if err := os.WriteFile(path, []byte(numberedTranscript), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	appendLines := func(lines string) {
+		f, err := os.OpenFile(path, os.O_APPEND|os.O_WRONLY, 0o600)
+		if err != nil {
+			t.Fatal(err)
+		}
+		defer f.Close()
+		if _, err := f.WriteString(lines); err != nil {
+			t.Fatal(err)
+		}
+	}
+	runtime, session := "claude-code", "sid"
+	var sent []worklogMessage
+	w := newWorkWatch("Sage", employeeProfile{Runtime: &runtime, SessionID: &session}, func(m worklogMessage) error {
+		sent = append(sent, m)
+		return nil
+	})
+	var replies []string
+	replied := func(at string) { replies = append(replies, at) }
+
+	// At first, the latest reply already there ("Nothing new.", the last turn that ended with one).
+	w.followOnce(replied)
+	if len(replies) != 1 || replies[0] != "2026-11-07T11:00:02Z" {
+		t.Fatalf("the latest reply told once, got %v", replies)
+	}
+	if len(sent) != 1 || sent[0].Type != "worklog.latest" {
+		t.Errorf("the list of conversations sent the latest turns, got %+v", sent)
+	}
+	// Nothing new: nothing told.
+	w.followOnce(replied)
+	// The working turn ends with a reply: told.
+	appendLines(`{"parentUuid":"a","isSidechain":false,"type":"assistant","message":{"content":[{"type":"text","text":"Shipped."}],"stop_reason":"end_turn"},"timestamp":"2026-11-07T13:00:05Z"}` + "\n")
+	w.followOnce(replied)
+	// A quiet heartbeat: not told.
+	appendLines(`{"parentUuid":"f","isSidechain":false,"type":"user","message":{"role":"user","content":"[Crewmark heartbeat] Check your issues"},"timestamp":"2026-11-07T14:00:00Z","turnOrigin":"peer","turnPosition":{"promptIndex":4,"turnIndex":5}}
+{"parentUuid":"a","isSidechain":false,"type":"assistant","message":{"content":[{"type":"text","text":"**CREWMARK_NO_REPLY**"}],"stop_reason":"end_turn"},"timestamp":"2026-11-07T14:00:02Z"}
+`)
+	w.followOnce(replied)
+	if want := []string{"2026-11-07T11:00:02Z", "2026-11-07T13:00:05Z"}; strings.Join(replies, ",") != strings.Join(want, ",") {
+		t.Errorf("told %v, want %v", replies, want)
+	}
+
+	// While watched, the turns that change go to the web as they change.
+	w.mu.Lock()
+	w.watching = true
+	w.mu.Unlock()
+	sent = nil
+	appendLines(`{"parentUuid":"g","isSidechain":false,"type":"user","message":{"role":"user","content":"And the logo?"},"timestamp":"2026-11-07T15:00:00Z","turnOrigin":"human","turnPosition":{"promptIndex":5,"turnIndex":6}}` + "\n")
+	w.followOnce(replied)
+	if len(sent) != 1 || sent[0].Page != "live" || len(sent[0].Turns) != 1 || sent[0].Turns[0].Prompt != "And the logo?" {
+		t.Errorf("the new turn sent live, got %+v", sent)
+	}
+}
+
+func TestIsNoReply(t *testing.T) {
+	for reply, want := range map[string]bool{
+		"CREWMARK_NO_REPLY":                    true,
+		"**CREWMARK_NO_REPLY**":                true,
+		"Checked.\n\n`CREWMARK_NO_REPLY`.":     true,
+		"crewmark_no_reply。":                   true,
+		"I reply CREWMARK_NO_REPLY when quiet": false,
+		"Shipped.":                             false,
+		"":                                     false,
+	} {
+		if got := isNoReply(reply); got != want {
+			t.Errorf("isNoReply(%q) = %v, want %v", reply, got, want)
+		}
 	}
 }

@@ -1,6 +1,7 @@
 import { eventsAfter } from "@/db/agent-events";
 import { runDueRecurrences } from "@/db/recurrence";
 import type { EventsResponse } from "@/lib/agent-api";
+import { agentLinks } from "@/lib/agent-data";
 import { agentRoute } from "@/lib/agent-route";
 import { InputError } from "@/lib/validate";
 
@@ -11,5 +12,9 @@ export const GET = agentRoute(async ({ agent, request }): Promise<EventsResponse
   if (after !== null && !/^\d+$/.test(after)) throw new InputError("after must be an event id");
   // Repeating issues that came round while the Worker's timer didn't fire (or there's no Worker) are handled now.
   await runDueRecurrences(agent.organization.id);
-  return eventsAfter(agent.employeeId, after === null ? null : Number(after));
+  const result = await eventsAfter(agent.employeeId, after === null ? null : Number(after));
+  // Images in what's passed on, e.g. a screenshot the person pasted in the work log, as links the agent can open
+  // (MC-271): Crewmark keeps them as /api/attachments/<id>, which only a signed-in member can.
+  const { markdown } = agentLinks(request, agent);
+  return { ...result, events: result.events.map((event) => ({ ...event, message: markdown(event.message) })) };
 });

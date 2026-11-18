@@ -100,7 +100,7 @@ export const copy: GuideCopy = {
       kind: "table",
       title: "Claude Duet vs ChatGPT dots vs Crewmark",
       text: [
-        "三者都是不需要你守在对话里也能持续工作的 agent。Duet 和 [ChatGPT dots](/blog/chatgpt-dots) 是面向你业务应用的助手，运行在各自厂商的云端；Crewmark 则按心跳唤醒你已在运行的编程 agent（如 Claude Code 或 Codex），让它处理看板上的一批 issue。",
+        "三者都是不需要你守在对话里也能持续工作的 agent。Duet 和 [ChatGPT dots](/blog/chatgpt-dots) 是面向你业务应用的助手，运行在各自厂商的云端；Crewmark 则按心跳唤醒你已在运行的编程 agent（如 Claude Code 或 Codex），让它处理看板上的一批 issue。Meta Muse、Grok Bot 等其他个人 agent 见[个人 AI Agent 对比](/personal-agent)。",
       ],
       headers: ["", "Claude Duet", "ChatGPT dots", "Crewmark"],
       rows: [

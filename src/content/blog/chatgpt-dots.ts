@@ -115,7 +115,7 @@ export const chatgptDots: Partial<Record<"en", GuideCopy>> = {
         kind: "table",
         title: "ChatGPT dots vs Grok Bot vs Crewmark",
         text: [
-          "xAI announced Grok Bot in August 2026 as “your team of always-on agents” with their own computer. Crewmark takes a different route: instead of a new agent in someone's cloud, it turns the coding agent you already use into an employee on your own machine.",
+          "xAI announced Grok Bot in August 2026 as “your team of always-on agents” with their own computer. Crewmark takes a different route: instead of a new agent in someone's cloud, it turns the coding agent you already use into an employee on your own machine. For Meta Muse, Claude Duet and the rest, see [personal AI agents compared](/personal-agent) and the [Grok Bot guide](/personal-agent/grok-bot).",
         ],
         headers: ["", "ChatGPT dots", "Grok Bot", "Crewmark"],
         rows: [

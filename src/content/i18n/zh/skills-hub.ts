@@ -73,6 +73,8 @@ export const copy: GuideCopy = {
       text: ["我们按工作类型对比了值得安装的 skill，信息都来自各项目自己的仓库："],
       points: [
         "[最好用的网站与 UI 设计 Claude skill](/skills/website-design)：Anthropic 的 frontend-design、Taste Skill、Impeccable、UI UX Pro Max、unslop 等。",
+        "[最好用的移动 App 设计与开发 Claude skill](/skills/mobile-app-design)：React Native 用的 Expo、Vercel、Callstack，SwiftUI Pro、SwiftUI Expert，Flutter 团队的 skill，以及按苹果设计规范做审查的 skill。",
+        "[最好用的 SEO Claude skill](/skills/seo)：Corey Haines 的 seo-audit 和 ai-seo、Claude SEO、GEO-SEO Claude、Search Console MCP，以及我们自己的 SEO agent 在用的 skill。",
         "想一步步搭建 SEO agent，请读 [AI SEO Agent：用 Claude Code 搭建的方法](/blog/ai-seo-agent)；skill 的通用知识见 [Claude Code skill 指南](/blog/claude-code-skills)。",
       ],
     },

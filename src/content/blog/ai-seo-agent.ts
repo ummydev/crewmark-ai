@@ -71,7 +71,7 @@ export const aiSeoAgent: Partial<Record<"en", GuideCopy>> = {
           },
           {
             title: "Turn the daily routine into a skill",
-            text: "A skill in `.claude/skills/` holds the step-by-step routine and loads only when it's used. Start each session with it. See [Claude Code skills](/blog/claude-code-skills).",
+            text: "A skill in `.claude/skills/` holds the step-by-step routine and loads only when it's used. Start each session with it. See [Claude Code skills](/blog/claude-code-skills), and the [best Claude skills for SEO](/skills/seo) for ready-made ones.",
             code: skill,
           },
           {

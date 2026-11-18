@@ -10,9 +10,10 @@ import { IMAGE_TYPES, MAX_IMAGE_BYTES } from "@/lib/types";
 
 /**
  * Uploads images pasted into a description or comment to the organization on screen, for MarkdownEditor's
- * uploadImage. `uploading` is true while any is on its way, so a form can wait before saving.
+ * uploadImage. `uploading` is true while any is on its way, so a form can wait before saving. `quiet` leaves out the
+ * "Uploading image…" toast, for a box that shows its own (MC-271); a failure is still said.
  */
-export function useImageUpload() {
+export function useImageUpload({ quiet = false }: { quiet?: boolean } = {}) {
   const { organization } = useCrewStore();
   const [pending, setPending] = React.useState(0);
 
@@ -27,7 +28,7 @@ export function useImageUpload() {
         return null;
       }
       setPending((n) => n + 1);
-      const toastId = toast.loading("Uploading image…");
+      const toastId = quiet ? undefined : toast.loading("Uploading image…");
       try {
         const { url, upload } = await createImageUpload(organization.id, {
           name: file.name,
@@ -36,7 +37,7 @@ export function useImageUpload() {
         });
         const response = await fetch(upload.url, { method: "PUT", headers: upload.headers, body: file });
         if (!response.ok) throw new Error(`Upload answered ${response.status}`);
-        toast.dismiss(toastId);
+        if (toastId !== undefined) toast.dismiss(toastId);
         track("image uploaded", { type: file.type, size: file.size });
         return url;
       } catch (error) {
@@ -47,7 +48,7 @@ export function useImageUpload() {
         setPending((n) => n - 1);
       }
     },
-    [organization.id],
+    [organization.id, quiet],
   );
 
   return { upload, uploading: pending > 0 };

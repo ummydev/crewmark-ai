@@ -6,7 +6,8 @@ import {
   DndContext,
   DragOverlay,
   KeyboardSensor,
-  PointerSensor,
+  MouseSensor,
+  TouchSensor,
   useDroppable,
   useSensor,
   useSensors,
@@ -14,12 +15,7 @@ import {
   type DragOverEvent,
   type DragStartEvent,
 } from "@dnd-kit/core";
-import {
-  arrayMove,
-  SortableContext,
-  sortableKeyboardCoordinates,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
+import { SortableContext, sortableKeyboardCoordinates, type SortingStrategy } from "@dnd-kit/sortable";
 import { ChevronRightIcon, EllipsisIcon, EyeIcon, EyeOffIcon, PlusIcon } from "lucide-react";
 
 import { useCrewStore } from "@/components/crew-store";
@@ -31,6 +27,19 @@ import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { ISSUE_STATUSES, type Issue, type IssueStatus } from "@/lib/types";
+
+/** How long a finger holds a card before it can be dragged (a long press, shorter than the system's own). */
+const TOUCH_HOLD_MS = 250;
+
+/**
+ * The board shows each column's issues latest changed first (MC-263), so what moved lately is on top and what's been
+ * sitting there sinks. A card is dragged only to another column, where it goes on top: its status is all a drag
+ * changes, so cards don't make room for it within a column.
+ */
+function latestFirst(a: Issue, b: Issue) {
+  return b.updatedAt.localeCompare(a.updatedAt);
+}
+const STAY_PUT: SortingStrategy = () => null;
 
 /** Resolves the column a drag target belongs to: either a column itself or a card inside it. */
 function statusOf(id: string | number, issues: Issue[]): IssueStatus | undefined {
@@ -54,50 +63,52 @@ export function KanbanBoard({
   // Drag handlers below work on the full list (ids are unique), so filtering only affects what's shown.
   const issues = projectId ? allIssues.filter((i) => i.projectId === projectId) : allIssues;
   const [activeId, setActiveId] = React.useState<string | null>(null);
+  /** The dragged issue as it was, to put back if the drag ends where it started or is cancelled. */
+  const dragged = React.useRef<Issue | null>(null);
 
   const sensors = useSensors(
-    // A small distance keeps plain clicks from starting a drag.
-    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
+    // With a mouse, a small distance keeps plain clicks from starting a drag.
+    useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
+    // With a finger (MC-261), a card is dragged after holding it a moment: a swipe that moves before then scrolls the
+    // column or the board, as on any phone page, instead of moving the issue.
+    useSensor(TouchSensor, { activationConstraint: { delay: TOUCH_HOLD_MS, tolerance: 8 } }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
   );
 
   const activeIssue = issues.find((i) => i.id === activeId);
 
-  function handleDragStart({ active }: DragStartEvent) {
+  function handleDragStart({ active, activatorEvent }: DragStartEvent) {
     setActiveId(String(active.id));
+    dragged.current = allIssues.find((i) => i.id === active.id) ?? null;
+    // A buzz where the phone can, so the finger knows the card is now held.
+    if (typeof TouchEvent !== "undefined" && activatorEvent instanceof TouchEvent) navigator.vibrate?.(10);
   }
 
-  // Moving across columns happens during the drag so the card previews in its new column.
+  // Over another column, the card previews on top of it, where it'll be once moved there.
   function handleDragOver({ active, over }: DragOverEvent) {
     if (!over) return;
     setIssues((prev) => {
       const from = statusOf(active.id, prev);
       const to = statusOf(over.id, prev);
       if (!from || !to || from === to) return prev;
-
-      const activeIndex = prev.findIndex((i) => i.id === active.id);
-      const moved = { ...prev[activeIndex], status: to };
-      const rest = prev.filter((i) => i.id !== active.id);
-      const overIndex = rest.findIndex((i) => i.id === over.id);
-      // Dropping on a card inserts before it; dropping on the column itself appends.
-      const insertAt = overIndex === -1 ? rest.length : overIndex;
-      return [...rest.slice(0, insertAt), moved, ...rest.slice(insertAt)];
+      const updatedAt = new Date().toISOString();
+      return prev.map((i) => (i.id === active.id ? { ...i, status: to, updatedAt } : i));
     });
   }
 
-  // Reordering within a column happens when the drag ends; the final spot (and any column change
-  // made during the drag) is then saved.
-  function handleDragEnd({ active, over }: DragEndEvent) {
+  // Dropped in another column, the issue moves there; back where it started, or cancelled, nothing changes.
+  function handleDragEnd({ active }: DragEndEvent) {
     setActiveId(null);
-    let next = allIssues;
-    if (over && active.id !== over.id) {
-      const oldIndex = next.findIndex((i) => i.id === active.id);
-      const newIndex = next.findIndex((i) => i.id === over.id);
-      if (oldIndex !== -1 && newIndex !== -1 && next[oldIndex].status === next[newIndex].status) {
-        next = arrayMove(next, oldIndex, newIndex);
-      }
-    }
-    moveIssue(next, String(active.id));
+    const before = dragged.current;
+    dragged.current = null;
+    const status = statusOf(active.id, allIssues);
+    if (!before || !status) return;
+    if (status !== before.status) moveIssue(before.id, status);
+    else putBack(before);
+  }
+
+  function putBack(issue: Issue | null) {
+    if (issue) setIssues((prev) => prev.map((i) => (i.id === issue.id ? issue : i)));
   }
 
   return (
@@ -108,10 +119,10 @@ export function KanbanBoard({
       onDragStart={handleDragStart}
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
-      onDragCancel={({ active }) => {
-        // A cancelled drag keeps any column change made while dragging, so save that too.
+      onDragCancel={() => {
         setActiveId(null);
-        moveIssue(allIssues, String(active.id));
+        putBack(dragged.current);
+        dragged.current = null;
       }}
     >
       <div className="flex h-full gap-3 overflow-x-auto px-4 pt-2 pb-4">
@@ -119,7 +130,7 @@ export function KanbanBoard({
           <KanbanColumn
             key={column.value}
             column={column}
-            issues={issues.filter((i) => i.status === column.value)}
+            issues={issues.filter((i) => i.status === column.value).sort(latestFirst)}
             findAssignee={findAssignee}
             onCreateIssue={() => onCreateIssue(column.value)}
             // The last column shown stays.
@@ -205,7 +216,7 @@ function KanbanColumn({
           </Button>
         </div>
       </header>
-      <SortableContext items={issues.map((i) => i.id)} strategy={verticalListSortingStrategy}>
+      <SortableContext items={issues.map((i) => i.id)} strategy={STAY_PUT}>
         <div
           ref={setNodeRef}
           className={cn(

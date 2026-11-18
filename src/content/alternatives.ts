@@ -217,7 +217,7 @@ export const alternatives: Record<Alternative, { card: { product: string; taglin
             },
           ],
         },
-        { kind: "text", title: "Other alternatives", points: [...others("multica"), "New to the idea? Read [what an AI employee is](/ai-employees)."] },
+        { kind: "text", title: "Other alternatives", points: [...others("multica"), "New to the idea? Read [what an AI employee is](/ai-employees).", "Running agents around the clock? See [how to run Claude Code 24/7](/blog/run-claude-code-24-7) and [Codex long-running tasks](/blog/codex-long-running-tasks)."] },
       ],
       howTo: { section: "how-to", name: "Move from Multica to Crewmark" },
       mid,

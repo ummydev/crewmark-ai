@@ -1,13 +1,7 @@
-import { Suspense } from "react";
-
 import { MessagesView } from "@/components/messages/messages-view";
 
-export default function ConversationPage({ params }: PageProps<"/org/[slug]/messages/[employeeId]">) {
-  return (
-    <Suspense fallback={<MessagesView />}>
-      {params.then(({ employeeId }) => (
-        <MessagesView employeeId={decodeURIComponent(employeeId)} />
-      ))}
-    </Suspense>
-  );
+// The same view as /messages: it reads which conversation is open from the address, so picking another employee
+// there changes only the address (MC-235). This page is what a reload, or a link from elsewhere, opens.
+export default function ConversationPage() {
+  return <MessagesView />;
 }

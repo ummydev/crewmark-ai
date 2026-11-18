@@ -179,6 +179,12 @@ func (r *realtime) connect(ctx context.Context, employeeID string, profile emplo
 		return conn.Write(writeCtx, websocket.MessageText, data)
 	})
 	defer work.close()
+	// Each new reply counts as unread in Messages until someone opens the employee's work (MC-280).
+	go work.follow(ctx, func(at string) {
+		if err := api(profile, "POST", "/api/agent/replied", map[string]any{"at": at}, nil); err != nil {
+			log.Printf("%s: couldn't tell Crewmark about a reply: %v", logName(employeeID, profile), err)
+		}
+	})
 	for {
 		readCtx, done := context.WithTimeout(ctx, realtimeSilence)
 		_, data, err := conn.Read(readCtx)
@@ -197,9 +203,11 @@ func (r *realtime) connect(ctx context.Context, employeeID string, profile emplo
 		}
 		switch message.Type {
 		case "worklog.watch":
-			work.watch(ctx, message.Watching)
+			work.watch(message.Watching)
 		case "worklog.more":
 			go work.more(message.Before)
+		case "worklog.latest":
+			go work.latest()
 		default:
 			r.send(ctx, push{employeeID, message.Type})
 		}

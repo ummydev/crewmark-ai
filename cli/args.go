@@ -5,7 +5,9 @@ import "strings"
 // A command's options and positional arguments. Options may come before or after positionals, as --name value or
 // --name=value; "--" ends them. Every command takes --json, --employee and --help.
 type parsed struct {
-	strings     map[string]string
+	strings map[string]string
+	// Every value a string option was given, for one that may be repeated, e.g. --image a.png --image b.png.
+	lists       map[string][]string
 	bools       map[string]bool
 	positionals []string
 }
@@ -32,7 +34,7 @@ func parseArgs(args []string, stringOptions, boolOptions []string) (*parsed, err
 		isBool[name] = true
 	}
 
-	p := &parsed{strings: map[string]string{}, bools: map[string]bool{}}
+	p := &parsed{strings: map[string]string{}, lists: map[string][]string{}, bools: map[string]bool{}}
 	for i := 0; i < len(args); i++ {
 		arg := args[i]
 		switch {
@@ -58,6 +60,7 @@ func parseArgs(args []string, stringOptions, boolOptions []string) (*parsed, err
 					value = args[i]
 				}
 				p.strings[name] = value
+				p.lists[name] = append(p.lists[name], value)
 			default:
 				return nil, fail("Unknown option --%s. Run `crewmark help` for usage.", name)
 			}

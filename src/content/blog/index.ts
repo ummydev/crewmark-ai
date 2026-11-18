@@ -33,6 +33,14 @@ import { claudeSquadAlternatives } from "./claude-squad-alternatives";
 import { openclawAlternatives } from "./openclaw-alternatives";
 import { hermesAgentVsOpenclaw } from "./hermes-agent-vs-openclaw";
 import { claudeCodeAgentTeams } from "./claude-code-agent-teams";
+import { runClaudeCode247 } from "./run-claude-code-24-7";
+import { codexLongRunningTasks } from "./codex-long-running-tasks";
+import { codexRemoteControl } from "./codex-remote-control";
+import { claudeCodeChannels } from "./claude-code-channels";
+import { devinAlternatives } from "./devin-alternatives";
+import { opencodeAlternatives } from "./opencode-alternatives";
+import { aiderAlternatives } from "./aider-alternatives";
+import { claudeFable52 } from "./claude-fable-5-2";
 import { multipleClaudeCodeAgents } from "./multiple-claude-code-agents";
 import { reduceClaudeCodeTokenUsage } from "./reduce-claude-code-token-usage";
 import { superagent } from "./superagent";
@@ -69,6 +77,14 @@ import {
   openclawAlternativesTranslations,
   hermesAgentVsOpenclawTranslations,
   claudeCodeAgentTeamsTranslations,
+  runClaudeCode247Translations,
+  codexLongRunningTasksTranslations,
+  codexRemoteControlTranslations,
+  claudeCodeChannelsTranslations,
+  devinAlternativesTranslations,
+  opencodeAlternativesTranslations,
+  aiderAlternativesTranslations,
+  claudeFable52Translations,
   multipleClaudeCodeAgentsTranslations,
   reduceClaudeCodeTokenUsageTranslations,
   superagentTranslations,
@@ -85,6 +101,14 @@ export const postCopy: Record<PostSlug, Partial<Record<Locale, GuideCopy>>> = {
   "openclaw-alternatives": { ...openclawAlternativesTranslations, ...openclawAlternatives },
   "hermes-agent-vs-openclaw": { ...hermesAgentVsOpenclawTranslations, ...hermesAgentVsOpenclaw },
   "claude-code-agent-teams": { ...claudeCodeAgentTeamsTranslations, ...claudeCodeAgentTeams },
+  "run-claude-code-24-7": { ...runClaudeCode247Translations, ...runClaudeCode247 },
+  "codex-long-running-tasks": { ...codexLongRunningTasksTranslations, ...codexLongRunningTasks },
+  "codex-remote-control": { ...codexRemoteControlTranslations, ...codexRemoteControl },
+  "claude-code-channels": { ...claudeCodeChannelsTranslations, ...claudeCodeChannels },
+  "devin-alternatives": { ...devinAlternativesTranslations, ...devinAlternatives },
+  "opencode-alternatives": { ...opencodeAlternativesTranslations, ...opencodeAlternatives },
+  "aider-alternatives": { ...aiderAlternativesTranslations, ...aiderAlternatives },
+  "claude-fable-5-2": { ...claudeFable52Translations, ...claudeFable52 },
   "ai-seo-agent": { ...aiSeoAgentTranslations, ...aiSeoAgent },
   "deepseek-v4-1-flash": { ...deepseekV41FlashTranslations, ...deepseekV41Flash },
   "claude-code-deepseek": { ...claudeCodeDeepseekTranslations, ...claudeCodeDeepseek },

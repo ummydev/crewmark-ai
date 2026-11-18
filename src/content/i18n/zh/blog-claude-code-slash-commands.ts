@@ -160,7 +160,7 @@ export const copy: GuideCopy = {
         "你记得的内置命令可能已经没了：`/pr-comments`、`/vim` 和 `/ultraplan` 已被移除。请查看 `/help` 或文档。",
         "`allowed-tools` 只在调用 skill 的那一轮授予权限，而仓库里的 skill 可以给自己授予工具，所以在陌生仓库里运行 Claude Code 之前，先读一读这些 skill。",
         "每个 skill 的描述都常驻在上下文里；`/skill-doctor` 会显示每个 skill 的开销和使用频率。长流程应该放进 skill，而不是 [CLAUDE.md](/blog/claude-md)。",
-        "`/loop` 只在会话打开期间重复提示词。想让工作自己开始，参见[如何让 Claude Code 主动工作](/proactive-claude-code)。",
+        "`/loop` 只在会话打开期间重复提示词。想让工作自己开始，参见[如何让 Claude Code 主动工作](/proactive-claude-code)；想让它通宵干活，参见[让 Claude Code 24 小时运行](/blog/run-claude-code-24-7)。",
       ],
     },
     {

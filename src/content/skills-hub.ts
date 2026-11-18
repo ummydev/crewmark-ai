@@ -86,6 +86,8 @@ export const skillsHub: Record<SkillsHubLocale, GuideCopy> = {
         ],
         points: [
           "[Best Claude skills for website and UI design](/skills/website-design): Anthropic's frontend-design, Taste Skill, Impeccable, UI UX Pro Max, unslop and more.",
+          "[Best Claude skills for mobile app design and development](/skills/mobile-app-design): Expo, Vercel and Callstack for React Native, SwiftUI Pro and SwiftUI Expert, the Flutter team's skills and Apple design review.",
+          "[Best Claude skills for SEO](/skills/seo): Corey Haines' seo-audit and ai-seo, Claude SEO, GEO-SEO Claude, Search Console MCPs and the skills our own SEO agent uses.",
           "For building an SEO agent step by step, read [AI SEO agent: how to build one](/blog/ai-seo-agent); for skills in general, [Claude Code skills](/blog/claude-code-skills).",
         ],
       },

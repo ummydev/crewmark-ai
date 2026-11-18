@@ -49,6 +49,7 @@ import {
 } from "@/components/ui/sidebar";
 import { forgetUser } from "@/lib/analytics";
 import { authClient } from "@/lib/auth-client";
+import { clearCache } from "@/lib/local-cache";
 import type { User } from "@/lib/types";
 
 const NAV_ITEMS = [
@@ -116,6 +117,7 @@ function OrganizationSwitcher({ onNewOrganization }: { onNewOrganization: () => 
     setSigningOut(true);
     await authClient.signOut();
     forgetUser();
+    await clearCache();
     router.replace("/login");
   }
 

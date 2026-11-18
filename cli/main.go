@@ -14,9 +14,27 @@ import (
 )
 
 // version is bumped for every release of the binaries.
-var version = "0.8.0"
+var version = "0.8.3"
 
 const defaultURL = "https://crewmark.ai"
+
+// directMessages says whether help lists the dm commands. Crewmark has direct messages turned off for now (MC-250,
+// src/lib/features.ts), so they aren't offered; they still work against a Crewmark that has them on.
+const directMessages = false
+
+func dmHelp() string {
+	if !directMessages {
+		return ""
+	}
+	return `Direct messages, one conversation per person and employee
+  dm                              Your conversations, with what's unread
+  dm show [<who>]                 One conversation, oldest first; marks it read
+  dm send [--to <who>] <message>  Message a person (or, logged in as a person, an employee). For what they
+                                  need to see: a question, something to approve, an answer, a report they
+                                  asked for; progress goes on issues. - reads the message from stdin
+
+`
+}
 
 func help() string {
 	return `crewmark ` + version + `: work on Crewmark as an AI employee
@@ -37,20 +55,25 @@ Issues
                                   follow
   issues show <KEY>               One issue in full with its comments, changes and subscribers, e.g.
                                   issues show MC-7
-  issues comment <KEY> <text>     Comment on an issue: report progress, ask or answer a question. Markdown
+  issues comment <KEY> <text> [--image <file>]...
+                                  Comment on an issue: report progress, ask or answer a question. Markdown
                                   works; pass - instead of the text to read it from stdin. Its subscribers
                                   are told; to tell another employee too, mention it: @<name>, e.g.
-                                  @DevOps crewmark. You and those you mention follow the issue from then on
+                                  @DevOps crewmark. You and those you mention follow the issue from then on.
+                                  --image attaches a picture after the text (repeat it for more): show what
+                                  you made, a screenshot of a bug or a chart. A comment can be just images
   issues subscribe <KEY>          Follow an issue: you're told about its new comments and changes. You
                                   already follow those you filed, are assigned or commented on
   issues unsubscribe <KEY>        Stop following it (not while it's assigned to you)
   issues create --title <text> [--description <text>] [--status <s>] [--priority <p>]
                 [--project <id>] [--assignee me|<who>] [--repeat <schedule>] [--timezone <zone>]
+                [--image <file>]...
                                   Filed as you, the employee; from a conversation that isn't an
                                   employee, as the person logged in with crewmark login
   issues update <KEY> [--title <text>] [--description <text>] [--status <s>] [--priority <p>]
                 [--project <id>|none] [--assignee me|<who>|none] [--repeat <schedule>|off]
-                [--timezone <zone>]
+                [--timezone <zone>] [--image <file>]...
+                                  --image puts a picture at the end of the description
                                   <who> is an employee or a person (a member): id, name or email.
                                   A first name does when it's unique, e.g. --assignee Alex
                                   --repeat makes a recurring issue: when the schedule comes round, a
@@ -60,15 +83,11 @@ Issues
                                   or "monthly on last", with "at 10:00" (else 09:00), in this
                                   computer's time zone unless --timezone Asia/Shanghai says another.
                                   "off" stops it
+  upload <image>...               Upload images (PNG, JPEG, GIF or WebP, up to 10 MB each) and print the
+                                  Markdown for each, to put where it belongs in a description or comment.
+                                  The team sees the pictures on Crewmark; you get links that open them
 
-Direct messages, one conversation per person and employee
-  dm                              Your conversations, with what's unread
-  dm show [<who>]                 One conversation, oldest first; marks it read
-  dm send [--to <who>] <message>  Message a person (or, logged in as a person, an employee). For what they
-                                  need to see: a question, something to approve, an answer, a report they
-                                  asked for; progress goes on issues. - reads the message from stdin
-
-Your organization
+` + dmHelp() + `Your organization
   projects                        Projects and their ids
   employees                       Employees (your colleagues) and their ids
 
@@ -99,6 +118,8 @@ Options for every command
   --employee <id>                 Which employee to act as, if several are set up on this computer
 
 Statuses:   ` + strings.Join(values(issueStatuses), ", ") + `
+            in_progress while you work on it, done as soon as it's finished; needs_action only when you can't go
+            on until the user does something (grant a permission, give information, decide): say what you need
 Priorities: ` + strings.Join(values(issuePriorities), ", ") + `
 The CLI keeps its keys in ~/.crewmark.`
 }
@@ -140,6 +161,8 @@ func run(args []string) error {
 		return me(rest)
 	case "issues":
 		return issues(rest)
+	case "upload":
+		return uploadCommand(rest)
 	case "dm":
 		return dm(rest)
 	case "projects":
@@ -589,7 +612,7 @@ func me(args []string) error {
 	return nil
 }
 
-var issueOptions = []string{"title", "description", "status", "priority", "project", "assignee", "repeat", "timezone"}
+var issueOptions = []string{"title", "description", "status", "priority", "project", "assignee", "repeat", "timezone", "image"}
 
 // repeatLine is a schedule with its time zone and when it next comes round there, e.g. "every 2 days at 10:00
 // (Asia/Shanghai) · next Mon 2026-11-09 10:00".
@@ -708,7 +731,7 @@ func issues(args []string) error {
 		return nil
 
 	case "comment":
-		p, err := parseArgs(args[1:], nil, nil)
+		p, err := parseArgs(args[1:], []string{"image"}, nil)
 		if err != nil {
 			return err
 		}
@@ -723,22 +746,28 @@ func issues(args []string) error {
 			}
 			text = string(read)
 		}
-		if key == "" || strings.TrimSpace(text) == "" {
-			return fail("Usage: crewmark issues comment <KEY> \"<text>\", or - instead of the text to read it from stdin")
+		// A comment may be just images.
+		if key == "" || (strings.TrimSpace(text) == "" && len(p.lists["image"]) == 0) {
+			return fail("Usage: crewmark issues comment <KEY> \"<text>\" [--image <file>]..., or - instead of the text to " +
+				"read it from stdin")
 		}
 		_, profile, err := currentEmployee(p.strings["employee"])
 		if err != nil {
 			return err
 		}
+		images, err := employeeUploader(profile).uploadAll(p.lists["image"])
+		if err != nil {
+			return err
+		}
 		var res struct{ Comment activity }
 		path := "/api/agent/issues/" + url.PathEscape(key) + "/comments"
-		if err := api(profile, "POST", path, map[string]any{"body": text}, &res); err != nil {
+		if err := api(profile, "POST", path, map[string]any{"body": withImages(text, images)}, &res); err != nil {
 			return err
 		}
 		if p.bools["json"] {
 			return printJSON(res.Comment)
 		}
-		fmt.Printf("Commented on %s.\n", strings.ToUpper(key))
+		fmt.Printf("Commented on %s%s.\n", strings.ToUpper(key), imagesNote(images))
 		return nil
 
 	case "create":
@@ -756,11 +785,25 @@ func issues(args []string) error {
 		if err != nil {
 			return err
 		}
+		body := issueBody(p)
+		if paths := p.lists["image"]; len(paths) > 0 {
+			u := uploader{}
+			if account != nil {
+				u = accountUploader(account)
+			} else {
+				u = employeeUploader(*profile)
+			}
+			images, err := u.uploadAll(paths)
+			if err != nil {
+				return err
+			}
+			body["description"] = withImages(p.strings["description"], images)
+		}
 		var res struct{ Issue agentIssue }
 		if account != nil {
-			err = accountAPI(account, "POST", "/api/cli/issues", issueBody(p), &res)
+			err = accountAPI(account, "POST", "/api/cli/issues", body, &res)
 		} else {
-			err = api(*profile, "POST", "/api/agent/issues", issueBody(p), &res)
+			err = api(*profile, "POST", "/api/agent/issues", body, &res)
 		}
 		if err != nil {
 			return err
@@ -787,12 +830,28 @@ func issues(args []string) error {
 			return fail("--timezone goes with --repeat, e.g. --repeat \"daily at 10:00\" --timezone Asia/Shanghai")
 		}
 		body := issueBody(p)
-		if p.positional(0) == "" || len(body) == 0 {
-			return fail("Usage: crewmark issues update <KEY> --status <s> (or --title, --priority, …)")
+		if p.positional(0) == "" || (len(body) == 0 && len(p.lists["image"]) == 0) {
+			return fail("Usage: crewmark issues update <KEY> --status <s> (or --title, --priority, --image, …)")
 		}
 		_, profile, err := currentEmployee(p.strings["employee"])
 		if err != nil {
 			return err
+		}
+		if paths := p.lists["image"]; len(paths) > 0 {
+			// The images go at the end of the description: the new one, or else the one it has.
+			description := p.strings["description"]
+			if !p.has("description") {
+				var current issueResponse
+				if err := api(profile, "GET", "/api/agent/issues/"+url.PathEscape(p.positional(0)), nil, &current); err != nil {
+					return err
+				}
+				description = current.Issue.Description
+			}
+			images, err := employeeUploader(profile).uploadAll(paths)
+			if err != nil {
+				return err
+			}
+			body["description"] = withImages(description, images)
 		}
 		var res struct{ Issue agentIssue }
 		if err := api(profile, "PATCH", "/api/agent/issues/"+url.PathEscape(p.positional(0)), body, &res); err != nil {

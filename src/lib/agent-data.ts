@@ -7,9 +7,10 @@ import type {
   AgentDirectThread,
   AgentEmployee,
   AgentIssue,
+  AttachmentResponse,
 } from "@/lib/agent-api";
 import type { Agent } from "@/lib/agent-auth";
-import { signAttachmentLinks } from "@/lib/attachments";
+import { signAttachmentLinks, type StoredFile } from "@/lib/attachments";
 import {
   RecurrenceError,
   describeRecurrence,
@@ -269,6 +270,23 @@ export function agentLinks(request: Request, who: Pick<Agent, "organization">): 
   return {
     dashboard: dashboardUrl(request, who),
     markdown: (text) => signAttachmentLinks(text, who.organization.id, origin),
+  };
+}
+
+/**
+ * What the CLI needs for an image it's uploading (MC-267): where to PUT the file, as a full URL (in development it's
+ * this server), and the Markdown that shows it once it's there.
+ */
+export function attachmentResponse(
+  request: Request,
+  { attachment, upload }: { attachment: StoredFile; upload: { url: string; headers: Record<string, string> } },
+): AttachmentResponse {
+  const url = `/api/attachments/${attachment.id}`;
+  // The name is the image's alt text: brackets would end it early, and it's one line.
+  const alt = attachment.name.replace(/[[\]]/g, "").replace(/\s+/g, " ").trim() || "image";
+  return {
+    attachment: { id: attachment.id, name: attachment.name, url, markdown: `![${alt}](${url})` },
+    upload: { url: new URL(upload.url, request.url).toString(), headers: upload.headers },
   };
 }
 

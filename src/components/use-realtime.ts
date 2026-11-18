@@ -13,6 +13,7 @@ export type Push =
   | { type: "activity"; issueId: string }
   | { type: "messages" }
   | { type: "worklog"; employeeId: string; turns?: WorkTurn[]; page: "latest" | "earlier" | "live"; more?: boolean }
+  | { type: "worklog.latest"; employeeId: string; turns?: WorkTurn[] }
   | { type: "worklog.unavailable"; employeeId: string; reason: string }
   | { type: "worklog.offline"; employeeId: string };
 

@@ -9,6 +9,8 @@ import { routing } from "./routing";
  */
 export const skillPages = [
   { slug: "website-design", role: "ui-designer", locales: routing.locales },
+  { slug: "mobile-app-design", role: "app-designer", locales: ["en", "zh"] },
+  { slug: "seo", role: "seo-specialist", locales: ["en", "zh"] },
 ] as const satisfies readonly { slug: string; role: string; locales: readonly Locale[] }[];
 
 export type SkillPageSlug = (typeof skillPages)[number]["slug"];

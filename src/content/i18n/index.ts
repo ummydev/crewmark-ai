@@ -304,6 +304,16 @@ import { copy as ptBRHermesAgentVsOpenclaw } from "./pt-BR/blog-hermes-agent-vs-
 import { copy as frHermesAgentVsOpenclaw } from "./fr/blog-hermes-agent-vs-openclaw";
 import { copy as deHermesAgentVsOpenclaw } from "./de/blog-hermes-agent-vs-openclaw";
 import { copy as zhClaudeCodeAgentTeams } from "./zh/blog-claude-code-agent-teams";
+import { copy as zhRunClaudeCode247 } from "./zh/blog-run-claude-code-24-7";
+import { copy as zhCodexLongRunningTasks } from "./zh/blog-codex-long-running-tasks";
+import { copy as zhCodexRemoteControl } from "./zh/blog-codex-remote-control";
+import { copy as zhClaudeCodeChannels } from "./zh/blog-claude-code-channels";
+import { copy as zhDevinAlternatives } from "./zh/blog-devin-alternatives";
+import { copy as zhOpencodeAlternatives } from "./zh/blog-opencode-alternatives";
+import { copy as zhAiderAlternatives } from "./zh/blog-aider-alternatives";
+import { copy as zhClaudeFable52 } from "./zh/blog-claude-fable-5-2";
+import { copy as zhTWClaudeFable52 } from "./zh-TW/blog-claude-fable-5-2";
+import { copy as jaClaudeFable52 } from "./ja/blog-claude-fable-5-2";
 import { copy as zhTWClaudeCodeAgentTeams } from "./zh-TW/blog-claude-code-agent-teams";
 import { copy as jaClaudeCodeAgentTeams } from "./ja/blog-claude-code-agent-teams";
 import { copy as koClaudeCodeAgentTeams } from "./ko/blog-claude-code-agent-teams";
@@ -744,6 +754,22 @@ export const hermesAgentVsOpenclawTranslations = {
   fr: frHermesAgentVsOpenclaw,
   de: deHermesAgentVsOpenclaw,
 };
+
+export const runClaudeCode247Translations = { zh: zhRunClaudeCode247 };
+
+export const codexLongRunningTasksTranslations = { zh: zhCodexLongRunningTasks };
+
+export const codexRemoteControlTranslations = { zh: zhCodexRemoteControl };
+
+export const claudeCodeChannelsTranslations = { zh: zhClaudeCodeChannels };
+
+export const devinAlternativesTranslations = { zh: zhDevinAlternatives };
+
+export const opencodeAlternativesTranslations = { zh: zhOpencodeAlternatives };
+
+export const aiderAlternativesTranslations = { zh: zhAiderAlternatives };
+
+export const claudeFable52Translations = { zh: zhClaudeFable52, "zh-TW": zhTWClaudeFable52, ja: jaClaudeFable52 };
 
 export const claudeCodeAgentTeamsTranslations = {
   zh: zhClaudeCodeAgentTeams,

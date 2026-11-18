@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -22,6 +23,9 @@ type fakeCrewmark struct {
 	noPushes bool
 	// What the daemon sent up the socket, other than pings.
 	received chan []byte
+	// The replies it told of (MC-280), and how many times it sent the latest turns.
+	replies []string
+	latest  int
 }
 
 func newFakeCrewmark(t *testing.T) *fakeCrewmark {
@@ -62,6 +66,13 @@ func newFakeCrewmark(t *testing.T) *fakeCrewmark {
 			}
 		case "/api/agent/events":
 			w.Write([]byte(`{"events":[],"cursor":7}`))
+		case "/api/agent/replied":
+			var body struct{ At string }
+			json.NewDecoder(r.Body).Decode(&body)
+			f.mu.Lock()
+			f.replies = append(f.replies, body.At)
+			f.mu.Unlock()
+			w.Write([]byte(`{"counted":true}`))
 		case "/api/agent/heartbeat":
 			w.Write([]byte(`{"heartbeat":{"enabled":true,"start":"10:00","end":"18:00","timeZone":"UTC","intervalMinutes":60}}`))
 		default:

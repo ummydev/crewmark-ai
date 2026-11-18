@@ -31,9 +31,9 @@ dsh plugin --profile default add <package>`;
 export const deepseekHarness: Partial<Record<"en", GuideCopy>> = {
   en: {
     meta: {
-      title: "DeepSeek Harness: What It Is, Pricing, vs Claude Code",
+      title: "DeepSeek Harness: What It Is, How to Install (Linux Too)",
       description:
-        "DeepSeek Harness (dsh) explained: the open-source agent harness from DeepSeek, desktop app and CLI, install, DeepSeek API pricing, plugins and the super-agent, and how it compares with Claude Code, Codex and OpenCode.",
+        "DeepSeek Harness (dsh) explained: what the open-source agent from DeepSeek does, how to install it on Mac, Windows and Linux (web UI or from GitHub), DeepSeek API pricing, and how it compares with Claude Code and Codex.",
     },
     breadcrumb: "DeepSeek Harness guide",
     parent: { name: "Blog", href: "/blog" },

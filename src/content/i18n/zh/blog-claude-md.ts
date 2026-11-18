@@ -92,7 +92,7 @@ export const copy: GuideCopy = {
         },
         {
           title: "把流程挪到 skill 里",
-          text: "多步骤的工作流，比如怎么发布版本，应该放进 skill（`.claude/skills/<name>/SKILL.md`），只在相关时才加载。CLAUDE.md 每个任务都会读，所以每一行都在消耗注意力。",
+          text: "多步骤的工作流，比如怎么发布版本，应该放进 skill（`.claude/skills/<name>/SKILL.md`），只在相关时才加载。CLAUDE.md 每个任务都会读，所以每一行都在消耗注意力。现成的 skill 可以看[按职能整理的 Claude skills](/skills)。",
         },
         {
           title: "保持更新",

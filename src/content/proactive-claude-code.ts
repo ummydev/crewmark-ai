@@ -75,7 +75,7 @@ export const proactiveClaudeCode: Record<ProactiveClaudeCodeLocale, GuideCopy> =
           },
           {
             title: "Let events wake it up",
-            text: "Channels push events into a running session: a Telegram, Discord or iMessage message, a CI failure or a webhook, so Claude reacts without you opening the terminal. Hooks run your own commands at points in Claude's lifecycle, such as before a tool call or when a turn ends. Both need the session to be running.",
+            text: "Channels push events into a running session: a Telegram, Discord or iMessage message, a CI failure or a webhook, so Claude reacts without you opening the terminal. Hooks run your own commands at points in Claude's lifecycle, such as before a tool call or when a turn ends. Both need the session to be running. See [how to set up Claude Code channels](/blog/claude-code-channels).",
             code: "claude --channels plugin:telegram@claude-plugins-official",
           },
         ],
@@ -197,7 +197,7 @@ export const proactiveClaudeCode: Record<ProactiveClaudeCodeLocale, GuideCopy> =
         },
         {
           q: "Can Claude Code work while my computer is off?",
-          a: "Cloud scheduled tasks and GitHub Actions can, because they run on someone else's machines. Anything that uses your local files, including Desktop scheduled tasks, Channels and Crewmark, needs your computer on.",
+          a: "Cloud scheduled tasks and GitHub Actions can, because they run on someone else's machines. Anything that uses your local files, including Desktop scheduled tasks, Channels and Crewmark, needs your computer on. For overnight runs, see [how to run Claude Code 24/7](/blog/run-claude-code-24-7).",
         },
         {
           q: "Is it safe to let Claude Code run unattended?",
@@ -278,7 +278,7 @@ export const proactiveClaudeCode: Record<ProactiveClaudeCodeLocale, GuideCopy> =
           },
           {
             title: "让事件把它叫醒",
-            text: "Channels 把事件推进正在运行的会话：Telegram、Discord 或 iMessage 消息、CI 失败、webhook，Claude 不用你打开终端就会处理。Hooks 在 Claude 生命周期的特定时刻运行你自己的命令，比如调用工具之前或一轮结束时。两者都需要会话在运行。",
+            text: "Channels 把事件推进正在运行的会话：Telegram、Discord 或 iMessage 消息、CI 失败、webhook，Claude 不用你打开终端就会处理。Hooks 在 Claude 生命周期的特定时刻运行你自己的命令，比如调用工具之前或一轮结束时。两者都需要会话在运行。设置方法见 [Claude Code Channels 教程](/blog/claude-code-channels)。",
             code: "claude --channels plugin:telegram@claude-plugins-official",
           },
         ],
@@ -398,7 +398,7 @@ export const proactiveClaudeCode: Record<ProactiveClaudeCodeLocale, GuideCopy> =
         },
         {
           q: "电脑关机时 Claude Code 还能干活吗？",
-          a: "云端定时任务和 GitHub Actions 可以，因为它们跑在别人的机器上。用到本地文件的方式，包括桌面端定时任务、Channels 和 Crewmark，都需要电脑开着。",
+          a: "云端定时任务和 GitHub Actions 可以，因为它们跑在别人的机器上。用到本地文件的方式，包括桌面端定时任务、Channels 和 Crewmark，都需要电脑开着。想让它通宵干活，请看[让 Claude Code 24 小时运行](/blog/run-claude-code-24-7)。",
         },
         {
           q: "让 Claude Code 无人值守安全吗？",

@@ -20,7 +20,7 @@ import {
   type NewIssueInput,
 } from "@/lib/actions";
 import { identify, track } from "@/lib/analytics";
-import type { AgentRuntime, Employee, Issue, MemberRole, Organization, Project, User } from "@/lib/types";
+import type { AgentRuntime, Employee, Issue, IssueStatus, MemberRole, Organization, Project, User } from "@/lib/types";
 
 // Client-side copy of one organization's data, seeded from the database on each page load.
 // Edits apply locally right away and are saved to Neon in the background through Server Actions, which check that
@@ -46,7 +46,7 @@ interface CrewStore {
   updateProject: (id: string, patch: ProjectPatch) => void;
   employees: Employee[];
   issues: Issue[];
-  /** Local-only reorder used while dragging; call moveIssue to save the result. */
+  /** Local-only changes used while dragging (a card previews in the column it's over); moveIssue saves the result. */
   setIssues: React.Dispatch<React.SetStateAction<Issue[]>>;
   addEmployee: (employee: NewEmployeeInput) => Promise<Employee>;
   updateEmployee: (id: string, patch: EmployeePatch) => void;
@@ -56,7 +56,8 @@ interface CrewStore {
   addIssue: (issue: NewIssueInput) => Promise<Issue>;
   updateIssue: (id: string, patch: IssuePatch) => void;
   /** Commits a drag: `next` is the board in its new order, `id` the issue that moved. */
-  moveIssue: (next: Issue[], id: string) => void;
+  /** Saves an issue's new status after a drag on the board, which makes it the latest changed. */
+  moveIssue: (id: string, status: IssueStatus) => void;
   /** Deletes the issue for good; rejects when the server couldn't. */
   deleteIssue: (id: string) => Promise<void>;
   /** Deletes the employee for good. Its issues stay, unassigned; its connected agent is disconnected. */
@@ -116,16 +117,6 @@ const TRACKED_ISSUE_FIELDS = [
   ["projectId", "project"],
   ["recurrence", "repeat"],
 ] as const;
-
-/** A position between the moved issue's new neighbours, so only that issue needs saving. */
-function positionAt(list: Issue[], index: number) {
-  const before = list[index - 1]?.position;
-  const after = list[index + 1]?.position;
-  if (before !== undefined && after !== undefined) return (before + after) / 2;
-  if (before !== undefined) return before + 1;
-  if (after !== undefined) return after - 1;
-  return 1;
-}
 
 export function CrewStoreProvider({
   organization,
@@ -208,7 +199,9 @@ export function CrewStoreProvider({
 
   const updateIssue = React.useCallback(
     (id: string, patch: IssuePatch) => {
-      setIssues((prev) => prev.map((i) => (i.id === id ? { ...i, ...patch } : i)));
+      // Changed now, as Crewmark records it (MC-263), so the board shows it first.
+      const updatedAt = new Date().toISOString();
+      setIssues((prev) => prev.map((i) => (i.id === id ? { ...i, ...patch, updatedAt } : i)));
       queueIssueSave(id, patch);
       // Title and description change on every keystroke, so only the one-click fields are tracked.
       for (const [key, field] of TRACKED_ISSUE_FIELDS) {
@@ -218,13 +211,11 @@ export function CrewStoreProvider({
     [queueIssueSave],
   );
 
-  const moveIssue = React.useCallback((next: Issue[], id: string) => {
-    const index = next.findIndex((i) => i.id === id);
-    if (index === -1) return;
-    const moved = { ...next[index], position: positionAt(next, index) };
-    setIssues(next.map((i) => (i.id === id ? moved : i)));
-    saveIssue(organizationId, id, { status: moved.status, position: moved.position }).catch(reportSaveError);
-    track("issue moved", { status: moved.status });
+  const moveIssue = React.useCallback((id: string, status: IssueStatus) => {
+    const updatedAt = new Date().toISOString();
+    setIssues((prev) => prev.map((i) => (i.id === id ? { ...i, status, updatedAt } : i)));
+    saveIssue(organizationId, id, { status }).catch(reportSaveError);
+    track("issue moved", { status });
   }, [organizationId]);
 
   const deleteIssue = React.useCallback(async (id: string) => {

@@ -6,6 +6,7 @@ import {
   ISSUE_STATUSES,
   type EmployeeStatus,
   type Heartbeat,
+  type IssueStatus,
 } from "@/lib/types";
 
 // Checks for input from outside (Server Functions, the agent API): never trust the caller's types.
@@ -82,6 +83,11 @@ export function heartbeat(value: unknown): Heartbeat | null {
 }
 
 export const STATUS_VALUES = ISSUE_STATUSES.map((s) => s.value);
+
+/** An issue status, taking "in_review" (its name before MC-263, which older CLIs still offer) as "needs_action". */
+export function issueStatus(value: unknown, field = "status"): IssueStatus {
+  return oneOf(value === "in_review" ? "needs_action" : value, STATUS_VALUES, field);
+}
 export const PRIORITY_VALUES = ISSUE_PRIORITIES.map((p) => p.value);
 export const RUNTIME_VALUES = AGENT_RUNTIMES.map((r) => r.value);
 export const EMPLOYEE_STATUS_VALUES = Object.keys(EMPLOYEE_STATUSES) as EmployeeStatus[];

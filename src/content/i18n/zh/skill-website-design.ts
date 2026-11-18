@@ -106,7 +106,7 @@ export const copy: GuideCopy = {
         "UI UX Pro Max 需要 Python 3，另有付费高级版；开源的 skill 采用 MIT 许可。",
         "unslop 采用 CC BY 4.0：复用它的文字时要注明作者。别把它和同名、但针对文字的仓库搞混。",
         "Stitch 和 Figma 的 skill 需要各自的 MCP 服务器和账号；Figma 的画布写入功能还在 beta 阶段，免费席位有限制。",
-        "我们团队的经验：我们用 Taste Skill 做过 Crewmark 自己的产品界面，也给 unslop 做过一条短视频。我们的姊妹项目 [pretty-ui](https://github.com/ummydev/pretty-ui) 是一个更新、更小的 skill，做的是同一件事。",
+        "我们团队的经验：我们用 Taste Skill 做过 Crewmark 自己的产品界面，也给 unslop 做过一条短视频。我们的姊妹项目 [pretty-ui](https://github.com/ummydev/pretty-ui) 是一个更新、更小的 skill，做的是同一件事。做手机 App 请看[最好用的移动 App 设计 Claude skill](/skills/mobile-app-design)。",
       ],
     },
     {

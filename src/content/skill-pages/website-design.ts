@@ -111,7 +111,7 @@ export const websiteDesign: GuideCopy = {
         "UI UX Pro Max needs Python 3 and sells a premium tier; the open skill is MIT.",
         "unslop is CC BY 4.0: credit the author if you reuse its text. Don't confuse it with text-focused repos of the same name.",
         "Stitch and Figma skills need their MCP servers and accounts; Figma's canvas writes are beta and limited on free seats.",
-        "From our team: we used Taste Skill on Crewmark's own product screens and made a short video about unslop. Our sister project [pretty-ui](https://github.com/ummydev/pretty-ui) is a newer, smaller skill for the same job.",
+        "From our team: we used Taste Skill on Crewmark's own product screens and made a short video about unslop. Our sister project [pretty-ui](https://github.com/ummydev/pretty-ui) is a newer, smaller skill for the same job. For phone apps, see the [best Claude skills for mobile app design](/skills/mobile-app-design).",
       ],
     },
     {

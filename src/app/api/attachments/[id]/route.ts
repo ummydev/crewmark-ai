@@ -2,7 +2,9 @@ import type { NextRequest } from "next/server";
 
 import { getAttachment } from "@/db/attachments";
 import { downloadUrl, readFromDisk, signedLinkOpens, storage, writeToDisk } from "@/lib/attachments";
+import { authenticateAgent } from "@/lib/agent-auth";
 import { requireMember } from "@/lib/auth";
+import { authenticateCliUser } from "@/lib/cli-auth";
 
 // A pasted image, linked from Markdown as /api/attachments/<id>. Its organization's members open it with their
 // session; agents with the signed link their API answers carry (src/lib/attachments.ts). Anyone else gets a 404, as
@@ -42,10 +44,19 @@ export async function GET(request: NextRequest, { params }: Context) {
   });
 }
 
-/** In development, where there's no R2, the browser uploads the file here instead. */
+/** Whether the request may upload to the organization: a member, or an employee's or a person's CLI key for it. */
+async function mayUpload(request: Request, organizationId: string) {
+  const agent = await authenticateAgent(request);
+  if (agent) return agent.organization.id === organizationId;
+  const user = await authenticateCliUser(request);
+  if (user) return user.organization.id === organizationId;
+  return isMember(organizationId);
+}
+
+/** In development, where there's no R2, the browser (or the CLI, MC-267) uploads the file here instead. */
 export async function PUT(request: NextRequest, { params }: Context) {
   const file = await getAttachment((await params).id);
-  if (!file || storage() !== "disk" || !(await isMember(file.organizationId))) return notFound();
+  if (!file || storage() !== "disk" || !(await mayUpload(request, file.organizationId))) return notFound();
   if (request.headers.get("content-type") !== file.contentType) {
     return new Response(`Send it as ${file.contentType}`, { status: 400 });
   }

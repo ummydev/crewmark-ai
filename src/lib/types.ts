@@ -1,4 +1,5 @@
-export type IssueStatus = "backlog" | "todo" | "in_progress" | "in_review" | "done";
+/** "needs_action" (MC-263): waiting for a person to do something, e.g. grant a permission or give information. */
+export type IssueStatus = "backlog" | "todo" | "in_progress" | "needs_action" | "done";
 
 export type IssuePriority = "urgent" | "high" | "medium" | "low" | "none";
 
@@ -200,6 +201,8 @@ export interface Issue {
   createdByEmployeeId: string | null;
   /** ISO timestamp. */
   createdAt: string;
+  /** When it last changed: a field other than its place on the board, or a new comment (MC-263). */
+  updatedAt: string;
   /** When it repeats, as iCalendar text (see lib/recurrence.ts); null for a one-off issue. */
   recurrence: string | null;
   /** ISO timestamp of when the schedule next comes round; null when it doesn't repeat. */
@@ -276,7 +279,7 @@ export const ISSUE_STATUSES: { value: IssueStatus; label: string }[] = [
   { value: "backlog", label: "Backlog" },
   { value: "todo", label: "Todo" },
   { value: "in_progress", label: "In Progress" },
-  { value: "in_review", label: "In Review" },
+  { value: "needs_action", label: "Needs action" },
   { value: "done", label: "Done" },
 ];
 
@@ -287,6 +290,15 @@ export const ISSUE_PRIORITIES: { value: IssuePriority; label: string }[] = [
   { value: "low", label: "Low" },
   { value: "none", label: "No priority" },
 ];
+
+/**
+ * Replies in employees' work (MC-280): how many the signed-in person hasn't seen, and when each employee last replied
+ * (ISO), by employee id.
+ */
+export interface WorkReplies {
+  unread: Record<string, number>;
+  repliedAt: Record<string, string>;
+}
 
 /** The images that can be pasted into descriptions and comments, and the largest one. */
 export const IMAGE_TYPES = ["image/png", "image/jpeg", "image/gif", "image/webp"];

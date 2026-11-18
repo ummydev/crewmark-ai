@@ -159,7 +159,7 @@ var issueStatuses = []label{
 	{"backlog", "Backlog"},
 	{"todo", "Todo"},
 	{"in_progress", "In Progress"},
-	{"in_review", "In Review"},
+	{"needs_action", "Needs action"}, // "in_review" until MC-263; Crewmark still takes that
 	{"done", "Done"},
 }
 

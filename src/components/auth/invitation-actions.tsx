@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
+import { clearCache } from "@/lib/local-cache";
 import { track } from "@/lib/analytics";
 
 /** Accept or decline an invitation. Better Auth checks again that it's for the signed-in person's email. */
@@ -59,6 +60,7 @@ export function SwitchAccountButton({ callbackUrl }: { callbackUrl: string }) {
       onClick={async () => {
         setPending(true);
         await authClient.signOut();
+        await clearCache();
         router.push(`/login?callbackUrl=${encodeURIComponent(callbackUrl)}`);
       }}
     >

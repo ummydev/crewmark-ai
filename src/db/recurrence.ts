@@ -6,7 +6,7 @@ import { db } from "@/db";
 import { notifyRecurred } from "@/db/agent-events";
 import { issueKey } from "@/db/queries";
 import { issueActivity, issues } from "@/db/schema";
-import { pushActivity, scheduleRecurrences } from "@/lib/realtime";
+import { pushActivity, pushToDaemons, scheduleRecurrences } from "@/lib/realtime";
 import { RecurrenceError, describeRecurrence, nextOccurrence, parseRecurrence } from "@/lib/recurrence";
 
 // Repeating issues (MC-83): when an issue's schedule comes round, a done issue goes back to Todo and its employee is
@@ -67,7 +67,7 @@ async function recur(organizationId: string, issueId: string, now: Date) {
     const reopen = issue.status === "done";
     await tx
       .update(issues)
-      .set({ nextRecurAt: nextOccurrence(schedule, now), ...(reopen ? { status: "todo" as const } : {}) })
+      .set({ nextRecurAt: nextOccurrence(schedule, now), ...(reopen ? { status: "todo" as const, updatedAt: now } : {}) })
       .where(where);
     await tx.insert(issueActivity).values({
       organizationId,
@@ -80,6 +80,8 @@ async function recur(organizationId: string, issueId: string, now: Date) {
   });
   if (!done) return;
   pushActivity(organizationId, issueId);
+  // Reopened, it's open again in its employee's heartbeat (MC-263; db/issues.ts recountOpenIssues, which imports this).
+  if (done.reopened && done.assigneeEmployeeId) pushToDaemons(organizationId, [done.assigneeEmployeeId], "heartbeat");
   // A person assigned to it has no agent to tell.
   if (done.assigneeEmployeeId) {
     await notifyRecurred(organizationId, {

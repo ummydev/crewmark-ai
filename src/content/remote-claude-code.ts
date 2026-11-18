@@ -75,7 +75,7 @@ export const remoteClaudeCode: Record<RemoteClaudeCodeLocale, RemoteClaudeCodeCo
         },
         {
           title: "Keep your computer on",
-          text: "The session runs on your machine, so the computer has to stay on and the claude process has to keep running. Close the terminal and the remote session ends with it.",
+          text: "The session runs on your machine, so the computer has to stay on and the claude process has to keep running. Close the terminal and the remote session ends with it. To keep it working overnight, see [how to run Claude Code 24/7](/blog/run-claude-code-24-7); for OpenAI's version, see [Codex remote control](/blog/codex-remote-control).",
         },
       ],
       source: "Source: Anthropic's Remote Control documentation",
@@ -186,7 +186,7 @@ export const remoteClaudeCode: Record<RemoteClaudeCodeLocale, RemoteClaudeCodeCo
   },
   zh: {
     meta: {
-      title: "Claude Code Remote Control 教程：手机远程操作 | Crewmark AI",
+      title: "Claude Code 远程控制：用手机控制的教程 | Crewmark AI",
       description:
         "Claude Code Remote Control 怎么用：在手机或任意浏览器上继续电脑里的 Claude Code 会话；它做不到什么，以及人不在时怎么让 Claude Code 自己接着干活。",
     },
@@ -226,7 +226,7 @@ export const remoteClaudeCode: Record<RemoteClaudeCodeLocale, RemoteClaudeCodeCo
         },
         {
           title: "保持电脑开着",
-          text: "会话跑在你的电脑上，所以电脑要开着、claude 进程要一直运行。关掉终端，远程会话也就结束了。",
+          text: "会话跑在你的电脑上，所以电脑要开着、claude 进程要一直运行。关掉终端，远程会话也就结束了。想让它通宵干活，请看[让 Claude Code 24 小时运行](/blog/run-claude-code-24-7)；OpenAI 的同类功能见 [Codex 远程控制](/blog/codex-remote-control)。",
         },
       ],
       source: "来源：Anthropic 的 Remote Control 官方文档",

@@ -13,9 +13,9 @@ const repo = "https://github.com/deepseek-ai/dsh-superagent-prototype";
 export const deepseekSuperAgent: Partial<Record<"en", GuideCopy>> = {
   en: {
     meta: {
-      title: "DeepSeek Super-Agent (dsh-superagent): How to Set Up",
+      title: "DeepSeek Super-Agent (dsh-superagent-prototype): Setup",
       description:
-        "DeepSeek's open-source Super-Agent is a proactive coding agent for one GitHub repo. What it does, what it needs, how to set it up, its safety limits, and how it compares.",
+        "The dsh-superagent-prototype repo on GitHub, explained: DeepSeek's open-source super agent that works on one GitHub repo by itself. What it does, what it needs, step-by-step setup and its safety limits.",
     },
     breadcrumb: "DeepSeek Super-Agent",
     parent: { name: "Blog", href: "/blog" },

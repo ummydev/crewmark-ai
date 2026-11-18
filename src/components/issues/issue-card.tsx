@@ -45,13 +45,14 @@ export function IssueCard({
         ) : (
           <span>Unassigned</span>
         )}
+        {/* When it last changed, which orders the board (MC-263). */}
         <time
-          dateTime={issue.createdAt}
-          title={`Created ${fullDate.format(new Date(issue.createdAt))}`}
+          dateTime={issue.updatedAt}
+          title={`Updated ${fullDate.format(new Date(issue.updatedAt))} · created ${fullDate.format(new Date(issue.createdAt))}`}
           className="ml-auto shrink-0 tabular-nums"
           suppressHydrationWarning
         >
-          {timeAgo(issue.createdAt)}
+          {timeAgo(issue.updatedAt)}
         </time>
       </div>
     </div>
@@ -75,7 +76,12 @@ export function SortableIssueCard({ issue, assignee }: { issue: Issue; assignee:
     <div
       ref={setNodeRef}
       style={{ transform: CSS.Translate.toString(transform), transition }}
-      className={cn("cursor-grab touch-none", isDragging && "opacity-40")}
+      // Touch scrolls as usual (the board drags a card only after a hold); holding a card doesn't select its text or
+      // open the phone's link preview.
+      className={cn(
+        "cursor-grab touch-manipulation select-none [-webkit-touch-callout:none]",
+        isDragging && "opacity-40",
+      )}
       onPointerDownCapture={() => {
         draggedRef.current = false;
       }}

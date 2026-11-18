@@ -132,6 +132,7 @@ export function signedLinkOpens(file: StoredFile, query: URLSearchParams) {
   return given.length === expected.length && timingSafeEqual(given, expected);
 }
 
+
 /** Markdown for an agent in the organization: its pasted images' links become signed, full ones it can download. */
 export function signAttachmentLinks(markdown: string, organizationId: string, origin: string) {
   const expires = Math.floor(Date.now() / 1000) + LINK_SECONDS;

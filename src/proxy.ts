@@ -4,6 +4,8 @@ import { NextResponse, type NextRequest } from "next/server";
 
 import { posts } from "./i18n/blog";
 import { pageLocales } from "./i18n/guides";
+import { personalAgentPages } from "./i18n/personal-agents";
+import { audiencePages, useCasePages } from "./i18n/use-cases";
 import { roles } from "./i18n/roles";
 import { skillPages } from "./i18n/skill-pages";
 import { routing } from "./i18n/routing";
@@ -21,6 +23,13 @@ const ROLE = /^(?:\/[a-z]{2}(?:-[a-z]{2})?)?\/ai-employees\/([^/]+)\/?$/i;
 
 /** A skills guide URL, with or without a locale prefix: /skills/<slug> or /zh/skills/<slug>. */
 const SKILL_PAGE = /^(?:\/[a-z]{2}(?:-[a-z]{2})?)?\/skills\/([^/]+)\/?$/i;
+
+/** A personal agent guide URL, with or without a locale prefix: /personal-agent/<slug> or /zh/personal-agent/<slug>. */
+const PERSONAL_AGENT_PAGE = /^(?:\/[a-z]{2}(?:-[a-z]{2})?)?\/personal-agent\/([^/]+)\/?$/i;
+
+/** An audience page or a use-case page, with or without a locale prefix: /for/<slug>, /zh/use-cases/<slug>. */
+const AUDIENCE_PAGE = /^(?:\/[a-z]{2}(?:-[a-z]{2})?)?\/for\/([^/]+)\/?$/i;
+const USE_CASE_PAGE = /^(?:\/[a-z]{2}(?:-[a-z]{2})?)?\/use-cases\/([^/]+)\/?$/i;
 
 /** Dashboard links from before organizations, e.g. /issues/MC-7. */
 const OLD_DASHBOARD = /^\/(issues|employees|projects)(\/|$)/;
@@ -48,6 +57,18 @@ export default function proxy(request: NextRequest) {
   const skillPage = SKILL_PAGE.exec(pathname);
   if (skillPage && !skillPages.some(({ slug }) => slug === skillPage[1])) {
     return NextResponse.rewrite(new URL("/en/skills/not-found/404", request.url));
+  }
+  const personalAgentPage = PERSONAL_AGENT_PAGE.exec(pathname);
+  if (personalAgentPage && !personalAgentPages.some(({ slug }) => slug === personalAgentPage[1])) {
+    return NextResponse.rewrite(new URL("/en/personal-agent/not-found/404", request.url));
+  }
+  const audiencePage = AUDIENCE_PAGE.exec(pathname);
+  if (audiencePage && !audiencePages.some(({ slug }) => slug === audiencePage[1])) {
+    return NextResponse.rewrite(new URL("/en/for/not-found/404", request.url));
+  }
+  const useCasePage = USE_CASE_PAGE.exec(pathname);
+  if (useCasePage && !useCasePages.some(({ slug }) => slug === useCasePage[1])) {
+    return NextResponse.rewrite(new URL("/en/use-cases/not-found/404", request.url));
   }
 
   if (!pathname.startsWith("/org/")) {
@@ -92,6 +113,11 @@ export const config = {
     "/pricing",
     "/skills",
     "/skills/:path*",
+    "/personal-agent",
+    "/personal-agent/:path*",
+    "/for/:path*",
+    "/use-cases",
+    "/use-cases/:path*",
     "/blog",
     "/blog/:path*",
     "/(en|zh|zh-tw|zh-TW|ja|ko|es|pt-br|pt-BR|fr|de)",

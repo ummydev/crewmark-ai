@@ -123,6 +123,28 @@ export interface IssueResponse {
  * follows it hears (its subscribers: creator, assignee, those who commented, and anyone added); so does any other
  * employee the body mentions with @ and its name, e.g. "@DevOps crewmark ready to ship", who follows it from then on.
  */
+/** `crewmark upload` and --image (MC-267): an image the CLI is about to upload. */
+export interface AttachmentRequest {
+  name: string;
+  /** image/png, image/jpeg, image/gif or image/webp. */
+  type: string;
+  /** In bytes, up to 10 MB. */
+  size: number;
+}
+
+export interface AttachmentResponse {
+  attachment: {
+    id: string;
+    name: string;
+    /** /api/attachments/<id>, the link Markdown keeps. */
+    url: string;
+    /** ![name](/api/attachments/<id>), to put in a description or comment. */
+    markdown: string;
+  };
+  /** PUT the file here with these headers (and its length), once, within ten minutes. */
+  upload: { url: string; headers: Record<string, string> };
+}
+
 export interface CommentRequest {
   body: string;
 }

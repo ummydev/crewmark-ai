@@ -206,7 +206,7 @@ export const copy: Record<Alternative, GuideCopy> = {
           },
         ],
       },
-      { kind: "text", title: "其他替代品", points: [...others("multica"), newToIdea] },
+      { kind: "text", title: "其他替代品", points: [...others("multica"), newToIdea, "想让 agent 全天候干活？参见[让 Claude Code 24 小时运行](/blog/run-claude-code-24-7)和 [Codex 长时间任务](/blog/codex-long-running-tasks)。"] },
     ],
     howTo: { section: "how-to", name: "从 Multica 迁移到 Crewmark" },
     mid,

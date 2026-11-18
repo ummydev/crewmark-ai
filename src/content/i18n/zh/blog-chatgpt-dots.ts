@@ -110,7 +110,7 @@ export const copy: GuideCopy = {
       kind: "table",
       title: "ChatGPT dots vs Grok Bot vs Crewmark",
       text: [
-        "xAI 于 2026 年 8 月发布了 Grok Bot，称其为“你的常驻 agent 团队”，并配有自己的电脑。Crewmark 走的是另一条路：它不是在别人的云上新建一个 agent，而是把你已经在用的编程 agent 变成在你自己电脑上工作的员工。",
+        "xAI 于 2026 年 8 月发布了 Grok Bot，称其为“你的常驻 agent 团队”，并配有自己的电脑。Crewmark 走的是另一条路：它不是在别人的云上新建一个 agent，而是把你已经在用的编程 agent 变成在你自己电脑上工作的员工。Meta Muse、Claude Duet 等其他个人 agent 见[个人 AI Agent 对比](/personal-agent)和 [Grok Bot 指南](/personal-agent/grok-bot)。",
       ],
       headers: ["", "ChatGPT dots", "Grok Bot", "Crewmark"],
       rows: [

@@ -27,6 +27,7 @@
     "@neon/config": "^1.9.5",
     "@neon/env": "^1.6.6",
     "@tiptap/extension-image": "^3.32.1",
+    "@tiptap/extension-table": "^3.32.1",
     "@tiptap/extensions": "^3.32.1",
     "@tiptap/markdown": "^3.32.1",
     "@tiptap/pm": "^3.32.1",

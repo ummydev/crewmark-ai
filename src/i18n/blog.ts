@@ -7,6 +7,14 @@ import { routing } from "./routing";
  * copy lives in content/blog/<slug>.ts; this list stays small because proxy.ts imports it.
  */
 export const posts = [
+  { slug: "claude-fable-5-2", published: "2026-11-10", locales: ["en", "zh", "zh-TW", "ja"] },
+  { slug: "aider-alternatives", published: "2026-11-10", locales: ["en", "zh"] },
+  { slug: "opencode-alternatives", published: "2026-11-10", locales: ["en", "zh"] },
+  { slug: "devin-alternatives", published: "2026-11-10", locales: ["en", "zh"] },
+  { slug: "claude-code-channels", published: "2026-11-08", locales: ["en", "zh"] },
+  { slug: "codex-remote-control", published: "2026-11-08", locales: ["en", "zh"] },
+  { slug: "codex-long-running-tasks", published: "2026-11-08", locales: ["en", "zh"] },
+  { slug: "run-claude-code-24-7", published: "2026-11-08", locales: ["en", "zh"] },
   { slug: "claude-code-agent-teams", published: "2026-11-07", locales: routing.locales },
   { slug: "hermes-agent-vs-openclaw", published: "2026-11-07", locales: routing.locales },
   { slug: "openclaw-alternatives", published: "2026-11-07", locales: routing.locales },

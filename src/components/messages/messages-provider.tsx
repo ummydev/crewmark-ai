@@ -4,18 +4,28 @@ import * as React from "react";
 
 import { useCrewStore } from "@/components/crew-store";
 import { useRealtime } from "@/components/use-realtime";
-import { getDirectThreads } from "@/lib/actions";
-import type { DirectThread } from "@/lib/types";
+import { getDirectThreads, getWorkReplies, readWork } from "@/lib/actions";
+import { DIRECT_MESSAGES } from "@/lib/features";
+import { cacheKey, peekCache, readCache, writeCache } from "@/lib/local-cache";
+import type { DirectThread, WorkReplies } from "@/lib/types";
 
 // The signed-in person's direct conversations with employees (MC-169), kept current for the whole dashboard: the
 // sidebar's unread badge, the tab title's count (with the Inbox's, see InboxProvider) and the Messages page. Crewmark pushes when a conversation changes;
-// without pushes it checks every so often while someone's at the page.
+// without pushes it checks every so often while someone's at the page. The list last seen is kept in this browser
+// (MC-235), so a reload shows it at once instead of a placeholder while Crewmark answers. With direct messages off,
+// the unread count is the replies in employees' work the person hasn't seen (MC-280, src/db/work-unread.ts).
 
 interface Messages {
   /** Newest first; null until loaded. */
   threads: DirectThread[] | null;
-  /** Messages from employees the person hasn't seen yet. */
+  /** Messages from employees the person hasn't seen yet: direct messages and replies in their work. */
   unread: number;
+  /** Replies in each employee's work the person hasn't seen, by employee id. */
+  workUnread: Record<string, number>;
+  /** When each employee last replied in its work (ISO), by employee id, as far as Crewmark heard. */
+  repliedAt: Record<string, string>;
+  /** The person has seen the employee's work. */
+  readWorkOf: (employeeId: string) => void;
   refresh: () => Promise<void>;
 }
 
@@ -26,21 +36,62 @@ const POLL_MS = 30_000;
 const IDLE_MS = 10 * 60_000;
 
 export function MessagesProvider({ children }: { children: React.ReactNode }) {
-  const { organization } = useCrewStore();
-  const [threads, setThreads] = React.useState<DirectThread[] | null>(null);
+  const { organization, currentUser } = useCrewStore();
+  const key = cacheKey(currentUser.id, organization.id, "threads");
+  // While direct messages are off (src/lib/features.ts) there are none to show or count, and nothing to ask for.
+  const [threads, setThreads] = React.useState<DirectThread[] | null>(() =>
+    DIRECT_MESSAGES ? (peekCache<DirectThread[]>(key) ?? null) : [],
+  );
+
+  const workKey = cacheKey(currentUser.id, organization.id, "work-replies");
+  const [work, setWork] = React.useState<WorkReplies>(
+    () => peekCache<WorkReplies>(workKey) ?? { unread: {}, repliedAt: {} },
+  );
+  const keepWork = React.useCallback(
+    (next: (prev: WorkReplies) => WorkReplies) =>
+      setWork((prev) => {
+        const value = next(prev);
+        writeCache(workKey, value);
+        return value;
+      }),
+    [workKey],
+  );
+  const workUnread = work.unread;
 
   const refresh = React.useCallback(async () => {
     try {
-      setThreads(await getDirectThreads(organization.id));
+      const [latest, replies] = await Promise.all([
+        DIRECT_MESSAGES ? getDirectThreads(organization.id) : null,
+        getWorkReplies(organization.id),
+      ]);
+      if (latest) {
+        setThreads(latest);
+        writeCache(key, latest);
+      }
+      keepWork(() => replies);
     } catch (error) {
       console.error(error);
     }
-  }, [organization.id]);
+  }, [organization.id, key, keepWork]);
+
+  // Called by the employee's open work while it has unread replies (MessagesView's WorkView).
+  const readWorkOf = React.useCallback(
+    (employeeId: string) => {
+      keepWork((prev) => ({
+        ...prev,
+        unread: Object.fromEntries(Object.entries(prev.unread).filter(([id]) => id !== employeeId)),
+      }));
+      void readWork(organization.id, employeeId).catch((error) => console.error(error));
+    },
+    [organization.id, keepWork],
+  );
 
   React.useEffect(() => {
-    // Async so the state update lands after the effect, not during it.
+    // The copy kept in this browser first, unless Crewmark has answered already; then Crewmark's.
+    if (DIRECT_MESSAGES) void readCache<DirectThread[]>(key).then((cached) => cached && setThreads((shown) => shown ?? cached));
+    void readCache<WorkReplies>(workKey).then((cached) => cached && setWork((shown) => (Object.keys(shown.repliedAt).length ? shown : cached)));
     void Promise.resolve().then(refresh);
-  }, [refresh]);
+  }, [key, workKey, refresh]);
 
   const pushed = useRealtime(organization.id, (push) => push.type === "messages" && void refresh(), refresh);
 
@@ -67,9 +118,14 @@ export function MessagesProvider({ children }: { children: React.ReactNode }) {
     };
   }, [pushed, refresh]);
 
-  const unread = threads?.reduce((sum, thread) => sum + thread.unread, 0) ?? 0;
+  const unread =
+    (threads?.reduce((sum, thread) => sum + thread.unread, 0) ?? 0) +
+    Object.values(workUnread).reduce((sum, count) => sum + count, 0);
 
-  const value = React.useMemo(() => ({ threads, unread, refresh }), [threads, unread, refresh]);
+  const value = React.useMemo(
+    () => ({ threads, unread, workUnread, repliedAt: work.repliedAt, readWorkOf, refresh }),
+    [threads, unread, workUnread, work.repliedAt, readWorkOf, refresh],
+  );
   return <MessagesContext.Provider value={value}>{children}</MessagesContext.Provider>;
 }
 

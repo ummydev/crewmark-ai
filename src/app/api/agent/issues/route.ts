@@ -4,7 +4,7 @@ import { subscribedIssueIds } from "@/db/subscriptions";
 import type { AgentIssue, IssueInput } from "@/lib/agent-api";
 import { agentLinks, findAssignee, readJson, recurrenceInput, toAgentIssue } from "@/lib/agent-data";
 import { agentRoute } from "@/lib/agent-route";
-import { STATUS_VALUES, oneOf } from "@/lib/validate";
+import { issueStatus } from "@/lib/validate";
 
 // `crewmark issues`: the organization's issues, filtered by ?assignee=me|none|<employee or person: id or name>,
 // ?status=todo,in_progress (comma-separated), ?project=<id>, ?open=true (not done) and ?subscribed=me (those the
@@ -12,7 +12,7 @@ import { STATUS_VALUES, oneOf } from "@/lib/validate";
 export const GET = agentRoute(async ({ agent, request }): Promise<{ issues: AgentIssue[] }> => {
   const params = new URL(request.url).searchParams;
   const assignee = params.get("assignee");
-  const statuses = params.get("status")?.split(",").map((s) => oneOf(s.trim(), STATUS_VALUES, "status"));
+  const statuses = params.get("status")?.split(",").map((s) => issueStatus(s.trim()));
   const project = params.get("project");
 
   const [data, subscribed] = await Promise.all([

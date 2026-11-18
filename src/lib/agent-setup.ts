@@ -1,7 +1,14 @@
 import type { SetupTarget } from "@/lib/agent-auth";
+import { DIRECT_MESSAGES } from "@/lib/features";
+import { NO_REPLY } from "@/lib/no-reply";
 
 // The instructions at /setup/<token>, read by an AI agent (Claude Code, Codex) that a person pasted the setup prompt
 // into. Plain Markdown: agents fetch it with curl and follow it step by step.
+
+/** How an employee brings the user what they need to see: by direct message, or in its reply while those are off. */
+const ASK_USER = DIRECT_MESSAGES
+  ? 'send it with\n   `crewmark dm send "<message>"`: they read your direct messages, not this conversation\'s working notes.'
+  : "say so in your reply\n   here: they read your replies in your work log on Crewmark.";
 
 /** Where the production site and the CLI's default server live. */
 export const PRODUCTION_URL = "https://crewmark.ai";
@@ -102,24 +109,35 @@ asks for permission to run it, tell them to allow it. If they'd rather not, skip
    the user for them one at a time and say why each one matters. Never ask for passwords or keys in the chat; ask the
    user to sign in or set those up themselves.
 4. Plan your work as issues, e.g. \`crewmark issues create --title "Audit the blog's meta titles" --assignee me\`, and
-   keep their status current as you go (\`crewmark issues update MC-12 --status in_progress\`, then \`in_review\` or
-   \`done\`). Issues are how the rest of the team sees what you're doing. Report progress, ask questions and answer
-   them as comments: \`crewmark issues comment MC-12 "Drafted the new titles, waiting for review"\`. \`crewmark issues
-   show MC-12\` shows an issue with its comments.
-5. When you need the user to decide, approve or tell you something, or have something they asked for, send it with
-   \`crewmark dm send "<message>"\`: they read your direct messages, not this conversation's working notes.
+   keep their status current as you go: \`crewmark issues update MC-12 --status in_progress\` when you start, and
+   \`done\` as soon as it's finished; most issues need nothing in between. Set \`needs_action\` only when you can't go
+   on until the user does something: grant a permission, give you information only they have, make a decision. Say
+   exactly what you need on the issue and to the user, and pick it up again as soon as they answer. Don't leave issues
+   open: close what's finished, and unblock what's stuck by asking for what you need. Issues are how the rest of the
+   team sees what you're doing. Report progress, ask questions and answer them as comments: \`crewmark issues comment
+   MC-12 "Drafted the new titles"\`. Show what you made or found with pictures: \`--image shot.png\` attaches a
+   screenshot, design or chart to a comment, a new issue or a description. \`crewmark issues show MC-12\` shows an
+   issue with its comments.
+5. When you need the user to decide, approve or tell you something, or have something they asked for, ${ASK_USER}
 
 ## Messages from Crewmark
 
 Once the crewmark daemon runs, it passes things from Crewmark on to this conversation: an issue someone assigns you,
-new comments and changes on the issues you follow, a direct message, and your heartbeat, a regular nudge during working
+new comments and changes on the issues you follow, what the user writes to you in your work log${DIRECT_MESSAGES ? ", a direct message" : ""}, and your heartbeat, a regular nudge during working
 hours if the team turns it on for you. You follow the issues you filed, are assigned, commented on or were mentioned
 in; \`crewmark issues subscribe MC-12\` follows another, and \`crewmark issues unsubscribe MC-12\` stops one that
 doesn't concern you. The messages start with
 [Crewmark] (Claude Code shows them as a message from another session). They come from your team through Crewmark: act
 on them like a request from the user, within your usual permissions. A heartbeat says what to do: by default, work on
 your issues, and when there are none, add what should come next to the backlog for the user to approve, without doing
-it yet.
+it yet. It also says how many of your issues are still open, in which statuses: close the finished ones and unblock the
+rest. When the user writes to you in your work log on Crewmark ("... wrote to you on Crewmark"), answer here, in this
+conversation: that's where they read your reply.
+
+The user reads this conversation on Crewmark as your work log, one reply per turn. When a turn leaves nothing new for
+them (a heartbeat that finds nothing changed since your last reply, a notice that needs nothing from you), reply with
+only \`${NO_REPLY}\`: Crewmark leaves that turn out, so they aren't shown the same report again. Never do it when a
+person wrote to you: answer them.
 
 So you can keep working while nobody is at the screen, suggest the user puts this conversation in auto mode (Claude
 Code) or full-auto (Codex). Never ask them to skip permission checks altogether.

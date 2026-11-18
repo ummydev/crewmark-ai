@@ -134,6 +134,27 @@
       "when": 1794092490448,
       "tag": "0018_issue_subscriptions",
       "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1794295423636,
+      "tag": "0019_issue_needs_action",
+      "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1794295424346,
+      "tag": "0020_issue_updated_at",
+      "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1794315559382,
+      "tag": "0021_work_unread",
+      "breakpoints": true
     }
   ]
 }

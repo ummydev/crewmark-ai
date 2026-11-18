@@ -165,7 +165,7 @@ export const claudeCodeSlashCommands: Partial<Record<"en", GuideCopy>> = {
           "Built-in commands you remember may be gone: `/pr-comments`, `/vim` and `/ultraplan` have been removed. Check `/help` or the docs.",
           "`allowed-tools` grants permission only for the turn that invokes the skill, and repository skills can grant themselves tools, so read them before running Claude Code in an unfamiliar repo.",
           "Every skill's description sits in context; `/skill-doctor` shows what each costs and how often it's used. Long procedures belong in skills, not in [CLAUDE.md](/blog/claude-md).",
-          "`/loop` repeats a prompt only while your session is open. To have work start on its own, see [how to make Claude Code proactive](/proactive-claude-code).",
+          "`/loop` repeats a prompt only while your session is open. To have work start on its own, see [how to make Claude Code proactive](/proactive-claude-code); to keep it going overnight, see [how to run Claude Code 24/7](/blog/run-claude-code-24-7).",
         ],
       },
       {

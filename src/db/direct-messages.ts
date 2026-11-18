@@ -4,6 +4,7 @@ import { and, asc, desc, eq, gt, inArray, lt, sql } from "drizzle-orm";
 
 import { db } from "@/db";
 import { agentEvents, directMessages, directThreads, employees, members, users } from "@/db/schema";
+import { DIRECT_MESSAGES, DIRECT_MESSAGES_OFF } from "@/lib/features";
 import { pushMessages, pushToDaemons } from "@/lib/realtime";
 import type { DirectMessage, DirectThread } from "@/lib/types";
 import { NotFoundError, text } from "@/lib/validate";
@@ -20,6 +21,11 @@ export type Side = "user" | "employee";
 
 /** How many messages one read returns at most, the latest ones. */
 const PAGE = 100;
+
+/** Throws while direct messages are turned off (src/lib/features.ts): no one reads or sends one. */
+function assertTurnedOn() {
+  if (!DIRECT_MESSAGES) throw new NotFoundError(DIRECT_MESSAGES_OFF);
+}
 
 /** How much of a message an agent is told; it reads the rest with `crewmark dm show`. */
 const PREVIEW = 1500;
@@ -65,6 +71,7 @@ export async function sendDirectMessage(
   from: Side,
   body: unknown,
 ): Promise<DirectMessage> {
+  assertTurnedOn();
   const markdown = text(body, "body", { required: true }).trim();
   await assertPair(organizationId, pair);
   const message = await db.transaction(async (tx) => {
@@ -95,10 +102,33 @@ export async function sendDirectMessage(
   return toMessage(message);
 }
 
+/** How a person is named to an employee's agent. */
+async function personName(userId: string) {
+  const [user] = await db.select({ name: users.name, username: users.username }).from(users).where(eq(users.id, userId));
+  return user?.name || user?.username || "Someone";
+}
+
+/**
+ * Passes what the person wrote in the employee's work log (the Work tab's box, MC-249) on to its agent, at once, even
+ * while it's working. It isn't a direct message: nothing is kept by Crewmark, and the agent answers in its
+ * conversation, which the person reads as the work log. The Work tab knows the message by its first line,
+ * "<name> wrote to you on Crewmark:", and shows the quoted words as the person's (src/lib/work-messages.ts).
+ */
+export async function writeToConversation(organizationId: string, pair: Pair, body: unknown) {
+  const markdown = text(body, "body", { required: true }).trim();
+  await assertPair(organizationId, pair);
+  const name = await personName(pair.userId);
+  const message =
+    `${name} wrote to you on Crewmark:\n\n${markdown.replace(/^/gm, "> ")}\n\n` +
+    `Answer here, in this conversation: ${name} reads your replies in your work log on Crewmark` +
+    (DIRECT_MESSAGES ? ", so don't answer with `crewmark dm send`." : ".");
+  await db.insert(agentEvents).values({ organizationId, employeeId: pair.employeeId, type: "direct_message", message });
+  pushToDaemons(organizationId, [pair.employeeId], "events");
+}
+
 /** Tells the employee's agent what the person wrote, at once, and how to answer. */
 async function notifyEmployee(organizationId: string, { userId, employeeId }: Pair, body: string) {
-  const [user] = await db.select({ name: users.name, username: users.username }).from(users).where(eq(users.id, userId));
-  const name = user?.name || user?.username || "Someone";
+  const name = await personName(userId);
   const preview = body.length > PREVIEW ? `${body.slice(0, PREVIEW)}…` : body;
   const message =
     `${name} sent you a direct message:\n\n${preview.replace(/^/gm, "> ")}\n\n` +
@@ -118,6 +148,7 @@ export async function readDirectMessages(
   reader: Side,
   { before, markRead = true }: { before?: number; markRead?: boolean } = {},
 ): Promise<{ messages: DirectMessage[]; hasMore: boolean }> {
+  assertTurnedOn();
   await assertPair(organizationId, pair);
   const thread = await findThread(organizationId, pair);
   if (!thread) return { messages: [], hasMore: false };
@@ -167,6 +198,7 @@ async function lastMessages(ids: (number | null)[]) {
 
 /** The person's conversations in the organization, newest first. */
 export async function directThreadsOfUser(organizationId: string, userId: string): Promise<DirectThread[]> {
+  if (!DIRECT_MESSAGES) return [];
   const rows = await db
     .select({ id: directThreads.id, employeeId: directThreads.employeeId, lastMessageAt: directThreads.lastMessageAt, ...summary("user") })
     .from(directThreads)
@@ -201,6 +233,7 @@ export async function unreadDirectMessages(organizationId: string, userId: strin
 
 /** The employee's conversations with people, newest first, with what's unread for the employee. */
 export async function directThreadsOfEmployee(organizationId: string, employeeId: string) {
+  assertTurnedOn();
   const rows = await db
     .select({ userId: directThreads.userId, lastMessageAt: directThreads.lastMessageAt, ...summary("employee") })
     .from(directThreads)

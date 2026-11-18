@@ -4,16 +4,31 @@ import { eq } from "drizzle-orm";
 
 import { db } from "@/db";
 import { attachments } from "@/db/schema";
+import { storage, uploadTarget } from "@/lib/attachments";
 import { IMAGE_TYPES, MAX_IMAGE_BYTES } from "@/lib/types";
 import { InputError, text } from "@/lib/validate";
 
-// Pasted images' records; the files themselves are in object storage (src/lib/attachments.ts).
+// Images' records, pasted in the dashboard or uploaded with the CLI (MC-267); the files themselves are in object
+// storage (src/lib/attachments.ts).
 
-/** Records an image a member is about to upload, after checking it's one that can be pasted. */
-export async function insertAttachment(
+/**
+ * Records an image someone is about to upload, after checking it's one that can be pasted, and says where to send the
+ * file. `userId` is the member, or null for an employee.
+ */
+export async function startUpload(
   organizationId: string,
-  input: { name: unknown; type: unknown; size: unknown },
-  userId: string,
+  input: { name?: unknown; type?: unknown; size?: unknown },
+  userId: string | null,
+) {
+  storage(); // Throws before recording anything when uploads aren't set up here.
+  const attachment = await insertAttachment(organizationId, input, userId);
+  return { attachment, upload: await uploadTarget(attachment) };
+}
+
+async function insertAttachment(
+  organizationId: string,
+  input: { name?: unknown; type?: unknown; size?: unknown },
+  userId: string | null,
 ) {
   const contentType = text(input.type, "type", { required: true });
   if (!IMAGE_TYPES.includes(contentType)) throw new InputError("Only PNG, JPEG, GIF and WebP images can be pasted");

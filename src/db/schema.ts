@@ -17,7 +17,9 @@ import {
 
 import type { Heartbeat, IssueActivityKind } from "@/lib/types";
 
-export const issueStatus = pgEnum("issue_status", ["backlog", "todo", "in_progress", "in_review", "done"]);
+// "needs_action" was "in_review" until MC-263: an issue waiting for a person to do something (grant a permission,
+// give some information), not a step every issue passes through.
+export const issueStatus = pgEnum("issue_status", ["backlog", "todo", "in_progress", "needs_action", "done"]);
 export const issuePriority = pgEnum("issue_priority", ["urgent", "high", "medium", "low", "none"]);
 export const agentRuntime = pgEnum("agent_runtime", ["claude-code", "codex", "other"]);
 export const employeeStatus = pgEnum("employee_status", ["working", "idle", "paused"]);
@@ -204,6 +206,11 @@ export const employees = pgTable(
     heartbeat: jsonb("heartbeat").$type<Heartbeat>(),
     /** When the agent last did work; null until its first run. */
     lastActiveAt: timestamp("last_active_at", { withTimezone: true }),
+    /**
+     * When its agent last ended a turn with a reply the Work tab shows, as its daemon reports (MC-280): only when,
+     * never what. Null until the first report.
+     */
+    lastReplyAt: timestamp("last_reply_at", { withTimezone: true }),
     createdAt: createdAt(),
   },
   (t) => [index().on(t.organizationId)],
@@ -295,6 +302,11 @@ export const issues = pgTable(
     createdByUserId: text("created_by_user_id").references(() => users.id, { onDelete: "set null" }),
     createdByEmployeeId: text("created_by_employee_id").references(() => employees.id, { onDelete: "set null" }),
     createdAt: createdAt(),
+    /**
+     * When it last changed (MC-263): its fields, other than its place on the board, or a new comment. The board shows
+     * the latest first.
+     */
+    updatedAt: updatedAt(),
     /** When it repeats: iCalendar text, see lib/recurrence.ts. Null for a one-off issue. */
     recurrence: text("recurrence"),
     /** When the schedule next comes round (db/recurrence.ts reopens the issue then); set with recurrence. */
@@ -462,6 +474,26 @@ export const directMessages = pgTable(
     createdAt: createdAt(),
   },
   (t) => [index().on(t.threadId, t.id)],
+);
+
+/**
+ * How many replies in an employee's work log a member hasn't seen yet (MC-280): Messages' unread count. Each reply its
+ * daemon reports adds one for every member; opening the employee's work clears the member's.
+ */
+export const workUnread = pgTable(
+  "work_unread",
+  {
+    organizationId: organizationId(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    employeeId: text("employee_id")
+      .notNull()
+      .references(() => employees.id, { onDelete: "cascade" }),
+    count: integer("count").notNull().default(0),
+    updatedAt: updatedAt(),
+  },
+  (t) => [primaryKey({ columns: [t.userId, t.employeeId] }), index().on(t.employeeId), index().on(t.organizationId)],
 );
 
 /**

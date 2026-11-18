@@ -45,7 +45,7 @@ export const copy: GuideCopy = {
       headers: ["产品", "开发者", "是什么", "工作如何启动", "价格"],
       rows: [
         ["DeepSeek Super-agent（dsh-superagent）", "DeepSeek 的 Harness 团队", "面向单个 GitHub 仓库的主动式编程 agent；研究原型，不是官方产品", "名单内的人在 GitHub（可选再加飞书 Feishu）上提出的请求，或团队写的规则", "免费，MIT 许可证；运行在 DeepSeek Harness 上"],
-        ["Base44 Superagents", "Base44（隶属 Wix）", "用自然语言描述就能创建的无代码 agent，用于个人或业务任务", "定时计划、触发器、webhook，以及 WhatsApp、Telegram、Slack 等聊天应用", "消耗 Base44 套餐额度；有免费版，付费按年付 $16/月起"],
+        ["[Base44 Superagents](/personal-agent/base44-superagent)", "Base44（隶属 Wix）", "用自然语言描述就能创建的无代码 agent，用于个人或业务任务", "定时计划、触发器、webhook，以及 WhatsApp、Telegram、Slack 等聊天应用", "消耗 Base44 套餐额度；有免费版，付费按年付 $16/月起"],
         ["ClickUp Super Agents", "ClickUp", "ClickUp 工作区里的 AI 队友，负责分拣、排期、汇报和创建条目", "@ 提及、分配的任务、私信、定时计划和触发器", "向所有用户开放；用量按 AI 额度计费"],
         ["Genspark Super Agent", "Genspark", "通用型 agent，用于调研、幻灯片、文档等", "你的提示词", "见 genspark.ai"],
         ["superagent-ai/superagent", "Superagent（开源）", "2023 年起步时是 agent 框架；现在用于保护 AI 应用免受提示词注入和数据泄露", "在你应用的处理流程中运行", "开源，MIT 许可证"],
@@ -142,7 +142,7 @@ export const copy: GuideCopy = {
       },
       {
         q: "Base44 Superagents 是什么？",
-        a: "Base44（隶属 Wix）里用自然语言描述就能创建的无代码 AI agent。它们按定时计划和触发器运行，可连接 Gmail、Drive、Notion、GitHub、Slack 或 MCP 服务器，消耗你 Base44 套餐的额度。",
+        a: "Base44（隶属 Wix）里用自然语言描述就能创建的无代码 AI agent。它们按定时计划和触发器运行，可连接 Gmail、Drive、Notion、GitHub、Slack 或 MCP 服务器，消耗你 Base44 套餐的额度。价格、额度和 WhatsApp 设置见 [Base44 Superagent 指南](/personal-agent/base44-superagent)。",
       },
       {
         q: "ClickUp Super Agents 是什么？",

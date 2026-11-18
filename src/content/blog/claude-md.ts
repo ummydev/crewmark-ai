@@ -98,7 +98,7 @@ export const claudeMd: Partial<Record<"en", GuideCopy>> = {
           },
           {
             title: "Move procedures into skills",
-            text: "Multi-step workflows, such as how to cut a release, belong in a skill (`.claude/skills/<name>/SKILL.md`), which loads only when it's relevant. CLAUDE.md is read on every task, so every line costs attention.",
+            text: "Multi-step workflows, such as how to cut a release, belong in a skill (`.claude/skills/<name>/SKILL.md`), which loads only when it's relevant. CLAUDE.md is read on every task, so every line costs attention. For ready-made skills, see [the best Claude skills by job](/skills).",
           },
           {
             title: "Keep it current",

@@ -4,7 +4,10 @@ import * as React from "react";
 import { EditorContent, Extension, useEditor, useEditorState, type Editor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
-import { Markdown } from "@tiptap/markdown";
+import { Table, TableCell, TableHeader, TableRow } from "@tiptap/extension-table";
+import { Markdown, MarkdownManager } from "@tiptap/markdown";
+import { getSchema } from "@tiptap/core";
+import { DOMSerializer } from "@tiptap/pm/model";
 import { Placeholder } from "@tiptap/extensions";
 import {
   BoldIcon,
@@ -20,10 +23,18 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
+import { useOptionalCrewStore } from "@/components/crew-store";
 import { IssueRefs, useIssueRefs } from "@/components/issue-refs";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { issueRefs } from "@/lib/issue-refs";
 import { cn } from "@/lib/utils";
+
+/**
+ * Markdown tables (MC-270), shown and kept: without them a table an agent wrote showed as nothing, and editing the
+ * description it was in dropped it.
+ */
+const TABLES = [Table.configure({ resizable: false }), TableRow, TableHeader, TableCell];
 
 /** Uploads an image and returns its link, or null when it couldn't (and has said why). */
 export type UploadImage = (file: File) => Promise<string | null>;
@@ -31,6 +42,8 @@ export type UploadImage = (file: File) => Promise<string | null>;
 /** Lets a form put images in, e.g. ones pasted while its title had the focus. */
 export interface MarkdownEditorHandle {
   insertImages: (files: File[]) => void;
+  /** Puts the cursor at the end, e.g. after a click beside the writing area. */
+  focus: () => void;
 }
 
 /** The image files in a paste or a drop. */
@@ -50,13 +63,15 @@ async function insertImages(editor: Editor, files: File[], upload: UploadImage) 
 /**
  * WYSIWYG editor that reads and writes markdown. Typing markdown syntax (`## `, `- `, `**bold**`, …)
  * converts it inline. `value` is only the initial content — remount with a `key` to load another document.
- * With `uploadImage`, images pasted or dropped in are uploaded and shown.
+ * With `uploadImage`, images pasted or dropped in are uploaded and shown. With `onImages`, they go to it instead, e.g.
+ * for a chat box that shows them above the text (MC-271).
  */
 export function MarkdownEditor({
   value,
   onChange,
   onSubmit,
   uploadImage,
+  onImages,
   ref,
   placeholder = "Write something…",
   toolbar = true,
@@ -68,6 +83,7 @@ export function MarkdownEditor({
   /** Called on ⌘/Ctrl+Enter, e.g. to post a comment. */
   onSubmit?: () => void;
   uploadImage?: UploadImage;
+  onImages?: (files: File[]) => void;
   ref?: React.Ref<MarkdownEditorHandle>;
   placeholder?: string;
   toolbar?: boolean;
@@ -85,6 +101,7 @@ export function MarkdownEditor({
       StarterKit,
       Markdown,
       Image,
+      ...TABLES,
       IssueRefs,
       Placeholder.configure({ placeholder }),
       Extension.create({
@@ -114,6 +131,7 @@ export function MarkdownEditor({
         editor.commands.focus("end");
         void insertImages(editor, files, uploadImage);
       },
+      focus: () => editor?.commands.focus("end"),
     }),
     [editor, uploadImage],
   );
@@ -121,6 +139,12 @@ export function MarkdownEditor({
   // Images are caught on the way down, before the editor's own paste and drop handling sees them.
   function catchImages(event: React.SyntheticEvent, data: DataTransfer | null, at?: { left: number; top: number }) {
     const files = imageFiles(data);
+    if (files.length > 0 && onImages) {
+      event.preventDefault();
+      event.stopPropagation();
+      onImages(files);
+      return;
+    }
     if (!editor || !uploadImage || files.length === 0) return;
     event.preventDefault();
     event.stopPropagation();
@@ -145,10 +169,13 @@ export function MarkdownEditor({
   );
 }
 
+/** What read-only Markdown is made of: the same nodes and marks as the editor's. */
+const VIEW_EXTENSIONS = [StarterKit, Markdown, Image, ...TABLES, IssueRefs];
+
 /** Markdown shown read-only, styled like the editor, e.g. a comment. */
 export function MarkdownView({ value, className }: { value: string; className?: string }) {
   const editor = useEditor({
-    extensions: [StarterKit, Markdown, Image, IssueRefs],
+    extensions: VIEW_EXTENSIONS,
     content: value,
     contentType: "markdown",
     editable: false,
@@ -277,5 +304,95 @@ function Toolbar({ editor }: { editor: Editor }) {
         </div>
       ))}
     </div>
+  );
+}
+
+let renderer: { manager: MarkdownManager; serializer: DOMSerializer; schema: ReturnType<typeof getSchema> } | null = null;
+
+/**
+ * Markdown as HTML, the way MarkdownView's editor shows it (the same parser, schema and output, issue keys as links)
+ * but without an editor: built in the same render, so a long conversation shows at once rather than message by
+ * message, and far cheaper than an editor per message.
+ */
+function markdownHTML(markdown: string, href: (key: string) => string | undefined) {
+  renderer ??= (() => {
+    const schema = getSchema(VIEW_EXTENSIONS);
+    return { manager: new MarkdownManager({ extensions: VIEW_EXTENSIONS }), serializer: DOMSerializer.fromSchema(schema), schema };
+  })();
+  const doc = renderer.schema.nodeFromJSON(renderer.manager.parse(markdown));
+  const root = document.createElement("div");
+  root.append(renderer.serializer.serializeFragment(doc.content, { document }));
+  // Issue keys become links (MC-185), as the IssueRefs extension marks them: not in code or in a link already.
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode: (node) =>
+      node.parentElement?.closest("code, pre, a") ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT,
+  });
+  const texts: Text[] = [];
+  while (walker.nextNode()) texts.push(walker.currentNode as Text);
+  for (const text of texts) {
+    const refs = issueRefs(text.data).filter((ref) => href(ref.key));
+    for (const ref of refs.reverse()) {
+      const tail = text.splitText(ref.from);
+      tail.splitText(ref.to - ref.from);
+      const link = document.createElement("a");
+      link.className = "issue-ref";
+      link.setAttribute("href", href(ref.key)!);
+      link.dataset.issueKey = ref.key;
+      tail.replaceWith(link);
+      link.append(tail);
+    }
+  }
+  return root.innerHTML;
+}
+
+/**
+ * Read-only Markdown for lists of many short texts, such as a conversation's messages: looks and behaves like
+ * MarkdownView (issue links with their preview card included) but renders at once, with no editor behind it.
+ */
+export function StaticMarkdownView({
+  value,
+  className,
+  onImageClick,
+}: {
+  value: string;
+  className?: string;
+  /** Called with an image's link when it's clicked, e.g. to open it full size. */
+  onImageClick?: (src: string) => void;
+}) {
+  const store = useOptionalCrewStore();
+  const issues = store?.issues;
+  const orgPath = store?.orgPath;
+  const html = React.useMemo(() => {
+    if (typeof document === "undefined") return null;
+    const keys = new Set(issues?.map((issue) => issue.key));
+    try {
+      return markdownHTML(value, (key) => (orgPath && keys.has(key) ? orgPath(`/issues/${key}`) : undefined));
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }, [value, issues, orgPath]);
+  const refs = useIssueRefs(null, { editable: false });
+  return (
+    <>
+      <div
+        className={className}
+        {...refs.handlers}
+        onClick={(event) => {
+          refs.handlers.onClick?.(event);
+          const image = (event.target as HTMLElement).closest("img");
+          if (image && onImageClick) onImageClick(image.src);
+        }}
+      >
+        {html === null ? (
+          <div className="tiptap whitespace-pre-wrap">{value}</div>
+        ) : (
+          // Built from the schema by ProseMirror's serializer, as the editor builds its own DOM: text is escaped, and
+          // links keep the Link extension's checks on what they may point at.
+          <div className="tiptap" dangerouslySetInnerHTML={{ __html: html }} />
+        )}
+      </div>
+      {refs.card}
+    </>
   );
 }

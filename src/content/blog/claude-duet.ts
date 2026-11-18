@@ -107,7 +107,7 @@ export const claudeDuet: Partial<Record<"en", GuideCopy>> = {
         kind: "table",
         title: "Claude Duet vs ChatGPT dots vs Crewmark",
         text: [
-          "All three are agents that keep working without you in the chat. Duet and [ChatGPT dots](/blog/chatgpt-dots) are assistants for your business apps that run in their maker's cloud; Crewmark wakes the coding agent you already run, such as Claude Code or Codex, on a heartbeat to work through a board of issues.",
+          "All three are agents that keep working without you in the chat. Duet and [ChatGPT dots](/blog/chatgpt-dots) are assistants for your business apps that run in their maker's cloud; Crewmark wakes the coding agent you already run, such as Claude Code or Codex, on a heartbeat to work through a board of issues. For Meta Muse, Grok Bot and the rest, see [personal AI agents compared](/personal-agent).",
         ],
         headers: ["", "Claude Duet", "ChatGPT dots", "Crewmark"],
         rows: [

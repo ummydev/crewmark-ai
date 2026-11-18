@@ -15,7 +15,8 @@ import { DurableObject } from "cloudflare:workers";
 // hears {type: "worklog.watch", watching} when the first tab starts watching and the last one stops, and the
 // "worklog.more" requests; what it sends back ("worklog" pages and turns, "worklog.unavailable") goes to the tabs
 // watching it, with the employeeId added. A tab whose employee has no daemon connected hears "worklog.offline".
-// None of it is kept.
+// The list of conversations (MC-277) says "worklog.latest": every daemon connected hears it and answers with a short
+// copy of its latest turns, which goes to every tab, with the employeeId added. None of it is kept.
 //
 //   GET  /connect?token=…  a socket; the token comes from the web app (/api/agent/realtime for daemons, an action for
 //                          the dashboard)
@@ -130,6 +131,8 @@ export class Organization extends DurableObject<Env> {
     }
     const [tag] = this.ctx.getTags(socket);
     if (tag === PEOPLE) this.fromTab(socket, data);
+    // What an employee said last goes to every tab, for the list of conversations; its work to those watching it.
+    else if (data.type === "worklog.latest") this.send(PEOPLE, { ...data, employeeId: tag });
     else if (typeof data.type === "string" && data.type.startsWith("worklog")) {
       this.toWatchers(tag, { ...data, employeeId: tag });
     }
@@ -144,6 +147,10 @@ export class Organization extends DurableObject<Env> {
 
   private fromTab(socket: WebSocket, data: { type?: unknown; employeeId?: unknown; before?: unknown }) {
     if (data.type === "worklog.unwatch") return this.unwatch(socket);
+    if (data.type === "worklog.latest") {
+      for (const tag of this.daemons()) this.send(tag, { type: "worklog.latest" });
+      return;
+    }
     // Daemons' tags are employee ids; anything else is no employee of this organization's and simply has no daemon.
     if (typeof data.employeeId !== "string" || data.employeeId === PEOPLE) return;
     const employeeId = data.employeeId;
@@ -159,6 +166,12 @@ export class Organization extends DurableObject<Env> {
         socket.send(JSON.stringify({ type: "worklog.offline", employeeId }));
       }
     }
+  }
+
+  /** The employees whose daemons are connected. */
+  private daemons() {
+    const tags = this.ctx.getWebSockets().flatMap((socket) => this.ctx.getTags(socket));
+    return [...new Set(tags)].filter((tag) => tag !== PEOPLE);
   }
 
   /** The tab no longer watches; the last one to stop tells the daemon. */

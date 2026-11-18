@@ -111,7 +111,7 @@ export const roles: Record<RoleSlug, RoleData> = {
     tools: "用于调研的网页搜索和抓取、网站仓库和用来测试页面的本地开发服务器、Search Console 和数据分析的只读权限，以及一个提交 IndexNow 的脚本。两者都有时优先用 CLI 而不是 MCP 服务器，更省 token。",
     approvals: "发布应该经过人工或负责部署的人。删除页面、修改重定向、改动内容目录以外的代码或动 DNS 之前，也要先问。",
     related:
-      "想一步步用 skill 和 hook 搭出同样的 agent，请看 [AI SEO agent 搭建指南](/blog/ai-seo-agent)。基础组件可参考 [Claude Code skills](/blog/claude-code-skills) 和 [Claude Code hooks](/blog/claude-code-hooks)。",
+      "想一步步用 skill 和 hook 搭出同样的 agent，请看 [AI SEO agent 搭建指南](/blog/ai-seo-agent)。基础组件可参考 [Claude Code skills](/blog/claude-code-skills) 和 [Claude Code hooks](/blog/claude-code-hooks)；现成的 skill 见 [最好用的 SEO Claude skill](/skills/seo)。",
     mid: {
       title: "想要 SEO 专员，又不想自己搭？",
       text: "Crewmark 的 SEO 专员跑在你的 Claude Code 或 Codex 上，按心跳醒来，持续推进 SEO 待办。",
@@ -425,7 +425,7 @@ export const roles: Record<RoleSlug, RoleData> = {
     tools: "前端仓库和本地开发服务器、一个它能操控来截图的浏览器、你的设计 token 和组件库，以及一个无障碍检测工具。",
     approvals: "修改品牌（logo、颜色、字体）、文案、注册或结账流程的布局，或者在转化页面上做任何客户会注意到的改动之前，都要先问。",
     related:
-      "想让设计师和工程师并行工作，请看[同时运行多个 Claude Code agent](/blog/multiple-claude-code-agents)。想让它自己领活，请看[如何让 Claude Code 主动工作](/proactive-claude-code)。",
+      "想让设计师和工程师并行工作，请看[同时运行多个 Claude Code agent](/blog/multiple-claude-code-agents)。想让它自己领活，请看[如何让 Claude Code 主动工作](/proactive-claude-code)。要装哪些 skill，请看[最好用的网站与 UI 设计 Claude skill](/skills/website-design)。",
     mid: {
       title: "想打磨界面，又不想积压设计需求？",
       text: "Crewmark 的 UI 设计师直接在你的代码和组件里工作，提交附带前后对比截图的 Pull Request。",
@@ -498,7 +498,7 @@ export const roles: Record<RoleSlug, RoleData> = {
     tools: "App 的仓库，运行机器上的 Xcode 和 iOS 模拟器或 Android Studio 和模拟器，一种截图的方式，以及你的组件库。",
     approvals: "修改导航、新手引导或付费墙界面之前要先问，也绝不能让它自己提交构建或编辑商店页面。",
     related:
-      "负责界面背后逻辑的工程师，请看 [AI 软件工程师](/ai-employees/software-engineer)。网页界面请看 [AI UI 设计师](/ai-employees/ui-designer)。",
+      "负责界面背后逻辑的工程师，请看 [AI 软件工程师](/ai-employees/software-engineer)。网页界面请看 [AI UI 设计师](/ai-employees/ui-designer)。要装哪些 skill，请看[最好用的移动 App 设计 Claude skill](/skills/mobile-app-design)。",
     mid: {
       title: "想让 App 界面自动打磨好？",
       text: "Crewmark 的 App UI 设计师在你的代码里搭建 iOS 和 Android 界面，并在模拟器里检查。",

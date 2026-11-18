@@ -17,14 +17,14 @@ import {
   type IssuePatch,
   type NewIssueInput,
 } from "@/db/issues";
-import { insertAttachment } from "@/db/attachments";
-import { directThreadsOfUser, readDirectMessages, sendDirectMessage } from "@/db/direct-messages";
+import { startUpload } from "@/db/attachments";
+import { directThreadsOfUser, readDirectMessages, sendDirectMessage, writeToConversation } from "@/db/direct-messages";
 import { addComment, listActivity } from "@/db/issue-activity";
 import { insertProject, saveProject, type ProjectPatch } from "@/db/projects";
 import { inboxOf, listSubscribers, markInboxRead, markIssueRead, setSubscribed } from "@/db/subscriptions";
 import { employees } from "@/db/schema";
+import { markWorkRead, workRepliesOf } from "@/db/work-unread";
 import { createSetupToken, getConnection } from "@/lib/agent-auth";
-import { storage, uploadTarget } from "@/lib/attachments";
 import { auth, freeOrganizationSlug, requireMember, requireUserId } from "@/lib/auth";
 import { answerCliLogin, revokeCliKey } from "@/lib/cli-auth";
 import { realtimeConnection } from "@/lib/realtime";
@@ -38,6 +38,7 @@ import type {
   Issue,
   IssueActivity,
   Project,
+  WorkReplies,
 } from "@/lib/types";
 import { text } from "@/lib/validate";
 
@@ -139,6 +140,18 @@ export async function getDirectThreads(organizationId: string): Promise<DirectTh
   return directThreadsOfUser(organizationId, userId);
 }
 
+/** How many replies in each employee's work the signed-in person hasn't seen, and when each last replied (MC-280). */
+export async function getWorkReplies(organizationId: string): Promise<WorkReplies> {
+  const userId = await requireMember(organizationId);
+  return workRepliesOf(organizationId, userId);
+}
+
+/** The signed-in person has seen the employee's work. */
+export async function readWork(organizationId: string, employeeId: string): Promise<void> {
+  const userId = await requireMember(organizationId);
+  await markWorkRead(organizationId, userId, text(employeeId, "employeeId", { required: true }));
+}
+
 /**
  * The signed-in person's conversation with the employee: its latest messages, oldest first, or those before the
  * message `before` for an older page. Reading the latest marks them read.
@@ -161,6 +174,12 @@ export async function sendDirectMessageTo(organizationId: string, employeeId: st
   return sendDirectMessage(organizationId, { userId, employeeId: text(employeeId, "employeeId", { required: true }) }, "user", body);
 }
 
+/** Passes what the signed-in person wrote in the employee's work log on to its agent's conversation (MC-249). */
+export async function writeToEmployee(organizationId: string, employeeId: string, body: string): Promise<void> {
+  const userId = await requireMember(organizationId);
+  await writeToConversation(organizationId, { userId, employeeId: text(employeeId, "employeeId", { required: true }) }, body);
+}
+
 /** Comments on the issue as the signed-in person. */
 export async function commentOnIssue(organizationId: string, issueId: string, body: string): Promise<IssueActivity> {
   const userId = await requireMember(organizationId);
@@ -176,9 +195,8 @@ export async function createImageUpload(
   file: { name: string; type: string; size: number },
 ): Promise<ImageUpload> {
   const userId = await requireMember(organizationId);
-  storage(); // Throws before recording anything when uploads aren't set up here.
-  const attachment = await insertAttachment(organizationId, file, userId);
-  return { url: `/api/attachments/${attachment.id}`, upload: await uploadTarget(attachment) };
+  const { attachment, upload } = await startUpload(organizationId, file, userId);
+  return { url: `/api/attachments/${attachment.id}`, upload };
 }
 
 /**

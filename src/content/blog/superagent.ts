@@ -53,7 +53,7 @@ export const superagent: Partial<Record<"en", GuideCopy>> = {
         headers: ["Product", "Made by", "What it is", "How work starts", "Price"],
         rows: [
           ["DeepSeek Super-agent (dsh-superagent)", "DeepSeek's Harness team", "A proactive coding agent for one GitHub repository; a research prototype, not an official product", "Requests on GitHub (and optionally Feishu) from allowed people, or rules the team writes", "Free, MIT; runs on DeepSeek Harness"],
-          ["Base44 Superagents", "Base44 (part of Wix)", "No-code agents you describe in plain language, for personal or business tasks", "Schedules, triggers, webhooks, chat apps such as WhatsApp, Telegram and Slack", "Uses Base44 plan credits; Free, then from $16/month billed yearly"],
+          ["[Base44 Superagents](/personal-agent/base44-superagent)", "Base44 (part of Wix)", "No-code agents you describe in plain language, for personal or business tasks", "Schedules, triggers, webhooks, chat apps such as WhatsApp, Telegram and Slack", "Uses Base44 plan credits; Free, then from $16/month billed yearly"],
           ["ClickUp Super Agents", "ClickUp", "AI teammates inside a ClickUp workspace that triage, schedule, report and create items", "@mentions, assigned tasks, DMs, schedules and triggers", "Open to all users; usage billed in AI credits"],
           ["Genspark Super Agent", "Genspark", "A general-purpose agent for research, slides, documents and more", "Your prompt", "See genspark.ai"],
           ["superagent-ai/superagent", "Superagent (open source)", "Started in 2023 as an agent framework; now protects AI apps from prompt injection and data leaks", "Runs in your app's pipeline", "Open source, MIT"],
@@ -150,7 +150,7 @@ export const superagent: Partial<Record<"en", GuideCopy>> = {
         },
         {
           q: "What are Base44 Superagents?",
-          a: "No-code AI agents in Base44 (part of Wix) that you describe in plain language. They run on schedules and triggers, connect to Gmail, Drive, Notion, GitHub, Slack or MCP servers, and use your Base44 plan's credits.",
+          a: "No-code AI agents in Base44 (part of Wix) that you describe in plain language. They run on schedules and triggers, connect to Gmail, Drive, Notion, GitHub, Slack or MCP servers, and use your Base44 plan's credits. See the [Base44 Superagent guide](/personal-agent/base44-superagent) for pricing, credits and WhatsApp setup.",
         },
         {
           q: "What are ClickUp Super Agents?",

@@ -8,6 +8,7 @@ import type { IssueCreator } from "@/db/issues";
 import { issueKey } from "@/db/queries";
 import { issueActivity, issues } from "@/db/schema";
 import { notifyPeople, subscribe } from "@/db/subscriptions";
+import { unsignAttachmentLinks } from "@/lib/attachment-links";
 import { pushActivity } from "@/lib/realtime";
 import { TRACKED_ISSUE_PROPERTIES, type IssueActivity } from "@/lib/types";
 import { NotFoundError, text } from "@/lib/validate";
@@ -91,7 +92,7 @@ export async function addComment(
   body: unknown,
   actor: IssueCreator,
 ): Promise<IssueActivity> {
-  const markdown = text(body, "body", { required: true }).trim();
+  const markdown = unsignAttachmentLinks(text(body, "body", { required: true }).trim());
   const [issue] = await db
     .select({
       number: issues.number,
@@ -106,6 +107,8 @@ export async function addComment(
     .insert(issueActivity)
     .values({ organizationId, issueId, kind: "comment", ...actorColumns(actor), body: markdown })
     .returning();
+  // A comment makes it the latest changed (MC-263).
+  await db.update(issues).set({ updatedAt: row.createdAt }).where(eq(issues.id, issueId));
   const commented = { ...issue, id: issueId, key: issueKey(issue.number) };
   await notifyCommented(organizationId, commented, markdown, actor);
   const mentioned = await notifyMentioned(organizationId, commented, markdown, actor);

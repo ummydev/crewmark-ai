@@ -2,7 +2,11 @@ import en from "../../../messages/en.json";
 import { aiEmployees } from "@/content/ai-employees";
 import { alternatives } from "@/content/alternatives";
 import { blogIndex, postCopy } from "@/content/blog";
+import { personalAgentHub } from "@/content/personal-agent-hub";
+import { personalAgentsCopy } from "@/content/personal-agents";
 import { proactiveClaudeCode } from "@/content/proactive-claude-code";
+import { audienceCopy, useCaseCopy } from "@/content/use-cases";
+import { useCasesHub } from "@/content/use-cases-hub";
 import { pricing } from "@/content/pricing";
 import { proactiveCodex } from "@/content/proactive-codex";
 import { remoteClaudeCode } from "@/content/remote-claude-code";
@@ -12,6 +16,8 @@ import { skillsHub } from "@/content/skills-hub";
 import { posts } from "@/i18n/blog";
 import { type GuideHref, guides } from "@/i18n/guides";
 import { siteUrl } from "@/i18n/metadata";
+import { personalAgentPages } from "@/i18n/personal-agents";
+import { audiencePages, useCasePages } from "@/i18n/use-cases";
 import { plan } from "@/lib/pricing";
 import { roles } from "@/i18n/roles";
 import { skillPages } from "@/i18n/skill-pages";
@@ -30,6 +36,8 @@ const meta: Record<GuideHref, { title: string; description: string }> = {
   "/alternatives/crewai": alternatives.crewai.en.meta,
   "/pricing": pricing.en.meta,
   "/skills": skillsHub.en.meta,
+  "/personal-agent": personalAgentHub.en.meta,
+  "/use-cases": useCasesHub.en.meta,
   "/blog": blogIndex.en!.meta,
 };
 
@@ -68,6 +76,32 @@ ${skillPages
   .map(({ slug }) => {
     const { title: pageTitle, description } = skillPagesCopy[slug].en!.meta;
     return `- [${title(pageTitle)}](${url(`/skills/${slug}`)}): ${description}`;
+  })
+  .join("\n")}
+
+## Personal AI agents
+
+- [${title(personalAgentHub.en.meta.title)}](${url("/personal-agent")}): ${personalAgentHub.en.meta.description}
+${personalAgentPages
+  .map(({ slug }) => {
+    const { title: pageTitle, description } = personalAgentsCopy[slug].en!.meta;
+    return `- [${title(pageTitle)}](${url(`/personal-agent/${slug}`)}): ${description}`;
+  })
+  .join("\n")}
+
+## Use cases
+
+- [${title(useCasesHub.en.meta.title)}](${url("/use-cases")}): ${useCasesHub.en.meta.description}
+${audiencePages
+  .map(({ slug }) => {
+    const { title: pageTitle, description } = audienceCopy[slug].en!.meta;
+    return `- [${title(pageTitle)}](${url(`/for/${slug}`)}): ${description}`;
+  })
+  .join("\n")}
+${useCasePages
+  .map(({ slug }) => {
+    const { title: pageTitle, description } = useCaseCopy[slug].en!.meta;
+    return `- [${title(pageTitle)}](${url(`/use-cases/${slug}`)}): ${description}`;
   })
   .join("\n")}
 

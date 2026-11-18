@@ -1,6 +1,6 @@
 import "server-only";
 
-import { and, eq, inArray, sql } from "drizzle-orm";
+import { and, count, eq, inArray, ne, sql } from "drizzle-orm";
 
 import { db } from "@/db";
 import { notifyAssigned, notifySubscribersOfChanges } from "@/db/agent-events";
@@ -9,10 +9,11 @@ import { issueKey, toIssue } from "@/db/queries";
 import { reschedule } from "@/db/recurrence";
 import { employeeProjects, employees, issues, members, organizations, projects } from "@/db/schema";
 import { notifyPeople, subscribe, type Subscriber } from "@/db/subscriptions";
-import { pushActivity } from "@/lib/realtime";
+import { unsignAttachmentLinks } from "@/lib/attachment-links";
+import { pushActivity, pushToDaemons } from "@/lib/realtime";
 import { RecurrenceError, formatRecurrence, nextOccurrence, parseRecurrence } from "@/lib/recurrence";
-import type { Issue } from "@/lib/types";
-import { InputError, NotFoundError, PRIORITY_VALUES, STATUS_VALUES, idOrNull, oneOf, text } from "@/lib/validate";
+import type { Issue, IssueStatus } from "@/lib/types";
+import { InputError, NotFoundError, PRIORITY_VALUES, idOrNull, issueStatus, oneOf, text } from "@/lib/validate";
 
 // Writing issues, shared by the dashboard's Server Functions and the agent API. Callers check that whoever asks
 // belongs to the organization; these only touch that organization's rows.
@@ -110,6 +111,26 @@ function assigneeOf(columns: { assigneeEmployeeId: string | null; assigneeUserId
   return null;
 }
 
+/** How many of the issues assigned to the employee are in each status, but done: what its heartbeat reports (MC-263). */
+export async function openIssueCounts(organizationId: string, employeeId: string) {
+  const rows = await db
+    .select({ status: issues.status, issues: count() })
+    .from(issues)
+    .where(
+      and(eq(issues.organizationId, organizationId), eq(issues.assigneeEmployeeId, employeeId), ne(issues.status, "done")),
+    )
+    .groupBy(issues.status);
+  return Object.fromEntries(rows.map((row) => [row.status, row.issues])) as Partial<Record<IssueStatus, number>>;
+}
+
+/**
+ * Tells these employees' daemons to read their heartbeat again, since how many issues they have open changed: an
+ * issue of theirs was filed, deleted, assigned to or from them, or changed status.
+ */
+export function recountOpenIssues(organizationId: string, employeeIds: (string | null | undefined)[]) {
+  pushToDaemons(organizationId, [...new Set(employeeIds.filter((id): id is string => Boolean(id)))], "heartbeat");
+}
+
 /** Throws when an update matched nothing: the id doesn't exist in this organization. */
 export function found(rows: unknown[]) {
   if (rows.length === 0) throw new NotFoundError("Not found in this organization");
@@ -131,8 +152,8 @@ export async function insertIssue(organizationId: string, input: NewIssueInput, 
         organizationId,
         number: sql`(select coalesce(max(${issues.number}), 0) + 1 from ${issues} where ${issues.organizationId} = ${organizationId})`,
         title: text(input.title, "title", { required: true }).trim(),
-        description: text(input.description, "description").trim(),
-        status: oneOf(input.status, STATUS_VALUES, "status"),
+        description: unsignAttachmentLinks(text(input.description, "description").trim()),
+        status: issueStatus(input.status),
         priority: oneOf(input.priority, PRIORITY_VALUES, "priority"),
         ...assignee,
         projectId,
@@ -149,6 +170,7 @@ export async function insertIssue(organizationId: string, input: NewIssueInput, 
     return toIssue(row);
   });
   await notifyAssigned(organizationId, { ...issue, assigneeId: assignee.assigneeEmployeeId }, creator);
+  if (issue.status !== "done") recountOpenIssues(organizationId, [assignee.assigneeEmployeeId]);
   // A person it's assigned to finds it in their Inbox.
   if (assignee.assigneeUserId && !("userId" in creator && creator.userId === assignee.assigneeUserId)) {
     await notifyPeople(organizationId, issue.id, creator);
@@ -167,8 +189,8 @@ export async function updateIssue(
 ): Promise<void> {
   const values: Partial<typeof issues.$inferInsert> = {};
   if ("title" in patch) values.title = text(patch.title, "title");
-  if ("description" in patch) values.description = text(patch.description, "description");
-  if ("status" in patch) values.status = oneOf(patch.status, STATUS_VALUES, "status");
+  if ("description" in patch) values.description = unsignAttachmentLinks(text(patch.description, "description"));
+  if ("status" in patch) values.status = issueStatus(patch.status);
   if ("priority" in patch) values.priority = oneOf(patch.priority, PRIORITY_VALUES, "priority");
   if ("assigneeId" in patch) Object.assign(values, await assigneeColumns(organizationId, patch.assigneeId));
   if ("projectId" in patch) {
@@ -181,6 +203,8 @@ export async function updateIssue(
   }
   if ("recurrence" in patch) Object.assign(values, recurrenceColumns(patch.recurrence));
   if (Object.keys(values).length === 0) return;
+  // Any change but its place on the board makes it the latest changed (MC-263).
+  if (Object.keys(values).some((key) => key !== "position")) values.updatedAt = new Date();
   const issueId = text(id, "id", { required: true });
   const where = and(eq(issues.id, issueId), eq(issues.organizationId, organizationId));
   // Saving a title or description (as people type) skips the Activity bookkeeping.
@@ -216,6 +240,9 @@ export async function updateIssue(
   // Only an employee has an agent to tell.
   const newAssignee = after.assigneeEmployeeId && after.assigneeId !== before.assigneeId ? after.assigneeEmployeeId : null;
   if (newAssignee) await notifyAssigned(organizationId, { ...issue, assigneeId: newAssignee }, actor);
+  if (after.status !== before.status || after.assigneeEmployeeId !== before.assigneeEmployeeId) {
+    recountOpenIssues(organizationId, [before.assigneeEmployeeId, after.assigneeEmployeeId]);
+  }
   // Everyone else who follows it hears what changed; the new assignee was told it's theirs.
   if (changes.length > 0) {
     await notifySubscribersOfChanges(organizationId, issue, changes, actor, [newAssignee]);
@@ -237,10 +264,10 @@ const TRACKED = {
 const TRACKED_COLUMNS = ["status", "priority", "assigneeEmployeeId", "assigneeUserId", "projectId", "recurrence"];
 
 export async function deleteIssue(organizationId: string, id: string): Promise<void> {
-  found(
-    await db
-      .delete(issues)
-      .where(and(eq(issues.id, text(id, "id", { required: true })), eq(issues.organizationId, organizationId)))
-      .returning({ id: issues.id }),
-  );
+  const deleted = await db
+    .delete(issues)
+    .where(and(eq(issues.id, text(id, "id", { required: true })), eq(issues.organizationId, organizationId)))
+    .returning({ id: issues.id, status: issues.status, assigneeEmployeeId: issues.assigneeEmployeeId });
+  found(deleted);
+  if (deleted[0].status !== "done") recountOpenIssues(organizationId, [deleted[0].assigneeEmployeeId]);
 }

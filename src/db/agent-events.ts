@@ -8,6 +8,7 @@ import { agentEvents, employees, projects, users } from "@/db/schema";
 import { subscribedEmployees } from "@/db/subscriptions";
 import type { AgentEvent } from "@/lib/agent-api";
 import { mentionedEmployees } from "@/lib/mentions";
+import { NOTICE_NO_REPLY } from "@/lib/no-reply";
 import { pushToDaemons } from "@/lib/realtime";
 import { describeRecurrence, parseRecurrence } from "@/lib/recurrence";
 import { ISSUE_PRIORITIES, ISSUE_STATUSES, type IssueActivityKind } from "@/lib/types";
@@ -24,6 +25,15 @@ const PAGE = 50;
  * write. What other employees write waits until the agent is idle, so they don't keep interrupting each other.
  */
 const URGENT = new Set(["direct_message", "person_comment", "person_mention"]);
+
+/**
+ * What the agent is told: the event's message and, unless a person wrote it (the urgent ones, which want an
+ * answer), that it may reply with only the marker when it has nothing new for the user (MC-242). Added here rather
+ * than where each event is written, so every kind gets it, including events written before it was added.
+ */
+function messageFor(event: { type: string; message: string }) {
+  return URGENT.has(event.type) ? event.message : `${event.message}\n\n${NOTICE_NO_REPLY}`;
+}
 
 /** How the person or employee who did something is named in a message to an agent. */
 async function actorName(actor: IssueCreator) {
@@ -274,7 +284,7 @@ export async function eventsAfter(employeeId: string, after: number | null): Pro
     events: rows.map((e) => ({
       id: e.id,
       type: e.type,
-      message: e.message,
+      message: messageFor(e),
       createdAt: e.createdAt.toISOString(),
       urgent: URGENT.has(e.type),
     })),
