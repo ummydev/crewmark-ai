@@ -43,7 +43,7 @@ export function NewEmployeeDialog({
             <StepHeader
               step={2}
               steps={2}
-              title={`Connect ${employee.name} to an AI agent`}
+              title={`Start ${employee.name}`}
               description={CONNECT_AGENT_DESCRIPTION}
             />
             <ConnectAgent employee={employee} />

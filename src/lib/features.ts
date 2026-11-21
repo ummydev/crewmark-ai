@@ -12,3 +12,11 @@ export const DIRECT_MESSAGES = false;
 export const DIRECT_MESSAGES_OFF =
   "Direct messages are turned off on Crewmark. People write to an employee in its work log (the Work tab on " +
   "Crewmark), and the employee answers in its reply in its conversation, which they read there.";
+
+/**
+ * Files an employee names in its replies open from Messages (MC-315), read from its computer as they're clicked. Only
+ * the person whose computer it is can open them, and the daemon reads only files the agent named, in the
+ * conversation's folders, holding no secrets (cli/file_links.go). Set it to false to turn it off for everyone: the
+ * paths stay plain text. On one computer, CREWMARK_FILE_LINKS=off turns it off there.
+ */
+export const FILE_LINKS = true;

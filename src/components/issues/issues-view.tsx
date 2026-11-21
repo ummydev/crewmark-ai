@@ -4,6 +4,7 @@ import * as React from "react";
 import { KanbanSquareIcon, PlusIcon } from "lucide-react";
 
 import { useCrewStore } from "@/components/crew-store";
+import { BoardSearch } from "@/components/issues/issue-search";
 import { KanbanBoard } from "@/components/issues/kanban-board";
 import { NewIssueDialog } from "@/components/issues/new-issue-dialog";
 import { PageHeader } from "@/components/page-header";
@@ -44,6 +45,7 @@ export function IssuesView({
 }) {
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [dialogStatus, setDialogStatus] = React.useState<IssueStatus>("todo");
+  const [query, setQuery] = React.useState("");
 
   function openNewIssue(status: IssueStatus = "todo") {
     setDialogStatus(status);
@@ -57,14 +59,17 @@ export function IssuesView({
         title={title}
         toolbar={toolbar}
         actions={
-          <Button variant="outline" size="sm" className="text-[13px]" onClick={() => openNewIssue()}>
-            <PlusIcon />
-            New issue
-          </Button>
+          <div className="flex items-center gap-2">
+            <BoardSearch value={query} onChange={setQuery} />
+            <Button variant="outline" size="sm" className="text-[13px]" onClick={() => openNewIssue()}>
+              <PlusIcon />
+              New issue
+            </Button>
+          </div>
         }
       />
       <div className="min-h-0 flex-1">
-        <KanbanBoard projectId={projectId} onCreateIssue={openNewIssue} />
+        <KanbanBoard projectId={projectId} query={query} onCreateIssue={openNewIssue} />
       </div>
       <NewIssueDialog
         open={dialogOpen}

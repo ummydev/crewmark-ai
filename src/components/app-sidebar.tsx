@@ -4,6 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
+  ArchiveIcon,
   CheckIcon,
   ChevronsUpDownIcon,
   InboxIcon,
@@ -11,6 +12,7 @@ import {
   LogOutIcon,
   MessageCircleIcon,
   PlusIcon,
+  SearchIcon,
   SquarePenIcon,
   UserRoundPlusIcon,
   UsersIcon,
@@ -20,6 +22,7 @@ import { useCrewStore } from "@/components/crew-store";
 import { useInbox } from "@/components/inbox/inbox-provider";
 import { useMessages } from "@/components/messages/messages-provider";
 import { UnreadBadge } from "@/components/messages/messages-view";
+import { IssueSearchDialog, IssueSearchShortcut } from "@/components/issues/issue-search";
 import { NewIssueDialog } from "@/components/issues/new-issue-dialog";
 import { NewOrganizationDialog } from "@/components/organizations/new-organization-dialog";
 import { NewProjectDialog } from "@/components/projects/new-project-dialog";
@@ -88,7 +91,7 @@ export function AppSidebar() {
       <SidebarContent>
         {/* With Cache Components, usePathname suspends on dynamic routes like /issues/[key]. */}
         <React.Suspense
-          fallback={<NavGroups onNewIssue={() => openNewIssue()} onNewProject={() => setProjectDialogOpen(true)} />}
+          fallback={<NavGroups onNewIssue={() => openNewIssue()} onSearch={() => {}} onNewProject={() => setProjectDialogOpen(true)} />}
         >
           <ActiveNavGroups onNewIssue={openNewIssue} onNewProject={() => setProjectDialogOpen(true)} />
         </React.Suspense>
@@ -153,6 +156,10 @@ function OrganizationSwitcher({ onNewOrganization }: { onNewOrganization: () => 
               <UserRoundPlusIcon />
               Members
             </DropdownMenuItem>
+            <DropdownMenuItem render={<Link href={orgPath("/archived")} />}>
+              <ArchiveIcon />
+              Archived
+            </DropdownMenuItem>
             <DropdownMenuItem onClick={onNewOrganization}>
               <PlusIcon />
               New organization
@@ -192,10 +199,14 @@ function ActiveNavGroups({
   const [filteredProjectId] = useProjectFilter();
   // New issues land in the project being looked at: a project page, or a list filtered to one.
   const newIssue = () => onNewIssue(projectIdOf(pathname) ?? filteredProjectId);
+  const [searching, setSearching] = React.useState(false);
+  const openSearch = React.useCallback(() => setSearching(true), []);
   return (
     <>
       <NewIssueShortcut onNewIssue={newIssue} />
-      <NavGroups pathname={pathname} onNewIssue={newIssue} onNewProject={onNewProject} />
+      <IssueSearchShortcut onOpen={openSearch} />
+      <IssueSearchDialog open={searching} onOpenChange={setSearching} />
+      <NavGroups pathname={pathname} onNewIssue={newIssue} onSearch={openSearch} onNewProject={onNewProject} />
     </>
   );
 }
@@ -219,10 +230,12 @@ function NewIssueShortcut({ onNewIssue }: { onNewIssue: () => void }) {
 function NavGroups({
   pathname,
   onNewIssue,
+  onSearch,
   onNewProject,
 }: {
   pathname?: string;
   onNewIssue: () => void;
+  onSearch: () => void;
   onNewProject: () => void;
 }) {
   const { projects, orgPath } = useCrewStore();
@@ -240,6 +253,15 @@ function NavGroups({
                 <span>New issue</span>
                 <kbd className="ml-auto rounded border border-sidebar-border bg-background px-1.5 font-sans text-[11px] leading-4 text-muted-foreground">
                   C
+                </kbd>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton onClick={onSearch}>
+                <SearchIcon />
+                <span>Search</span>
+                <kbd className="ml-auto rounded border border-sidebar-border bg-background px-1.5 font-sans text-[11px] leading-4 text-muted-foreground">
+                  ⌘K
                 </kbd>
               </SidebarMenuButton>
             </SidebarMenuItem>

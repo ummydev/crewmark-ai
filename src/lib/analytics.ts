@@ -15,6 +15,8 @@ type Events = {
   "issue updated": { field: "status" | "priority" | "assignee" | "project" | "repeat" };
   "issue moved": { status: string };
   "issue deleted": Record<string, never>;
+  "employee archived": Record<string, never>;
+  "employee restored": Record<string, never>;
   "issue commented": Record<string, never>;
   // Someone followed or stopped following an issue (MC-200): themselves, or another person or an employee.
   "issue subscription changed": { subscribed: boolean; self: boolean; employee: boolean };

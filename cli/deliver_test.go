@@ -38,8 +38,25 @@ func TestClaudeAppSession(t *testing.T) {
 	if app, err := claudeAppSession("cli-3"); err != nil || app != nil {
 		t.Errorf("a conversation the app doesn't have: got %+v, %v", app, err)
 	}
-	if app, _ := claudeAppSession("cli-4"); app == nil || app.effort != "" {
-		t.Errorf("an inherited effort isn't passed on: got %+v", app)
+	// Following the app's default (effortInherited), it runs with its own effort all the same: its requests say so
+	// (MC-380). The default's model fills in where it names none.
+	if app, _ := claudeAppSession("cli-4"); app == nil || app.effort != "medium" || app.model != "" {
+		t.Errorf("an inherited effort: got %+v", app)
+	}
+	presets := `{"byAccount":{"other":{"builtIns":{"local":{"settings":{"modelId":"claude-haiku-5-5","effort":"low"}}}},` +
+		`"account":{"builtIns":{"local":{"settings":{"modelId":"claude-opus-5-5","effort":"xhigh"}}}}}}`
+	if err := os.WriteFile(filepath.Join(filepath.Dir(claudeAppSessions()), "ccd-session-presets.json"), []byte(presets), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	if app, _ := claudeAppSession("cli-4"); app == nil || app.effort != "medium" || app.model != "claude-opus-5-5" {
+		t.Errorf("with the app's default: got %+v", app)
+	}
+	if got := strings.Join(resumeArgs("cli-4", claudeAppConversation{model: "claude-opus-5-5", effort: "medium"}, nil), " "); !strings.Contains(got, "--effort medium") {
+		t.Errorf("a background run keeps its effort: %s", got)
+	}
+	// Its own effort still wins.
+	if app, _ := claudeAppSession("cli-1"); app == nil || app.effort != "high" {
+		t.Errorf("its own effort: got %+v", app)
 	}
 }
 
@@ -117,7 +134,7 @@ func TestWakeClaude(t *testing.T) {
 	for backgroundRuns.has("emp") {
 		time.Sleep(50 * time.Millisecond)
 	}
-	if got := ran(); got != "-p --resume cli-x --permission-mode auto --model claude-opus-5-5 hello\n" {
+	if got := ran(); got != "-p --resume cli-x --permission-mode auto --chrome --model claude-opus-5-5 -- hello\n" {
 		t.Fatalf("ran claude with %q", got)
 	}
 
@@ -137,3 +154,33 @@ func TestWakeClaude(t *testing.T) {
 }
 
 func ptr(s string) *string { return &s }
+
+func TestResumeArgs(t *testing.T) {
+	dir := t.TempDir()
+	app := claudeAppConversation{model: "claude-sonnet-5-5", effort: "medium"}
+	got := strings.Join(resumeArgs("s1", app, nil), " ")
+	if want := "-p --resume s1 --permission-mode auto --chrome --model claude-sonnet-5-5 --effort medium"; got != want {
+		t.Errorf("app's settings: got %q, want %q", got, want)
+	}
+	chosen := &agentSettings{Model: "claude-opus-5-5", Effort: "max", PermissionMode: "plan", AddDirs: []string{dir, "/no/such/folder"}}
+	got = strings.Join(resumeArgs("s1", app, chosen), " ")
+	if want := "-p --resume s1 --permission-mode plan --chrome --model claude-opus-5-5 --effort max --add-dir " + dir; got != want {
+		t.Errorf("chosen: got %q, want %q", got, want)
+	}
+	// A mode that needs someone to answer isn't used in the background.
+	got = strings.Join(resumeArgs("s1", claudeAppConversation{}, &agentSettings{PermissionMode: "default"}), " ")
+	if want := "-p --resume s1 --permission-mode auto --chrome"; got != want {
+		t.Errorf("default mode: got %q, want %q", got, want)
+	}
+}
+
+func TestChromeArgs(t *testing.T) {
+	t.Setenv("CREWMARK_CHROME", "")
+	if got := strings.Join(chromeArgs(), " "); got != "--chrome" {
+		t.Fatalf("on by default: got %q", got)
+	}
+	t.Setenv("CREWMARK_CHROME", "off")
+	if got := chromeArgs(); len(got) != 0 {
+		t.Fatalf("CREWMARK_CHROME=off: got %q", got)
+	}
+}

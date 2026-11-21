@@ -98,6 +98,10 @@ func TestLaunchAgentPlist(t *testing.T) {
 	if err != nil || string(out) != "http://127.0.0.1:7897?a=1&b=<2>\n" {
 		t.Errorf("proxy came back as %q (%v)", out, err)
 	}
+	// Background would give the conversations it starts background network priority (MC-300).
+	if out, err := exec.Command("plutil", "-extract", "ProcessType", "raw", path).Output(); err != nil || string(out) != "Standard\n" {
+		t.Errorf("ProcessType is %q (%v)", out, err)
+	}
 }
 
 func TestDeliverPending(t *testing.T) {

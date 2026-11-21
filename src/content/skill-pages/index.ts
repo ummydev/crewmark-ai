@@ -11,6 +11,20 @@ import { copy as frWebsiteDesign } from "@/content/i18n/fr/skill-website-design"
 import { copy as deWebsiteDesign } from "@/content/i18n/de/skill-website-design";
 import { copy as zhMobileAppDesign } from "@/content/i18n/zh/skill-mobile-app-design";
 import { copy as zhSeo } from "@/content/i18n/zh/skill-seo";
+import { copy as zhTWMobileAppDesign } from "@/content/i18n/zh-TW/skill-mobile-app-design";
+import { copy as jaMobileAppDesign } from "@/content/i18n/ja/skill-mobile-app-design";
+import { copy as koMobileAppDesign } from "@/content/i18n/ko/skill-mobile-app-design";
+import { copy as esMobileAppDesign } from "@/content/i18n/es/skill-mobile-app-design";
+import { copy as ptBRMobileAppDesign } from "@/content/i18n/pt-BR/skill-mobile-app-design";
+import { copy as frMobileAppDesign } from "@/content/i18n/fr/skill-mobile-app-design";
+import { copy as deMobileAppDesign } from "@/content/i18n/de/skill-mobile-app-design";
+import { copy as zhTWSeo } from "@/content/i18n/zh-TW/skill-seo";
+import { copy as jaSeo } from "@/content/i18n/ja/skill-seo";
+import { copy as koSeo } from "@/content/i18n/ko/skill-seo";
+import { copy as esSeo } from "@/content/i18n/es/skill-seo";
+import { copy as ptBRSeo } from "@/content/i18n/pt-BR/skill-seo";
+import { copy as frSeo } from "@/content/i18n/fr/skill-seo";
+import { copy as deSeo } from "@/content/i18n/de/skill-seo";
 import type { SkillPageSlug } from "@/i18n/skill-pages";
 
 import { mobileAppDesign } from "./mobile-app-design";
@@ -32,6 +46,6 @@ export const skillPagesCopy: Record<SkillPageSlug, Partial<Record<Locale, GuideC
     fr: frWebsiteDesign,
     de: deWebsiteDesign,
   },
-  "mobile-app-design": { en: mobileAppDesign, zh: zhMobileAppDesign },
-  seo: { en: seo, zh: zhSeo },
+  "mobile-app-design": { en: mobileAppDesign, zh: zhMobileAppDesign, "zh-TW": zhTWMobileAppDesign, ja: jaMobileAppDesign, ko: koMobileAppDesign, es: esMobileAppDesign, "pt-BR": ptBRMobileAppDesign, fr: frMobileAppDesign, de: deMobileAppDesign },
+  seo: { en: seo, zh: zhSeo, "zh-TW": zhTWSeo, ja: jaSeo, ko: koSeo, es: esSeo, "pt-BR": ptBRSeo, fr: frSeo, de: deSeo },
 };

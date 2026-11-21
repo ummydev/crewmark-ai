@@ -24,6 +24,7 @@ export function DeleteMenu({
   title,
   description,
   onDelete,
+  items,
 }: {
   /** The menu item, e.g. "Delete issue". */
   label: string;
@@ -32,6 +33,8 @@ export function DeleteMenu({
   /** What deleting does, in a sentence or two. */
   description: string;
   onDelete: () => Promise<void>;
+  /** Other items, above the destructive one. */
+  items?: React.ReactNode;
 }) {
   const [confirming, setConfirming] = React.useState(false);
   const [pending, setPending] = React.useState(false);
@@ -54,6 +57,7 @@ export function DeleteMenu({
           <EllipsisIcon />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-44">
+          {items}
           <DropdownMenuItem variant="destructive" onClick={() => setConfirming(true)}>
             <Trash2Icon />
             {label}

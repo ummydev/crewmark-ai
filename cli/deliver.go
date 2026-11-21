@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"os"
@@ -28,6 +27,8 @@ import (
 //     two processes would write it and split it in two.
 //   - Codex (the CLI or the app): `codex queue --resume` puts the message in the conversation's queue on Codex's local
 //     app-server daemon and starts it.
+//   - Any other agent acpx knows (OpenCode, DeepSeek Harness, Gemini CLI…, MC-417): a prompt to the employee's acpx
+//     session (acp.go).
 
 // undeliverable is a message that can never be delivered to this employee, so it isn't kept for later.
 type undeliverable struct{ reason string }
@@ -45,6 +46,9 @@ func deliver(employeeID string, profile employeeProfile, text string, whenIdle b
 	case "codex":
 		return deliverCodex(profile, text)
 	default:
+		if isACP(*profile.Runtime) {
+			return deliverACP(employeeID, profile, text)
+		}
 		return undeliverable{fmt.Sprintf("Crewmark can't send messages to %s conversations", labelOf(runtimes, *profile.Runtime))}
 	}
 }
@@ -144,16 +148,19 @@ type claudeAppConversation struct {
 
 // claudeAppSession is the conversation as the Claude app has it, or nil when it isn't one of the app's. The app knows
 // a conversation by an id of its own (local_…) and keeps Claude Code's next to it.
+//
+// Its "effort" is what it runs with, also when it follows the app's default (effortInherited): its requests to the
+// model carry it, not the default (MC-380, which undid MC-343's reading of the default for the effort). The default's
+// model still fills in where the conversation names none.
 func claudeAppSession(sessionID string) (*claudeAppConversation, error) {
 	files, _ := filepath.Glob(filepath.Join(claudeAppSessions(), "*", "*", "local_*.json"))
 	for _, file := range files {
 		var session struct {
-			SessionID       string `json:"sessionId"`
-			CLISessionID    string `json:"cliSessionId"`
-			IsArchived      bool   `json:"isArchived"`
-			Model           string `json:"model"`
-			Effort          string `json:"effort"`
-			EffortInherited bool   `json:"effortInherited"`
+			SessionID    string `json:"sessionId"`
+			CLISessionID string `json:"cliSessionId"`
+			IsArchived   bool   `json:"isArchived"`
+			Model        string `json:"model"`
+			Effort       string `json:"effort"`
 		}
 		if readJSON(file, &session) != nil || session.CLISessionID != sessionID || session.SessionID == "" {
 			continue
@@ -161,13 +168,39 @@ func claudeAppSession(sessionID string) (*claudeAppConversation, error) {
 		if session.IsArchived {
 			return nil, errors.New("the conversation is archived in the Claude app; unarchive it there to wake it")
 		}
-		app := &claudeAppConversation{link: "claude://claude.ai/epitaxy/" + session.SessionID, model: session.Model}
-		if !session.EffortInherited {
-			app.effort = session.Effort
+		app := &claudeAppConversation{
+			link: "claude://claude.ai/epitaxy/" + session.SessionID, model: session.Model, effort: session.Effort,
+		}
+		if app.model == "" {
+			app.model, _ = claudeAppDefaults(file)
 		}
 		return app, nil
 	}
 	return nil, nil
+}
+
+// claudeAppDefaults are the model and effort the Claude app gives a new conversation, for the
+// account the conversation's file is under (claude-code-sessions/<account>/<organization>/local_….json): the app keeps
+// them in ccd-session-presets.json. Empty when it can't tell.
+func claudeAppDefaults(sessionFile string) (model, effort string) {
+	account := filepath.Base(filepath.Dir(filepath.Dir(sessionFile)))
+	var presets struct {
+		ByAccount map[string]struct {
+			BuiltIns struct {
+				Local struct {
+					Settings struct {
+						ModelID string `json:"modelId"`
+						Effort  string `json:"effort"`
+					} `json:"settings"`
+				} `json:"local"`
+			} `json:"builtIns"`
+		} `json:"byAccount"`
+	}
+	if readJSON(filepath.Join(filepath.Dir(claudeAppSessions()), "ccd-session-presets.json"), &presets) != nil {
+		return "", ""
+	}
+	settings := presets.ByAccount[account].BuiltIns.Local.Settings
+	return settings.ModelID, settings.Effort
 }
 
 var (
@@ -273,48 +306,50 @@ func claudePath() (string, error) {
 // (if it's one of the app's). It returns once the run has started; the run's output goes to the employee's
 // claude.log. Without a signed-in claude command the message waits for the conversation to be opened.
 func resumeClaude(employeeID string, profile employeeProfile, text string, app claudeAppConversation) error {
-	claude, err := claudePath()
+	claude, err := signedInClaude()
 	if err != nil {
-		return errors.New("there's no claude command to resume the conversation in the background with: open it in " +
-			"Claude Code, or install Claude Code's command line and log in")
+		return fmt.Errorf("%v, so the conversation can't be resumed in the background: open it in Claude Code instead", err)
 	}
-	var auth struct {
-		LoggedIn bool `json:"loggedIn"`
-	}
-	status, err := exec.Command(claude, "auth", "status").Output()
-	if err != nil || json.Unmarshal(status, &auth) != nil || !auth.LoggedIn {
-		return errors.New("the claude command here isn't logged in, so the conversation can't be resumed in the " +
-			"background: run `claude` once and log in, or open the conversation in Claude Code")
-	}
-	dir := filepath.Join(home, "employees", employeeID)
-	if err := os.MkdirAll(dir, 0o700); err != nil {
-		return err
-	}
-	logFile, err := os.OpenFile(filepath.Join(dir, "claude.log"), os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0o600)
-	if err != nil {
-		return err
-	}
-	args := []string{"-p", "--resume", *profile.SessionID, "--permission-mode", "auto"}
-	if app.model != "" {
-		args = append(args, "--model", app.model)
-	}
-	if app.effort != "" {
-		args = append(args, "--effort", app.effort)
-	}
-	run := exec.Command(claude, append(args, text)...)
-	run.Dir, run.Stdout, run.Stderr = profile.Workdir, logFile, logFile
-	if err := run.Start(); err != nil {
-		logFile.Close()
+	args := resumeArgs(*profile.SessionID, app, readState(employeeID).Settings)
+	if err := runClaudeInBackground(employeeID, profile.Workdir, claude, append(args, "--", text)); err != nil {
 		return fmt.Errorf("couldn't resume the conversation: %v", err)
 	}
-	// Until it's done, later messages wait rather than start a second run on the same conversation.
-	backgroundRuns.set(employeeID, true)
-	go func() {
-		_ = run.Wait()
-		logFile.Close()
-		backgroundRuns.set(employeeID, false)
-	}()
 	return nil
+}
+
+// resumeArgs are claude's flags to resume the conversation headless: the person's choices in Messages (MC-313) first,
+// else the model and effort the Claude app runs it with, else Claude Code's own; auto mode unless they chose another
+// that needs nobody to answer (a background run can't ask for permission). Extra folders that aren't on this computer
+// are left out.
+func resumeArgs(sessionID string, app claudeAppConversation, settings *agentSettings) []string {
+	if settings == nil {
+		settings = &agentSettings{}
+	}
+	pick := func(chosen, fallback string) string {
+		if chosen != "" {
+			return chosen
+		}
+		return fallback
+	}
+	mode := "auto"
+	switch settings.PermissionMode {
+	case "acceptEdits", "plan":
+		mode = settings.PermissionMode
+	}
+	args := []string{"-p", "--resume", sessionID, "--permission-mode", mode}
+	args = append(args, chromeArgs()...)
+	if model := pick(settings.Model, app.model); model != "" {
+		args = append(args, "--model", model)
+	}
+	if effort := pick(settings.Effort, app.effort); effort != "" {
+		args = append(args, "--effort", effort)
+	}
+	for _, dir := range settings.AddDirs {
+		if info, err := os.Stat(dir); err == nil && info.IsDir() {
+			args = append(args, "--add-dir", dir)
+		}
+	}
+	return args
 }
 
 // codexPath is the codex command: CREWMARK_CODEX, codex on PATH, or the one inside the Codex (ChatGPT) app.
@@ -354,4 +389,15 @@ func deliverCodex(profile employeeProfile, text string) error {
 		return fmt.Errorf("codex queue failed: %v: %s", err, strings.TrimSpace(string(out)))
 	}
 	return nil
+}
+
+// chromeArgs turn on Claude in Chrome (MC-364) for the conversations the daemon runs with the claude command: the app
+// and an interactive claude have it from the person's settings, but `claude -p` leaves it off unless asked. Without
+// the extension the tools just say Chrome isn't connected. CREWMARK_CHROME=off leaves it off on this computer.
+func chromeArgs() []string {
+	switch strings.ToLower(os.Getenv("CREWMARK_CHROME")) {
+	case "off", "0", "false", "no":
+		return nil
+	}
+	return []string{"--chrome"}
 }

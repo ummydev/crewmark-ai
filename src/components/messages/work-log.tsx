@@ -7,13 +7,16 @@ import { useCrewStore } from "@/components/crew-store";
 import { StaticMarkdownView } from "@/components/markdown-editor";
 import { useFollowBottom } from "@/components/messages/follow-bottom";
 import { lastWordsKey, noteLastWords, type LastWords } from "@/components/messages/last-words";
+import { FileLinks, useOpenFile } from "@/components/messages/file-viewer";
+import { ImageViewer, useOpenImage } from "@/components/messages/image-viewer";
+import { WorkFiles } from "@/components/messages/work-files";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { sendRealtime, useRealtime } from "@/components/use-realtime";
 import { fullDate } from "@/lib/format";
 import { cacheKey, peekCache, readCache, writeCache } from "@/lib/local-cache";
 import { isNoReply, withoutNoReply } from "@/lib/no-reply";
-import type { Employee, WorkStep, WorkTurn } from "@/lib/types";
+import type { AppRun, Employee, WorkStep, WorkTurn } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { readSaid, sameWords } from "@/lib/work-messages";
 
@@ -34,9 +37,17 @@ import { readSaid, sameWords } from "@/lib/work-messages";
 // It reads as a chat (MC-256): messages and replies, without lines about them ("Replied in", "From Crewmark", "Ended
 // without a reply"); a message's time shows under it while the pointer is over it, or after a tap on a phone. Nothing
 // in it is wider than the view (MC-257): long paths and links break, code scrolls within its block.
+//
+// The pictures and videos the agent sent the person (MC-287) show in the turn, before its reply: loaded from the
+// employee's computer through the Worker (work-files.tsx).
 
 /** How long to wait for the employee's computer before saying it didn't answer. */
 const ANSWER_MS = 10_000;
+/**
+ * How many turns the employee's computer reads at a time (MC-302): the latest page on opening, and each page before it
+ * as the person scrolls up. The web sets it and the daemon follows (crewmark 0.8.6 or later; older ones read 10).
+ */
+const PAGE_TURNS = 10;
 /** How many of an employee's latest turns this browser keeps. */
 const KEPT_TURNS = 40;
 /**
@@ -80,10 +91,17 @@ function readTurn(turn: WorkTurn): ReadTurn {
 
 /** Whether a message written in the work log has reached the conversation, in this turn: it started it or came in. */
 function reached(turn: ReadTurn, message: Outgoing) {
-  // The computer's clock and this browser's may differ a little.
-  if (Date.parse(turn.repliedAt ?? turn.at) < Date.parse(message.at) - 10 * 60_000) return false;
-  if (turn.origin === "human" && sameWords(message.body, turn.prompt)) return true;
-  return turn.asides.some((aside) => aside.origin === "human" && sameWords(message.body, aside.text));
+  // Not words written long before it (the computer's clock and this browser's may differ a little). Each by its own
+  // time: a turn may start earlier than the messages that come in while it works, by far when it's the conversation
+  // being summarised, which takes the time of what it summarises (MC-352).
+  const before = (at: string) => Date.parse(at) < Date.parse(message.at) - 10 * 60_000;
+  if (turn.origin === "human" && !before(turn.at) && sameWords(message.body, turn.prompt)) return true;
+  return turn.asides.some((aside) => aside.origin === "human" && !before(aside.at) && sameWords(message.body, aside.text));
+}
+
+/** The turn started after the message was written, by more than the clocks may differ. */
+function startedAfter(turn: ReadTurn, message: Outgoing) {
+  return message.sent && Date.parse(turn.at) > Date.parse(message.at) + 60_000;
 }
 
 type Status =
@@ -97,11 +115,14 @@ export function WorkLog({
   employee,
   outbox = [],
   onArrived,
+  onApp,
 }: {
   employee: Employee;
   /** What the person wrote in the work log that hasn't shown up in the conversation yet. */
   outbox?: Outgoing[];
   onArrived?: (ids: string[]) => void;
+  /** How the Claude app runs the conversation, as its computer says with each fresh page (MC-319). */
+  onApp?: (app: AppRun | null) => void;
 }) {
   const { organization, currentUser } = useCrewStore();
   const key = cacheKey(currentUser.id, organization.id, "work", employee.id);
@@ -110,6 +131,13 @@ export function WorkLog({
   const [status, setStatus] = React.useState<Status>({ kind: "waiting" });
   const [loadingEarlier, setLoadingEarlier] = React.useState(false);
   const { scrollerRef, contentRef, atBottomRef } = useFollowBottom();
+  /** How far the view was from the end when earlier turns came in, to keep it there (null when there's nothing to keep). */
+  const fromBottom = React.useRef<number | null>(null);
+  React.useLayoutEffect(() => {
+    const view = scrollerRef.current;
+    if (view && fromBottom.current !== null) view.scrollTop = view.scrollHeight - fromBottom.current;
+    fromBottom.current = null;
+  }, [work, scrollerRef]);
 
   /** Shows the work and keeps its latest turns in this browser. */
   const show = React.useCallback(
@@ -141,10 +169,14 @@ export function WorkLog({
       const incoming = push.turns ?? [];
       noteLastWords(lastWordsKey(currentUser.id, organization.id), employee.id, lastWords(incoming));
       if (push.page === "earlier") {
+        // Kept where the person reads as the turns come in above (scroll anchoring isn't in every browser: Safari).
+        const view = scrollerRef.current;
+        if (view && !atBottomRef.current) fromBottom.current = view.scrollHeight - view.scrollTop;
         show((prev) => ({ turns: merge(prev.turns, incoming), more: Boolean(push.more) }));
         setLoadingEarlier(false);
       } else if (push.page === "latest") {
         show((prev) => latestPage(prev, incoming, Boolean(push.more)));
+        onApp?.(push.app ?? null);
       } else {
         show((prev) => ({ ...prev, turns: merge(prev.turns, incoming) }));
       }
@@ -155,7 +187,7 @@ export function WorkLog({
   // Watch while the socket is open, again each time it opens, and stop on leaving.
   React.useEffect(() => {
     if (!open) return;
-    sendRealtime(organization.id, { type: "worklog.watch", employeeId: employee.id });
+    sendRealtime(organization.id, { type: "worklog.watch", employeeId: employee.id, pageTurns: PAGE_TURNS });
     const silent = setTimeout(() => setStatus((s) => (s.kind === "waiting" ? { kind: "silent" } : s)), ANSWER_MS);
     return () => {
       clearTimeout(silent);
@@ -169,21 +201,44 @@ export function WorkLog({
     return () => clearTimeout(silent);
   }, [open]);
 
-  /** Asks for the turns before those shown. Asked for by the person, the view stays where they are reading. */
+  /**
+   * Asks for the turns before those shown. Asked for by the person, or by scrolling near the top, the view stays where
+   * they are reading: the turns come in above it.
+   */
   function loadEarlier({ auto = false } = {}) {
     if (!turns.length) return;
     if (!auto) atBottomRef.current = false;
     setLoadingEarlier(true);
-    if (!sendRealtime(organization.id, { type: "worklog.more", employeeId: employee.id, before: turns[0].index })) {
-      setLoadingEarlier(false);
-    }
+    const asked = { type: "worklog.more", employeeId: employee.id, before: turns[0].index, pageTurns: PAGE_TURNS };
+    if (!sendRealtime(organization.id, asked)) setLoadingEarlier(false);
   }
+
+  // Scrolling up to within a screen of the top asks for the turns before (MC-302), as does a page too short to scroll.
+  // The observer starts again with each page and each answer, so it asks again while the top is still in reach.
+  const topRef = React.useRef<HTMLDivElement>(null);
+  const loadOnScroll = React.useEffectEvent(() => loadEarlier({ auto: atBottomRef.current }));
+  React.useEffect(() => {
+    const top = topRef.current;
+    const view = scrollerRef.current;
+    if (!top || !view || status.kind !== "ready" || !more || loadingEarlier) return;
+    const near = new IntersectionObserver((entries) => entries.some((e) => e.isIntersecting) && loadOnScroll(), {
+      root: view,
+      rootMargin: "100% 0px 0px 0px",
+    });
+    near.observe(top);
+    return () => near.disconnect();
+  }, [status.kind, more, loadingEarlier, turns, scrollerRef]);
 
   const read = React.useMemo(() => turns.map(readTurn), [turns]);
   const shown = read.filter(shows);
 
   // Messages from the work log go once they're in the conversation; the rest show at the end, on their way.
-  const arrived = outbox.filter((message) => read.some((turn) => reached(turn, message))).map((message) => message.id);
+  // In the conversation: found in a turn shown, or a later turn has started since (MC-345). The daemon passes messages
+  // on in order, so one that started after it means it went in before, into a turn not shown (the person scrolled to
+  // the latest of a long conversation) or in words the turn tells a little differently (a list, a quote).
+  const arrived = outbox
+    .filter((message) => read.some((turn) => reached(turn, message) || startedAfter(turn, message)))
+    .map((message) => message.id);
   const waiting = outbox.filter((message) => !arrived.includes(message.id));
   const arrivedKey = arrived.join(" ");
   const arrive = React.useEffectEvent((ids: string[]) => onArrived?.(ids));
@@ -211,7 +266,9 @@ export function WorkLog({
 
   const notice = noticeFor(status, employee.name, turns.length > 0);
   return (
-    <div ref={scrollerRef} className="min-h-0 flex-1 overflow-x-hidden overflow-y-auto px-4 py-4">
+    <FileLinks employee={employee}>
+    <ImageViewer scope={scrollerRef}>
+    <div ref={scrollerRef} className="min-h-0 flex-1 overflow-x-hidden overflow-y-auto px-4 py-4 [overflow-anchor:none]">
       <div ref={contentRef} className="mx-auto grid max-w-3xl grid-cols-1 gap-8">
         {notice && turns.length > 0 && <p className="text-center text-xs text-muted-foreground">{notice}</p>}
         {turns.length === 0 ? (
@@ -228,7 +285,7 @@ export function WorkLog({
         ) : (
           <>
             {more && (
-              <div className="text-center">
+              <div ref={topRef} className="text-center">
                 <Button variant="ghost" size="sm" onClick={() => loadEarlier()} disabled={loadingEarlier}>
                   {loadingEarlier ? "Loading…" : "Earlier turns"}
                 </Button>
@@ -241,7 +298,7 @@ export function WorkLog({
             )}
             <ol className="grid grid-cols-1 gap-8">
               {shown.map((turn) => (
-                <Turn key={turn.index} turn={turn} last={turn.index === turns.at(-1)!.index} />
+                <Turn key={turn.index} turn={turn} employee={employee} last={turn.index === turns.at(-1)!.index} />
               ))}
             </ol>
           </>
@@ -262,18 +319,18 @@ export function WorkLog({
         )}
       </div>
     </div>
+    </ImageViewer>
+    </FileLinks>
   );
 }
 
 /**
- * Whether the turn shows: not one that said it had nothing for the person, or a heartbeat that ended without a word,
- * unless the person spoke in it.
+ * Whether the turn shows: not one that said it had nothing for the person, or a heartbeat that ended without a word
+ * (or a file), unless the person spoke in it.
  */
 function shows(turn: ReadTurn) {
-  return (
-    personSpoke(turn) ||
-    (!isNoReply(turn.reply) && !(turn.origin === "heartbeat" && turn.done && turn.reply.trim() === ""))
-  );
+  const quiet = turn.origin === "heartbeat" && turn.done && turn.reply.trim() === "" && !turn.files?.length;
+  return personSpoke(turn) || (!isNoReply(turn.reply) && !quiet);
 }
 
 /**
@@ -339,9 +396,12 @@ function noticeFor(status: Status, name: string, hasTurns: boolean) {
 }
 
 
-/** One turn: what started it, what came in along the way, its steps folded, and its reply. */
-function Turn({ turn, last }: { turn: ReadTurn; last: boolean }) {
+/** One turn: what started it, what came in along the way, its steps folded, the files it sent, and its reply. */
+function Turn({ turn, employee, last }: { turn: ReadTurn; employee: Employee; last: boolean }) {
   const working = last && !turn.done;
+  const openImage = useOpenImage();
+  // Files it names open from its computer, for the person whose computer it is (MC-315).
+  const openFile = useOpenFile();
   // Only what the person said shows (and the reply): what other sessions, Crewmark or a background task sent the
   // agent is folded away with the steps, like them in the way of reading the conversation.
   const folded = !SHOWN_ORIGINS.has(turn.origin);
@@ -364,9 +424,19 @@ function Turn({ turn, last }: { turn: ReadTurn; last: boolean }) {
           ))}
         </Steps>
       )}
+      {turn.files && turn.files.length > 0 && (
+        <Message at={turn.files[0].at}>
+          <WorkFiles employee={employee} files={turn.files} />
+        </Message>
+      )}
       {reply && (
         <Message at={turn.repliedAt ?? turn.at}>
-          <StaticMarkdownView value={reply} className="min-w-0 [overflow-wrap:anywhere]" />
+          <StaticMarkdownView
+            value={reply}
+            className="min-w-0 [overflow-wrap:anywhere] [&_img]:cursor-zoom-in"
+            onImageClick={openImage}
+            onFileClick={openFile}
+          />
         </Message>
       )}
       {working && (
@@ -408,6 +478,7 @@ function Marker({ children, title }: { children: React.ReactNode; title?: string
  */
 function Said({ origin, text, at, by, note }: { origin: string; text: string; at: string; by?: string; note?: string }) {
   const { currentUser } = useCrewStore();
+  const openImage = useOpenImage();
   const person = origin === "human";
   const crewmark = text.startsWith("[Crewmark]");
   const someoneElse = by && by !== (currentUser.name || currentUser.username) ? by : null;
@@ -425,11 +496,11 @@ function Said({ origin, text, at, by, note }: { origin: string; text: string; at
           person ? "rounded-br-md bg-muted" : "rounded-bl-md border border-rule text-muted-foreground",
         )}
       >
-        {/* Images show small, as in a chat (MC-271); a click opens one full size. */}
+        {/* Images show small, as in a chat (MC-271); a click opens them in the viewer (MC-304). */}
         <StaticMarkdownView
           value={crewmark ? text.replace(/^\[Crewmark\]\s*/, "") : text}
           className="min-w-0 [&_.tiptap]:text-inherit [&_img]:inline-block [&_img]:max-h-40 [&_img]:max-w-48 [&_img]:w-auto [&_img]:cursor-zoom-in"
-          onImageClick={(src) => window.open(src, "_blank", "noopener")}
+          onImageClick={openImage}
         />
       </div>
     </Message>
@@ -455,6 +526,7 @@ function Message({
   return (
     <div
       data-tapped={tapped || undefined}
+      data-quotable
       onPointerUp={(event) => {
         if (event.pointerType === "touch") setTapped((shown) => !shown);
       }}
@@ -545,6 +617,7 @@ function toolLabel(tool = "") {
     Agent: "Asked an agent to",
     Task: "Asked an agent to",
     Skill: "Used",
+    SendUserFile: "Sent you",
   };
   if (known[tool]) return known[tool];
   // mcp__server__tool → "tool".

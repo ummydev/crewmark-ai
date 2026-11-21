@@ -3,10 +3,12 @@ import type { MetadataRoute } from "next";
 import type { Locale } from "next-intl";
 
 import { blogLocales } from "@/i18n/blog";
+import { compareLocalesByHref } from "@/i18n/compare";
 import { guideLocales } from "@/i18n/guides";
 import { localizedUrls } from "@/i18n/metadata";
 import { roleLocales } from "@/i18n/roles";
 import { personalAgentLocales } from "@/i18n/personal-agents";
+import { productPageLocalesByHref } from "@/i18n/product-pages";
 import { skillPageLocales } from "@/i18n/skill-pages";
 import { useCaseLocales } from "@/i18n/use-cases";
 import { routing } from "@/i18n/routing";
@@ -22,6 +24,8 @@ const pages: [href: string, locales: readonly Locale[]][] = [
   ...Object.entries(skillPageLocales),
   ...Object.entries(personalAgentLocales),
   ...Object.entries(useCaseLocales),
+  ...Object.entries(compareLocalesByHref),
+  ...Object.entries(productPageLocalesByHref),
 ];
 
 // Every language version gets its own entry, each listing all its alternates, as Google asks for.

@@ -49,3 +49,6 @@ next-env.d.ts
 
 # design-taste skill working files (screenshots, reports)
 .taste-skill/
+.vinext/
+.cloudflare/
+.wrangler/

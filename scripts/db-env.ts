@@ -1,6 +1,10 @@
 import { execFileSync } from "node:child_process";
 
-import { loadEnvConfig } from "@next/env";
+import * as nextEnv from "@next/env";
+
+// drizzle-kit loads this file as CommonJS and tsx as an ES module (package.json "type": "module"); the named export
+// sits on `default` in one and on the namespace in the other.
+const { loadEnvConfig } = (nextEnv as typeof nextEnv & { default?: typeof nextEnv }).default ?? nextEnv;
 
 /**
  * Returns the direct (non-pooled) database URL for migrations and scripts.

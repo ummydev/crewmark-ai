@@ -51,6 +51,8 @@ type workTurn struct {
 	RepliedAt string `json:"repliedAt,omitempty"`
 	// Whether the model ended the turn (rather than still being at it, or having been stopped).
 	Done bool `json:"done"`
+	// The pictures and videos it sent the person (worklog_files.go).
+	Files []workFile `json:"files,omitempty"`
 }
 
 // workAside is a message that came in while the turn was under way: a person's, or another session's.
@@ -81,6 +83,8 @@ type transcript struct {
 	numbered bool
 	// Claude Code's number of the turn under way, to tell a new turn from more of the same prompt.
 	turnIndex int
+	// The model and effort its latest request to the model was made with, as Claude Code notes each one.
+	lastRun appRun
 }
 
 func newTranscript(path string) *transcript {
@@ -147,6 +151,7 @@ type claudeEntry struct {
 	IsMeta           bool   `json:"isMeta"`
 	IsCompactSummary bool   `json:"isCompactSummary"`
 	Timestamp        string `json:"timestamp"`
+	Cwd              string `json:"cwd"`
 	TurnOrigin       string `json:"turnOrigin"`
 	TurnPosition     *struct {
 		TurnIndex int `json:"turnIndex"`
@@ -178,7 +183,13 @@ type contentBlock struct {
 // The transcript's bookkeeping lines start with their type, so they're skipped without reading them (some are large).
 var wantedLine = regexp.MustCompile(`^\{"type":"(user|assistant|attachment)"`)
 
+var apiRequestLine = []byte(`{"type":"api-request",`)
+
 func (t *transcript) line(data []byte, changed map[int]bool) {
+	if bytes.HasPrefix(data, apiRequestLine) {
+		t.request(data)
+		return
+	}
 	if bytes.HasPrefix(data, []byte(`{"type":"`)) && !wantedLine.Match(data) {
 		return
 	}
@@ -194,6 +205,23 @@ func (t *transcript) line(data []byte, changed map[int]bool) {
 	case "attachment":
 		t.aside(entry, changed)
 	}
+}
+
+// request notes the model and effort a request to the model was made with: how the conversation runs, shown where
+// the Claude app doesn't say (a conversation the daemon runs in the background, MC-353).
+func (t *transcript) request(data []byte) {
+	var line struct {
+		Params struct {
+			Model        string `json:"model"`
+			OutputConfig struct {
+				Effort string `json:"effort"`
+			} `json:"output_config"`
+		} `json:"params"`
+	}
+	if json.Unmarshal(data, &line) != nil || line.Params.Model == "" {
+		return
+	}
+	t.lastRun = appRun{Model: line.Params.Model, Effort: line.Params.OutputConfig.Effort}
 }
 
 func (t *transcript) current() (*workTurn, int) {
@@ -295,6 +323,9 @@ func (t *transcript) assistant(entry claudeEntry, changed map[int]bool) {
 			}
 			t.tools[block.ID] = [2]int{i, turn.StepCount}
 			t.step(turn, i, workStep{Kind: "tool", Tool: block.Name, Summary: toolSummary(block.Name, block.Input)})
+			if block.Name == "SendUserFile" {
+				turn.Files = append(turn.Files, sendUserFile(block.Input, entry.Cwd, block.ID, entry.Timestamp)...)
+			}
 		default:
 			continue
 		}
@@ -446,6 +477,15 @@ func toolSummary(name string, input json.RawMessage) string {
 		summary = str("description")
 	case "Skill":
 		summary = str("skill")
+	case "SendUserFile":
+		var names []string
+		files, _ := in["files"].([]any)
+		for _, f := range files {
+			if s, ok := f.(string); ok {
+				names = append(names, filepath.Base(s))
+			}
+		}
+		summary = strings.Join(names, ", ")
 	}
 	if summary == "" && len(in) > 0 {
 		compact, _ := json.Marshal(in)

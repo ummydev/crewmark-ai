@@ -4,6 +4,7 @@ import { and, eq, gt, isNull, ne } from "drizzle-orm";
 
 import { db } from "@/db";
 import { agentConnections, agentSetupTokens, employeeProjects, employees, organizations, projects } from "@/db/schema";
+import { recordDevice } from "@/lib/device-records";
 import { hashSecret as hash, newSecret } from "@/lib/secrets";
 import type { AgentRuntime, Organization } from "@/lib/types";
 
@@ -72,9 +73,10 @@ export interface ConnectionInfo {
 
 /**
  * Uses up a setup token and returns a new API key for its employee, revoking the employee's earlier connections, along
- * with who made the token. Returns null when the token is unknown, used or expired.
+ * with who made the token. The connection goes on its computer, when the CLI says which (MC-292); whoever made the
+ * token owns a computer Crewmark hadn't seen. Returns null when the token is unknown, used or expired.
  */
-export async function exchangeSetupToken(token: string, info: ConnectionInfo) {
+export async function exchangeSetupToken(token: string, info: ConnectionInfo, machineId: string | null = null) {
   return db.transaction(async (tx) => {
     const [setup] = await tx
       .update(agentSetupTokens)
@@ -94,9 +96,18 @@ export async function exchangeSetupToken(token: string, info: ConnectionInfo) {
     if (!setup) return null;
 
     const apiKey = newSecret("cmk");
+    const deviceId = machineId
+      ? await recordDevice(tx, {
+          organizationId: setup.organizationId,
+          machineId,
+          userId: setup.createdByUserId,
+          hostname: info.hostname,
+          platform: info.platform,
+        })
+      : null;
     const [connection] = await tx
       .insert(agentConnections)
-      .values({ organizationId: setup.organizationId, employeeId: setup.employeeId, ...info, keyHash: hash(apiKey) })
+      .values({ organizationId: setup.organizationId, employeeId: setup.employeeId, ...info, deviceId, keyHash: hash(apiKey) })
       .returning({ id: agentConnections.id });
     await tx
       .update(agentConnections)
@@ -121,6 +132,8 @@ export async function exchangeSetupToken(token: string, info: ConnectionInfo) {
 
 export interface Agent {
   connectionId: string;
+  /** The computer it runs on, once the CLI said (MC-292). */
+  deviceId: string | null;
   employeeId: string;
   organization: Organization;
   /** The conversation this connection says is the employee, once linked. */
@@ -134,6 +147,7 @@ export async function authenticateAgent(request: Request): Promise<Agent | null>
   const [row] = await db
     .select({
       connectionId: agentConnections.id,
+      deviceId: agentConnections.deviceId,
       employeeId: agentConnections.employeeId,
       organization: { id: organizations.id, name: organizations.name, slug: organizations.slug },
       runtime: agentConnections.runtime,

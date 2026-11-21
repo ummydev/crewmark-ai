@@ -81,6 +81,20 @@ export const copy: GuideCopy = {
       ],
     },
     {
+      kind: "table",
+      id: "ai-coworkers",
+      title: "Neu: KI-Kollegen-Apps, Grok Bot und OpenBot",
+      text: [
+        "Seit der ersten Fassung dieses Vergleichs haben zwei Produkte für „KI-Kollegen“ Aufmerksamkeit bekommen: Grok Bot von xAI und OpenBot, das Open-Source-Projekt von CopilotKit. Beide geben jedem Bot einen eigenen Computer. Die Angaben stammen von der Website des jeweiligen Anbieters, geprüft am 13. November 2026; im direkten Vergleich unter [Grok Bot vs Claude Code](/compare/grok-bot-vs-claude-code) und [OpenBot vs Grok Bot](/compare/openbot-vs-grok-bot).",
+        "Weitere KI-Kollegen, von Claude Cowork und Copilot Cowork bis ChatGPT Work und Andrew Ngs OpenWorker, findest du unter [AI-Coworker-Tools im Vergleich](/blog/ai-coworker).",
+      ],
+      headers: ["Plattform", "Am besten für", "Wie die Arbeit startet", "Läuft auf", "Gratis-Option", "Bezahlt ab"],
+      rows: [
+        ["Grok Bot", "Teams, die gehostete KI-Teamkollegen in ihren Apps, in Slack, Teams und Meetings arbeiten lassen wollen", "Du schreibst einem Bot oder gibst ihm Arbeit in Slack oder Teams; Routinen nach Zeitplan", "Grok (xAI), auf einem Cloud-Computer pro Bot", "„Get started for free“ auf x.ai/bot", "In Premium für $30/Monat enthalten; Super $100, Ultra $200"],
+        ["OpenBot (Open Source)", "Selbst gehostete KI-Kollegen mit deinen eigenen Modellen und Agenten", "Chat, Freigaben und Routines; deine eigenen Agenten verbinden sich über AG-UI", "Deine Wahl: OpenAI, Claude, Gemini oder offene Modelle", "Gratis für persönliche Projekte", "Business bis zu $29/Monat pro aktivem Nutzer"],
+      ],
+    },
+    {
       kind: "text",
       title: "Kostenlose KI-Mitarbeiter und Open Source auf GitHub",
       text: [

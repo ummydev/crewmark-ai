@@ -23,6 +23,7 @@ import { useFindAssignee, type Assignee } from "@/components/issues/assignee";
 import { IssueCard, SortableIssueCard } from "@/components/issues/issue-card";
 import { StatusIcon } from "@/components/issues/status-icon";
 import { useHiddenColumns } from "@/components/issues/use-hidden-columns";
+import { issueMatch } from "@/lib/issue-search";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
@@ -50,10 +51,13 @@ function statusOf(id: string | number, issues: Issue[]): IssueStatus | undefined
 
 export function KanbanBoard({
   projectId,
+  query = "",
   onCreateIssue,
 }: {
   /** Only show this project's issues; all issues when omitted. */
   projectId?: string;
+  /** Only show the issues that match what's typed in the board's search box (MC-214). */
+  query?: string;
   onCreateIssue: (status: IssueStatus) => void;
 }) {
   const { organization, issues: allIssues, setIssues, moveIssue } = useCrewStore();
@@ -61,7 +65,9 @@ export function KanbanBoard({
   const [hidden, setHidden] = useHiddenColumns(organization.id);
   const shown = ISSUE_STATUSES.filter((s) => !hidden.includes(s.value));
   // Drag handlers below work on the full list (ids are unique), so filtering only affects what's shown.
-  const issues = projectId ? allIssues.filter((i) => i.projectId === projectId) : allIssues;
+  const issues = allIssues.filter(
+    (i) => (!projectId || i.projectId === projectId) && (!query.trim() || issueMatch(i, query) > 0),
+  );
   const [activeId, setActiveId] = React.useState<string | null>(null);
   /** The dragged issue as it was, to put back if the drag ends where it started or is cancelled. */
   const dragged = React.useRef<Issue | null>(null);

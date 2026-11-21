@@ -1,0 +1,1 @@
+ALTER TABLE "devices" ADD COLUMN "folders" jsonb DEFAULT '[]'::jsonb NOT NULL;

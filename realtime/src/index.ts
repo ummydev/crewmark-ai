@@ -11,18 +11,35 @@ import { DurableObject } from "cloudflare:workers";
 //
 // The one exception is an employee's work (MC-186): while someone has it open in the dashboard, the object relays
 // between their tab and the employee's daemon, which reads the conversation on its computer. The tab says
-// {type: "worklog.watch", employeeId}, "worklog.unwatch" or {type: "worklog.more", employeeId, before}; the daemon
+// {type: "worklog.watch", employeeId, pageTurns?}, "worklog.unwatch" or {type: "worklog.more", employeeId, before, pageTurns?}; the daemon
 // hears {type: "worklog.watch", watching} when the first tab starts watching and the last one stops, and the
 // "worklog.more" requests; what it sends back ("worklog" pages and turns, "worklog.unavailable") goes to the tabs
 // watching it, with the employeeId added. A tab whose employee has no daemon connected hears "worklog.offline".
 // The list of conversations (MC-277) says "worklog.latest": every daemon connected hears it and answers with a short
 // copy of its latest turns, which goes to every tab, with the employeeId added. None of it is kept.
 //
+// The pictures and videos an employee sends the person show in its work the same way (MC-287): the browser asks for
+// one at GET /file, the object asks the employee's daemon ({type: "file.read", id, file, range}), and the daemon
+// answers with a "file.head" (status, type, size, the bytes that follow), the bytes in binary pieces (the read's id,
+// its length in the first byte, then bytes) and a "file.end". The object passes the pieces on to the browser as they
+// come and says "file.ack" for each once the browser has taken it, so the daemon never has more than a few on their
+// way; "file.cancel" when the browser stops wanting it. Nothing of the file is kept.
+//
+// A daemon's sockets are also its computer's (MC-292): the web app puts the computer in the daemon's token, and each
+// socket is tagged with it as well as the employee. The web app asks which computers are online (POST /devices), and
+// has one start an employee (POST /start): the object says {type: "employee.start", id, start} down one of that
+// computer's sockets, and waits for the daemon's {type: "employee.started", id, ok, error}.
+//
 //   GET  /connect?token=…  a socket; the token comes from the web app (/api/agent/realtime for daemons, an action for
 //                          the dashboard)
+//   GET  /file?token=…&employee=…&file=…
+//                          a file the employee sent the person, for the dashboard (the token from an action, a "file."
+//                          one), answered as a static file would be: Range requests get 206
 //   POST /notify           the web app: {organizationId, kind, employeeIds} for daemons, or {organizationId, kind:
 //                          "activity", issueId} or {organizationId, kind: "messages"} for the dashboard, with
 //                          Authorization: Bearer REALTIME_SECRET
+//   POST /devices          the web app: {organizationId} → {online: [computer ids]}, with the same secret
+//   POST /start            the web app: {organizationId, deviceId, start} → {ok, error}, once the daemon has answered
 //   POST /schedule         the web app: {organizationId, at} sets the organization's timer to when its next repeating
 //                          issue comes round (ISO time; null for none). Then the object calls the web app's
 //                          POST /api/realtime/recur with the same secret, and sets the timer to the next time it answers.
@@ -47,6 +64,44 @@ const DAEMON_KINDS = ["events", "heartbeat"];
 /** The tag of the dashboard's sockets: every member's tab hears about every issue, as they can all see them. */
 const PEOPLE = "people";
 
+/** What tags a computer's sockets: "device:" and its id. */
+const DEVICE = "device:";
+
+/**
+ * What tags a computer's own socket (MC-421): its daemon keeps one open with the person's CLI login, before any
+ * employee works there, so Crewmark can start the first one. It hears nothing but starts.
+ */
+const COMPUTER = "computer:";
+
+/** How long the web app waits for a computer to start an employee: it signs it in and starts the agent first. */
+const START_ANSWER_MS = 60_000;
+
+/** How long a start waits on one of the computer's sockets before it's sent down the next. */
+const START_RETRY_MS = 15_000;
+
+/** How long a browser waits for the employee's computer to start answering for a file. */
+const FILE_ANSWER_MS = 15_000;
+
+/** The daemon's answer to a file read, before the bytes (cli/worklog_files.go). */
+interface FileHead {
+  type: "file.head";
+  id: string;
+  status: number;
+  contentType?: string;
+  name?: string;
+  size: number;
+  start: number;
+  end: number;
+}
+
+/** A file being read for a browser: whose computer has it, and where its bytes go once the daemon has answered. */
+interface FileRead {
+  employeeId: string;
+  answered: (head: FileHead | null) => void;
+  body?: ReadableStream<Uint8Array>;
+  writer?: WritableStreamDefaultWriter<Uint8Array>;
+}
+
 export class Organization extends DurableObject<Env> {
   constructor(ctx: DurableObjectState, env: Env) {
     super(ctx, env);
@@ -54,12 +109,21 @@ export class Organization extends DurableObject<Env> {
     ctx.setWebSocketAutoResponse(new WebSocketRequestResponsePair("ping", "pong"));
   }
 
+  /** Files being read for browsers, by the read's id; only while this object is awake, which a read keeps it. */
+  private reads = new Map<string, FileRead>();
+
+  /** Employees being started on computers, by the start's id: the computer, and who waits for its answer. */
+  private starts = new Map<string, { deviceId: string; answered: (answer: { ok: boolean; error?: string }) => void }>();
+
   /** A socket, tagged with what it hears about: one employee's news (a daemon's), or the people's (a dashboard's). */
   async fetch(request: Request) {
+    if (new URL(request.url).pathname === "/file") return this.file(request);
     const tag = new URL(request.url).searchParams.get("tag");
-    if (!tag) return new Response("No tag", { status: 400 });
+    if (!tag || tag.startsWith(DEVICE)) return new Response("No tag", { status: 400 });
+    const device = tag === PEOPLE ? null : new URL(request.url).searchParams.get("device");
     const [client, server] = Object.values(new WebSocketPair());
-    this.ctx.acceptWebSocket(server, [tag]);
+    // The employee's tag comes first: it's what the socket is.
+    this.ctx.acceptWebSocket(server, device ? [tag, DEVICE + device] : [tag]);
     // A daemon back after a drop picks up where it was, if someone is watching its employee's work.
     if (tag !== PEOPLE && this.watchers(tag).length > 0) server.send(JSON.stringify({ type: "worklog.watch", watching: true }));
     return new Response(null, { status: 101, webSocket: client });
@@ -78,6 +142,58 @@ export class Organization extends DurableObject<Env> {
   /** Tells the dashboard's tabs that a direct conversation changed; each fetches its own person's. */
   notifyMessages() {
     return this.send(PEOPLE, { type: "messages" });
+  }
+
+  /** The computers whose daemons are connected. */
+  onlineDevices() {
+    const tags = this.ctx.getWebSockets().flatMap((socket) => this.ctx.getTags(socket));
+    return [...new Set(tags.filter((tag) => tag.startsWith(DEVICE)).map((tag) => tag.slice(DEVICE.length)))];
+  }
+
+  /**
+   * Has the computer's daemon start an employee (MC-292), down one of its sockets, and waits for its answer. Only the
+   * web app gets here; what it sends is passed on as it is.
+   */
+  async start(deviceId: string, start: unknown): Promise<{ ok: boolean; error?: string }> {
+    const id = crypto.randomUUID();
+    const answered = new Promise<{ ok: boolean; error?: string }>((resolve) => this.starts.set(id, { deviceId, answered: resolve }));
+    // Newest first: a socket the daemon has already dropped can stay listed a while (the oldest, most often), and a
+    // start sent down it is lost. When one doesn't answer in time, the next one is tried; the daemon starts an
+    // employee once for each start, whichever sockets it comes down (MC-405).
+    const sockets = this.ctx.getWebSockets(DEVICE + deviceId).reverse();
+    if (sockets.length === 0) {
+      this.starts.delete(id);
+      return { ok: false, error: "The computer is offline: its crewmark daemon isn't connected." };
+    }
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    const send = (socket: WebSocket) => {
+      try {
+        socket.send(JSON.stringify({ type: "employee.start", id, start }));
+      } catch {
+        // A closed one: the next is tried on time.
+      }
+    };
+    sockets.forEach((socket, i) => {
+      if (i === 0) send(socket);
+      else timers.push(setTimeout(() => send(socket), i * START_RETRY_MS));
+    });
+    timers.push(
+      setTimeout(
+        () => this.starts.get(id)?.answered({ ok: false, error: "The computer didn't say whether it started the employee." }),
+        START_ANSWER_MS,
+      ),
+    );
+    const answer = await answered;
+    timers.forEach(clearTimeout);
+    this.starts.delete(id);
+    return answer;
+  }
+
+  /** A daemon's answer to a start, from one of its computer's sockets. */
+  private started(socket: WebSocket, data: { id?: unknown; ok?: unknown; error?: unknown }) {
+    const start = typeof data.id === "string" ? this.starts.get(data.id) : undefined;
+    if (!start || !this.ctx.getTags(socket).includes(DEVICE + start.deviceId)) return;
+    start.answered({ ok: data.ok === true, error: typeof data.error === "string" ? data.error.slice(0, 500) : undefined });
   }
 
   /** Sets the timer for the organization's repeating issues to `at` (ms), or clears it. */
@@ -120,17 +236,127 @@ export class Organization extends DurableObject<Env> {
     return told;
   }
 
+  /**
+   * A file the employee sent the person, read from its computer for the browser (MC-287). The browser's Range goes to
+   * the daemon, which says what it sends; the response streams the bytes as they come.
+   */
+  private async file(request: Request) {
+    const url = new URL(request.url);
+    const employeeId = url.searchParams.get("employee");
+    const file = url.searchParams.get("file") ?? "";
+    const path = url.searchParams.get("path") ?? "";
+    if (!employeeId || (!file && !path) || employeeId === PEOPLE) {
+      return new Response("Expected an employee and a file", { status: 400, headers: FILE_CORS });
+    }
+    const id = crypto.randomUUID();
+    const answered = new Promise<FileHead | null>((resolve) => this.reads.set(id, { employeeId, answered: resolve }));
+    const range = request.headers.get("Range") ?? "";
+    if (!this.send(employeeId, { type: "file.read", id, file, path, range })) {
+      this.reads.delete(id);
+      return new Response("The employee's computer is offline", { status: 503, headers: FILE_CORS });
+    }
+    const timer = setTimeout(() => this.reads.get(id)?.answered(null), FILE_ANSWER_MS);
+    const head = await answered;
+    clearTimeout(timer);
+    const read = this.reads.get(id);
+    if (!head || !read) {
+      this.stopRead(id);
+      return new Response("The employee's computer didn't answer", { status: 504, headers: FILE_CORS });
+    }
+    if (head.status !== 200 && head.status !== 206) {
+      this.reads.delete(id);
+      const headers: HeadersInit = head.status === 416 ? { ...FILE_CORS, "Content-Range": `bytes */${head.size}` } : FILE_CORS;
+      return new Response(null, { status: head.status, headers });
+    }
+    const headers = new Headers({
+      ...FILE_CORS,
+      "Content-Type": head.contentType ?? "application/octet-stream",
+      "Accept-Ranges": "bytes",
+      "Cache-Control": "private, max-age=3600",
+      "Content-Disposition": `inline; filename*=UTF-8''${encodeURIComponent(head.name ?? "file")}`,
+      "X-Content-Type-Options": "nosniff",
+    });
+    if (head.status === 206) headers.set("Content-Range", `bytes ${head.start}-${head.end}/${head.size}`);
+    if (request.method === "HEAD") {
+      this.stopRead(id);
+      headers.set("Content-Length", String(head.end - head.start + 1));
+      return new Response(null, { status: head.status, headers });
+    }
+    return new Response(read.body, { status: head.status, headers });
+  }
+
+  /** What a daemon sends about a file it's reading: its answer, a piece, or that it's done. */
+  private fromDaemon(tag: string, data: Partial<FileHead> & { ok?: unknown }) {
+    const read = typeof data.id === "string" ? this.reads.get(data.id) : undefined;
+    if (!read || read.employeeId !== tag || typeof data.id !== "string") return;
+    const id = data.id;
+    if (data.type === "file.head") {
+      const head = data as FileHead;
+      if (head.status === 200 || head.status === 206) {
+        // A fixed length, so the browser is told how big it is.
+        const stream = new FixedLengthStream(Math.max(0, head.end - head.start + 1));
+        read.body = stream.readable;
+        read.writer = stream.writable.getWriter();
+        // The browser stopped reading (a video skipped elsewhere, the tab closed): the daemon stops too.
+        read.writer.closed.catch(() => this.stopRead(id));
+      }
+      read.answered(head);
+    } else if (data.type === "file.end") {
+      this.reads.delete(id);
+      if (data.ok) read.writer?.close().catch(() => {});
+      else read.writer?.abort("The employee's computer stopped reading the file").catch(() => {});
+    }
+  }
+
+  /** A piece of a file: the read's id (its length in the first byte), then bytes, passed on to the browser. */
+  private pieceFromDaemon(socket: WebSocket, tag: string, message: ArrayBuffer) {
+    const bytes = new Uint8Array(message);
+    const id = new TextDecoder().decode(bytes.subarray(1, 1 + bytes[0]));
+    const read = this.reads.get(id);
+    if (!read?.writer || read.employeeId !== tag) {
+      socket.send(JSON.stringify({ type: "file.cancel", id }));
+      return;
+    }
+    read.writer.write(bytes.subarray(1 + bytes[0])).then(
+      () => {
+        try {
+          socket.send(JSON.stringify({ type: "file.ack", id }));
+        } catch {
+          // The daemon is gone; so is the read.
+        }
+      },
+      () => this.stopRead(id),
+    );
+  }
+
+  /** Stops a read: the browser's side ends, and the daemon stops sending. */
+  private stopRead(id: string) {
+    const read = this.reads.get(id);
+    if (!read) return;
+    this.reads.delete(id);
+    read.answered(null);
+    read.writer?.abort("Stopped").catch(() => {});
+    this.send(read.employeeId, { type: "file.cancel", id });
+  }
+
   /** Messages about an employee's work, from a dashboard tab or a daemon; pings never get here. */
   webSocketMessage(socket: WebSocket, message: string | ArrayBuffer) {
-    if (typeof message !== "string" || !message.startsWith("{")) return;
-    let data: { type?: unknown; employeeId?: unknown; before?: unknown };
+    const [tag] = this.ctx.getTags(socket);
+    if (typeof message !== "string") {
+      if (tag !== PEOPLE && message.byteLength > 0) this.pieceFromDaemon(socket, tag, message);
+      return;
+    }
+    if (!message.startsWith("{")) return;
+    let data: { type?: unknown; employeeId?: unknown; before?: unknown; pageTurns?: unknown };
     try {
       data = JSON.parse(message);
     } catch {
       return;
     }
-    const [tag] = this.ctx.getTags(socket);
-    if (tag === PEOPLE) this.fromTab(socket, data);
+    if (tag !== PEOPLE && data.type === "employee.started") this.started(socket, data as { id?: unknown; ok?: unknown; error?: unknown });
+    else if (tag !== PEOPLE && (data.type === "file.head" || data.type === "file.end")) {
+      this.fromDaemon(tag, data as Partial<FileHead>);
+    } else if (tag === PEOPLE) this.fromTab(socket, data);
     // What an employee said last goes to every tab, for the list of conversations; its work to those watching it.
     else if (data.type === "worklog.latest") this.send(PEOPLE, { ...data, employeeId: tag });
     else if (typeof data.type === "string" && data.type.startsWith("worklog")) {
@@ -138,31 +364,38 @@ export class Organization extends DurableObject<Env> {
     }
   }
 
-  /** A tab that closes stops watching. */
+  /** A tab that closes stops watching; a daemon that goes leaves its files unread. */
   webSocketClose(socket: WebSocket) {
     const [tag] = this.ctx.getTags(socket);
-    if (tag === PEOPLE) this.unwatch(socket);
-    else if (this.ctx.getWebSockets(tag).length === 0) this.toWatchers(tag, { type: "worklog.offline", employeeId: tag });
+    if (tag === PEOPLE) return this.unwatch(socket);
+    if (tag.startsWith(COMPUTER) || this.ctx.getWebSockets(tag).length > 0) return;
+    this.toWatchers(tag, { type: "worklog.offline", employeeId: tag });
+    for (const [id, read] of this.reads) if (read.employeeId === tag) this.stopRead(id);
   }
 
-  private fromTab(socket: WebSocket, data: { type?: unknown; employeeId?: unknown; before?: unknown }) {
+  private fromTab(socket: WebSocket, data: { type?: unknown; employeeId?: unknown; before?: unknown; pageTurns?: unknown }) {
     if (data.type === "worklog.unwatch") return this.unwatch(socket);
     if (data.type === "worklog.latest") {
       for (const tag of this.daemons()) this.send(tag, { type: "worklog.latest" });
       return;
     }
     // Daemons' tags are employee ids; anything else is no employee of this organization's and simply has no daemon.
-    if (typeof data.employeeId !== "string" || data.employeeId === PEOPLE) return;
+    if (typeof data.employeeId !== "string" || data.employeeId === PEOPLE || data.employeeId.startsWith(COMPUTER)) return;
     const employeeId = data.employeeId;
     if (data.type === "worklog.watch") {
       this.unwatch(socket);
       socket.serializeAttachment({ watching: employeeId });
       // Each new watcher gets the latest page: the daemon sends it again to everyone watching.
-      if (!this.send(employeeId, { type: "worklog.watch", watching: true })) {
+      if (!this.send(employeeId, { type: "worklog.watch", watching: true, pageTurns: pageTurns(data) })) {
+        socket.send(JSON.stringify({ type: "worklog.offline", employeeId }));
+      }
+    } else if (data.type === "worklog.files") {
+      // Every file the agent sent in the conversation, for its media panel (MC-318).
+      if (!this.send(employeeId, { type: "worklog.files" })) {
         socket.send(JSON.stringify({ type: "worklog.offline", employeeId }));
       }
     } else if (data.type === "worklog.more" && typeof data.before === "number") {
-      if (!this.send(employeeId, { type: "worklog.more", before: data.before })) {
+      if (!this.send(employeeId, { type: "worklog.more", before: data.before, pageTurns: pageTurns(data) })) {
         socket.send(JSON.stringify({ type: "worklog.offline", employeeId }));
       }
     }
@@ -170,8 +403,8 @@ export class Organization extends DurableObject<Env> {
 
   /** The employees whose daemons are connected. */
   private daemons() {
-    const tags = this.ctx.getWebSockets().flatMap((socket) => this.ctx.getTags(socket));
-    return [...new Set(tags)].filter((tag) => tag !== PEOPLE);
+    const tags = this.ctx.getWebSockets().flatMap((socket) => this.ctx.getTags(socket).slice(0, 1));
+    return [...new Set(tags)].filter((tag) => tag !== PEOPLE && !tag.startsWith(COMPUTER));
   }
 
   /** The tab no longer watches; the last one to stop tells the daemon. */
@@ -209,11 +442,46 @@ export default {
     if (!env.REALTIME_SECRET) return new Response("REALTIME_SECRET isn't set", { status: 500 });
     if (url.pathname === "/connect") {
       if (request.headers.get("Upgrade") !== "websocket") return new Response("Expected a WebSocket", { status: 426 });
-      const claims = await verifyToken(url.searchParams.get("token") ?? "", env.REALTIME_SECRET);
+      const claims = await verifyToken(url.searchParams.get("token") ?? "", env.REALTIME_SECRET, "connect");
       if (!claims) return new Response("Invalid or expired token", { status: 401 });
       const target = new URL(request.url);
-      target.search = new URLSearchParams({ tag: claims.e ?? PEOPLE }).toString();
+      const tag = claims.e ?? (claims.c && claims.d ? COMPUTER + claims.d : PEOPLE);
+      target.search = new URLSearchParams({ tag, ...(tag !== PEOPLE && claims.d ? { device: claims.d } : {}) }).toString();
       return env.ORGANIZATIONS.getByName(claims.o).fetch(new Request(target, request));
+    }
+    // Files may be read by pages on any origin that has a link with a token (MC-324): the dashboard draws a video's
+    // frame to a canvas to comment on it, which the browser only allows for a video read with CORS.
+    if (url.pathname === "/file" && request.method === "OPTIONS") {
+      return new Response(null, {
+        status: 204,
+        headers: { ...FILE_CORS, "Access-Control-Allow-Methods": "GET, HEAD", "Access-Control-Allow-Headers": "Range", "Access-Control-Max-Age": "86400" },
+      });
+    }
+    if (url.pathname === "/file" && (request.method === "GET" || request.method === "HEAD")) {
+      // A file the agent named, by its path (MC-315), takes a token of its own: one employee's, given only to the
+      // person whose computer it's on.
+      const path = url.searchParams.get("path") ?? "";
+      const employee = url.searchParams.get("employee") ?? "";
+      const claims = await verifyToken(url.searchParams.get("token") ?? "", env.REALTIME_SECRET, path ? "path" : "file");
+      if (!claims || (path && claims.e !== employee)) {
+        return new Response("Invalid or expired token", { status: 401, headers: FILE_CORS });
+      }
+      const target = new URL(request.url);
+      target.search = new URLSearchParams({ employee, file: url.searchParams.get("file") ?? "", path }).toString();
+      return env.ORGANIZATIONS.getByName(claims.o).fetch(new Request(target, request));
+    }
+    if ((url.pathname === "/devices" || url.pathname === "/start") && request.method === "POST") {
+      if (!(await sameSecret(request.headers.get("Authorization") ?? "", `Bearer ${env.REALTIME_SECRET}`))) {
+        return new Response("Unauthorized", { status: 401 });
+      }
+      const body = (await request.json().catch(() => null)) as { organizationId?: unknown; deviceId?: unknown; start?: unknown } | null;
+      if (typeof body?.organizationId !== "string") return new Response("Expected an organizationId", { status: 400 });
+      const organization = env.ORGANIZATIONS.getByName(body.organizationId);
+      if (url.pathname === "/devices") return Response.json({ online: await organization.onlineDevices() });
+      if (typeof body.deviceId !== "string" || typeof body.start !== "object" || body.start === null) {
+        return new Response("Expected {organizationId, deviceId, start}", { status: 400 });
+      }
+      return Response.json(await organization.start(body.deviceId, body.start));
     }
     if (url.pathname === "/schedule" && request.method === "POST") {
       if (!(await sameSecret(request.headers.get("Authorization") ?? "", `Bearer ${env.REALTIME_SECRET}`))) {
@@ -260,10 +528,16 @@ export default {
   },
 } satisfies ExportedHandler<Env>;
 
-/** A connect token's claims: organization, the employee for a daemon (none for the dashboard), when it expires (seconds). */
+/**
+ * A connect token's claims: organization, the employee for a daemon (none for the dashboard), the daemon's computer
+ * (MC-292), when it expires (seconds).
+ */
 interface Claims {
   o: string;
   e?: string;
+  d?: string;
+  /** A computer's own socket (MC-421), with d and without e. */
+  c?: true;
   x: number;
 }
 
@@ -283,9 +557,10 @@ function fromBase64Url(text: string) {
 
 /**
  * The claims of a token the web app signed (src/lib/realtime.ts): base64url JSON claims, a dot, and the base64url
- * HMAC-SHA256 of "connect." + the claims. Null unless it's genuine and unexpired.
+ * HMAC-SHA256 of what it's for ("connect" for a socket, "file" for the files in employees' work) + "." + the claims.
+ * Null unless it's genuine, for this, and unexpired.
  */
-async function verifyToken(token: string, secret: string): Promise<Claims | null> {
+async function verifyToken(token: string, secret: string, purpose: "connect" | "file" | "path"): Promise<Claims | null> {
   const [payload, signature] = token.split(".");
   if (!payload || !signature) return null;
   let valid = false;
@@ -294,7 +569,7 @@ async function verifyToken(token: string, secret: string): Promise<Claims | null
       "HMAC",
       await hmacKey(secret),
       fromBase64Url(signature),
-      encoder.encode(`connect.${payload}`),
+      encoder.encode(`${purpose}.${payload}`),
     );
   } catch {
     return null;
@@ -304,6 +579,8 @@ async function verifyToken(token: string, secret: string): Promise<Claims | null
     const claims = JSON.parse(new TextDecoder().decode(fromBase64Url(payload))) as Claims;
     if (typeof claims.o !== "string" || typeof claims.x !== "number") return null;
     if (claims.e !== undefined && typeof claims.e !== "string") return null;
+    if (claims.d !== undefined && typeof claims.d !== "string") return null;
+    if (claims.c !== undefined && claims.c !== true) return null;
     return claims.x > Date.now() / 1000 ? claims : null;
   } catch {
     return null;
@@ -316,3 +593,14 @@ async function sameSecret(a: string, b: string) {
   const [x, y] = await Promise.all([a, b].map((s) => crypto.subtle.sign("HMAC", key, encoder.encode(s))));
   return crypto.subtle.timingSafeEqual(x, y);
 }
+
+/** How many turns a page of the work log has, as the web asks (MC-302); undefined leaves it to the daemon. */
+function pageTurns(data: { pageTurns?: unknown }) {
+  return typeof data.pageTurns === "number" && Number.isInteger(data.pageTurns) && data.pageTurns > 0 ? data.pageTurns : undefined;
+}
+
+/** What lets a page read an employee's file with CORS (MC-324): the link's token is what guards it. */
+const FILE_CORS = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Expose-Headers": "Content-Range, Content-Length, Accept-Ranges",
+};

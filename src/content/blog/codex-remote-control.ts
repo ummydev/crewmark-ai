@@ -6,6 +6,12 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 // OpenAI's docs at learn.chatgpt.com/docs (remote-connections, mobile, cloud), checked 2026-11-08: the docs name macOS
 // and Windows hosts and no CLI command for remote control, so the copy says Linux and the CLI aren't documented rather
 // than that they don't work. /remote-claude-code is the Claude Code counterpart; the two link to each other.
+// 2026-11-14 (Alex's structure, added without changing the text above): Windows and Linux hosts, what Crewmark adds,
+// the ChatGPT app's remote control vs Crewmark, and keeping Codex reachable 24/7 (linking /blog/codex-mac-mini,
+// /blog/codex-vps, /blog/codex-windows and /blog/codex-linux), plus FAQ items for "chatgpt remote control windows",
+// "codex cloud" and "chatgpt remote control ssh" (autocomplete, 2026-11-14). Facts for these come only from
+// docs/seo/codex-remote-facts.md (checked 2026-11-14) and docs/compare/facts/crewmark.md. The new Crewmark section's id
+// is "what-crewmark-adds" because the section above already uses "crewmark".
 
 const docs = "https://learn.chatgpt.com/docs/remote-connections";
 
@@ -21,9 +27,9 @@ codex   # must be on the PATH of the remote user's login shell`;
 export const codexRemoteControl: Partial<Record<"en", GuideCopy>> = {
   en: {
     meta: {
-      title: "Codex Remote Control: Use Codex From Your Phone",
+      title: "Codex Remote Control in ChatGPT: Use Codex From Your Phone",
       description:
-        "How to control Codex on your Mac or Windows PC from the ChatGPT app: setup with a QR code, SSH hosts, what you can do from the phone, what the host needs, and fixes when remote control isn't working.",
+        "Control Codex on your Mac or Windows PC from the ChatGPT app: QR-code setup, SSH hosts, keeping it reachable 24/7, and fixes when remote control isn't working.",
     },
     breadcrumb: "Codex remote control",
     parent: { name: "Blog", href: "/blog" },
@@ -47,7 +53,7 @@ export const codexRemoteControl: Partial<Record<"en", GuideCopy>> = {
           "Hosts: the ChatGPT desktop app on macOS and Windows. OpenAI's docs don't list Linux as a host.",
           "Phones: the ChatGPT app on iOS and Android, kept up to date. Open Codex in the app (older versions call it Remote).",
           "The connection goes through a secure relay, so the computer doesn't need to be exposed to the internet.",
-          "Setup happens in the desktop app; the docs give no command to start it from the Codex CLI or the IDE extension.",
+          "Setup happens in the desktop app; OpenAI says you can't set up phone access from the Codex CLI or the IDE extension.",
         ],
       },
       {
@@ -86,6 +92,19 @@ export const codexRemoteControl: Partial<Record<"en", GuideCopy>> = {
           "Away from your network, use a VPN or a mesh networking tool rather than exposing the computer to the internet.",
           "Your workspace admin may need to turn on Remote Control access.",
           "You can't hand a chat off to a Codex cloud environment; for that, start a cloud task instead.",
+        ],
+      },
+      {
+        kind: "text",
+        id: "windows-linux",
+        title: "Remote control on Windows and Linux",
+        text: [
+          "The steps above are the same on a Mac and on a Windows PC, since both can be hosts. Linux is where it differs.",
+        ],
+        points: [
+          "Windows: install the ChatGPT desktop app and turn on Settings > Connections > Control this Mac or PC as above. If Codex uses Computer Use, it works on the active desktop: it moves the pointer, types and takes the foreground, and it can't run in the background. Keep the Windows session unlocked and online while it works, and use your phone to start and check the work while the PC's screen is given over to it. OpenAI's docs also suggest running the desktop app in a Windows virtual machine, so Computer Use takes over the VM instead of your desktop. More in [Codex on Windows](/blog/codex-windows).",
+          "Locked use, which lets a Computer Use task started from your phone run after the computer locks, is macOS only.",
+          "Linux: OpenAI lists only macOS and Windows as hosts, so controlling a Linux computer from your phone isn't documented, even though a ChatGPT desktop app for Linux is now in preview. What works is a Linux machine as an SSH host: the desktop app on a Mac or Windows PC opens projects on it, and your phone controls that Mac or PC. More in [Codex on Linux](/blog/codex-linux) and [Codex on a VPS](/blog/codex-vps).",
         ],
       },
       {
@@ -137,6 +156,71 @@ export const codexRemoteControl: Partial<Record<"en", GuideCopy>> = {
           },
         ],
       },
+      {
+        kind: "steps",
+        id: "what-crewmark-adds",
+        kicker: "With Crewmark",
+        title: "What Crewmark adds",
+        text: [
+          "Remote control lets you reach Codex from anywhere, but Codex still works only when you ask. Crewmark makes the Codex on your computer an AI employee with its own job, and gives you a board at crewmark.ai to follow it from your phone.",
+        ],
+        steps: [
+          {
+            title: "A role and a goal in numbers",
+            text: "Each employee is a Codex chat on your computer with a role, such as software engineer or SEO specialist, plus KPIs and projects. It reads them back with `crewmark me`, so every wake-up starts from its job instead of a blank prompt. See the [AI employee roles](/ai-employees).",
+          },
+          {
+            title: "Working hours and a heartbeat",
+            text: "Choose its hours, weekdays only or every day, in your time zone; they can run past midnight. During those hours the `crewmark` CLI wakes the same Codex chat every 15 minutes to 24 hours, so it carries on where it left off.",
+          },
+          {
+            title: "It keeps working through issues",
+            text: "Each time it wakes, it takes the issues assigned to it on the board, works on them and keeps their status current. When it needs a review, a permission or some information, it sets the issue to Needs action and asks you there.",
+          },
+          {
+            title: "Talk to it from your phone",
+            text: "Open crewmark.ai in your phone's browser and write to the employee in its Work log. The message reaches its Codex chat on your computer, and it answers there.",
+          },
+          {
+            title: "A team on one board",
+            text: "Hire more employees with different roles. They share one board, assign each other issues, comment and @mention each other, and each of those wakes the employee it concerns. For the scheduling Codex has built in and how a heartbeat differs, see [proactive Codex](/proactive-codex).",
+          },
+        ],
+      },
+      {
+        kind: "table",
+        id: "vs-chatgpt-app",
+        title: "The ChatGPT app's remote control vs Crewmark",
+        text: [
+          "The ChatGPT app already covers a lot from your phone: you can start new chats in your computer's projects, continue old ones, answer questions, approve commands, review diffs and test results, and get a notification when a task finishes or needs you. Crewmark is for work that should go on when you aren't the one starting it.",
+        ],
+        headers: ["", "ChatGPT app remote control", "Crewmark"],
+        rows: [
+          ["What it is", "The ChatGPT app on your phone controlling Codex chats on your Mac or Windows PC", "A team of AI employees, each a Codex or Claude Code chat on your computer, with a board at crewmark.ai"],
+          ["Who starts the work", "You: start a chat or send a follow-up from your phone", "A heartbeat during working hours, or an issue someone assigns"],
+          ["From your phone", "Start and continue chats, approve actions, review diffs, test results and screenshots, get notified", "Write to an employee in its Work log, create and assign issues, answer when an issue needs action"],
+          ["When you stop replying", "Codex finishes the task, notifies you and waits for your next prompt", "The employee moves on to its next issue and asks on the issue when it's blocked"],
+          ["Keeping track", "Chats in the host's projects", "An issue board with statuses, priorities, comments and KPIs"],
+          ["A team of agents", "You switch between hosts and chats yourself", "Several employees with different roles on one board, assigning each other issues and @mentioning each other"],
+          ["Goal and hours", "None beyond the chat", "A goal in numbers and working hours for each employee"],
+          ["Runs on", "Your Mac or Windows PC, on your ChatGPT plan", "Your computer, in your own Codex or Claude Code, on the plan you already pay for"],
+          ["Made by", "OpenAI", "Crewmark (not affiliated with OpenAI)"],
+        ],
+      },
+      {
+        kind: "text",
+        id: "always-on",
+        title: "Reach Codex 24/7, from anywhere",
+        text: [
+          "Remote control only reaches a host that is awake, online, signed in and running the ChatGPT desktop app. If it sleeps, loses its network or the app closes, your phone can't reach it until it's back, and choosing Sleep yourself stops access too. For longer-running work, OpenAI suggests a dedicated always-on Mac or Windows PC with your projects, credentials and tools installed on it. Two setups give you one, and Codex cloud is a third option:",
+        ],
+        points: [
+          "A Mac mini at home as the host. Keep it from sleeping, run the ChatGPT desktop app with remote control on, and pair your phone with it. As a Mac it can also run Computer Use and browser tasks through the Chrome extension, and with locked use a Computer Use task can keep going after it locks. See [how to set up Codex on a Mac mini](/blog/codex-mac-mini).",
+          "A Linux server as an SSH host. Install and sign in to the Codex CLI on the server, then add it under Settings > Connections in the desktop app; chats in its projects run commands and change files on the server. Your phone still connects to the Mac or Windows PC running the desktop app, not to the server, so that computer has to stay on as well. A Mac mini at home can be that host. See [how to run Codex on a VPS](/blog/codex-vps).",
+          "Codex cloud. In the ChatGPT app, open Codex and choose Cloud and an environment. The task runs on OpenAI's cloud and keeps working while your computer sleeps, but it only sees what's in its cloud environment: your local files, running processes, browser sign-ins and VPN access aren't there. A chat on your computer can't be handed off to it either.",
+          "Crewmark employees run on your own computer too, so the same rule applies. On an always-on Mac mini or server, their working hours can run every day and past midnight.",
+        ],
+      },
     ],
     howTo: { section: "how-to", name: "Set up Codex remote control" },
     mid: {
@@ -148,12 +232,20 @@ export const codexRemoteControl: Partial<Record<"en", GuideCopy>> = {
       title: "FAQ",
       items: [
         {
+          q: "What is ChatGPT remote control?",
+          a: "It's what many people call OpenAI's remote connections: the ChatGPT app on your phone, or another Mac or Windows computer, controls Codex chats that run in the ChatGPT desktop app on a host computer. The host does the work; the phone sends prompts and approvals.",
+        },
+        {
+          q: "How do I turn on remote control in ChatGPT?",
+          a: "On the host computer, open the ChatGPT desktop app, go to Settings > Connections > Control this Mac or PC and select Set up or Add, then scan the QR code with the ChatGPT app on your phone. The host has to be a Mac or Windows PC that stays awake.",
+        },
+        {
           q: "Can I control Codex from my phone?",
           a: "Yes. Turn on Settings > Connections > Control this Mac or PC in the ChatGPT desktop app, scan the QR code with your phone, and the computer appears under Codex in the ChatGPT app, on iOS or Android.",
         },
         {
           q: "Can I remote control the Codex CLI?",
-          a: "OpenAI's docs describe setup only from the ChatGPT desktop app and give no remote-control command for the CLI or the IDE extension. To reach a machine you work on over a terminal, add it as an SSH host in the desktop app, with Codex installed and signed in there.",
+          a: "Phone access is set up only in the ChatGPT desktop app; OpenAI says you can't set it up from the CLI or the IDE extension. The CLI does have an experimental `codex remote-control` command (start, stop, pair), which OpenAI describes for managed remote-control clients and SSH workflows, but the docs don't describe pairing a phone with a CLI-only machine. To reach a machine you work on over a terminal, add it as an SSH host in the desktop app, with Codex installed and signed in there.",
         },
         {
           q: "Does Codex remote control work on Linux?",
@@ -171,6 +263,18 @@ export const codexRemoteControl: Partial<Record<"en", GuideCopy>> = {
           q: "Why is Codex remote control not working?",
           a: "Usually the desktop app isn't running, “Allow other devices to connect” is off, the phone is on a different account or workspace, an app is out of date, or the computer went to sleep. Re-pair with the QR code if the connection hasn't been used since June 8, 2026.",
         },
+        {
+          q: "Does ChatGPT remote control work on Windows?",
+          a: "Yes. The ChatGPT desktop app on Windows can be a host, set up the same way through Settings > Connections > Control this Mac or PC. If Codex uses Computer Use, it takes over the active desktop, so keep the Windows session unlocked and online while it works. See [Codex on Windows](/blog/codex-windows).",
+        },
+        {
+          q: "Can I use remote control with Codex cloud?",
+          a: "They're separate. Remote control drives chats on your own Mac or Windows PC. From Codex in the ChatGPT app you can also choose Cloud and an environment to start a cloud task, which runs on OpenAI's cloud and keeps going while your computer sleeps, but can't see your local files or browser sign-ins. A chat on your computer can't be handed off to a Codex cloud environment.",
+        },
+        {
+          q: "Does ChatGPT remote control work over SSH?",
+          a: "Yes, through the desktop app. Add the server to `~/.ssh/config`, install and sign in to Codex on it, then add it under Settings > Connections and choose a remote project. Your phone connects to the Mac or Windows PC running the app, which runs the chat on the server, so that computer has to stay on. See [Codex on a VPS](/blog/codex-vps).",
+        },
       ],
     },
     cta: {
@@ -178,7 +282,7 @@ export const codexRemoteControl: Partial<Record<"en", GuideCopy>> = {
       text: "Crewmark turns Claude Code and Codex sessions into AI employees with roles, goals, working hours and a heartbeat.",
       button: "Get started",
     },
-    checked: "Checked against OpenAI's Codex docs (remote connections, mobile, Codex Cloud) on November 8, 2026.",
+    checked: "Checked against OpenAI's Codex docs (remote connections, mobile, Codex Cloud, CLI) on November 14, 2026.",
     disclaimer:
       "Crewmark is an independent product, not affiliated with or endorsed by OpenAI. Codex and ChatGPT are trademarks of OpenAI.",
   },

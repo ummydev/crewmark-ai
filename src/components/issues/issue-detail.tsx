@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChevronRightIcon } from "lucide-react";
@@ -43,11 +44,24 @@ function Breadcrumb({ issueKey, title }: { issueKey: string; title?: string }) {
 }
 
 export function IssueDetail({ issueKey }: { issueKey: string }) {
-  const { issues, employees, users, updateIssue, deleteIssue, orgPath } = useCrewStore();
+  const { issues, employees, users, updateIssue, deleteIssue, loadIssue, orgPath } = useCrewStore();
   const router = useRouter();
   const { upload } = useImageUpload();
   const issue = issues.find((i) => i.key === issueKey);
+  // An issue filed after this tab loaded the board isn't in it yet (MC-455): ask the server before saying it's gone.
+  const [looked, setLooked] = React.useState<string | null>(null);
+  React.useEffect(() => {
+    if (issue || looked === issueKey) return;
+    let current = true;
+    loadIssue(issueKey)
+      .catch(() => null)
+      .finally(() => current && setLooked(issueKey));
+    return () => {
+      current = false;
+    };
+  }, [issue, issueKey, looked, loadIssue]);
 
+  if (!issue && looked !== issueKey) return <IssueDetailSkeleton />;
   if (!issue) {
     return (
       <>

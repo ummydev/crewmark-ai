@@ -6,13 +6,13 @@ export const copy: RemoteClaudeCodeCopy = {
   meta: {
     title: "Claude Code Remote Control 教學：手機遠端操作 | Crewmark AI",
     description:
-      "Claude Code Remote Control 怎麼用：在手機或任何瀏覽器上接續電腦裡的 Claude Code 工作階段；它做不到什麼，以及你不在時如何讓 Claude Code 繼續工作。",
+      "用手機使用 Claude Code Remote Control：在 Claude 桌面 App 裡開啟，用 Mac mini 或 Linux 伺服器讓它全天候連得上，並帶領一支團隊。",
   },
   breadcrumb: "遠端操作 Claude Code",
   hero: {
     kicker: "遠端操作 Claude Code",
     title: "用手機遠端操控 Claude Code，再讓它在你不在時自己工作",
-    lead: "Claude Code Remote Control（遠端控制）是 Anthropic 推出的功能：在電腦上執行的 Claude Code 工作階段，可以用手機、平板或任何瀏覽器接著操作。這篇指南說明如何開啟、它的極限在哪裡，以及 Crewmark 如何把同一個 Claude Code 變成依自己的節奏持續工作的員工。",
+    lead: "Claude Code Remote Control（遠端控制）是 Anthropic 推出的功能：在電腦上執行的 Claude Code 工作階段，可以用手機、平板或任何瀏覽器接著操作。這篇指南說明如何開啟、它的極限在哪裡、如何用 Mac mini 或 Linux 伺服器讓它全天候都連得上，以及 Crewmark 如何把同一個 Claude Code 變成依自己的節奏持續工作的員工。",
     cta: "開始使用",
     secondary: "開啟 Remote Control",
   },
@@ -32,6 +32,10 @@ export const copy: RemoteClaudeCodeCopy = {
       {
         title: "確認訂閱和登入方式",
         text: "Remote Control 支援 Claude Pro、Max、Ultra、Team 和 Enterprise 訂閱，需要用 /login 透過 claude.ai 登入。API key、Amazon Bedrock、Google Cloud、Microsoft Foundry，以及自訂 ANTHROPIC_BASE_URL 的閘道都不支援。Team 和 Enterprise 需要管理員先在後台開啟。",
+      },
+      {
+        title: "在 Claude 桌面 App 裡開啟",
+        text: "最簡單的方式。在你想操控的電腦上（例如你的 MacBook）開啟 Claude 桌面 App，到 Settings > Code（或 Settings > Claude Code）開啟「Connect new sessions to Remote Control」。如果工作階段已經開著，就在 Code 分頁輸入 /remote-control 或 /rc。",
       },
       {
         title: "開啟 Remote Control",
@@ -72,6 +76,8 @@ export const copy: RemoteClaudeCodeCopy = {
       ["誰來啟動工作", "你，傳一則訊息", "工作時間內的心跳，或有人指派給它的 issue"],
       ["你沒回覆時", "Claude 等你的下一則訊息", "員工接著處理下一個 issue，卡關時再來問你"],
       ["如何追蹤進度", "每個工作階段一段對話", "issue 看板：狀態、專案、留言和 KPI"],
+      ["多個 agent 組成的團隊", "每個工作階段一段對話；有好幾個 agent，就得在好幾個工作階段之間來回切換", "不同職位的多位員工共用一塊看板，互相指派 issue、互相 @提及"],
+      ["目標", "除了這段對話本身，沒有別的目標", "一個量化目標（KPI），每位員工都朝著它規劃自己的工作"],
       ["在哪裡執行", "你的電腦，你的 Claude 訂閱", "你的電腦，你的 Claude Code 或 Codex 訂閱"],
       ["開發者", "Anthropic", "Crewmark（與 Anthropic 無關）"],
     ],
@@ -79,7 +85,7 @@ export const copy: RemoteClaudeCodeCopy = {
   crewmark: {
     kicker: "你不在的時候",
     title: "給 Claude Code 一份工作，而不只是一支遙控器",
-    text: "Crewmark 把你電腦上的 Claude Code 變成一位員工：它有職位、目標、工作時間和一塊 issue 看板，不論你有沒有在看，它都會照計畫推進。",
+    text: "Crewmark 把你電腦上的 Claude Code 變成一位員工：它有職位、目標、工作時間和一塊 issue 看板，不論你有沒有在看，它都會照計畫推進。你一樣可以用手機聯絡它；比起一個要你一步步操控的工作階段，它更像一位有自己職責和目標的數位員工。",
     steps: [
       {
         title: "聘用一位員工",
@@ -97,11 +103,59 @@ export const copy: RemoteClaudeCodeCopy = {
         title: "它依心跳工作",
         text: "工作時間內，員工會被定時叫醒，接手自己的 issue、更新狀態，並在留言裡回報進度；需要你做決定時，它會來問你。",
       },
+      {
+        title: "用手機和它對話",
+        text: "在手機瀏覽器開啟 crewmark.ai，在員工的 Work log（工作紀錄）裡寫訊息給它。訊息會送到你電腦上它的那段 Claude Code 對話，它也會在那裡回覆。",
+      },
+      {
+        title: "擴編成一支團隊",
+        text: "聘用更多不同職位的員工，例如 SEO 專員和軟體工程師。它們在共用看板上互相指派 issue、留言和 @提及，每一個這樣的動作都會喚醒相關的那位員工。請看 [AI 員工職位](/ai-employees)。",
+      },
+    ],
+  },
+  screens: {
+    title: "實際畫面",
+    text: "以範例資料呈現的畫面：一支團隊的看板、新員工的目標、工作時間和心跳，以及它的一個工作天。",
+    items: [
+      {
+        image: "/media/remote-claude-code/board.webp",
+        alt: "Crewmark 看板，issue 分布在 Todo、In progress、In review 和 Done 四欄，分別指派給四位 AI 員工",
+        caption: "看板：每位員工的 issue 從 Todo 一路移到 Done；需要你做決定時，員工會在 issue 上問你。",
+      },
+      {
+        image: "/media/remote-claude-code/new-employee.webp",
+        alt: "新增員工的表單：名稱、職位、目標、工作時間、心跳，以及它執行所用的 agent",
+        caption: "聘用一位員工：一個職位、一個量化目標、工作時間、多久醒來一次，以及它執行所用的 agent。",
+      },
+      {
+        image: "/media/remote-claude-code/schedule.webp",
+        alt: "一位員工的一天：工作時間內的每次喚醒、它做過哪些事的紀錄，以及它的設定",
+        caption: "它的工作天：在你設定的時段內一次次醒來，以及每次醒來做了什麼。",
+      },
     ],
   },
   both: {
     title: "兩者可以一起用",
     text: "Crewmark 的員工就是一段普通的 Claude Code 對話，你照樣可以為它開啟 Remote Control，隨時用手機進去看看。Remote Control 讓你在哪裡都能和 Claude Code 對話；Crewmark 讓它在你沒說話的時候也有事可做。",
+  },
+  alwaysOn: {
+    title: "讓 Claude Code 全天候都連得上：兩種做法",
+    text: "Remote Control 和 Crewmark 都在你自己的電腦上執行 Claude Code，所以只有那台電腦開著時，它們才會回應。想隨時隨地都找得到它，就把它放在一台永遠不睡眠的機器上。有兩種好做法：",
+    options: [
+      {
+        title: "家裡的一台 Mac mini",
+        text: "讓一台 Mac mini 一直開著，並在 System Settings > Energy 開啟「Prevent automatic sleeping when the display is off」，在上面開著 Remote Control 執行 Claude Code，再用手機操控。加上 Tailscale 和 Screen Sharing，就能從筆電連到它的桌面，所有檔案都留在 Mac mini 上。這也是能執行電腦操作（computer use）、Xcode 和 iOS Simulator 的做法。",
+        link: "在 Mac mini 上設定 Claude Code",
+        href: "/blog/claude-code-mac-mini",
+      },
+      {
+        title: "一台 Linux 伺服器（VPS）",
+        text: "向 DigitalOcean 或 OVHcloud 等供應商租一台 Linux 伺服器，安裝 Claude CLI（或在 Ubuntu、Debian 上安裝 Claude Desktop），然後執行 `claude remote-control`。它能操作 Chrome，加上遠端桌面，需要時你還能登入網站；但 Linux 上無法使用電腦操作，iOS 開發也需要 Mac。",
+        link: "在 VPS 上執行 Claude Code",
+        href: "/blog/claude-code-vps",
+      },
+    ],
+    note: "我們自己就是這樣用的：我們的創辦人在家裡放了一台一直開著的 Mac mini，用手機操控上面的 Claude Code，並透過 Tailscale 和遠端桌面從 MacBook Air 在上面工作，所以每個檔案都留在 Mac mini 上。更多讓它通宵工作的方法，請看[如何讓 Claude Code 24 小時執行](/blog/run-claude-code-24-7)。",
   },
   faq: {
     title: "常見問題",
@@ -135,6 +189,14 @@ export const copy: RemoteClaudeCodeCopy = {
         a: "不行。只有 Claude Code 連線到 api.anthropic.com 時，Remote Control 才能使用。如果 ANTHROPIC_BASE_URL 指向 DeepSeek、閘道或代理伺服器，或你使用的是 Bedrock、Google Cloud 或 Foundry，請先取消該設定，再用 claude.ai 登入。",
       },
       {
+        q: "可以在 Mac mini 上執行 Claude Code Remote Control 嗎？",
+        a: "可以。讓 Mac mini 保持喚醒（System Settings > Energy > Prevent automatic sleeping when the display is off），在上面開啟 Remote Control 執行 Claude Code，再從手機上的 Claude App 連線。只要 Mac mini 開著且連上網路，它就能全天候回應。",
+      },
+      {
+        q: "可以在 Linux 伺服器上使用 Remote Control 嗎？",
+        a: "可以。在任何 Linux 發行版上安裝 Claude CLI，或在 Ubuntu 22.04 以上、Debian 12 以上安裝 Claude Desktop（beta），用你的 Claude 訂閱登入，然後執行 claude remote-control。讓這個程序持續執行，例如放在 tmux 裡。Linux 上無法使用電腦操作。",
+      },
+      {
         q: "闔上筆電後 Claude Code 還能繼續工作嗎？",
         a: "單靠 Remote Control 不行：工作階段需要電腦開著、claude 程序持續執行，而且一件事做完它就會等你的下一則訊息。Crewmark 的員工也在你的電腦上執行，但在工作時間內會被心跳叫醒，繼續處理自己的 issue。",
       },
@@ -149,6 +211,6 @@ export const copy: RemoteClaudeCodeCopy = {
     text: "用 Google 帳號註冊，就能在你已經在用的代理上聘用第一位員工。",
     button: "開始使用",
   },
-  checked: "Remote Control 的資訊已於 2026 年 11 月 7 日對照 Anthropic 官方文件查核。",
+  checked: "Remote Control 的資訊已於 2026 年 11 月 14 日對照 Anthropic 官方文件查核。",
   disclaimer: "Claude 和 Claude Code 是 Anthropic, PBC 的商標。Crewmark 是獨立產品，與 Anthropic 沒有任何隸屬、背書或贊助關係。",
 };

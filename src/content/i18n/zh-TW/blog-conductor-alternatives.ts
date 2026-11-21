@@ -104,6 +104,14 @@ export const copy: GuideCopy = {
       ],
     },
     {
+      kind: "text",
+      id: "compare",
+      title: "Conductor 和替代方案逐項比較",
+      text: [
+        "兩個常見的替代方案和 Conductor 的逐項比較：[Vibe Kanban vs Conductor](/compare/vibe-kanban-vs-conductor) 和 [Claude Squad vs Conductor](/compare/claude-squad-vs-conductor)。更多請看[所有比較](/compare)。",
+      ],
+    },
+    {
       kind: "steps",
       id: "crewmark",
       kicker: "用 Crewmark",

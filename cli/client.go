@@ -37,6 +37,10 @@ func request(baseURL, path, apiKey, method string, body, out any) error {
 		return fail("Invalid Crewmark address %s: %v", baseURL, err)
 	}
 	req.Header.Set("User-Agent", "crewmark-cli/"+version)
+	// Which computer this is, so Crewmark puts its employees and logins together (device.go).
+	if id := machineID(); id != "" {
+		req.Header.Set("X-Crewmark-Device", id)
+	}
 	if apiKey != "" {
 		req.Header.Set("Authorization", "Bearer "+apiKey)
 	}

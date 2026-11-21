@@ -1,7 +1,16 @@
-import type { GuideCopy } from "@/components/landing/guide-article";
+import type { GuideCopy, GuideSection } from "@/components/landing/guide-article";
 import { guideLocales } from "@/i18n/guides";
 
+import { agentIndexSection, agentTaskBundles } from "./use-cases/agent-tasks";
+
 import { copy as zh } from "./i18n/zh/use-cases-hub";
+import { copy as zhTW } from "./i18n/zh-TW/use-cases-hub";
+import { copy as ja } from "./i18n/ja/use-cases-hub";
+import { copy as ko } from "./i18n/ko/use-cases-hub";
+import { copy as es } from "./i18n/es/use-cases-hub";
+import { copy as ptBR } from "./i18n/pt-BR/use-cases-hub";
+import { copy as fr } from "./i18n/fr/use-cases-hub";
+import { copy as de } from "./i18n/de/use-cases-hub";
 
 // /use-cases: the index of audience pages and use cases (MC-266), like Composio's /use-cases. For "ai employee use
 // cases", "claude code use cases", "ai agent use cases for business". Lists only pages that are live; new ones are added
@@ -10,8 +19,15 @@ import { copy as zh } from "./i18n/zh/use-cases-hub";
 export const USE_CASES_HUB_LOCALES = guideLocales["/use-cases"];
 export type UseCasesHubLocale = (typeof USE_CASES_HUB_LOCALES)[number];
 
-export const useCasesHub: Record<UseCasesHubLocale, GuideCopy> = {
+const hubCopy: Record<UseCasesHubLocale, GuideCopy> = {
   zh,
+  "zh-TW": zhTW,
+  ja,
+  ko,
+  es,
+  "pt-BR": ptBR,
+  fr,
+  de,
   en: {
     meta: {
       title: "AI Employee Use Cases for Claude Code and Codex",
@@ -117,3 +133,17 @@ export const useCasesHub: Record<UseCasesHubLocale, GuideCopy> = {
       "Crewmark is an independent product, not affiliated with or endorsed by Anthropic or OpenAI. Claude, Claude Code and Codex are trademarks of their owners.",
   },
 };
+
+/** Puts `section` right after the section with id `after`, or at the end if there's none. */
+export function insertSection(sections: GuideSection[], after: string, section: GuideSection) {
+  const at = sections.findIndex((s) => s.id === after);
+  return at < 0 ? [...sections, section] : [...sections.slice(0, at + 1), section, ...sections.slice(at + 1)];
+}
+
+// Every language's hub, with the agent × task pages (MC-386) listed after the use cases.
+export const useCasesHub = Object.fromEntries(
+  Object.entries(hubCopy).map(([locale, c]) => {
+    const bundle = agentTaskBundles[locale as UseCasesHubLocale];
+    return [locale, bundle ? { ...c, sections: insertSection(c.sections, "use-cases", agentIndexSection(bundle)) } : c];
+  }),
+) as Record<UseCasesHubLocale, GuideCopy>;

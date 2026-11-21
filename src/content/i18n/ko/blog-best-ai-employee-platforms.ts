@@ -81,6 +81,20 @@ export const copy: GuideCopy = {
       ],
     },
     {
+      kind: "table",
+      id: "ai-coworkers",
+      title: "새로 등장한 AI 동료 앱: Grok Bot과 OpenBot",
+      text: [
+        "이 비교를 처음 쓴 뒤로 'AI 동료'를 내세운 제품 두 개가 주목받고 있어요. xAI의 Grok Bot과 CopilotKit의 오픈소스 OpenBot이에요. 둘 다 Bot마다 자기 컴퓨터를 하나씩 줘요. 내용은 2026년 11월 13일에 각 업체 사이트에서 확인했어요. 나란히 비교한 내용은 [Grok Bot vs Claude Code](/compare/grok-bot-vs-claude-code)와 [OpenBot vs Grok Bot](/compare/openbot-vs-grok-bot)에서 볼 수 있어요.",
+        "Claude Cowork, Copilot Cowork부터 ChatGPT Work, Andrew Ng의 OpenWorker까지 다른 AI 동료 도구는 [AI 동료 도구 비교](/blog/ai-coworker)에 정리했어요.",
+      ],
+      headers: ["플랫폼", "이럴 때 적합", "일이 시작되는 방식", "사용 모델", "무료 옵션", "유료 시작가"],
+      rows: [
+        ["Grok Bot", "호스팅 AI 팀원이 앱, Slack, Teams, 회의에서 일해 주길 바라는 팀", "Bot에게 메시지를 보내거나 Slack이나 Teams에서 일을 맡김. 일정에 따라 도는 루틴", "Grok (xAI), Bot마다 클라우드 컴퓨터 한 대", "x.ai/bot에 'Get started for free' 표시", "Premium $30/월에 포함. Super $100, Ultra $200"],
+        ["OpenBot (오픈소스)", "내 모델과 에이전트로 쓰는 셀프 호스팅 AI 동료", "채팅, 승인, Routines. 내 에이전트는 AG-UI로 연결", "직접 선택: OpenAI, Claude, Gemini 또는 오픈 모델", "개인 프로젝트는 무료", "Business 활성 사용자당 최대 $29/월"],
+      ],
+    },
+    {
       kind: "text",
       title: "무료 AI 직원, 그리고 GitHub의 오픈소스 AI 직원",
       text: [

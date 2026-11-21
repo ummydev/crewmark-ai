@@ -207,6 +207,15 @@
   .tiptap a.issue-ref {
     @apply font-medium text-inherit decoration-current/35 hover:decoration-current;
   }
+  /* "@" and an employee's name (MC-411): opens the conversation with it, in blue (lighter in a dark chat bubble). */
+  .tiptap a.mention {
+    @apply font-medium text-blue-600 no-underline hover:underline dark:text-blue-400;
+  }
+  /* A file an employee named (MC-315): a link that opens it from its computer. */
+  .tiptap code.file-ref,
+  .tiptap a.file-ref {
+    @apply cursor-pointer underline decoration-current/35 underline-offset-2 hover:decoration-current;
+  }
   .tiptap hr {
     @apply my-4;
   }

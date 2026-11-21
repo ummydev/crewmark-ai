@@ -367,7 +367,11 @@
       "signIn": "ログイン",
       "runsOn": "対応エージェント",
       "language": "言語",
-      "trademarks": "Claude、Codex、DeepSeek、OpenCodeは各所有者の商標です。"
+      "trademarks": "Claude、Codex、DeepSeek、OpenCodeは各所有者の商標です。",
+      "legal": "法的情報",
+      "privacy": "プライバシー",
+      "terms": "利用規約",
+      "contact": "お問い合わせ"
     }
   }
 }

@@ -1,5 +1,6 @@
 import type {
   AgentRuntime,
+  AgentSettings,
   EmployeeStatus,
   Heartbeat,
   IssueActivityKind,
@@ -123,6 +124,22 @@ export interface IssueResponse {
  * follows it hears (its subscribers: creator, assignee, those who commented, and anyone added); so does any other
  * employee the body mentions with @ and its name, e.g. "@DevOps crewmark ready to ship", who follows it from then on.
  */
+/**
+ * POST /api/agent/work-files (MC-359): a file the agent sent the person, which the daemon would upload so the Work
+ * tab opens it from Crewmark's storage. `id` is one it was given before for the same file, whose upload didn't finish.
+ */
+export interface WorkFileUploadRequest {
+  id?: string;
+  name: string;
+  /** A picture's, a video's or text/markdown. */
+  type: string;
+  size: number;
+}
+
+export type WorkFileUploadResponse =
+  | { kept: true; id: string; upload: { url: string; headers: Record<string, string> } }
+  | { kept: false; reason: "free" | "quota" | "unsupported" | "too-big"; resetsAt?: string };
+
 /** `crewmark upload` and --image (MC-267): an image the CLI is about to upload. */
 export interface AttachmentRequest {
   name: string;
@@ -215,6 +232,8 @@ export interface MeResponse {
 /** GET /api/agent/heartbeat: the employee's heartbeat settings, for the daemon; null until someone sets them up. */
 export interface HeartbeatResponse {
   heartbeat: Heartbeat | null;
+  /** How the daemon runs the conversation when it resumes it (MC-313); null for Claude Code's own settings. */
+  settings: AgentSettings | null;
 }
 
 /**

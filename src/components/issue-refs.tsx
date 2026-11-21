@@ -15,6 +15,7 @@ import { StatusIcon } from "@/components/issues/status-icon";
 import { ProjectAvatar } from "@/components/projects/project-avatar";
 import { UserAvatar } from "@/components/user-avatar";
 import { issueRefs } from "@/lib/issue-refs";
+import { mentionsIn } from "@/lib/mentions";
 import { ISSUE_STATUSES, type Issue } from "@/lib/types";
 
 // Issue keys in rich text become links to the issue, with a preview card on hover (MC-185): in direct messages,
@@ -24,6 +25,8 @@ import { ISSUE_STATUSES, type Issue } from "@/lib/types";
 interface IssueRefsStorage {
   /** The issue's page, or undefined when the organization has no such issue. Set with setIssueLinks. */
   href: (key: string) => string | undefined;
+  /** The employees "@" and a name links to their conversations (MC-411), and where; null for none. */
+  people: { employees: { id: string; name: string }[]; href: (id: string) => string } | null;
 }
 
 declare module "@tiptap/core" {
@@ -32,8 +35,8 @@ declare module "@tiptap/core" {
   }
   interface Commands<ReturnType> {
     issueRefs: {
-      /** Tells the extension which keys are issues, and marks them again. */
-      setIssueLinks: (href: IssueRefsStorage["href"]) => ReturnType;
+      /** Tells the extension which keys are issues and who can be mentioned, and marks them again. */
+      setIssueLinks: (href: IssueRefsStorage["href"], people?: IssueRefsStorage["people"]) => ReturnType;
     };
   }
 }
@@ -58,6 +61,20 @@ function decorate(doc: ProseMirrorNode, storage: IssueRefsStorage) {
         }),
       );
     }
+    // "@" and an employee's name: a link to the conversation with it (MC-411). An issue key can't sit inside a name
+    // and the other way round often enough to matter, so they're marked independently.
+    if (storage.people) {
+      for (const mention of mentionsIn(node.text, storage.people.employees)) {
+        decorations.push(
+          Decoration.inline(pos + mention.from, pos + mention.to, {
+            nodeName: "a",
+            href: storage.people.href(mention.id),
+            class: "mention",
+            "data-employee-id": mention.id,
+          }),
+        );
+      }
+    }
     return false;
   });
   return DecorationSet.create(doc, decorations);
@@ -66,13 +83,14 @@ function decorate(doc: ProseMirrorNode, storage: IssueRefsStorage) {
 /** The editor extension that marks issue keys, with the organization's issues in its storage. */
 export const IssueRefs = Extension.create<unknown, IssueRefsStorage>({
   name: "issueRefs",
-  addStorage: () => ({ href: () => undefined }),
+  addStorage: () => ({ href: () => undefined, people: null }),
   addCommands() {
     return {
       setIssueLinks:
-        (href) =>
+        (href, people = null) =>
         ({ tr, dispatch }) => {
           this.storage.href = href;
+          this.storage.people = people;
           if (dispatch) tr.setMeta(key, true).setMeta("addToHistory", false);
           return true;
         },
@@ -107,11 +125,15 @@ export function useIssueRefs(editor: Editor | null, { editable }: { editable: bo
   const router = useRouter();
   const byKey = React.useMemo(() => new Map(store?.issues.map((issue) => [issue.key, issue])), [store?.issues]);
   const orgPath = store?.orgPath;
-  // The extension learns which keys are issues, and marks them again whenever the issues change.
+  const employees = store?.employees;
+  // The extension learns which keys are issues and who can be mentioned, and marks them again whenever those change.
   React.useEffect(() => {
     if (!editor || editor.isDestroyed) return;
-    editor.commands.setIssueLinks((k) => (orgPath && byKey.has(k) ? orgPath(`/issues/${k}`) : undefined));
-  }, [editor, byKey, orgPath]);
+    editor.commands.setIssueLinks(
+      (k) => (orgPath && byKey.has(k) ? orgPath(`/issues/${k}`) : undefined),
+      orgPath && employees?.length ? { employees, href: (id) => orgPath(`/messages/${id}`) } : null,
+    );
+  }, [editor, byKey, orgPath, employees]);
 
   const [shown, setShown] = React.useState<{ anchor: HTMLElement; issue: Issue } | null>(null);
   const timer = React.useRef<ReturnType<typeof setTimeout>>(undefined);
@@ -121,19 +143,43 @@ export function useIssueRefs(editor: Editor | null, { editable }: { editable: bo
   };
   React.useEffect(() => () => clearTimeout(timer.current), []);
 
-  const refAt = (target: EventTarget | null) =>
-    target instanceof Element ? target.closest<HTMLAnchorElement>("a[data-issue-key]") : null;
+  // An issue key Crewmark linked, or a link someone wrote to an issue's page: employees write [MC-314](https://
+  // crewmark.ai/org/<org>/issues/MC-314) more and more, and those show the card too (MC-317).
+  const refAt = (target: EventTarget | null) => {
+    const anchor = target instanceof Element ? target.closest<HTMLAnchorElement>("a") : null;
+    return anchor && keyOf(anchor) ? anchor : null;
+  };
+  const keyOf = (anchor: HTMLAnchorElement) => {
+    if (anchor.dataset.issueKey) return anchor.dataset.issueKey;
+    const linked = /\/issues\/([A-Za-z][A-Za-z0-9]*-\d+)\/?(?:[?#].*)?$/.exec(anchor.getAttribute("href") ?? "")?.[1]?.toUpperCase();
+    return linked && byKey.has(linked) ? linked : undefined;
+  };
 
   const show = (anchor: HTMLAnchorElement, delay: number) => {
-    const issue = byKey.get(anchor.dataset.issueKey ?? "");
+    const issue = byKey.get(keyOf(anchor) ?? "");
     if (!issue) return;
     later(() => setShown({ anchor, issue }), delay);
+  };
+
+  // Links to Crewmark's own pages open in this window, as a page of the app, with Back to return: links in Markdown
+  // open in a new tab, which in Crewmark installed as an app is a whole new window (MC-317). Not while editing (a
+  // click there places the cursor) or with a modifier (a new tab, asked for).
+  const openInApp = (event: React.MouseEvent) => {
+    if (editable || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const anchor = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>("a[href]") : null;
+    if (!anchor) return;
+    const url = new URL(anchor.href, window.location.href);
+    const ours = url.origin === window.location.origin || /^(www\.)?crewmark\.ai$/.test(url.hostname);
+    if (!ours || !url.pathname.startsWith("/org/")) return;
+    event.preventDefault();
+    router.push(url.pathname + url.search + url.hash);
   };
 
   const handlers = {
     onClick(event: React.MouseEvent) {
       const anchor = refAt(event.target);
-      if (!anchor || event.button !== 0) return;
+      if (!anchor) return openInApp(event);
+      if (event.button !== 0) return;
       const modified = event.metaKey || event.ctrlKey || event.shiftKey || event.altKey;
       if (editable && !modified) return;
       event.preventDefault();
@@ -141,7 +187,8 @@ export function useIssueRefs(editor: Editor | null, { editable }: { editable: bo
       setShown(null);
       // A new tab only when asked for one outside an editor; in an editor the modifier is how you follow the link.
       if (!editable && modified) window.open(anchor.href, "_blank", "noopener");
-      else router.push(anchor.getAttribute("href")!);
+      // In this organization's own pages, wherever the link was written to point (another host, an old slug).
+      else router.push(orgPath ? orgPath(`/issues/${keyOf(anchor)}`) : anchor.getAttribute("href")!);
     },
     onMouseOver(event: React.MouseEvent) {
       const anchor = refAt(event.target);

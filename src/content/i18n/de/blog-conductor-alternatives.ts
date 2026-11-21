@@ -104,6 +104,14 @@ export const copy: GuideCopy = {
       ],
     },
     {
+      kind: "text",
+      id: "compare",
+      title: "Conductor im direkten Vergleich",
+      text: [
+        "Zwei der Tools, auf die viele umsteigen, Punkt für Punkt neben Conductor: [Vibe Kanban vs Conductor](/compare/vibe-kanban-vs-conductor) und [Claude Squad vs Conductor](/compare/claude-squad-vs-conductor). Mehr unter [alle Vergleiche](/compare).",
+      ],
+    },
+    {
       kind: "steps",
       id: "crewmark",
       kicker: "Mit Crewmark",

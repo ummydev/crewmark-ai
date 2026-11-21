@@ -51,6 +51,18 @@ type agentEvent struct {
 
 type heartbeatResponse struct {
 	Heartbeat *heartbeat `json:"heartbeat"`
+	// How to run the conversation when resuming it (MC-313); nil for Claude Code's own settings, and from Crewmark
+	// servers before it.
+	Settings *agentSettings `json:"settings"`
+}
+
+// agentSettings are what the person chose in Messages for the employee's conversation (MC-313): what's empty is left
+// to Claude Code.
+type agentSettings struct {
+	Model          string   `json:"model,omitempty"`
+	Effort         string   `json:"effort,omitempty"`
+	PermissionMode string   `json:"permissionMode,omitempty"`
+	AddDirs        []string `json:"addDirs,omitempty"`
 }
 
 type eventsResponse struct {
@@ -173,7 +185,13 @@ var issuePriorities = []label{
 
 var employeeStatuses = []label{{"working", "Working"}, {"idle", "Idle"}, {"paused", "Paused"}}
 
-var runtimes = []label{{"claude-code", "Claude Code"}, {"codex", "Codex"}, {"other", "Other"}}
+var runtimes = func() []label {
+	list := []label{{"claude-code", "Claude Code"}, {"codex", "Codex"}}
+	for _, a := range acpAgents {
+		list = append(list, label{a.id, a.name})
+	}
+	return append(list, label{"other", "Other"})
+}()
 
 // labelOf is the label for a value, or the value itself when it isn't in the list.
 func labelOf(labels []label, value string) string {

@@ -21,8 +21,10 @@ export const guideLocales = {
   "/alternatives/crewai": routing.locales,
   "/pricing": routing.locales,
   "/skills": routing.locales,
-  "/personal-agent": ["en", "zh"],
-  "/use-cases": ["en", "zh"],
+  "/personal-agent": routing.locales,
+  "/use-cases": routing.locales,
+  "/privacy": routing.locales,
+  "/terms": routing.locales,
   "/blog": blogIndexLocales,
 } as const satisfies Record<string, readonly Locale[]>;
 

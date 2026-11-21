@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getLocale } from "next-intl/server";
 import NextLink from "next/link";
 
-import { GuideMidCta } from "@/components/landing/guide-article";
+import { GuideMidCta, RichText } from "@/components/landing/guide-article";
 import { GuideShell } from "@/components/landing/guide-shell";
 import { JsonLd } from "@/components/json-ld";
 import {
@@ -79,7 +79,9 @@ export default async function RemoteClaudeCodePage() {
             {c.howto.steps.map((step) => (
               <li key={step.title}>
                 <h3>{step.title}</h3>
-                <p>{step.text}</p>
+                <p>
+                  <RichText text={step.text} locale={locale} />
+                </p>
                 {step.code && (
                   <pre>
                     <code>{step.code}</code>
@@ -102,7 +104,9 @@ export default async function RemoteClaudeCodePage() {
           <p>{c.limits.text}</p>
           <ul className="guide-list">
             {c.limits.points.map((point) => (
-              <li key={point}>{point}</li>
+              <li key={point}>
+                <RichText text={point} locale={locale} />
+              </li>
             ))}
           </ul>
         </section>
@@ -137,21 +141,72 @@ export default async function RemoteClaudeCodePage() {
         <section>
           <span className="kicker">{c.crewmark.kicker}</span>
           <h2>{c.crewmark.title}</h2>
-          <p>{c.crewmark.text}</p>
+          <p>
+            <RichText text={c.crewmark.text} locale={locale} />
+          </p>
           <ol className="guide-steps">
             {c.crewmark.steps.map((step) => (
               <li key={step.title}>
                 <h3>{step.title}</h3>
-                <p>{step.text}</p>
+                <p>
+                  <RichText text={step.text} locale={locale} />
+                </p>
               </li>
             ))}
           </ol>
         </section>
 
+        {c.screens && (
+          <section id="screens">
+            <h2>{c.screens.title}</h2>
+            <p>{c.screens.text}</p>
+            {c.screens.items.map((item) => (
+              <figure key={item.image} style={{ margin: "1.5rem 0" }}>
+                {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP in public/, no resizing needed */}
+                <img
+                  src={item.image}
+                  alt={item.alt}
+                  loading="lazy"
+                  decoding="async"
+                  style={{ width: "100%", height: "auto", borderRadius: 12, border: "1px solid rgba(0,0,0,0.08)" }}
+                />
+                <figcaption style={{ fontSize: "0.9em", opacity: 0.75, marginTop: "0.5rem" }}>{item.caption}</figcaption>
+              </figure>
+            ))}
+          </section>
+        )}
+
         <section>
           <h2>{c.both.title}</h2>
-          <p>{c.both.text}</p>
+          <p>
+            <RichText text={c.both.text} locale={locale} />
+          </p>
         </section>
+
+        {c.alwaysOn && (
+          <section id="always-on">
+            <h2>{c.alwaysOn.title}</h2>
+            <p>
+              <RichText text={c.alwaysOn.text} locale={locale} />
+            </p>
+            <ol className="guide-steps">
+              {c.alwaysOn.options.map((option) => (
+                <li key={option.title}>
+                  <h3>{option.title}</h3>
+                  <p>
+                    <RichText text={option.text} locale={locale} />
+                  </p>
+                  <p>
+                    <RichText text={`[${option.link}](${option.href})`} locale={locale} />
+                  </p>
+                </li>
+              ))}
+            </ol>
+            <p>
+              <RichText text={c.alwaysOn.note} locale={locale} />
+            </p>
+          </section>
+        )}
 
         <section id="faq">
           <h2>{c.faq.title}</h2>

@@ -1,4 +1,4 @@
-import { getHeartbeat } from "@/db/employees";
+import { getAgentSettings, getHeartbeat } from "@/db/employees";
 import { openIssueCounts } from "@/db/issues";
 import type { HeartbeatResponse } from "@/lib/agent-api";
 import { toAgentHeartbeat } from "@/lib/agent-data";
@@ -12,11 +12,16 @@ import { openIssuesReminder } from "@/lib/open-issues";
 // employee's issues are still open, and to close or unblock them (MC-263); Crewmark tells the daemon to read it again
 // whenever that count changes (db/issues.ts).
 export const GET = agentRoute(async ({ agent }): Promise<HeartbeatResponse> => {
-  const [settings, counts] = await Promise.all([
+  const [settings, counts, agentSettings] = await Promise.all([
     getHeartbeat(agent.employeeId),
     openIssueCounts(agent.organization.id, agent.employeeId),
+    getAgentSettings(agent.employeeId),
   ]);
   const heartbeat = toAgentHeartbeat(settings);
-  if (!heartbeat) return { heartbeat };
-  return { heartbeat: { ...heartbeat, prompt: [heartbeat.prompt, openIssuesReminder(counts), HEARTBEAT_NO_REPLY].join("\n\n") } };
+  // How the daemon runs the conversation (MC-313) comes along, so a change reaches it with the same push.
+  if (!heartbeat) return { heartbeat, settings: agentSettings };
+  return {
+    heartbeat: { ...heartbeat, prompt: [heartbeat.prompt, openIssuesReminder(counts), HEARTBEAT_NO_REPLY].join("\n\n") },
+    settings: agentSettings,
+  };
 });

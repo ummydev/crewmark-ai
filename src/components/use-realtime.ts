@@ -3,7 +3,7 @@
 import * as React from "react";
 
 import { getRealtimeConnection } from "@/lib/actions";
-import type { WorkTurn } from "@/lib/types";
+import type { AppRun, ListedFile, WorkTurn } from "@/lib/types";
 
 /**
  * A push from the realtime Worker to the dashboard: an issue's Activity changed, or a direct conversation did (each
@@ -12,10 +12,19 @@ import type { WorkTurn } from "@/lib/types";
 export type Push =
   | { type: "activity"; issueId: string }
   | { type: "messages" }
-  | { type: "worklog"; employeeId: string; turns?: WorkTurn[]; page: "latest" | "earlier" | "live"; more?: boolean }
-  | { type: "worklog.latest"; employeeId: string; turns?: WorkTurn[] }
+  | {
+      type: "worklog";
+      employeeId: string;
+      turns?: WorkTurn[];
+      page: "latest" | "earlier" | "live";
+      more?: boolean;
+      /** With a fresh page: how the Claude app runs the conversation, when it's one of the app's (MC-319). */
+      app?: AppRun;
+    }
+  | { type: "worklog.latest"; employeeId: string; turns?: WorkTurn[]; working?: boolean }
   | { type: "worklog.unavailable"; employeeId: string; reason: string }
-  | { type: "worklog.offline"; employeeId: string };
+  | { type: "worklog.offline"; employeeId: string }
+  | { type: "worklog.files"; employeeId: string; files?: ListedFile[] };
 
 /** Keeps the socket open across a quiet connection, and lets the tab notice a dead one. */
 const PING_MS = 30_000;

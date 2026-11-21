@@ -9,6 +9,8 @@ import { plan } from "@/lib/pricing";
 // come from each product's site, pricing page, docs and GitHub README, and the GitHub API, checked 2026-11-10. Many
 // ranking listicles still quote Devin at $500/month and $2.25 per ACU; devin.ai no longer does for self-serve plans.
 // Crewmark is described only as working with Claude Code and Codex, the runtimes its daemon can wake (cli/deliver.go).
+// Corrected 2026-11-13 (MC-387 fact check): Crewmark is open source (GPL-3.0, github.com/ummydev/crewmark-ai), and
+// Devin Teams is "up to 100 users" on devin.ai and in its docs.
 
 const free = plan("free");
 const pro = plan("pro");
@@ -81,7 +83,7 @@ export const devinAlternatives: Partial<Record<"en", GuideCopy>> = {
           ["[GitHub Copilot in the cloud](https://github.com/features/copilot/plans)", "No", "GitHub's cloud sandbox", "Copilot Pro $10/mo", "Teams already on GitHub"],
           ["[Cursor Cloud Agents](https://cursor.com/docs/cloud-agent)", "No", "Cursor's cloud VMs", "Premium $30/mo", "Teams already working in Cursor"],
           ["[Factory](https://factory.com)", "No", "Desktop, CLI, web; cloud and local agents", "Pro $20/mo", "Engineering orgs that drive agents from tickets and chat"],
-          ["[Crewmark](/pricing)", "No", "Your computer, inside your own Claude Code or Codex", `Free plan (${free.projects} project, ${free.employees} AI employees); Pro $${pro.price}/mo coming soon`, "Small teams that want an AI engineer on a schedule, on a plan they already pay for"],
+          ["[Crewmark](/pricing)", "Yes, GPL-3.0", "Your computer, inside your own Claude Code or Codex", `Free plan (${free.projects} project, ${free.employees} AI employees); Pro $${pro.price}/mo coming soon`, "Small teams that want an AI engineer on a schedule, on a plan they already pay for"],
         ],
       },
       {
@@ -138,7 +140,7 @@ export const devinAlternatives: Partial<Record<"en", GuideCopy>> = {
           "Free: $0, with a light quota.",
           "Pro: $20 a month, including Devin Cloud; extra usage at API pricing.",
           "Max: $200 a month.",
-          "Teams: $80 a month plus $40 a month per full developer seat, up to 200 users.",
+          "Teams: $80 a month plus $40 a month per full developer seat, up to 100 users.",
           "Enterprise: custom.",
         ],
       },

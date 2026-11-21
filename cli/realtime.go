@@ -132,7 +132,9 @@ func (r *realtime) listen(ctx context.Context, employeeID string, profile employ
 // connect opens the employee's socket and passes on what comes down it until it closes.
 func (r *realtime) connect(ctx context.Context, employeeID string, profile employeeProfile, opened func()) error {
 	var res realtimeResponse
-	if err := api(profile, "GET", "/api/agent/realtime", nil, &res); err != nil {
+	// The socket is this computer's too: Crewmark can start employees here while it's open (device.go).
+	path := "/api/agent/realtime?agents=" + url.QueryEscape(strings.Join(localAgents(), ","))
+	if err := api(profile, "GET", path, nil, &res); err != nil {
 		return err
 	}
 	if res.Realtime == nil {
@@ -178,6 +180,18 @@ func (r *realtime) connect(ctx context.Context, employeeID string, profile emplo
 		defer done()
 		return conn.Write(writeCtx, websocket.MessageText, data)
 	})
+	work.employeeID = employeeID
+
+	// Pictures and videos the agent sent the person, read for the web as it asks (worklog_files.go).
+	work.raw = func(data []byte, binary bool) error {
+		kind := websocket.MessageText
+		if binary {
+			kind = websocket.MessageBinary
+		}
+		writeCtx, done := context.WithTimeout(ctx, 30*time.Second)
+		defer done()
+		return conn.Write(writeCtx, kind, data)
+	}
 	defer work.close()
 	// Each new reply counts as unread in Messages until someone opens the employee's work (MC-280).
 	go work.follow(ctx, func(at string) {
@@ -197,21 +211,73 @@ func (r *realtime) connect(ctx context.Context, employeeID string, profile emplo
 			Type     string `json:"type"`
 			Watching bool   `json:"watching"`
 			Before   int    `json:"before"`
+			// How many turns a page has, as the web asks (MC-302); 0 for the daemon's own.
+			PageTurns int    `json:"pageTurns"`
+			ID        string `json:"id"`
+			File      string `json:"file"`
+			Range     string `json:"range"`
+			// A file the agent named, by its path, instead of one it sent (MC-315).
+			Path  string         `json:"path"`
+			Start *employeeStart `json:"start"`
 		}
 		if json.Unmarshal(data, &message) != nil || message.Type == "" {
 			continue
 		}
 		switch message.Type {
 		case "worklog.watch":
-			work.watch(message.Watching)
+			work.watch(message.Watching, message.PageTurns)
 		case "worklog.more":
-			go work.more(message.Before)
+			go work.more(message.Before, message.PageTurns)
+		case "worklog.files":
+			go work.listFiles()
 		case "worklog.latest":
 			go work.latest()
+		case "file.read":
+			go work.readFile(message.ID, message.File, message.Path, message.Range)
+		case "file.ack":
+			work.fileAck(message.ID)
+		case "file.cancel":
+			work.fileCancel(message.ID)
+		case "employee.start":
+			// The Worker may send a start down more than one of this computer's sockets (MC-405): it's done once.
+			if message.Start != nil && firstStart(message.ID) {
+				go func(id string, start employeeStart) {
+					answer := map[string]any{"type": "employee.started", "id": id, "ok": true}
+					if err := startEmployee(profile.URL, start); err != nil {
+						log.Printf("couldn't start an employee here for Crewmark: %v", err)
+						answer["ok"], answer["error"] = false, err.Error()
+					}
+					work.sendJSON(answer)
+				}(message.ID, *message.Start)
+			}
 		default:
 			r.send(ctx, push{employeeID, message.Type})
 		}
 	}
+}
+
+var (
+	startsSeenMu sync.Mutex
+	startsSeen   = map[string]time.Time{}
+)
+
+// firstStart says whether a start with this id hasn't come before (an empty id always counts as new), and notes it.
+func firstStart(id string) bool {
+	if id == "" {
+		return true
+	}
+	startsSeenMu.Lock()
+	defer startsSeenMu.Unlock()
+	for seen, at := range startsSeen {
+		if time.Since(at) > 10*time.Minute {
+			delete(startsSeen, seen)
+		}
+	}
+	if _, ok := startsSeen[id]; ok {
+		return false
+	}
+	startsSeen[id] = time.Now()
+	return true
 }
 
 func (r *realtime) send(ctx context.Context, p push) {

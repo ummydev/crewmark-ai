@@ -28,6 +28,19 @@ export async function GET(request: NextRequest, { params }: Context) {
 
   if (storage() === "r2") {
     const { url, maxAge } = await downloadUrl(file);
+    // A Markdown file an agent sent (MC-359) is read by the page's script, which can't follow a redirect to R2 without
+    // the bucket allowing it: it comes from here instead. They're small.
+    if (file.contentType.startsWith("text/")) {
+      const stored = await fetch(url);
+      if (!stored.ok || !stored.body) return notFound();
+      return new Response(stored.body, {
+        headers: {
+          "Content-Type": `${file.contentType}; charset=utf-8`,
+          "Cache-Control": "private, max-age=3600",
+          "X-Content-Type-Options": "nosniff",
+        },
+      });
+    }
     return new Response(null, {
       status: 302,
       headers: { Location: url, "Cache-Control": `private, max-age=${maxAge}` },
@@ -37,7 +50,7 @@ export async function GET(request: NextRequest, { params }: Context) {
   if (!data) return notFound();
   return new Response(data, {
     headers: {
-      "Content-Type": file.contentType,
+      "Content-Type": file.contentType.startsWith("text/") ? `${file.contentType}; charset=utf-8` : file.contentType,
       "Cache-Control": "private, max-age=3600",
       "X-Content-Type-Options": "nosniff",
     },

@@ -73,7 +73,7 @@ export const copy: GuideCopy = {
         ["[GitHub Copilot（云端）](https://github.com/features/copilot/plans)", "否", "GitHub 的云端沙盒", "Copilot Pro 每月 $10", "已经在用 GitHub 的团队"],
         ["[Cursor Cloud Agents](https://cursor.com/docs/cloud-agent)", "否", "Cursor 的云端 VM", "Premium 每月 $30", "已经在用 Cursor 的团队"],
         ["[Factory](https://factory.com)", "否", "桌面、CLI、网页；云端和本地 agent", "Pro 每月 $20", "用工单和聊天驱动 agent 的工程团队"],
-        ["[Crewmark](/pricing)", "否", "你的电脑上，在你自己的 Claude Code 或 Codex 里", `免费版（${free.projects} 个项目、${free.employees} 名 AI 员工）；Pro 每月 $${pro.price}，即将推出`, "想让 AI 工程师按排班干活、用的是已付费套餐的小团队"],
+        ["[Crewmark](/pricing)", "是，GPL-3.0", "你的电脑上，在你自己的 Claude Code 或 Codex 里", `免费版（${free.projects} 个项目、${free.employees} 名 AI 员工）；Pro 每月 $${pro.price}，即将推出`, "想让 AI 工程师按排班干活、用的是已付费套餐的小团队"],
       ],
     },
     {
@@ -130,7 +130,7 @@ export const copy: GuideCopy = {
         "Free：$0，额度较少。",
         "Pro：每月 $20，包含 Devin Cloud；超出部分按 API 价格计费。",
         "Max：每月 $200。",
-        "Teams：每月 $80，每个完整的开发者席位另加每月 $40，最多 200 名用户。",
+        "Teams：每月 $80，每个完整的开发者席位另加每月 $40，最多 100 名用户。",
         "Enterprise：定制价格。",
       ],
     },

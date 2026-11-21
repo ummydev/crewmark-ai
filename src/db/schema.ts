@@ -15,13 +15,47 @@ import {
   uniqueIndex,
 } from "drizzle-orm/pg-core";
 
-import type { Heartbeat, IssueActivityKind } from "@/lib/types";
+import type { AgentSettings, Heartbeat, IssueActivityKind } from "@/lib/types";
 
 // "needs_action" was "in_review" until MC-263: an issue waiting for a person to do something (grant a permission,
 // give some information), not a step every issue passes through.
 export const issueStatus = pgEnum("issue_status", ["backlog", "todo", "in_progress", "needs_action", "done"]);
 export const issuePriority = pgEnum("issue_priority", ["urgent", "high", "medium", "low", "none"]);
-export const agentRuntime = pgEnum("agent_runtime", ["claude-code", "codex", "other"]);
+// After "other", the agents Crewmark reaches through acpx (MC-417), by their ids in ACP_AGENTS (lib/types.ts); a new
+// one is added at the end, as Postgres appends enum values.
+export const agentRuntime = pgEnum("agent_runtime", [
+  "claude-code",
+  "codex",
+  "other",
+  "opencode",
+  "deepseek-harness",
+  "gemini",
+  "cursor",
+  "copilot",
+  "kimi",
+  "qwen",
+  "goose",
+  "kilocode",
+  "droid",
+  "devin",
+  "grok-build",
+  "iflow",
+  "junie",
+  "kiro",
+  "qoder",
+  "trae",
+  "openclaw",
+  "pi",
+  "ante",
+  "antigravity",
+  "fast-agent",
+  "fx",
+  "mcode",
+  "mux",
+  "octomind",
+  "pool",
+  "zeroclaw",
+]);
 export const employeeStatus = pgEnum("employee_status", ["working", "idle", "paused"]);
 
 const id = () =>
@@ -123,6 +157,11 @@ export const organizations = pgTable("organizations", {
   logo: text("logo"),
   /** JSON, written by Better Auth. */
   metadata: text("metadata"),
+  /**
+   * "free" or "pro" (src/lib/plans.ts). Pro keeps the files agents send in the cloud (MC-359). Set by hand until
+   * Crewmark takes payments.
+   */
+  plan: text("plan").notNull().default("free"),
   createdAt: createdAt(),
 });
 
@@ -211,6 +250,14 @@ export const employees = pgTable(
      * never what. Null until the first report.
      */
     lastReplyAt: timestamp("last_reply_at", { withTimezone: true }),
+    /**
+     * When the organization's owner archived the employee (MC-305); null while it isn't. An archived employee is as
+     * good as deleted, but can come back: it's left out wherever employees are listed, picked or messaged, gets no
+     * heartbeat and nothing to read, and its name still shows on what it did.
+     */
+    archivedAt: timestamp("archived_at", { withTimezone: true }),
+    /** How the daemon runs its conversation when it resumes it (MC-313); null for Claude Code's own settings. */
+    agentSettings: jsonb("agent_settings").$type<AgentSettings>(),
     createdAt: createdAt(),
   },
   (t) => [index().on(t.organizationId)],
@@ -239,6 +286,38 @@ export const agentSetupTokens = pgTable(
 );
 
 /**
+ * A computer the crewmark CLI runs on, for one organization (MC-292): every employee connected there and every
+ * `crewmark login` from there point to it, by the random id the CLI keeps in ~/.crewmark/device-id. While its daemon
+ * is connected to the realtime Worker, its owner can start new employees on it from Crewmark, without a setup prompt.
+ */
+export const devices = pgTable(
+  "devices",
+  {
+    id: id(),
+    organizationId: organizationId(),
+    /** The CLI's id for the computer, the same for every organization it works for. */
+    machineId: text("machine_id").notNull(),
+    /**
+     * Whose computer it is: who first connected an employee or logged in there. Only they can start employees on it,
+     * as that runs an agent on it. Null when Crewmark can't tell (connected before MC-292, the person gone).
+     */
+    userId: text("user_id").references(() => users.id, { onDelete: "set null" }),
+    hostname: text("hostname").notNull().default(""),
+    platform: text("platform").notNull().default(""),
+    /** The agents the daemon found there, which Crewmark can start employees in, e.g. ["claude-code"]. */
+    agents: jsonb("agents").$type<string[]>().notNull().default([]),
+    /**
+     * The project folders its daemon offers to start employees in (MC-421): ones employees work in there, and the
+     * code folders under the usual places (~/workspace, ~/code…). Crewmark only offers these, and the daemon checks.
+     */
+    folders: jsonb("folders").$type<string[]>().notNull().default([]),
+    createdAt: createdAt(),
+    lastSeenAt: timestamp("last_seen_at", { withTimezone: true }),
+  },
+  (t) => [uniqueIndex().on(t.organizationId, t.machineId), index().on(t.userId)],
+);
+
+/**
  * An AI agent (Claude Code, Codex) working as an employee on someone's computer. The crewmark CLI signs in with its
  * API key. An employee has at most one live connection: connecting again revokes the previous one.
  */
@@ -259,6 +338,8 @@ export const agentConnections = pgTable(
     platform: text("platform").notNull().default(""),
     /** Where the session runs. Claude Code keeps sessions per directory, so it's resumed from here. */
     workdir: text("workdir").notNull().default(""),
+    /** The computer it runs on; null for CLIs older than MC-292 until their daemon connects. */
+    deviceId: text("device_id").references(() => devices.id, { onDelete: "set null" }),
     createdAt: createdAt(),
     lastUsedAt: timestamp("last_used_at", { withTimezone: true }),
     revokedAt: timestamp("revoked_at", { withTimezone: true }),
@@ -389,7 +470,8 @@ export const issueSubscriptions = pgTable(
 );
 
 /**
- * Images pasted or dropped into an issue's description or a comment, which link to them as /api/attachments/<id>.
+ * Images pasted or dropped into an issue's description or a comment, which link to them as /api/attachments/<id>; and
+ * on Pro, the files agents send (MC-359).
  * The file is in object storage under <organization id>/<id> (src/lib/attachments.ts); only the organization's
  * members, and agents through signed links, can open it.
  */
@@ -404,9 +486,15 @@ export const attachments = pgTable(
     /** In bytes. */
     size: integer("size").notNull(),
     uploadedByUserId: text("uploaded_by_user_id").references(() => users.id, { onDelete: "set null" }),
+    /**
+     * "pasted" for an image put in an issue or comment; "work" for a file an agent sent the person (SendUserFile),
+     * which its computer uploaded because the organization is on Pro (MC-359) and which counts against its month's
+     * allowance.
+     */
+    source: text("source").notNull().default("pasted"),
     createdAt: createdAt(),
   },
-  (t) => [index().on(t.organizationId)],
+  (t) => [index().on(t.organizationId), index().on(t.organizationId, t.source, t.createdAt)],
 );
 
 /**
@@ -497,6 +585,25 @@ export const workUnread = pgTable(
 );
 
 /**
+ * The conversations a person pinned to the top of their Messages list (MC-310): their own, on every device. Pinned
+ * last shows first.
+ */
+export const conversationPins = pgTable(
+  "conversation_pins",
+  {
+    organizationId: organizationId(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    employeeId: text("employee_id")
+      .notNull()
+      .references(() => employees.id, { onDelete: "cascade" }),
+    pinnedAt: timestamp("pinned_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [primaryKey({ columns: [t.userId, t.employeeId] }), index().on(t.organizationId)],
+);
+
+/**
  * `crewmark login` asking to act for a person: the CLI shows the code and a link to its page, where the person signs in
  * and allows it for one of their organizations; the CLI, polling with its secret, then gets a CLI key. Works once,
  * for ten minutes.
@@ -509,6 +616,8 @@ export const cliLogins = pgTable("cli_logins", {
   secretHash: text("secret_hash").notNull().unique(),
   hostname: text("hostname").notNull().default(""),
   platform: text("platform").notNull().default(""),
+  /** The CLI's id for the computer (devices.machine_id), so logging in again there replaces the earlier key. */
+  machineId: text("machine_id"),
   /** Who allowed it, and for which organization. */
   userId: text("user_id").references(() => users.id, { onDelete: "cascade" }),
   organizationId: text("organization_id").references(() => organizations.id, { onDelete: "cascade" }),
@@ -536,6 +645,8 @@ export const cliKeys = pgTable(
     keyHash: text("key_hash").notNull().unique(),
     hostname: text("hostname").notNull().default(""),
     platform: text("platform").notNull().default(""),
+    /** The computer it's on; null for CLIs older than MC-292. */
+    deviceId: text("device_id").references(() => devices.id, { onDelete: "set null" }),
     createdAt: createdAt(),
     lastUsedAt: timestamp("last_used_at", { withTimezone: true }),
     revokedAt: timestamp("revoked_at", { withTimezone: true }),

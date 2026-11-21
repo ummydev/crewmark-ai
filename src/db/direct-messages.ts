@@ -1,6 +1,6 @@
 import "server-only";
 
-import { and, asc, desc, eq, gt, inArray, lt, sql } from "drizzle-orm";
+import { and, asc, desc, eq, gt, inArray, isNull, lt, sql } from "drizzle-orm";
 
 import { db } from "@/db";
 import { agentEvents, directMessages, directThreads, employees, members, users } from "@/db/schema";
@@ -44,7 +44,7 @@ async function assertPair(organizationId: string, { userId, employeeId }: Pair) 
     db
       .select({ id: employees.id })
       .from(employees)
-      .where(and(eq(employees.organizationId, organizationId), eq(employees.id, employeeId))),
+      .where(and(eq(employees.organizationId, organizationId), eq(employees.id, employeeId), isNull(employees.archivedAt))),
   ]);
   if (!member || !employee) throw new NotFoundError("Not found in this organization");
 }

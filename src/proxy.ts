@@ -3,9 +3,11 @@ import createMiddleware from "next-intl/middleware";
 import { NextResponse, type NextRequest } from "next/server";
 
 import { posts } from "./i18n/blog";
+import { isComparePairSlug } from "./i18n/compare";
 import { pageLocales } from "./i18n/guides";
 import { personalAgentPages } from "./i18n/personal-agents";
-import { audiencePages, useCasePages } from "./i18n/use-cases";
+import { isAlternativesSlug, isPricingSlug, staticAlternatives } from "./i18n/product-pages";
+import { audiencePages, isAgentSlug, isAgentTaskSlug, useCasePages } from "./i18n/use-cases";
 import { roles } from "./i18n/roles";
 import { skillPages } from "./i18n/skill-pages";
 import { routing } from "./i18n/routing";
@@ -30,6 +32,15 @@ const PERSONAL_AGENT_PAGE = /^(?:\/[a-z]{2}(?:-[a-z]{2})?)?\/personal-agent\/([^
 /** An audience page or a use-case page, with or without a locale prefix: /for/<slug>, /zh/use-cases/<slug>. */
 const AUDIENCE_PAGE = /^(?:\/[a-z]{2}(?:-[a-z]{2})?)?\/for\/([^/]+)\/?$/i;
 const USE_CASE_PAGE = /^(?:\/[a-z]{2}(?:-[a-z]{2})?)?\/use-cases\/([^/]+)\/?$/i;
+/** An agent × task page: /use-cases/<agent>/<task>, e.g. /use-cases/claude-code/seo or /zh/use-cases/codex/sentry. */
+const AGENT_TASK_PAGE = /^(?:\/[a-z]{2}(?:-[a-z]{2})?)?\/use-cases\/([^/]+)\/([^/]+)\/?$/i;
+
+/** A comparison page: /compare/<a>-vs-<b> or /zh/compare/<a>-vs-<b>. */
+const COMPARE_PAGE = /^(?:\/[a-z]{2}(?:-[a-z]{2})?)?\/compare\/([^/]+)\/?$/i;
+
+/** A "<product> alternatives" or "<product> pricing" page: /alternatives/<slug>, /zh/pricing/<slug>. */
+const ALTERNATIVES_PAGE = /^(?:\/[a-z]{2}(?:-[a-z]{2})?)?\/alternatives\/([^/]+)\/?$/i;
+const PRICING_PAGE = /^(?:\/[a-z]{2}(?:-[a-z]{2})?)?\/pricing\/([^/]+)\/?$/i;
 
 /** Dashboard links from before organizations, e.g. /issues/MC-7. */
 const OLD_DASHBOARD = /^\/(issues|employees|projects)(\/|$)/;
@@ -67,7 +78,27 @@ export default function proxy(request: NextRequest) {
     return NextResponse.rewrite(new URL("/en/for/not-found/404", request.url));
   }
   const useCasePage = USE_CASE_PAGE.exec(pathname);
-  if (useCasePage && !useCasePages.some(({ slug }) => slug === useCasePage[1])) {
+  if (useCasePage && !useCasePages.some(({ slug }) => slug === useCasePage[1]) && !isAgentSlug(useCasePage[1])) {
+    return NextResponse.rewrite(new URL("/en/use-cases/not-found/404", request.url));
+  }
+  const comparePage = COMPARE_PAGE.exec(pathname);
+  if (comparePage && !isComparePairSlug(comparePage[1])) {
+    return NextResponse.rewrite(new URL("/en/compare/not-found/404", request.url));
+  }
+  const alternativesPage = ALTERNATIVES_PAGE.exec(pathname);
+  if (
+    alternativesPage &&
+    !isAlternativesSlug(alternativesPage[1]) &&
+    !(staticAlternatives as readonly string[]).includes(alternativesPage[1])
+  ) {
+    return NextResponse.rewrite(new URL("/en/alternatives/not-found/404", request.url));
+  }
+  const pricingPage = PRICING_PAGE.exec(pathname);
+  if (pricingPage && !isPricingSlug(pricingPage[1])) {
+    return NextResponse.rewrite(new URL("/en/pricing/not-found/404", request.url));
+  }
+  const agentTaskPage = AGENT_TASK_PAGE.exec(pathname);
+  if (agentTaskPage && !(isAgentSlug(agentTaskPage[1]) && isAgentTaskSlug(agentTaskPage[2]))) {
     return NextResponse.rewrite(new URL("/en/use-cases/not-found/404", request.url));
   }
 
@@ -111,6 +142,9 @@ export const config = {
     "/proactive-codex",
     "/alternatives/:path*",
     "/pricing",
+    "/pricing/:path*",
+    "/privacy",
+    "/terms",
     "/skills",
     "/skills/:path*",
     "/personal-agent",
@@ -118,6 +152,8 @@ export const config = {
     "/for/:path*",
     "/use-cases",
     "/use-cases/:path*",
+    "/compare",
+    "/compare/:path*",
     "/blog",
     "/blog/:path*",
     "/(en|zh|zh-tw|zh-TW|ja|ko|es|pt-br|pt-BR|fr|de)",

@@ -104,6 +104,14 @@ export const copy: GuideCopy = {
       ],
     },
     {
+      kind: "text",
+      id: "compare",
+      title: "Conductor comparado lado a lado",
+      text: [
+        "Duas das ferramentas para onde as pessoas estão indo, comparadas ao Conductor ponto a ponto: [Vibe Kanban vs Conductor](/compare/vibe-kanban-vs-conductor) e [Claude Squad vs Conductor](/compare/claude-squad-vs-conductor). Mais em [todas as comparações](/compare).",
+      ],
+    },
+    {
       kind: "steps",
       id: "crewmark",
       kicker: "Com o Crewmark",

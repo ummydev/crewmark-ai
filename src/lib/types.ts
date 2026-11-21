@@ -3,7 +3,48 @@ export type IssueStatus = "backlog" | "todo" | "in_progress" | "needs_action" | 
 
 export type IssuePriority = "urgent" | "high" | "medium" | "low" | "none";
 
-export type AgentRuntime = "claude-code" | "codex" | "other";
+/**
+ * The coding agents, besides Claude Code and Codex, that Crewmark reaches through acpx (MC-417): an employee in one is
+ * a session of it the crewmark daemon keeps. Kept in step with acpAgents in cli/acp.go.
+ */
+export const ACP_AGENTS = [
+  { value: "opencode", label: "OpenCode" },
+  { value: "deepseek-harness", label: "DeepSeek Harness" },
+  { value: "gemini", label: "Gemini CLI" },
+  { value: "cursor", label: "Cursor" },
+  { value: "copilot", label: "GitHub Copilot" },
+  { value: "kimi", label: "Kimi Code" },
+  { value: "qwen", label: "Qwen Code" },
+  { value: "goose", label: "Goose" },
+  { value: "kilocode", label: "Kilo Code" },
+  { value: "droid", label: "Factory Droid" },
+  { value: "devin", label: "Devin" },
+  { value: "grok-build", label: "Grok Build" },
+  { value: "iflow", label: "iFlow" },
+  { value: "junie", label: "Junie" },
+  { value: "kiro", label: "Kiro" },
+  { value: "qoder", label: "Qoder" },
+  { value: "trae", label: "Trae" },
+  { value: "openclaw", label: "OpenClaw" },
+  { value: "pi", label: "Pi" },
+  { value: "ante", label: "Ante" },
+  { value: "antigravity", label: "Google Antigravity" },
+  { value: "fast-agent", label: "fast-agent" },
+  { value: "fx", label: "fx" },
+  { value: "mcode", label: "MCode" },
+  { value: "mux", label: "Mux" },
+  { value: "octomind", label: "Octomind" },
+  { value: "pool", label: "Poolside" },
+  { value: "zeroclaw", label: "ZeroClaw" },
+] as const;
+export type AcpAgent = (typeof ACP_AGENTS)[number]["value"];
+
+export type AgentRuntime = "claude-code" | "codex" | AcpAgent | "other";
+
+/** Whether an employee's agent is one Crewmark reaches through acpx. */
+export function isAcpRuntime(runtime: string | null | undefined): runtime is AcpAgent {
+  return ACP_AGENTS.some((a) => a.value === runtime);
+}
 
 export type EmployeeStatus = "working" | "idle" | "paused";
 
@@ -24,9 +65,67 @@ export interface Employee {
   projectIds: string[];
   /** ISO timestamp of the agent's last run; null until it has run. */
   lastActiveAt: string | null;
+  /** When it was archived (MC-305); null while it isn't. */
+  archivedAt: string | null;
+  /** How its conversation runs when Crewmark resumes it (MC-313); null for Claude Code's own settings. */
+  agentSettings: AgentSettings | null;
   /** When Crewmark wakes its agent up to keep working; null until someone sets it up, which means off. */
   heartbeat: Heartbeat | null;
 }
+
+/**
+ * How an employee's Claude Code conversation runs when the daemon resumes it in the background (MC-313): what's unset
+ * is left to Claude Code (or the Claude app, for a conversation it has open). Its main folder isn't here: a
+ * conversation belongs to the folder it started in.
+ */
+export interface AgentSettings {
+  model?: AgentModel;
+  effort?: AgentEffort;
+  permissionMode?: AgentPermissionMode;
+  /** Folders besides its own it may use (claude --add-dir), absolute paths on its computer. */
+  addDirs?: string[];
+}
+
+export const AGENT_MODELS = {
+  "claude-opus-5-5": "Opus 5.5",
+  "claude-sonnet-5-5": "Sonnet 5.5",
+  "claude-haiku-5-5": "Haiku 5.5",
+  "claude-fable-5-1": "Fable 5.1",
+} as const;
+export type AgentModel = keyof typeof AGENT_MODELS;
+/** How a conversation runs, as its computer reports (MC-319, MC-380): ids as Claude Code has them. */
+export interface AppRun {
+  model?: string;
+  effort?: string;
+  /** Read from the conversation's latest request: what it actually ran with last (MC-353, MC-380). */
+  last?: boolean;
+  /**
+   * It's one of the Claude app's: messages go into the app, which runs it as it has it, so what's picked in Messages
+   * applies only when Crewmark resumes it in the background (MC-380).
+   */
+  inApp?: boolean;
+}
+
+/** A model's name for people: "Opus 5.5" for claude-opus-5-5, whichever model the app names. */
+export function modelName(id: string) {
+  if (id in AGENT_MODELS) return AGENT_MODELS[id as AgentModel];
+  const match = /^claude-([a-z]+)-(\d+)(?:-(\d+))?/.exec(id);
+  if (!match) return id;
+  const [, family, major, minor] = match;
+  return `${family[0].toUpperCase()}${family.slice(1)} ${major}${minor ? `.${minor}` : ""}`;
+}
+
+export const AGENT_EFFORTS = ["low", "medium", "high", "xhigh", "max"] as const;
+export type AgentEffort = (typeof AGENT_EFFORTS)[number];
+/** Only those that work with nobody there to answer: a background run can't ask for permission. */
+export const AGENT_PERMISSION_MODES = {
+  auto: "Auto",
+  acceptEdits: "Edit files only",
+  plan: "Read only",
+} as const;
+export type AgentPermissionMode = keyof typeof AGENT_PERMISSION_MODES;
+/** At most this many extra folders. */
+export const MAX_ADD_DIRS = 10;
 
 /**
  * Waking an employee's agent on a schedule: during its working hours, the crewmark CLI on the agent's computer
@@ -173,6 +272,22 @@ export interface AgentConnection {
   lastUsedAt: string | null;
 }
 
+/**
+ * A computer of the person's that Crewmark can start an employee on (MC-292): its crewmark daemon is connected while
+ * it's online, and the employee works in one of the folders employees already work in there.
+ */
+export interface Device {
+  id: string;
+  hostname: string;
+  platform: string;
+  /** The agents Crewmark can start an employee in there: Claude Code and those reached through acpx. */
+  agents: ("claude-code" | AcpAgent)[];
+  online: boolean;
+  lastSeenAt: string | null;
+  /** Folders employees worked in there, latest first. */
+  folders: string[];
+}
+
 /** An invitation nobody has answered yet. */
 export interface PendingInvitation {
   id: string;
@@ -298,6 +413,8 @@ export const ISSUE_PRIORITIES: { value: IssuePriority; label: string }[] = [
 export interface WorkReplies {
   unread: Record<string, number>;
   repliedAt: Record<string, string>;
+  /** The conversations the person pinned (MC-310): when each was pinned (ISO), by employee id. */
+  pinned?: Record<string, string>;
 }
 
 /** The images that can be pasted into descriptions and comments, and the largest one. */
@@ -315,7 +432,8 @@ export interface ImageUpload {
 export const AGENT_RUNTIMES: { value: AgentRuntime; label: string }[] = [
   { value: "claude-code", label: "Claude Code" },
   { value: "codex", label: "Codex" },
-  // Any other coding agent, e.g. Cursor or Gemini CLI.
+  ...ACP_AGENTS,
+  // Any other agent, which Crewmark can't send messages to.
   { value: "other", label: "Other" },
 ];
 
@@ -365,6 +483,36 @@ export interface WorkTurn {
   repliedAt?: string;
   /** Whether the agent ended the turn, rather than still being at it (or having been stopped). */
   done: boolean;
+  /** Pictures and videos the agent sent the person in the turn (MC-287), in the order it sent them. */
+  files?: WorkFile[];
+}
+
+/**
+ * A file the agent sent the person (Claude Code's SendUserFile). It stays on the employee's computer: the Work tab
+ * reads it from there through the realtime Worker while that computer is on (MC-287).
+ */
+export interface WorkFile {
+  /** What the Worker asks the employee's computer for it by. */
+  id: string;
+  name: string;
+  /** "image" and "video" show, "markdown" opens as a page (MC-359); "file" is any other kind, only its name shows. */
+  kind: "image" | "video" | "markdown" | "file";
+  caption?: string;
+  at: string;
+  size?: number;
+  /** Why it can't show: "missing" (no longer on that computer) or "unsupported". */
+  problem?: "missing" | "unsupported";
+  /**
+   * On Pro (MC-359): the attachment the employee's computer uploaded it as, which opens from Crewmark's storage at
+   * /api/attachments/<id>, with the computer on or off.
+   */
+  stored?: string;
+}
+
+/** A file the agent sent, as the media panel lists it (MC-318), with how a message about it names it for the agent. */
+export interface ListedFile extends WorkFile {
+  /** Its path in the conversation's folder, or just its name when it's elsewhere. */
+  path: string;
 }
 
 export interface WorkStep {

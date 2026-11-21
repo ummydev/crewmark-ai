@@ -44,7 +44,8 @@ export function RuntimeLogo({ runtime, className }: { runtime: AgentRuntime | nu
   if (!runtime) {
     return <UnplugIcon aria-hidden className={cn("size-3.5 shrink-0 text-muted-foreground", className)} />;
   }
-  if (runtime === "other") {
+  // Any other agent, including those reached through acpx (MC-417): their marks aren't drawn here.
+  if (runtime !== "claude-code" && runtime !== "codex") {
     return <BotIcon aria-hidden className={cn("size-3.5 shrink-0 text-muted-foreground", className)} />;
   }
   const Mark = runtime === "codex" ? CodexMark : ClaudeMark;

@@ -4,6 +4,9 @@
 # or without one adds ~/.crewmark/bin to PATH in your shell profile, for new terminals. When the crewmark daemon
 # already runs here, it restarts it on the new version; it never sets the daemon up on its own.
 #   curl -fsSL https://crewmark.ai/install.sh | sh
+# With CREWMARK_LOGIN, the one-time login in the command Crewmark shows when you connect a computer (MC-421), it also
+# logs the CLI in as you and starts the daemon, so you can start employees on this computer from Crewmark:
+#   curl -fsSL https://crewmark.ai/install.sh | CREWMARK_LOGIN=cml_… sh
 # CREWMARK_DOWNLOAD_URL overrides where the binaries come from; CREWMARK_NO_MODIFY_PATH=1 leaves PATH alone (no link,
 # no shell profile change); CREWMARK_NO_TELEMETRY=1 or DO_NOT_TRACK=1 skips the anonymous install counts (see track).
 set -eu
@@ -80,9 +83,18 @@ version="$("$DIR/crewmark" --version)"
 echo "Installed crewmark $version to $DIR/crewmark"
 track "cli installed" "$version"
 
-# The daemon is set up only once the person agrees (`crewmark daemon install`, which the setup instructions have the
-# agent ask them about). When it already runs here, restart it so it runs the version just installed.
-if [ -e "$HOME/Library/LaunchAgents/ai.crewmark.daemon.plist" ] ||
+# Connecting this computer from Crewmark: running the command it showed is the person's say-so for the daemon too.
+if [ -n "${CREWMARK_LOGIN:-}" ]; then
+  if [ -n "${CREWMARK_URL:-}" ]; then
+    "$DIR/crewmark" login --secret "$CREWMARK_LOGIN" --url "$CREWMARK_URL" || fail "couldn't log in. Copy a new command from Crewmark and run it again."
+  else
+    "$DIR/crewmark" login --secret "$CREWMARK_LOGIN" || fail "couldn't log in. Copy a new command from Crewmark and run it again."
+  fi
+  "$DIR/crewmark" daemon install || fail "couldn't start the crewmark daemon: run \`$DIR/crewmark daemon install\`."
+  echo "This computer is connected. Go back to Crewmark to start an employee here."
+# Otherwise the daemon is set up only once the person agrees (`crewmark daemon install`, which the setup instructions
+# have the agent ask them about). When it already runs here, restart it so it runs the version just installed.
+elif [ -e "$HOME/Library/LaunchAgents/ai.crewmark.daemon.plist" ] ||
   [ -e "${XDG_CONFIG_HOME:-$HOME/.config}/systemd/user/crewmark.service" ]; then
   "$DIR/crewmark" daemon install || echo "Couldn't restart the crewmark daemon: run \`crewmark daemon install\`."
 fi

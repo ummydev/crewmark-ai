@@ -81,6 +81,20 @@ export const copy: GuideCopy = {
       ],
     },
     {
+      kind: "table",
+      id: "ai-coworkers",
+      title: "新增：AI 同事类应用 Grok Bot 和 OpenBot",
+      text: [
+        "自这篇对比首次撰写以来，有两款“AI 同事”产品受到关注：xAI 的 Grok Bot，以及 CopilotKit 的开源项目 OpenBot。两者都给每个 Bot 配一台自己的计算机。以下信息来自各厂商自己的网站，于 2026 年 11 月 13 日查证；并排对比见 [Grok Bot vs Claude Code](/compare/grok-bot-vs-claude-code) 和 [OpenBot vs Grok Bot](/compare/openbot-vs-grok-bot)。",
+        "更多 AI 同事产品，从 Claude Cowork、Copilot Cowork 到 ChatGPT Work 和 Andrew Ng 的 OpenWorker，见 [AI 同事工具对比](/blog/ai-coworker)。",
+      ],
+      headers: ["平台", "最适合", "工作如何启动", "运行在", "免费选项", "付费起价"],
+      rows: [
+        ["Grok Bot", "希望托管的 AI 队友在自己的应用、Slack、Teams 和会议中工作的团队", "给 Bot 发消息，或在 Slack 或 Teams 里把工作交给它；按计划运行的例行任务", "Grok（xAI），每个 Bot 一台云端计算机", "x.ai/bot 上写着“Get started for free”（免费开始使用）", "包含在 Premium 中，$30/月；Super $100、Ultra $200"],
+        ["OpenBot（开源）", "自托管的 AI 同事，使用你自己的模型和 agent", "聊天、审批和 Routines；你自己的 agent 通过 AG-UI 接入", "由你选择：OpenAI、Claude、Gemini 或开放模型", "个人项目免费", "Business 每位活跃用户最高 $29/月"],
+      ],
+    },
+    {
       kind: "text",
       title: "免费的 AI 员工，以及 GitHub 上的开源项目",
       text: [

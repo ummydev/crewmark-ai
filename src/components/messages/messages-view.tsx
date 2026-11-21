@@ -3,16 +3,20 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronLeftIcon, Loader2Icon, MessageCircleIcon, PlusIcon, XIcon } from "lucide-react";
+import { ChevronLeftIcon, ImagesIcon, Loader2Icon, MessageCircleIcon, PinIcon, PlusIcon, XIcon } from "lucide-react";
 import { toast } from "sonner";
 
 import { useCrewStore } from "@/components/crew-store";
 import { EmployeeAvatar } from "@/components/employee-avatar";
 import { MarkdownEditor, StaticMarkdownView, imageFiles, type MarkdownEditorHandle } from "@/components/markdown-editor";
+import { ConversationContextMenu, ConversationMenu } from "@/components/messages/conversation-actions";
+import { FolderButton, RunButton } from "@/components/messages/conversation-settings";
 import { useFollowBottom } from "@/components/messages/follow-bottom";
+import { ConversationMedia } from "@/components/messages/media-panel";
 import { useMessages } from "@/components/messages/messages-provider";
 import { useConversationView } from "@/components/messages/use-conversation-view";
 import { lastWordsKey, noteLastWords, useLastWords, type LastWords } from "@/components/messages/last-words";
+import { QuoteSelection } from "@/components/messages/quote-selection";
 import { WorkLog, lastWords, type Outgoing } from "@/components/messages/work-log";
 import { segmentClass } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
@@ -25,7 +29,7 @@ import { DIRECT_MESSAGES } from "@/lib/features";
 import { cacheKey, peekCache, readCache, writeCache } from "@/lib/local-cache";
 import { track } from "@/lib/analytics";
 import { fullDate, timeAgo } from "@/lib/format";
-import { IMAGE_TYPES, type DirectMessage, type DirectThread, type Employee } from "@/lib/types";
+import { IMAGE_TYPES, type AppRun, type DirectMessage, type DirectThread, type Employee } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 // Messages (MC-169): the signed-in person's direct conversations with employees, one per employee, like a chat app.
@@ -141,20 +145,25 @@ function plain(markdown: string) {
 }
 
 /**
- * Every employee, as in a chat app (MC-277): each name with its role, and under it what its conversation said last;
- * the latest first, then the rest by name. What they said comes from their computers (last-words.ts): the list asks
+ * Every employee, as in a chat app (MC-277): each name, and under it what its conversation said last; the latest
+ * first, then the rest by name. Roles are left out of the list, which read as clutter beside the names (MC-288). What they said comes from their computers (last-words.ts): the list asks
  * for it when it opens, when the socket opens again and when the tab comes back into view.
  */
 function ConversationList({ threads, selected }: { threads: DirectThread[] | null; selected?: string }) {
   const { employees, orgPath, organization, currentUser } = useCrewStore();
-  const { workUnread, repliedAt } = useMessages();
+  const { workUnread, repliedAt, pinned } = useMessages();
   const key = lastWordsKey(currentUser.id, organization.id);
   const words = useLastWords(key);
   const ask = React.useCallback(() => sendRealtime(organization.id, { type: "worklog.latest" }), [organization.id]);
+  // Who's at work now, as their computers say (MC-354): told when they start and stop, and with each answer to `ask`.
+  const [working, setWorking] = React.useState<Record<string, boolean>>({});
   const open = useRealtime(
     organization.id,
     (push) => {
-      if (push.type === "worklog.latest") noteLastWords(key, push.employeeId, lastWords(push.turns ?? []));
+      if (push.type !== "worklog.latest") return;
+      noteLastWords(key, push.employeeId, lastWords(push.turns ?? []));
+      const now = Boolean(push.working);
+      setWorking((all) => (Boolean(all[push.employeeId]) === now ? all : { ...all, [push.employeeId]: now }));
     },
     ask,
   );
@@ -189,7 +198,10 @@ function ConversationList({ threads, selected }: { threads: DirectThread[] | nul
     const [said, replied] = [last(employee)?.at ?? "", repliedAt[employee.id] ?? ""];
     return said > replied ? said : replied;
   };
+  // Pinned ones on top, pinned last first (MC-310); the rest latest first.
   const order = [...employees].sort((a, b) => {
+    const [pa, pb] = [pinned[a.id] ?? "", pinned[b.id] ?? ""];
+    if (pa !== pb) return pa < pb ? 1 : -1;
     const [x, y] = [latest(a), latest(b)];
     return x !== y ? (x < y ? 1 : -1) : a.name.localeCompare(b.name);
   });
@@ -205,43 +217,45 @@ function ConversationList({ threads, selected }: { threads: DirectThread[] | nul
         const who = said?.mine ? (said.by && said.by !== me ? `${said.by}: ` : "You: ") : "";
         return (
           <li key={employee.id}>
-            <ConversationLink
-              href={orgPath(`/messages/${employee.id}`)}
-              aria-current={employee.id === selected ? "page" : undefined}
-              className="flex items-center gap-3 rounded-lg px-2.5 py-2.5 transition-colors hover:bg-muted/70 aria-[current=page]:bg-muted"
-            >
-              <EmployeeAvatar employee={employee} size="md" />
-              {/* Flex, not grid: a grid's track grows to a long preview and pushes the time and the unread count out
-                  of the column, where nobody sees which conversation is new (MC-174). */}
-              <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-                <span className="flex min-w-0 items-baseline gap-2">
-                  <span className="flex min-w-0 flex-1 items-baseline gap-1.5">
-                    <span className={cn("max-w-full shrink-0 truncate text-sm", unread ? "font-semibold" : "font-medium")}>
+            <ConversationContextMenu employee={employee} open={employee.id === selected}>
+              <ConversationLink
+                href={orgPath(`/messages/${employee.id}`)}
+                aria-current={employee.id === selected ? "page" : undefined}
+                className="flex items-center gap-3 rounded-lg px-2.5 py-2.5 transition-colors select-none [-webkit-touch-callout:none] hover:bg-muted/70 aria-[current=page]:bg-muted data-[popup-open]:bg-muted/70"
+              >
+                <EmployeeAvatar employee={employee} size="md" />
+                {/* Flex, not grid: a grid's track grows to a long preview and pushes the time and the unread count out
+                    of the column, where nobody sees which conversation is new (MC-174). */}
+                <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+                  <span className="flex min-w-0 items-baseline gap-2">
+                    <span className={cn("min-w-0 flex-1 truncate text-sm", unread ? "font-semibold" : "font-medium")}>
                       {employee.name}
                     </span>
-                    {employee.role && (
-                      <span className="min-w-0 truncate text-xs text-muted-foreground">{employee.role}</span>
+                    {pinned[employee.id] && <PinIcon aria-label="Pinned" className="size-3 shrink-0 self-center text-muted-foreground" />}
+                    {latest(employee) && (
+                      <time
+                        dateTime={latest(employee)}
+                        className="shrink-0 text-xs text-muted-foreground"
+                        suppressHydrationWarning
+                      >
+                        {timeAgo(latest(employee))}
+                      </time>
                     )}
                   </span>
-                  {latest(employee) && (
-                    <time
-                      dateTime={latest(employee)}
-                      className="shrink-0 text-xs text-muted-foreground"
-                      suppressHydrationWarning
-                    >
-                      {timeAgo(latest(employee))}
-                    </time>
-                  )}
-                </span>
-                <span className="flex min-w-0 items-center gap-2">
-                  {/* Grey whether read or not: the red count says what's new. A line even when empty, so rows match. */}
-                  <span className="min-w-0 flex-1 truncate text-[13px] text-muted-foreground">
-                    {said ? `${who}${plain(said.text)}` : "\u00a0"}
+                  <span className="flex min-w-0 items-center gap-2">
+                    {/* Grey whether read or not: the red count says what's new. A line even when empty, so rows match.
+                        While it's at work, a small grey spinner turns at the line's right end (MC-354, MC-366). */}
+                    <span className="flex min-w-0 flex-1 items-center gap-1.5 text-[13px] text-muted-foreground">
+                      <span className="min-w-0 flex-1 truncate">{said ? `${who}${plain(said.text)}` : "\u00a0"}</span>
+                      {working[employee.id] && (
+                        <Loader2Icon role="status" aria-label="Working" className="size-3 shrink-0 animate-spin opacity-70" />
+                      )}
+                    </span>
+                    <UnreadBadge count={unread} />
                   </span>
-                  <UnreadBadge count={unread} />
                 </span>
-              </span>
-            </ConversationLink>
+              </ConversationLink>
+            </ConversationContextMenu>
           </li>
         );
       })}
@@ -265,6 +279,8 @@ function Conversation({ employee, thread }: { employee: Employee; thread?: Direc
   // The tab the person last chose, whichever employee they open; only the work while direct messages are off.
   const [chosen, choose] = useConversationView();
   const view = DIRECT_MESSAGES ? chosen : "work";
+  // The conversation's pictures and videos, in a panel beside it (MC-318).
+  const [media, setMedia] = React.useState(false);
   return (
     <>
       {/* One line: who the conversation is with, and what of theirs is shown. */}
@@ -303,9 +319,25 @@ function Conversation({ employee, thread }: { employee: Employee; thread?: Direc
             </button>
           </div>
         )}
+        <span className={cn("flex shrink-0 items-center gap-0.5", !DIRECT_MESSAGES && "ml-auto")}>
+          {view === "work" && (
+            <Button
+              variant="ghost"
+              size="icon-sm"
+              aria-label="Media"
+              title="Pictures and videos sent here"
+              aria-pressed={media}
+              onClick={() => setMedia((shown) => !shown)}
+              className={cn("text-muted-foreground", media && "bg-muted text-foreground")}
+            >
+              <ImagesIcon />
+            </Button>
+          )}
+          <ConversationMenu employee={employee} />
+        </span>
       </header>
       {view === "work" ? (
-        <WorkView employee={employee} />
+        <WorkView employee={employee} media={media} onMediaClose={() => setMedia(false)} />
       ) : view === "messages" ? (
         <DirectMessages employee={employee} thread={thread} />
       ) : (
@@ -323,7 +355,16 @@ const OUTGOING_MS = 24 * 60 * 60_000;
  * the message goes straight into its conversation, between steps (MC-249), and it answers there. It shows at once,
  * as on its way, and then in the work once it's in the conversation. This browser keeps it till then.
  */
-function WorkView({ employee }: { employee: Employee }) {
+function WorkView({
+  employee,
+  media,
+  onMediaClose,
+}: {
+  employee: Employee;
+  /** Whether its media panel is open (MC-318). */
+  media: boolean;
+  onMediaClose: () => void;
+}) {
   const { organization, currentUser } = useCrewStore();
   // Its replies are seen while it's open and on screen (MC-280).
   const { workUnread, readWorkOf } = useMessages();
@@ -351,6 +392,10 @@ function WorkView({ employee }: { employee: Employee }) {
     void readCache<Outgoing[]>(key).then((cached) => cached && setOutbox((prev) => (prev.length ? prev : fresh(cached))));
   }, [key]);
 
+  const composer = React.useRef<Pick<MarkdownEditorHandle, "quote">>(null);
+  // How the Claude app runs it, shown where nothing was picked here (MC-319).
+  const [app, setApp] = React.useState<AppRun | null>(null);
+
   async function send(body: string) {
     const id = crypto.randomUUID();
     const at = new Date().toISOString();
@@ -366,15 +411,29 @@ function WorkView({ employee }: { employee: Employee }) {
     }
   }
 
+  // Only a Claude Code conversation has these to pick (one not connected yet will most likely be one).
+  const claude = employee.runtime === "claude-code" || !employee.runtime;
   return (
-    <>
-      <WorkLog
-        employee={employee}
-        outbox={outbox}
-        onArrived={(ids) => keep((prev) => prev.filter((m) => !ids.includes(m.id)))}
-      />
-      <Composer employee={employee} send={send} />
-    </>
+    <div className="flex min-h-0 flex-1">
+      <ConversationMedia employee={employee} send={send} panel={media} onPanelClose={onMediaClose}>
+      <div className="flex min-w-0 flex-1 flex-col">
+        <WorkLog
+          employee={employee}
+          outbox={outbox}
+          onArrived={(ids) => keep((prev) => prev.filter((m) => !ids.includes(m.id)))}
+          onApp={setApp}
+        />
+        <QuoteSelection onReply={(text) => composer.current?.quote(text)} />
+        <Composer
+          ref={composer}
+          employee={employee}
+          send={send}
+          left={claude ? <FolderButton employee={employee} /> : undefined}
+          right={claude ? <RunButton employee={employee} app={app} /> : undefined}
+        />
+      </div>
+      </ConversationMedia>
+    </div>
   );
 }
 
@@ -514,7 +573,9 @@ function Bubble({ message, employee }: { message: DirectMessage; employee: Emplo
       <div
         className={cn(
           "max-w-[min(36rem,80%)] rounded-2xl px-3.5 py-2 text-sm break-words",
-          mine ? "rounded-br-md bg-primary text-primary-foreground" : "rounded-bl-md bg-muted",
+          mine
+            ? "rounded-br-md bg-primary text-primary-foreground [&_a.mention]:text-blue-300 dark:[&_a.mention]:text-blue-700"
+            : "rounded-bl-md bg-muted",
         )}
       >
         <StaticMarkdownView value={message.body} className="min-w-0 [&_.tiptap]:text-inherit [&_a]:underline" />
@@ -549,12 +610,21 @@ function imageMarkdown({ name, url }: { name: string; url: string }) {
 function Composer({
   employee,
   send: deliver,
+  ref,
+  left,
+  right,
 }: {
   employee: Employee;
   /** Sends what the person wrote; the box empties once it's done, and keeps the words if it throws. */
   send: (body: string) => Promise<void>;
+  /** Lets the conversation quote what the person selected in it (MC-298). */
+  ref?: React.Ref<Pick<MarkdownEditorHandle, "quote">>;
+  /** What the conversation runs with (MC-313): its folder beside the + button, the model by Send (MC-316). */
+  left?: React.ReactNode;
+  right?: React.ReactNode;
 }) {
   const editorRef = React.useRef<MarkdownEditorHandle>(null);
+  React.useImperativeHandle(ref, () => ({ quote: (text) => editorRef.current?.quote(text) }), []);
   const fileRef = React.useRef<HTMLInputElement>(null);
   const [body, setBody] = React.useState("");
   // A new key empties the editor after sending.
@@ -566,6 +636,7 @@ function Composer({
   const { upload } = useImageUpload({ quiet: true });
   const uploading = attached.some((image) => !image.url);
   const empty = body.trim() === "" && attached.length === 0;
+  // Enter sends, Cmd or Ctrl Enter starts a new line (MC-295), as people know from chat apps: no hint (MC-316).
 
   function attach(files: File[]) {
     for (const file of files) {
@@ -658,12 +729,13 @@ function Composer({
           value=""
           onChange={setBody}
           onSubmit={send}
+          enterSends
           onImages={attach}
           toolbar={false}
           placeholder={`Message ${employee.name}…`}
           contentClassName="max-h-48 min-h-10 overflow-y-auto py-2 [&_.tiptap]:min-h-6"
         />
-        <div className="flex items-center gap-3">
+        <div className="flex min-w-0 items-center gap-2">
           {/* Images from the phone's photos or the computer's files (MC-278): on a phone there's nothing to paste. */}
           <input
             ref={fileRef}
@@ -683,12 +755,15 @@ function Composer({
             aria-label="Add images"
             title="Add images"
             onClick={() => fileRef.current?.click()}
-            className="-ml-1.5 size-8 rounded-full text-muted-foreground"
+            className="-ml-1.5 size-8 shrink-0 rounded-full text-foreground"
           >
-            <PlusIcon className="size-5" />
+            {/* Darker and bolder than the words beside it, as in the Codex app (MC-316). */}
+            <PlusIcon className="size-5" strokeWidth={2.5} />
           </Button>
-          <span className="ml-auto hidden text-xs text-muted-foreground sm:inline">⌘ Enter to send</span>
-          <Button size="sm" disabled={empty || pending || uploading} onClick={send} className="max-sm:ml-auto">
+          {left}
+          <span className="ml-auto shrink-0" />
+          {right}
+          <Button size="sm" disabled={empty || pending || uploading} onClick={send} className="shrink-0">
             {pending ? "Sending…" : uploading ? "Uploading…" : "Send"}
           </Button>
         </div>

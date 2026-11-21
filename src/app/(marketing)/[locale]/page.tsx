@@ -7,6 +7,7 @@ import NextLink from "next/link";
 import { SignUpLinks } from "@/components/landing/sign-up-links";
 import { HeroBoard } from "@/components/landing/hero-board";
 import { LandingIcons } from "@/components/landing/landing-icons";
+import { LegalLinks } from "@/components/landing/legal-links";
 import { LatestPosts } from "@/components/landing/latest-posts";
 import { LandingMotion } from "@/components/landing/landing-motion";
 import { ShiftDemo } from "@/components/landing/shift-demo";
@@ -658,6 +659,7 @@ export default async function LandingPage() {
         </div>
         <div className="foot-bottom">
           <span>© 2026 Crewmark</span>
+          <LegalLinks />
           {/* Plain links to every language, so crawlers find each version too. */}
           <nav className="langs" aria-label={t("footer.language")}>
             {routing.locales.map((l) => (

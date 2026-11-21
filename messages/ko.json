@@ -367,7 +367,11 @@
       "signIn": "로그인",
       "runsOn": "지원 에이전트",
       "language": "언어",
-      "trademarks": "Claude, Codex, DeepSeek, OpenCode는 각 소유자의 상표입니다."
+      "trademarks": "Claude, Codex, DeepSeek, OpenCode는 각 소유자의 상표입니다.",
+      "legal": "법적 고지",
+      "privacy": "개인정보처리방침",
+      "terms": "이용약관",
+      "contact": "문의하기"
     }
   }
 }

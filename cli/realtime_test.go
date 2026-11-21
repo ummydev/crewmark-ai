@@ -212,3 +212,13 @@ func TestDaemonRoundFetches(t *testing.T) {
 		t.Error("the daemon read /api/agent/me, which reads the whole organization")
 	}
 }
+
+// A start that comes down more than one socket is done once (MC-405).
+func TestFirstStart(t *testing.T) {
+	if !firstStart("s1") || firstStart("s1") {
+		t.Fatal("the same start should count once")
+	}
+	if !firstStart("s2") || !firstStart("") || !firstStart("") {
+		t.Fatal("other starts, and ones without an id, are new")
+	}
+}

@@ -8,13 +8,14 @@ import (
 	"io"
 	"net/url"
 	"os"
+	"path/filepath"
 	"runtime"
 	"strings"
 	"time"
 )
 
 // version is bumped for every release of the binaries.
-var version = "0.8.3"
+var version = "0.8.16"
 
 const defaultURL = "https://crewmark.ai"
 
@@ -42,9 +43,12 @@ func help() string {
 Usage: crewmark <command> [options]
 
 Getting started
-  setup <token> [--url <server>]  Connect to an employee with the token from a Crewmark setup link. It
+  setup <token> [--url <server>] [--agent <id>]
+                                  Connect to an employee with the token from a Crewmark setup link. It
                                   tries to tell which conversation it runs in and links it to the
-                                  employee; if it can't, run link-session
+                                  employee; if it can't, run link-session. With --agent (opencode,
+                                  deepseek-harness, gemini, cursor, kimi, qwen, goose…), the employee is
+                                  a session of that agent the daemon runs through acpx instead
   me                              Your role, responsibilities, KPIs, projects and open issues
   link-session --runtime <claude-code|codex|other> --session <this conversation's session id>
                                   Link this conversation to the employee by hand, when setup couldn't
@@ -53,6 +57,9 @@ Issues
   issues [--all] [--status <s,...>] [--project <id>] [--assignee me|none|<who>] [--subscribed]
                                   List issues; without options, your open ones. --subscribed: those you
                                   follow
+  issues search <words or key> [--status <s,...>] [--project <id>] [--assignee me|none|<who>]
+                                  Issues whose key, title or description match, open or done, best first.
+                                  Search before filing an issue, so it isn't filed twice
   issues show <KEY>               One issue in full with its comments, changes and subscribers, e.g.
                                   issues show MC-7
   issues comment <KEY> <text> [--image <file>]...
@@ -410,7 +417,7 @@ func section(title, body string) {
 // --- Commands --------------------------------------------------------------------------------------------------
 
 func setup(args []string) error {
-	p, err := parseArgs(args, []string{"url"}, nil)
+	p, err := parseArgs(args, []string{"url", "agent"}, nil)
 	if err != nil {
 		return err
 	}
@@ -428,11 +435,40 @@ func setup(args []string) error {
 	baseURL = strings.TrimRight(baseURL, "/")
 	body, session := connectRequest()
 	body.Token = token
+	// An employee in an agent Crewmark reaches through acpx (MC-417): its conversation is an acpx session the daemon
+	// keeps, not the one this command runs in.
+	agent := strings.TrimSpace(p.strings["agent"])
+	if agent != "" {
+		a, ok := acpAgentByID(agent)
+		if !ok {
+			ids := make([]string, len(acpAgents))
+			for i, a := range acpAgents {
+				ids[i] = a.id
+			}
+			return fail("Unknown --agent %q. One of: %s.", agent, strings.Join(ids, ", "))
+		}
+		if findTool(a.command) == "" {
+			return fail("%s's command line (%s) isn't on this computer: install it and log in first.", a.name, a.command)
+		}
+		fmt.Println("Setting up Node.js and acpx if they aren't here yet…")
+		if _, _, err := acpxCommand(); err != nil {
+			return fail("%v", err)
+		}
+		session = &detectedSession{agent, acpSessionName(newUUID())}
+		body.Runtime, body.SessionID = &session.Runtime, &session.SessionID
+	}
 	var res setupResponse
 	if err := request(baseURL, "/api/agent/setup", "", "POST", body, &res); err != nil {
 		return err
 	}
-	return connected(baseURL, res, body, session, p.bools["json"])
+	if err := connected(baseURL, res, body, session, p.bools["json"]); err != nil || agent == "" {
+		return err
+	}
+	profile := employeeProfile{Runtime: body.Runtime, SessionID: body.SessionID, Workdir: body.Workdir}
+	if err := startACPEmployee(res.Employee.ID, res.Employee.Name, profile); err != nil {
+		return err
+	}
+	return nil
 }
 
 // connectRequest describes this conversation and computer, for making it an employee (setup, employees connect).
@@ -504,7 +540,26 @@ func daemonNote() {
 		"this conversation yet. Ask the user before running `crewmark daemon install` (see the setup instructions).\n\n")
 }
 
+// startACPEmployee sends a new acpx session its first message, so the employee starts on its work (MC-417).
+func startACPEmployee(employeeID, name string, profile employeeProfile) error {
+	first := fmt.Sprintf("You are now %s, an AI employee on Crewmark. Run `crewmark me --employee %s` to read your "+
+		"role, KPIs and open issues, and start on them. Crewmark's messages, comments and heartbeats come to you here.",
+		name, employeeID)
+	if err := runACP(employeeID, profile, first); err != nil {
+		return fail("Couldn't start the %s session: %v", labelOf(runtimes, *profile.Runtime), err)
+	}
+	fmt.Printf("Started it with a first message; the agent's output goes to %s.\n",
+		shortPath(filepath.Join(home, "employees", employeeID, "agent.log")))
+	return nil
+}
+
 func printLinked(session *detectedSession, name string) {
+	if isACP(session.Runtime) {
+		fmt.Printf("Linked: %s is now a %s session Crewmark keeps (%s, in this folder). The crewmark daemon sends it "+
+			"Crewmark's messages, comments and heartbeats; talk to %s in Crewmark's Messages.\n",
+			name, labelOf(runtimes, session.Runtime), session.SessionID, name)
+		return
+	}
 	fmt.Printf("Linked: this conversation (%s %s) is now %s's. Resume it later to talk to %s.\n",
 		labelOf(runtimes, session.Runtime), session.SessionID, name, name)
 }
@@ -513,8 +568,11 @@ func printLinked(session *detectedSession, name string) {
 func notLinked(employeeID, name string) {
 	fmt.Printf("Not linked yet: the CLI couldn't tell which conversation it runs in. Link this conversation to %s "+
 		"with:\n\n"+
-		"  crewmark link-session --employee %s --runtime <claude-code|codex|other> --session <this conversation's session id>\n",
-		name, employeeID)
+		"  crewmark link-session --employee %s --runtime <claude-code|codex|other> --session <this conversation's session id>\n\n"+
+		"In an agent other than Claude Code or Codex (OpenCode, DeepSeek Harness, Gemini CLI…), link one of its sessions "+
+		"Crewmark keeps itself instead, which is %s from then on:\n\n"+
+		"  crewmark link-session --employee %s --runtime <opencode|deepseek-harness|gemini|cursor|kimi|qwen|goose|…>\n",
+		name, employeeID, name, employeeID)
 }
 
 // TODO: check a --session id before linking it. The marker search from commit 52b662a could do it: link-session
@@ -531,7 +589,16 @@ func linkSession(args []string) error {
 	}
 
 	session := sessionFromEnvironment()
-	if p.has("session") {
+	// An agent reached through acpx (MC-417): a new session of it, which the daemon keeps.
+	if a, ok := acpAgentByID(p.strings["runtime"]); ok && !p.has("session") {
+		if findTool(a.command) == "" {
+			return fail("Not linked: %s's command line (%s) isn't on this computer.", a.name, a.command)
+		}
+		if _, _, err := acpxCommand(); err != nil {
+			return fail("Not linked: %v", err)
+		}
+		session = &detectedSession{a.id, acpSessionName(newUUID())}
+	} else if p.has("session") {
 		runtimeName := p.strings["runtime"]
 		if labelOf(runtimes, runtimeName) == runtimeName {
 			return fail("Not linked: pass --runtime %s along with --session.", strings.Join(values(runtimes), " or --runtime "))
@@ -559,6 +626,9 @@ func linkSession(args []string) error {
 		})
 	}
 	printLinked(session, profile.Name)
+	if isACP(session.Runtime) {
+		return startACPEmployee(employeeID, profile.Name, profile)
+	}
 	return nil
 }
 
@@ -872,6 +942,9 @@ func issues(args []string) error {
 
 	case "list":
 		rest = args[1:]
+
+	case "search":
+		return searchIssues(args[1:])
 	}
 
 	p, err := parseArgs(rest, []string{"status", "project", "assignee"}, []string{"all", "subscribed"})
@@ -911,5 +984,37 @@ func issues(args []string) error {
 		empty = "No issues match."
 	}
 	printIssues(res.Issues, empty, "")
+	return nil
+}
+
+// searchIssues is `crewmark issues search <words or key>` (MC-214): every issue, open or done, whose key, title or
+// description matches, best first, so an employee can check for one before filing it again.
+func searchIssues(args []string) error {
+	p, err := parseArgs(args, []string{"status", "project", "assignee"}, nil)
+	if err != nil {
+		return err
+	}
+	words := strings.TrimSpace(strings.Join(p.positionals, " "))
+	if words == "" {
+		return fail("Usage: crewmark issues search <words or key>, e.g. crewmark issues search 登录 or crewmark issues search MC-12")
+	}
+	_, profile, err := currentEmployee(p.strings["employee"])
+	if err != nil {
+		return err
+	}
+	query := url.Values{"q": {words}}
+	for _, option := range []string{"assignee", "status", "project"} {
+		if p.has(option) {
+			query.Set(option, p.strings[option])
+		}
+	}
+	var res struct{ Issues []agentIssue }
+	if err := api(profile, "GET", "/api/agent/issues?"+query.Encode(), nil, &res); err != nil {
+		return err
+	}
+	if p.bools["json"] {
+		return printJSON(res.Issues)
+	}
+	printIssues(res.Issues, fmt.Sprintf("No issues match %q.", words), "")
 	return nil
 }

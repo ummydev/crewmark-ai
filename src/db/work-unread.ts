@@ -1,9 +1,10 @@
 import "server-only";
 
-import { and, eq, gt, isNotNull, sql } from "drizzle-orm";
+import { and, eq, gt, isNotNull, isNull, sql } from "drizzle-orm";
 
 import { db } from "@/db";
-import { employees, members, workUnread } from "@/db/schema";
+import { assertInOrganization } from "@/db/issues";
+import { conversationPins, employees, members, workUnread } from "@/db/schema";
 import { pushMessages } from "@/lib/realtime";
 import type { WorkReplies } from "@/lib/types";
 import { InputError } from "@/lib/validate";
@@ -27,8 +28,9 @@ export async function recordReply(organizationId: string, employeeId: string, at
     const [employee] = await tx
       .select({ lastReplyAt: employees.lastReplyAt })
       .from(employees)
-      .where(and(eq(employees.id, employeeId), eq(employees.organizationId, organizationId)))
+      .where(and(eq(employees.id, employeeId), eq(employees.organizationId, organizationId), isNull(employees.archivedAt)))
       .for("update");
+    // An archived employee (MC-305) leaves nothing unread.
     if (!employee || (employee.lastReplyAt && employee.lastReplyAt >= time)) return false;
     await tx.update(employees).set({ lastReplyAt: time }).where(eq(employees.id, employeeId));
     if (!employee.lastReplyAt) return false;
@@ -47,19 +49,26 @@ export async function recordReply(organizationId: string, employeeId: string, at
 
 /** The person's unread replies in the organization and when each employee last replied, by employee id. */
 export async function workRepliesOf(organizationId: string, userId: string): Promise<WorkReplies> {
-  const [counts, times] = await Promise.all([
+  const [counts, times, pins] = await Promise.all([
     db
       .select({ employeeId: workUnread.employeeId, count: workUnread.count })
       .from(workUnread)
+      // Not counting archived employees' (MC-305): they're nowhere to read.
+      .innerJoin(employees, and(eq(employees.id, workUnread.employeeId), isNull(employees.archivedAt)))
       .where(and(eq(workUnread.organizationId, organizationId), eq(workUnread.userId, userId), gt(workUnread.count, 0))),
     db
       .select({ employeeId: employees.id, lastReplyAt: employees.lastReplyAt })
       .from(employees)
       .where(and(eq(employees.organizationId, organizationId), isNotNull(employees.lastReplyAt))),
+    db
+      .select({ employeeId: conversationPins.employeeId, pinnedAt: conversationPins.pinnedAt })
+      .from(conversationPins)
+      .where(and(eq(conversationPins.organizationId, organizationId), eq(conversationPins.userId, userId))),
   ]);
   return {
     unread: Object.fromEntries(counts.map((row) => [row.employeeId, row.count])),
     repliedAt: Object.fromEntries(times.map((row) => [row.employeeId, row.lastReplyAt!.toISOString()])),
+    pinned: Object.fromEntries(pins.map((row) => [row.employeeId, row.pinnedAt.toISOString()])),
   };
 }
 
@@ -78,4 +87,35 @@ export async function markWorkRead(organizationId: string, userId: string, emplo
     )
     .returning({ employeeId: workUnread.employeeId });
   if (cleared.length > 0) pushMessages(organizationId);
+}
+
+/**
+ * Marks the employee's work unread for the person (MC-310), as if one reply came they haven't seen: it shows bold
+ * with a count again, till they open it.
+ */
+export async function markWorkUnread(organizationId: string, userId: string, employeeId: string) {
+  await assertInOrganization(employees, [employeeId], organizationId);
+  await db
+    .insert(workUnread)
+    .values({ organizationId, userId, employeeId, count: 1 })
+    .onConflictDoUpdate({
+      target: [workUnread.userId, workUnread.employeeId],
+      set: { count: sql`greatest(${workUnread.count}, 1)`, updatedAt: new Date() },
+    });
+  pushMessages(organizationId);
+}
+
+/** Pins the conversation to the top of the person's Messages list, or unpins it (MC-310). */
+export async function pinConversation(organizationId: string, userId: string, employeeId: string, pinned: boolean) {
+  await assertInOrganization(employees, [employeeId], organizationId);
+  if (pinned) {
+    await db
+      .insert(conversationPins)
+      .values({ organizationId, userId, employeeId })
+      .onConflictDoUpdate({ target: [conversationPins.userId, conversationPins.employeeId], set: { pinnedAt: new Date() } });
+  } else {
+    await db
+      .delete(conversationPins)
+      .where(and(eq(conversationPins.userId, userId), eq(conversationPins.employeeId, employeeId)));
+  }
 }

@@ -20,7 +20,7 @@ export const MOCK_PROJECTS: Project[] = [
 ];
 
 // The seed has no agents connected and no heartbeats, so the employees carry neither.
-export const MOCK_EMPLOYEES: Omit<Employee, "runtime" | "heartbeat">[] = [
+export const MOCK_EMPLOYEES: Omit<Employee, "runtime" | "heartbeat" | "archivedAt" | "agentSettings">[] = [
   {
     id: "emp-1",
     name: "Ada",

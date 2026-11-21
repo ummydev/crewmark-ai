@@ -2,6 +2,13 @@ import type { GuideCopy } from "@/components/landing/guide-article";
 import { guideLocales } from "@/i18n/guides";
 
 import { copy as zh } from "./i18n/zh/personal-agent-hub";
+import { copy as zhTW } from "./i18n/zh-TW/personal-agent-hub";
+import { copy as ja } from "./i18n/ja/personal-agent-hub";
+import { copy as ko } from "./i18n/ko/personal-agent-hub";
+import { copy as es } from "./i18n/es/personal-agent-hub";
+import { copy as ptBR } from "./i18n/pt-BR/personal-agent-hub";
+import { copy as fr } from "./i18n/fr/personal-agent-hub";
+import { copy as de } from "./i18n/de/personal-agent-hub";
 
 // /personal-agent: the hub for personal AI agents (Alex asked for the section on 2026-11-10), for "personal agent"
 // (Bing: about 3.2k impressions in three months), "personal ai agent", "personal agents", "best personal ai agent",
@@ -18,6 +25,13 @@ export type PersonalAgentHubLocale = (typeof PERSONAL_AGENT_HUB_LOCALES)[number]
 
 export const personalAgentHub: Record<PersonalAgentHubLocale, GuideCopy> = {
   zh,
+  "zh-TW": zhTW,
+  ja,
+  ko,
+  es,
+  "pt-BR": ptBR,
+  fr,
+  de,
   en: {
     meta: {
       title: "Personal AI Agents 2026: Muse, Grok Bot, Dots Compared",
@@ -78,6 +92,25 @@ export const personalAgentHub: Record<PersonalAgentHubLocale, GuideCopy> = {
           "You live in Google's apps: Gemini tasks with Google AI Pro. In Microsoft 365 at work: Autopilot, if your organization is in Frontier.",
           "You want an agent that can make calls and pay within a budget: Manus Cue, in early access. See [Manus Cue](/personal-agent/manus-cue).",
           "You want it on your own machine with your own model: OpenClaw or Hermes Agent, both open source.",
+        ],
+      },
+      {
+        kind: "table",
+        id: "ai-coworkers",
+        title: "AI coworkers for work",
+        text: [
+          "Agents built for work tasks rather than errands, with a guide to each. From each maker's own pages on November 13, 2026; more in [AI coworker tools compared](/blog/ai-coworker).",
+        ],
+        headers: ["AI coworker", "Made by", "Built for", "Cheapest way in"],
+        rows: [
+          ["[Claude Cowork](/personal-agent/claude-cowork)", "Anthropic", "Research, documents, spreadsheets and slides in the Claude apps", "Claude Pro, $20/mo"],
+          ["[Copilot Cowork](/personal-agent/copilot-cowork)", "Microsoft", "Multi-step tasks across Outlook, Teams and Office files", "Microsoft 365 Copilot license plus Copilot Credits"],
+          ["[ChatGPT Work](/personal-agent/chatgpt-work)", "OpenAI", "Tasks that end in a deck, a spreadsheet or an analysis", "Limited on ChatGPT Free in the desktop app; full from Plus, $20/mo"],
+          ["[Cursor Projects](/personal-agent/cursor-projects)", "Cursor", "A coordinator agent that runs many cloud coding agents", "Cursor Premium, $30/mo"],
+          ["[Lindy](/personal-agent/lindy)", "Lindy", "An assistant in email, Slack, iMessage and phone", "Free trial; then $29.99/mo per active user"],
+          ["[OpenWorker](/personal-agent/openworker)", "Andrew Ng, open source", "A desktop AI coworker that asks before acting", "Free; your own model key or a local model"],
+          ["[OpenBot](/personal-agent/openbot)", "CopilotKit, open source", "A self-hosted workspace for AI coworkers", "Free for personal projects"],
+          ["[Suparagent](/personal-agent/suparagent)", "Open source", "Named agents with routines on Claude Code, Codex or Gemini CLI", "Free to self-host"],
         ],
       },
       {

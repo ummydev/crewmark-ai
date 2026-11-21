@@ -155,6 +155,55 @@
       "when": 1794315559382,
       "tag": "0021_work_unread",
       "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "7",
+      "when": 1794368595435,
+      "tag": "0022_devices",
+      "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "7",
+      "when": 1794394639720,
+      "tag": "0023_employee_archive",
+      "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1794401109387,
+      "tag": "0024_agent_settings",
+      "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "7",
+      "when": 1794406295525,
+      "tag": "0025_conversation_pins",
+      "breakpoints": true
+    },
+    {
+      "idx": 26,
+      "version": "7",
+      "when": 1794483272345,
+      "tag": "0026_work_file_storage",
+      "breakpoints": true
+    },
+    {
+      "idx": 27,
+      "version": "7",
+      "when": 1794513207374,
+      "tag": "0027_acp_agents",
+      "breakpoints": true
+    },
+    {
+      "idx": 28,
+      "version": "7",
+      "when": 1794557332180,
+      "tag": "0028_device_folders",
+      "breakpoints": true
     }
   ]
 }

@@ -4,11 +4,12 @@ import { subscribedIssueIds } from "@/db/subscriptions";
 import type { AgentIssue, IssueInput } from "@/lib/agent-api";
 import { agentLinks, findAssignee, readJson, recurrenceInput, toAgentIssue } from "@/lib/agent-data";
 import { agentRoute } from "@/lib/agent-route";
+import { searchIssues } from "@/lib/issue-search";
 import { issueStatus } from "@/lib/validate";
 
 // `crewmark issues`: the organization's issues, filtered by ?assignee=me|none|<employee or person: id or name>,
 // ?status=todo,in_progress (comma-separated), ?project=<id>, ?open=true (not done) and ?subscribed=me (those the
-// employee follows).
+// employee follows); `crewmark issues search` adds ?q=<words or key> (MC-214), best matches first.
 export const GET = agentRoute(async ({ agent, request }): Promise<{ issues: AgentIssue[] }> => {
   const params = new URL(request.url).searchParams;
   const assignee = params.get("assignee");
@@ -21,8 +22,9 @@ export const GET = agentRoute(async ({ agent, request }): Promise<{ issues: Agen
   ]);
   const assigneeId = assignee === null || assignee === "none" ? null : findAssignee(data, assignee, agent.employeeId);
   const links = agentLinks(request, agent);
+  const q = params.get("q")?.trim();
   return {
-    issues: data.issues
+    issues: (q ? searchIssues(data.issues, q) : data.issues)
       .filter((i) => assignee === null || i.assigneeId === assigneeId)
       .filter((i) => !statuses || statuses.includes(i.status))
       .filter((i) => !project || i.projectId === project)

@@ -81,6 +81,20 @@ export const copy: GuideCopy = {
       ],
     },
     {
+      kind: "table",
+      id: "ai-coworkers",
+      title: "新着：AI の同僚アプリ、Grok Bot と OpenBot",
+      text: [
+        "この比較を最初に書いてから、「AI の同僚」をうたう 2 つの製品が注目を集めています。xAI の Grok Bot と、CopilotKit のオープンソースの OpenBot です。どちらも Bot ごとに専用のコンピューターを与えます。内容は 2026年11月13日に各ベンダーのサイトで確認したものです。並べて比較したページは [Grok Bot vs Claude Code](/compare/grok-bot-vs-claude-code) と [OpenBot vs Grok Bot](/compare/openbot-vs-grok-bot) をご覧ください。",
+        "Claude Cowork や Copilot Cowork から ChatGPT Work、Andrew Ng の OpenWorker まで、ほかの AI の同僚は [AI coworker ツール比較](/blog/ai-coworker)にまとめています。",
+      ],
+      headers: ["プラットフォーム", "向いている用途", "仕事の始まり方", "動くモデル", "無料の選択肢", "有料プラン"],
+      rows: [
+        ["Grok Bot", "ホスティング型の AI チームメイトに、自社のアプリ、Slack、Teams、ミーティングで働いてほしいチーム", "Bot にメッセージを送るか、Slack や Teams で仕事を渡す。スケジュールで動くルーティン", "Grok（xAI）、Bot ごとのクラウドコンピューター上で動作", "x.ai/bot に「Get started for free」の表示あり", "Premium（$30/月）に含まれる。Super $100、Ultra $200"],
+        ["OpenBot（オープンソース）", "自分のモデルとエージェントで動かす、セルフホスト型の AI の同僚", "チャット、承認、Routines。自前のエージェントは AG-UI で接続", "自分で選択：OpenAI、Claude、Gemini、オープンモデル", "個人プロジェクトは無料", "Business はアクティブユーザーあたり最大 $29/月"],
+      ],
+    },
+    {
       kind: "text",
       title: "無料の AI 社員と、GitHub のオープンソース AI 社員",
       text: [

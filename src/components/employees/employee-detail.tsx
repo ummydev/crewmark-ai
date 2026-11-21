@@ -1,13 +1,15 @@
 "use client";
 
+import * as React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ChevronRightIcon, MessageCircleIcon } from "lucide-react";
+import { ArchiveIcon, ChevronRightIcon, MessageCircleIcon } from "lucide-react";
 import { toast } from "sonner";
 
 import { useCrewStore, useOrgPath } from "@/components/crew-store";
 import { DeleteMenu } from "@/components/delete-menu";
 import { EmployeeEmojiPicker } from "@/components/employee-avatar";
+import { ArchiveDialog } from "@/components/employees/archive-employee";
 import { AgentPanel } from "@/components/employees/connect-agent";
 import { EMPLOYEE_STATUS_DOT, EmployeeStatusSelect, RoleField } from "@/components/employees/employee-fields";
 import { HeartbeatFields } from "@/components/employees/heartbeat-fields";
@@ -17,6 +19,7 @@ import { StatusIcon } from "@/components/issues/status-icon";
 import { ProjectPills } from "@/components/projects/project-pills";
 import { PageHeader } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
@@ -40,6 +43,7 @@ export function EmployeeDetail({ employeeId }: { employeeId: string }) {
   const { employees, issues, updateEmployee, deleteEmployee, orgPath } = useCrewStore();
   const router = useRouter();
   const employee = employees.find((e) => e.id === employeeId);
+  const [archiving, setArchiving] = React.useState(false);
 
   if (!employee) {
     return (
@@ -79,6 +83,12 @@ export function EmployeeDetail({ employeeId }: { employeeId: string }) {
               Message
             </Button>
             <DeleteMenu
+              items={
+                <DropdownMenuItem onClick={() => setArchiving(true)}>
+                  <ArchiveIcon />
+                  Archive employee
+                </DropdownMenuItem>
+              }
               label="Delete employee"
               title={`Delete ${employee.name || "this employee"}?`}
               description={
@@ -91,6 +101,12 @@ export function EmployeeDetail({ employeeId }: { employeeId: string }) {
                 await deleteEmployee(employee.id);
                 toast.success(`${employee.name || "The employee"} was deleted`);
               }}
+            />
+            <ArchiveDialog
+              employee={employee}
+              open={archiving}
+              onOpenChange={setArchiving}
+              leaveTo={orgPath("/employees")}
             />
           </>
         }

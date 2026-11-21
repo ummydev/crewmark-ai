@@ -3,6 +3,9 @@
 # for new terminals. When the crewmark daemon already runs here, it restarts it on the new version; it never sets the
 # daemon up on its own.
 #   irm https://crewmark.ai/install.ps1 | iex
+# With CREWMARK_LOGIN, the one-time login in the command Crewmark shows when you connect a computer (MC-421), it also
+# logs the CLI in as you and starts the daemon, so you can start employees on this computer from Crewmark:
+#   $env:CREWMARK_LOGIN='cml_…'; irm https://crewmark.ai/install.ps1 | iex
 # CREWMARK_DOWNLOAD_URL overrides where the binary comes from; CREWMARK_NO_MODIFY_PATH=1 leaves PATH alone;
 # CREWMARK_NO_TELEMETRY=1 or DO_NOT_TRACK=1 skips the anonymous install counts (see Send-InstallEvent below).
 $ErrorActionPreference = 'Stop'
@@ -54,12 +57,24 @@ $version = (& $exe --version)
 Write-Host "Installed crewmark $version to $exe"
 Send-InstallEvent 'cli installed' $version
 
-# The daemon is set up only once the person agrees (`crewmark daemon install`, which the setup instructions have the
-# agent ask them about). When it already runs here, restart it so it runs the version just installed.
+# Connecting this computer from Crewmark: running the command it showed is the person's say-so for the daemon too.
+if ($env:CREWMARK_LOGIN) {
+  $loginArgs = @('login', '--secret', $env:CREWMARK_LOGIN)
+  if ($env:CREWMARK_URL) { $loginArgs += @('--url', $env:CREWMARK_URL) }
+  & $exe @loginArgs
+  if ($LASTEXITCODE -ne 0) { throw "Couldn't log in. Copy a new command from Crewmark and run it again." }
+  & $exe daemon install
+  if ($LASTEXITCODE -ne 0) { throw 'Could not start the crewmark daemon: run `crewmark daemon install`.' }
+  Remove-Item Env:CREWMARK_LOGIN
+  Write-Host 'This computer is connected. Go back to Crewmark to start an employee here.'
+} else {
+# Otherwise the daemon is set up only once the person agrees (`crewmark daemon install`, which the setup instructions
+# have the agent ask them about). When it already runs here, restart it so it runs the version just installed.
 & schtasks /Query /TN Crewmark *> $null
 if ($LASTEXITCODE -eq 0) {
   & $exe daemon install
   if ($LASTEXITCODE -ne 0) { Write-Host 'Could not restart the crewmark daemon: run `crewmark daemon install`.' }
+}
 }
 
 $pathDirs = @($env:Path -split ';' | ForEach-Object { $_.TrimEnd('\') })

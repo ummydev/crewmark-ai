@@ -6,6 +6,7 @@ import { getOrganizationData } from "@/db/queries";
 import type { SetupRequest, SetupResponse } from "@/lib/agent-api";
 import { exchangeSetupToken, type ConnectionInfo } from "@/lib/agent-auth";
 import { toAgentEmployee } from "@/lib/agent-data";
+import { machineIdOf } from "@/lib/device-records";
 import { captureServerEvent } from "@/lib/server-analytics";
 import { RUNTIME_VALUES, oneOf, text } from "@/lib/validate";
 
@@ -30,7 +31,7 @@ export function connectionInfo(body: Partial<Omit<SetupRequest, "token">>): Conn
 
 /** Uses up the setup token for the employee's API key, or returns null when the token doesn't work. */
 export async function connectAgent(request: Request, token: string, info: ConnectionInfo): Promise<SetupResponse | null> {
-  const exchanged = await exchangeSetupToken(token, info);
+  const exchanged = await exchangeSetupToken(token, info, machineIdOf(request));
   if (!exchanged) return null;
   // Counted here rather than by the install scripts, which agents may run with telemetry off: every connected
   // agent passes through this request.

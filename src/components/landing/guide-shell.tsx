@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 import NextLink from "next/link";
 
 import { LandingIcons } from "@/components/landing/landing-icons";
+import { LegalLinks } from "@/components/landing/legal-links";
 import { LatestPosts } from "@/components/landing/latest-posts";
 import { SignUpLinks } from "@/components/landing/sign-up-links";
 import { guideLocale, guides } from "@/i18n/guides";
@@ -93,6 +94,7 @@ export async function GuideShell({
         </nav>
         <div className="foot-bottom">
           <span>© 2026 Crewmark</span>
+          <LegalLinks />
           <nav className="langs" aria-label={t("footer.language")}>
             {locales.map((l) => (
               <Link key={l} href={href} locale={l} lang={l} aria-current={l === locale ? "page" : undefined}>

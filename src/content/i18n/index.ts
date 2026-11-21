@@ -329,6 +329,172 @@ import { copy as esClaudeCodeVsCodex } from "./es/blog-claude-code-vs-codex";
 import { copy as ptBRClaudeCodeVsCodex } from "./pt-BR/blog-claude-code-vs-codex";
 import { copy as frClaudeCodeVsCodex } from "./fr/blog-claude-code-vs-codex";
 import { copy as deClaudeCodeVsCodex } from "./de/blog-claude-code-vs-codex";
+import { copy as koClaudeFable52 } from "./ko/blog-claude-fable-5-2";
+import { copy as esClaudeFable52 } from "./es/blog-claude-fable-5-2";
+import { copy as ptBRClaudeFable52 } from "./pt-BR/blog-claude-fable-5-2";
+import { copy as frClaudeFable52 } from "./fr/blog-claude-fable-5-2";
+import { copy as deClaudeFable52 } from "./de/blog-claude-fable-5-2";
+import { copy as zhOpusMotionGraphics } from "./zh/blog-opus-5-5-motion-graphics";
+import { copy as zhTWOpusMotionGraphics } from "./zh-TW/blog-opus-5-5-motion-graphics";
+import { copy as jaOpusMotionGraphics } from "./ja/blog-opus-5-5-motion-graphics";
+import { copy as koOpusMotionGraphics } from "./ko/blog-opus-5-5-motion-graphics";
+import { copy as esOpusMotionGraphics } from "./es/blog-opus-5-5-motion-graphics";
+import { copy as ptBROpusMotionGraphics } from "./pt-BR/blog-opus-5-5-motion-graphics";
+import { copy as frOpusMotionGraphics } from "./fr/blog-opus-5-5-motion-graphics";
+import { copy as deOpusMotionGraphics } from "./de/blog-opus-5-5-motion-graphics";
+import { copy as zhMultiAgentHarness } from "./zh/blog-multi-agent-harness";
+import { copy as zhTWMultiAgentHarness } from "./zh-TW/blog-multi-agent-harness";
+import { copy as jaMultiAgentHarness } from "./ja/blog-multi-agent-harness";
+import { copy as koMultiAgentHarness } from "./ko/blog-multi-agent-harness";
+import { copy as esMultiAgentHarness } from "./es/blog-multi-agent-harness";
+import { copy as ptBRMultiAgentHarness } from "./pt-BR/blog-multi-agent-harness";
+import { copy as frMultiAgentHarness } from "./fr/blog-multi-agent-harness";
+import { copy as deMultiAgentHarness } from "./de/blog-multi-agent-harness";
+import { copy as zhGemini4Hydrogen } from "./zh/blog-gemini-4-hydrogen";
+import { copy as zhTWGemini4Hydrogen } from "./zh-TW/blog-gemini-4-hydrogen";
+import { copy as jaGemini4Hydrogen } from "./ja/blog-gemini-4-hydrogen";
+import { copy as koGemini4Hydrogen } from "./ko/blog-gemini-4-hydrogen";
+import { copy as esGemini4Hydrogen } from "./es/blog-gemini-4-hydrogen";
+import { copy as ptBRGemini4Hydrogen } from "./pt-BR/blog-gemini-4-hydrogen";
+import { copy as frGemini4Hydrogen } from "./fr/blog-gemini-4-hydrogen";
+import { copy as deGemini4Hydrogen } from "./de/blog-gemini-4-hydrogen";
+import { copy as zhCodexMacMini } from "./zh/blog-codex-mac-mini";
+import { copy as zhTWCodexMacMini } from "./zh-TW/blog-codex-mac-mini";
+import { copy as jaCodexMacMini } from "./ja/blog-codex-mac-mini";
+import { copy as koCodexMacMini } from "./ko/blog-codex-mac-mini";
+import { copy as esCodexMacMini } from "./es/blog-codex-mac-mini";
+import { copy as ptBRCodexMacMini } from "./pt-BR/blog-codex-mac-mini";
+import { copy as frCodexMacMini } from "./fr/blog-codex-mac-mini";
+import { copy as deCodexMacMini } from "./de/blog-codex-mac-mini";
+import { copy as zhCodexVps } from "./zh/blog-codex-vps";
+import { copy as zhTWCodexVps } from "./zh-TW/blog-codex-vps";
+import { copy as jaCodexVps } from "./ja/blog-codex-vps";
+import { copy as koCodexVps } from "./ko/blog-codex-vps";
+import { copy as esCodexVps } from "./es/blog-codex-vps";
+import { copy as ptBRCodexVps } from "./pt-BR/blog-codex-vps";
+import { copy as frCodexVps } from "./fr/blog-codex-vps";
+import { copy as deCodexVps } from "./de/blog-codex-vps";
+import { copy as zhCodexWindows } from "./zh/blog-codex-windows";
+import { copy as zhTWCodexWindows } from "./zh-TW/blog-codex-windows";
+import { copy as jaCodexWindows } from "./ja/blog-codex-windows";
+import { copy as koCodexWindows } from "./ko/blog-codex-windows";
+import { copy as esCodexWindows } from "./es/blog-codex-windows";
+import { copy as ptBRCodexWindows } from "./pt-BR/blog-codex-windows";
+import { copy as frCodexWindows } from "./fr/blog-codex-windows";
+import { copy as deCodexWindows } from "./de/blog-codex-windows";
+import { copy as zhCodexLinux } from "./zh/blog-codex-linux";
+import { copy as zhTWCodexLinux } from "./zh-TW/blog-codex-linux";
+import { copy as jaCodexLinux } from "./ja/blog-codex-linux";
+import { copy as koCodexLinux } from "./ko/blog-codex-linux";
+import { copy as esCodexLinux } from "./es/blog-codex-linux";
+import { copy as ptBRCodexLinux } from "./pt-BR/blog-codex-linux";
+import { copy as frCodexLinux } from "./fr/blog-codex-linux";
+import { copy as deCodexLinux } from "./de/blog-codex-linux";
+import { copy as zhClaudeCodeMacMini } from "./zh/blog-claude-code-mac-mini";
+import { copy as zhTWClaudeCodeMacMini } from "./zh-TW/blog-claude-code-mac-mini";
+import { copy as jaClaudeCodeMacMini } from "./ja/blog-claude-code-mac-mini";
+import { copy as koClaudeCodeMacMini } from "./ko/blog-claude-code-mac-mini";
+import { copy as esClaudeCodeMacMini } from "./es/blog-claude-code-mac-mini";
+import { copy as ptBRClaudeCodeMacMini } from "./pt-BR/blog-claude-code-mac-mini";
+import { copy as frClaudeCodeMacMini } from "./fr/blog-claude-code-mac-mini";
+import { copy as deClaudeCodeMacMini } from "./de/blog-claude-code-mac-mini";
+import { copy as zhClaudeCodeVps } from "./zh/blog-claude-code-vps";
+import { copy as zhTWClaudeCodeVps } from "./zh-TW/blog-claude-code-vps";
+import { copy as jaClaudeCodeVps } from "./ja/blog-claude-code-vps";
+import { copy as koClaudeCodeVps } from "./ko/blog-claude-code-vps";
+import { copy as esClaudeCodeVps } from "./es/blog-claude-code-vps";
+import { copy as ptBRClaudeCodeVps } from "./pt-BR/blog-claude-code-vps";
+import { copy as frClaudeCodeVps } from "./fr/blog-claude-code-vps";
+import { copy as deClaudeCodeVps } from "./de/blog-claude-code-vps";
+import { copy as zhOpenclawReviews } from "./zh/blog-openclaw-reviews";
+import { copy as zhTWOpenclawReviews } from "./zh-TW/blog-openclaw-reviews";
+import { copy as jaOpenclawReviews } from "./ja/blog-openclaw-reviews";
+import { copy as koOpenclawReviews } from "./ko/blog-openclaw-reviews";
+import { copy as esOpenclawReviews } from "./es/blog-openclaw-reviews";
+import { copy as ptBROpenclawReviews } from "./pt-BR/blog-openclaw-reviews";
+import { copy as frOpenclawReviews } from "./fr/blog-openclaw-reviews";
+import { copy as deOpenclawReviews } from "./de/blog-openclaw-reviews";
+import { copy as zhGrokBotReviews } from "./zh/blog-grok-bot-reviews";
+import { copy as zhTWGrokBotReviews } from "./zh-TW/blog-grok-bot-reviews";
+import { copy as jaGrokBotReviews } from "./ja/blog-grok-bot-reviews";
+import { copy as koGrokBotReviews } from "./ko/blog-grok-bot-reviews";
+import { copy as esGrokBotReviews } from "./es/blog-grok-bot-reviews";
+import { copy as ptBRGrokBotReviews } from "./pt-BR/blog-grok-bot-reviews";
+import { copy as frGrokBotReviews } from "./fr/blog-grok-bot-reviews";
+import { copy as deGrokBotReviews } from "./de/blog-grok-bot-reviews";
+import { copy as zhAiCoworker } from "./zh/blog-ai-coworker";
+import { copy as zhTWAiCoworker } from "./zh-TW/blog-ai-coworker";
+import { copy as jaAiCoworker } from "./ja/blog-ai-coworker";
+import { copy as koAiCoworker } from "./ko/blog-ai-coworker";
+import { copy as esAiCoworker } from "./es/blog-ai-coworker";
+import { copy as ptBRAiCoworker } from "./pt-BR/blog-ai-coworker";
+import { copy as frAiCoworker } from "./fr/blog-ai-coworker";
+import { copy as deAiCoworker } from "./de/blog-ai-coworker";
+import { copy as zhClaudeFable52Games } from "./zh/blog-claude-fable-5-2-games";
+import { copy as zhTWClaudeFable52Games } from "./zh-TW/blog-claude-fable-5-2-games";
+import { copy as jaClaudeFable52Games } from "./ja/blog-claude-fable-5-2-games";
+import { copy as koClaudeFable52Games } from "./ko/blog-claude-fable-5-2-games";
+import { copy as esClaudeFable52Games } from "./es/blog-claude-fable-5-2-games";
+import { copy as ptBRClaudeFable52Games } from "./pt-BR/blog-claude-fable-5-2-games";
+import { copy as frClaudeFable52Games } from "./fr/blog-claude-fable-5-2-games";
+import { copy as deClaudeFable52Games } from "./de/blog-claude-fable-5-2-games";
+import { copy as zhClaudeFable52Videos } from "./zh/blog-claude-fable-5-2-videos";
+import { copy as zhTWClaudeFable52Videos } from "./zh-TW/blog-claude-fable-5-2-videos";
+import { copy as jaClaudeFable52Videos } from "./ja/blog-claude-fable-5-2-videos";
+import { copy as koClaudeFable52Videos } from "./ko/blog-claude-fable-5-2-videos";
+import { copy as esClaudeFable52Videos } from "./es/blog-claude-fable-5-2-videos";
+import { copy as ptBRClaudeFable52Videos } from "./pt-BR/blog-claude-fable-5-2-videos";
+import { copy as frClaudeFable52Videos } from "./fr/blog-claude-fable-5-2-videos";
+import { copy as deClaudeFable52Videos } from "./de/blog-claude-fable-5-2-videos";
+import { copy as zhTWAiderAlternatives } from "./zh-TW/blog-aider-alternatives";
+import { copy as jaAiderAlternatives } from "./ja/blog-aider-alternatives";
+import { copy as koAiderAlternatives } from "./ko/blog-aider-alternatives";
+import { copy as esAiderAlternatives } from "./es/blog-aider-alternatives";
+import { copy as ptBRAiderAlternatives } from "./pt-BR/blog-aider-alternatives";
+import { copy as frAiderAlternatives } from "./fr/blog-aider-alternatives";
+import { copy as deAiderAlternatives } from "./de/blog-aider-alternatives";
+import { copy as zhTWOpencodeAlternatives } from "./zh-TW/blog-opencode-alternatives";
+import { copy as jaOpencodeAlternatives } from "./ja/blog-opencode-alternatives";
+import { copy as koOpencodeAlternatives } from "./ko/blog-opencode-alternatives";
+import { copy as esOpencodeAlternatives } from "./es/blog-opencode-alternatives";
+import { copy as ptBROpencodeAlternatives } from "./pt-BR/blog-opencode-alternatives";
+import { copy as frOpencodeAlternatives } from "./fr/blog-opencode-alternatives";
+import { copy as deOpencodeAlternatives } from "./de/blog-opencode-alternatives";
+import { copy as zhTWDevinAlternatives } from "./zh-TW/blog-devin-alternatives";
+import { copy as jaDevinAlternatives } from "./ja/blog-devin-alternatives";
+import { copy as koDevinAlternatives } from "./ko/blog-devin-alternatives";
+import { copy as esDevinAlternatives } from "./es/blog-devin-alternatives";
+import { copy as ptBRDevinAlternatives } from "./pt-BR/blog-devin-alternatives";
+import { copy as frDevinAlternatives } from "./fr/blog-devin-alternatives";
+import { copy as deDevinAlternatives } from "./de/blog-devin-alternatives";
+import { copy as zhTWClaudeCodeChannels } from "./zh-TW/blog-claude-code-channels";
+import { copy as jaClaudeCodeChannels } from "./ja/blog-claude-code-channels";
+import { copy as koClaudeCodeChannels } from "./ko/blog-claude-code-channels";
+import { copy as esClaudeCodeChannels } from "./es/blog-claude-code-channels";
+import { copy as ptBRClaudeCodeChannels } from "./pt-BR/blog-claude-code-channels";
+import { copy as frClaudeCodeChannels } from "./fr/blog-claude-code-channels";
+import { copy as deClaudeCodeChannels } from "./de/blog-claude-code-channels";
+import { copy as zhTWCodexRemoteControl } from "./zh-TW/blog-codex-remote-control";
+import { copy as jaCodexRemoteControl } from "./ja/blog-codex-remote-control";
+import { copy as koCodexRemoteControl } from "./ko/blog-codex-remote-control";
+import { copy as esCodexRemoteControl } from "./es/blog-codex-remote-control";
+import { copy as ptBRCodexRemoteControl } from "./pt-BR/blog-codex-remote-control";
+import { copy as frCodexRemoteControl } from "./fr/blog-codex-remote-control";
+import { copy as deCodexRemoteControl } from "./de/blog-codex-remote-control";
+import { copy as zhTWCodexLongRunningTasks } from "./zh-TW/blog-codex-long-running-tasks";
+import { copy as jaCodexLongRunningTasks } from "./ja/blog-codex-long-running-tasks";
+import { copy as koCodexLongRunningTasks } from "./ko/blog-codex-long-running-tasks";
+import { copy as esCodexLongRunningTasks } from "./es/blog-codex-long-running-tasks";
+import { copy as ptBRCodexLongRunningTasks } from "./pt-BR/blog-codex-long-running-tasks";
+import { copy as frCodexLongRunningTasks } from "./fr/blog-codex-long-running-tasks";
+import { copy as deCodexLongRunningTasks } from "./de/blog-codex-long-running-tasks";
+import { copy as zhTWRunClaudeCode247 } from "./zh-TW/blog-run-claude-code-24-7";
+import { copy as jaRunClaudeCode247 } from "./ja/blog-run-claude-code-24-7";
+import { copy as koRunClaudeCode247 } from "./ko/blog-run-claude-code-24-7";
+import { copy as esRunClaudeCode247 } from "./es/blog-run-claude-code-24-7";
+import { copy as ptBRRunClaudeCode247 } from "./pt-BR/blog-run-claude-code-24-7";
+import { copy as frRunClaudeCode247 } from "./fr/blog-run-claude-code-24-7";
+import { copy as deRunClaudeCode247 } from "./de/blog-run-claude-code-24-7";
 
 export const aiEmployeesTranslations = {
   "zh-TW": zhTWAiEmployees,
@@ -755,21 +921,41 @@ export const hermesAgentVsOpenclawTranslations = {
   de: deHermesAgentVsOpenclaw,
 };
 
-export const runClaudeCode247Translations = { zh: zhRunClaudeCode247 };
+export const runClaudeCode247Translations = { zh: zhRunClaudeCode247, "zh-TW": zhTWRunClaudeCode247, ja: jaRunClaudeCode247, ko: koRunClaudeCode247, es: esRunClaudeCode247, "pt-BR": ptBRRunClaudeCode247, fr: frRunClaudeCode247, de: deRunClaudeCode247 };
 
-export const codexLongRunningTasksTranslations = { zh: zhCodexLongRunningTasks };
+export const codexLongRunningTasksTranslations = { zh: zhCodexLongRunningTasks, "zh-TW": zhTWCodexLongRunningTasks, ja: jaCodexLongRunningTasks, ko: koCodexLongRunningTasks, es: esCodexLongRunningTasks, "pt-BR": ptBRCodexLongRunningTasks, fr: frCodexLongRunningTasks, de: deCodexLongRunningTasks };
 
-export const codexRemoteControlTranslations = { zh: zhCodexRemoteControl };
+export const codexRemoteControlTranslations = { zh: zhCodexRemoteControl, "zh-TW": zhTWCodexRemoteControl, ja: jaCodexRemoteControl, ko: koCodexRemoteControl, es: esCodexRemoteControl, "pt-BR": ptBRCodexRemoteControl, fr: frCodexRemoteControl, de: deCodexRemoteControl };
 
-export const claudeCodeChannelsTranslations = { zh: zhClaudeCodeChannels };
+export const claudeCodeChannelsTranslations = { zh: zhClaudeCodeChannels, "zh-TW": zhTWClaudeCodeChannels, ja: jaClaudeCodeChannels, ko: koClaudeCodeChannels, es: esClaudeCodeChannels, "pt-BR": ptBRClaudeCodeChannels, fr: frClaudeCodeChannels, de: deClaudeCodeChannels };
 
-export const devinAlternativesTranslations = { zh: zhDevinAlternatives };
+export const devinAlternativesTranslations = { zh: zhDevinAlternatives, "zh-TW": zhTWDevinAlternatives, ja: jaDevinAlternatives, ko: koDevinAlternatives, es: esDevinAlternatives, "pt-BR": ptBRDevinAlternatives, fr: frDevinAlternatives, de: deDevinAlternatives };
 
-export const opencodeAlternativesTranslations = { zh: zhOpencodeAlternatives };
+export const opencodeAlternativesTranslations = { zh: zhOpencodeAlternatives, "zh-TW": zhTWOpencodeAlternatives, ja: jaOpencodeAlternatives, ko: koOpencodeAlternatives, es: esOpencodeAlternatives, "pt-BR": ptBROpencodeAlternatives, fr: frOpencodeAlternatives, de: deOpencodeAlternatives };
 
-export const aiderAlternativesTranslations = { zh: zhAiderAlternatives };
+export const aiderAlternativesTranslations = { zh: zhAiderAlternatives, "zh-TW": zhTWAiderAlternatives, ja: jaAiderAlternatives, ko: koAiderAlternatives, es: esAiderAlternatives, "pt-BR": ptBRAiderAlternatives, fr: frAiderAlternatives, de: deAiderAlternatives };
 
-export const claudeFable52Translations = { zh: zhClaudeFable52, "zh-TW": zhTWClaudeFable52, ja: jaClaudeFable52 };
+export const claudeFable52Translations = { zh: zhClaudeFable52, "zh-TW": zhTWClaudeFable52, ja: jaClaudeFable52, ko: koClaudeFable52, es: esClaudeFable52, "pt-BR": ptBRClaudeFable52, fr: frClaudeFable52, de: deClaudeFable52 };
+
+export const codexMacMiniTranslations = { zh: zhCodexMacMini, "zh-TW": zhTWCodexMacMini, ja: jaCodexMacMini, ko: koCodexMacMini, es: esCodexMacMini, "pt-BR": ptBRCodexMacMini, fr: frCodexMacMini, de: deCodexMacMini };
+export const codexVpsTranslations = { zh: zhCodexVps, "zh-TW": zhTWCodexVps, ja: jaCodexVps, ko: koCodexVps, es: esCodexVps, "pt-BR": ptBRCodexVps, fr: frCodexVps, de: deCodexVps };
+export const codexWindowsTranslations = { zh: zhCodexWindows, "zh-TW": zhTWCodexWindows, ja: jaCodexWindows, ko: koCodexWindows, es: esCodexWindows, "pt-BR": ptBRCodexWindows, fr: frCodexWindows, de: deCodexWindows };
+export const codexLinuxTranslations = { zh: zhCodexLinux, "zh-TW": zhTWCodexLinux, ja: jaCodexLinux, ko: koCodexLinux, es: esCodexLinux, "pt-BR": ptBRCodexLinux, fr: frCodexLinux, de: deCodexLinux };
+export const claudeCodeMacMiniTranslations = { zh: zhClaudeCodeMacMini, "zh-TW": zhTWClaudeCodeMacMini, ja: jaClaudeCodeMacMini, ko: koClaudeCodeMacMini, es: esClaudeCodeMacMini, "pt-BR": ptBRClaudeCodeMacMini, fr: frClaudeCodeMacMini, de: deClaudeCodeMacMini };
+export const claudeCodeVpsTranslations = { zh: zhClaudeCodeVps, "zh-TW": zhTWClaudeCodeVps, ja: jaClaudeCodeVps, ko: koClaudeCodeVps, es: esClaudeCodeVps, "pt-BR": ptBRClaudeCodeVps, fr: frClaudeCodeVps, de: deClaudeCodeVps };
+export const openclawReviewsTranslations = { zh: zhOpenclawReviews, "zh-TW": zhTWOpenclawReviews, ja: jaOpenclawReviews, ko: koOpenclawReviews, es: esOpenclawReviews, "pt-BR": ptBROpenclawReviews, fr: frOpenclawReviews, de: deOpenclawReviews };
+export const grokBotReviewsTranslations = { zh: zhGrokBotReviews, "zh-TW": zhTWGrokBotReviews, ja: jaGrokBotReviews, ko: koGrokBotReviews, es: esGrokBotReviews, "pt-BR": ptBRGrokBotReviews, fr: frGrokBotReviews, de: deGrokBotReviews };
+export const aiCoworkerTranslations = { zh: zhAiCoworker, "zh-TW": zhTWAiCoworker, ja: jaAiCoworker, ko: koAiCoworker, es: esAiCoworker, "pt-BR": ptBRAiCoworker, fr: frAiCoworker, de: deAiCoworker };
+
+export const gemini4HydrogenTranslations = { zh: zhGemini4Hydrogen, "zh-TW": zhTWGemini4Hydrogen, ja: jaGemini4Hydrogen, ko: koGemini4Hydrogen, es: esGemini4Hydrogen, "pt-BR": ptBRGemini4Hydrogen, fr: frGemini4Hydrogen, de: deGemini4Hydrogen };
+
+export const multiAgentHarnessTranslations = { zh: zhMultiAgentHarness, "zh-TW": zhTWMultiAgentHarness, ja: jaMultiAgentHarness, ko: koMultiAgentHarness, es: esMultiAgentHarness, "pt-BR": ptBRMultiAgentHarness, fr: frMultiAgentHarness, de: deMultiAgentHarness };
+
+export const opusMotionGraphicsTranslations = { zh: zhOpusMotionGraphics, "zh-TW": zhTWOpusMotionGraphics, ja: jaOpusMotionGraphics, ko: koOpusMotionGraphics, es: esOpusMotionGraphics, "pt-BR": ptBROpusMotionGraphics, fr: frOpusMotionGraphics, de: deOpusMotionGraphics };
+
+export const claudeFable52GamesTranslations = { zh: zhClaudeFable52Games, "zh-TW": zhTWClaudeFable52Games, ja: jaClaudeFable52Games, ko: koClaudeFable52Games, es: esClaudeFable52Games, "pt-BR": ptBRClaudeFable52Games, fr: frClaudeFable52Games, de: deClaudeFable52Games };
+
+export const claudeFable52VideosTranslations = { zh: zhClaudeFable52Videos, "zh-TW": zhTWClaudeFable52Videos, ja: jaClaudeFable52Videos, ko: koClaudeFable52Videos, es: esClaudeFable52Videos, "pt-BR": ptBRClaudeFable52Videos, fr: frClaudeFable52Videos, de: deClaudeFable52Videos };
 
 export const claudeCodeAgentTeamsTranslations = {
   zh: zhClaudeCodeAgentTeams,

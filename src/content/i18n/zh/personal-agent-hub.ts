@@ -65,6 +65,25 @@ export const copy: GuideCopy = {
       ],
     },
     {
+      kind: "table",
+      id: "ai-coworkers",
+      title: "面向工作的 AI 同事",
+      text: [
+        "为工作任务、而不是生活琐事打造的 agent，每一款都有详细指南。信息来自 2026 年 11 月 13 日各家的官方页面；更多内容见 [AI 同事工具对比](/blog/ai-coworker)。",
+      ],
+      headers: ["AI 同事", "出品方", "面向", "最便宜的入门方式"],
+      rows: [
+        ["[Claude Cowork](/personal-agent/claude-cowork)", "Anthropic", "在 Claude 应用里做调研、文档、电子表格和幻灯片", "Claude Pro，每月 $20"],
+        ["[Copilot Cowork](/personal-agent/copilot-cowork)", "Microsoft", "跨 Outlook、Teams 和 Office 文件的多步骤任务", "Microsoft 365 Copilot 许可证加 Copilot Credits"],
+        ["[ChatGPT Work](/personal-agent/chatgpt-work)", "OpenAI", "最终产出演示文稿、电子表格或分析的任务", "ChatGPT Free 可在桌面应用中有限使用；Plus 起可完整使用，每月 $20"],
+        ["[Cursor Projects](/personal-agent/cursor-projects)", "Cursor", "一个协调者 agent 运行许多云端编程 agent", "Cursor Premium，每月 $30"],
+        ["[Lindy](/personal-agent/lindy)", "Lindy", "在邮件、Slack、iMessage 和电话里工作的助手", "免费试用；之后每位活跃用户每月 $29.99"],
+        ["[OpenWorker](/personal-agent/openworker)", "Andrew Ng，开源", "行动前先问你的桌面 AI 同事", "免费；用你自己的模型密钥或本地模型"],
+        ["[OpenBot](/personal-agent/openbot)", "CopilotKit，开源", "可自托管的 AI 同事工作区", "个人项目免费"],
+        ["[Suparagent](/personal-agent/suparagent)", "开源", "在 Claude Code、Codex 或 Gemini CLI 上运行、带例行任务的具名 agent", "自托管免费"],
+      ],
+    },
+    {
       kind: "text",
       id: "safety",
       title: "交出账号之前",

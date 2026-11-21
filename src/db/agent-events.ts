@@ -1,6 +1,6 @@
 import "server-only";
 
-import { and, asc, desc, eq, gt, inArray } from "drizzle-orm";
+import { and, asc, desc, eq, gt, inArray, isNull } from "drizzle-orm";
 
 import { db } from "@/db";
 import type { IssueCreator } from "@/db/issues";
@@ -138,7 +138,7 @@ export async function notifyMentioned(
   const staff = await db
     .select({ id: employees.id, name: employees.name })
     .from(employees)
-    .where(eq(employees.organizationId, organizationId));
+    .where(and(eq(employees.organizationId, organizationId), isNull(employees.archivedAt)));
   const author = "employeeId" in actor ? actor.employeeId : null;
   const mentioned = mentionedEmployees(body, staff).filter((id) => id !== author);
   const employeeIds = mentioned.filter((id) => id !== issue.assigneeId);

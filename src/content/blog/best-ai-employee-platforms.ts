@@ -88,6 +88,20 @@ export const bestAiEmployeePlatforms: Partial<Record<"en", GuideCopy>> = {
         ],
       },
       {
+        kind: "table",
+        id: "ai-coworkers",
+        title: "New: AI coworker apps, Grok Bot and OpenBot",
+        text: [
+          "Two \"AI coworker\" products have drawn attention since this comparison was first written: xAI's Grok Bot and CopilotKit's open-source OpenBot. Both give each Bot a computer of its own. Facts from each vendor's site, checked on November 13, 2026; side by side in [Grok Bot vs Claude Code](/compare/grok-bot-vs-claude-code) and [OpenBot vs Grok Bot](/compare/openbot-vs-grok-bot).",
+          "More AI coworkers, from Claude Cowork and Copilot Cowork to ChatGPT Work and Andrew Ng's OpenWorker, are in [AI coworker tools compared](/blog/ai-coworker).",
+        ],
+        headers: ["Platform", "Best for", "How work starts", "Runs on", "Free option", "Paid from"],
+        rows: [
+          ["Grok Bot", "Teams that want hosted AI teammates working in their apps, Slack, Teams and meetings", "You message a Bot or hand it work in Slack or Teams; routines on a schedule", "Grok (xAI), on a cloud computer per Bot", "“Get started for free” on x.ai/bot", "Included in Premium at $30/month; Super $100, Ultra $200"],
+          ["OpenBot (open source)", "Self-hosted AI coworkers with your own models and agents", "Chat, approvals and Routines; your own agents connect through AG-UI", "Your choice: OpenAI, Claude, Gemini or open models", "Free for personal projects", "Business up to $29 per active user/month"],
+        ],
+      },
+      {
         kind: "text",
         title: "Free AI employees, and open-source ones on GitHub",
         text: [

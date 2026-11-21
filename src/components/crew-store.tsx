@@ -5,11 +5,13 @@ import { toast } from "sonner";
 
 import type { OrganizationData } from "@/db/queries";
 import {
+  archiveEmployee as saveArchived,
   createEmployee,
   createIssue,
   createProject,
   deleteEmployee as removeEmployee,
   deleteIssue as removeIssue,
+  getIssue,
   updateEmployee as saveEmployee,
   updateIssue as saveIssue,
   updateProject as saveProject,
@@ -19,6 +21,7 @@ import {
   type NewEmployeeInput,
   type NewIssueInput,
 } from "@/lib/actions";
+import { useRealtime } from "@/components/use-realtime";
 import { identify, track } from "@/lib/analytics";
 import type { AgentRuntime, Employee, Issue, IssueStatus, MemberRole, Organization, Project, User } from "@/lib/types";
 
@@ -60,8 +63,18 @@ interface CrewStore {
   moveIssue: (id: string, status: IssueStatus) => void;
   /** Deletes the issue for good; rejects when the server couldn't. */
   deleteIssue: (id: string) => Promise<void>;
+  /**
+   * Fetches one issue by id or key and puts it on the board as it is now (MC-455): for a link to one this tab loaded
+   * before it was filed. Null when there's no such issue.
+   */
+  loadIssue: (idOrKey: string) => Promise<Issue | null>;
   /** Deletes the employee for good. Its issues stay, unassigned; its connected agent is disconnected. */
   deleteEmployee: (id: string) => Promise<void>;
+  /** The employees it archived (MC-305), shown only where they can be brought back. */
+  archivedEmployees: Employee[];
+  /** Archives the employee: it's gone from everywhere until brought back. */
+  archiveEmployee: (id: string) => Promise<void>;
+  restoreEmployee: (id: string) => Promise<void>;
 }
 
 const CrewStoreContext = React.createContext<CrewStore | null>(null);
@@ -136,6 +149,7 @@ export function CrewStoreProvider({
   const organizationId = organization.id;
   const [projects, setProjects] = React.useState(initialData.projects);
   const [employees, setEmployees] = React.useState(initialData.employees);
+  const [archivedEmployees, setArchivedEmployees] = React.useState(initialData.archivedEmployees);
   const [issues, setIssues] = React.useState(initialData.issues);
   const queueEmployeeSave = useDebouncedSaver(
     React.useCallback((id: string, patch: EmployeePatch) => saveEmployee(organizationId, id, patch), [organizationId]),
@@ -144,6 +158,30 @@ export function CrewStoreProvider({
     React.useCallback((id: string, patch: IssuePatch) => saveIssue(organizationId, id, patch), [organizationId]),
   );
   const orgPath = React.useCallback((path: string) => `/org/${organization.slug}${path}`, [organization.slug]);
+
+  // Issues change on the server too: employees file, move and close them from the CLI (MC-455). A tab hears which
+  // issue changed and fetches it; the server's copy replaces the tab's unless the tab changed it more recently (an
+  // edit still being saved), and an issue that's gone comes off the board.
+  const loadIssue = React.useCallback(
+    async (idOrKey: string) => {
+      const fresh = await getIssue(organizationId, idOrKey);
+      setIssues((prev) => {
+        if (!fresh) return idOrKey.startsWith("MC-") ? prev : prev.filter((i) => i.id !== idOrKey);
+        const mine = prev.find((i) => i.id === fresh.id);
+        if (!mine) return [...prev, fresh];
+        return mine.updatedAt > fresh.updatedAt ? prev : prev.map((i) => (i.id === fresh.id ? fresh : i));
+      });
+      return fresh;
+    },
+    [organizationId],
+  );
+  useRealtime(
+    organizationId,
+    (push) => {
+      if (push.type === "activity") loadIssue(push.issueId).catch(() => {});
+    },
+    () => {},
+  );
 
   // Everyone who signs in ends up here, so this one call identifies them for PostHog.
   React.useEffect(() => identify(currentUser, organizationId), [currentUser, organizationId]);
@@ -224,6 +262,28 @@ export function CrewStoreProvider({
     track("issue deleted", {});
   }, [organizationId]);
 
+  const archiveEmployee = React.useCallback(
+    async (id: string) => {
+      await saveArchived(organizationId, id, true);
+      const archived = employees.find((e) => e.id === id);
+      setEmployees((prev) => prev.filter((e) => e.id !== id));
+      if (archived) setArchivedEmployees((prev) => [...prev, { ...archived, archivedAt: new Date().toISOString() }]);
+      track("employee archived", {});
+    },
+    [organizationId, employees],
+  );
+
+  const restoreEmployee = React.useCallback(
+    async (id: string) => {
+      await saveArchived(organizationId, id, false);
+      const restored = archivedEmployees.find((e) => e.id === id);
+      setArchivedEmployees((prev) => prev.filter((e) => e.id !== id));
+      if (restored) setEmployees((prev) => [...prev, { ...restored, archivedAt: null }]);
+      track("employee restored", {});
+    },
+    [organizationId, archivedEmployees],
+  );
+
   const deleteEmployee = React.useCallback(async (id: string) => {
     await removeEmployee(organizationId, id);
     setEmployees((prev) => prev.filter((e) => e.id !== id));
@@ -269,9 +329,13 @@ export function CrewStoreProvider({
       updateIssue,
       moveIssue,
       deleteIssue,
+      loadIssue,
       deleteEmployee,
+      archivedEmployees,
+      archiveEmployee,
+      restoreEmployee,
     }),
-    [organization, role, organizations, orgPath, currentUser, initialData.users, members, projects, employees, issues, addProject, updateProject, addEmployee, updateEmployee, showConnectedAgent, addIssue, updateIssue, moveIssue, deleteIssue, deleteEmployee],
+    [organization, role, organizations, orgPath, currentUser, initialData.users, members, projects, employees, issues, addProject, updateProject, addEmployee, updateEmployee, showConnectedAgent, addIssue, updateIssue, moveIssue, deleteIssue, loadIssue, deleteEmployee, archivedEmployees, archiveEmployee, restoreEmployee],
   );
 
   return <CrewStoreContext.Provider value={value}>{children}</CrewStoreContext.Provider>;

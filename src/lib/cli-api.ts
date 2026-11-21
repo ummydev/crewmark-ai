@@ -26,6 +26,9 @@ export interface CliLoginStartResponse {
 /** POST /api/cli/login/poll with the secret. */
 export interface CliLoginPollRequest {
   secret: string;
+  /** The computer, for a login allowed ahead in an install command (MC-421), which doesn't know it yet. */
+  hostname?: string;
+  platform?: string;
 }
 
 export type CliLoginPollResponse = CliLoginPoll;

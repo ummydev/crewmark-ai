@@ -111,6 +111,14 @@ export const conductorAlternatives: Partial<Record<"en", GuideCopy>> = {
         ],
       },
       {
+        kind: "text",
+        id: "compare",
+        title: "Conductor compared side by side",
+        text: [
+          "Two of the tools people move to, next to Conductor fact by fact: [Vibe Kanban vs Conductor](/compare/vibe-kanban-vs-conductor) and [Claude Squad vs Conductor](/compare/claude-squad-vs-conductor). More in [all comparisons](/compare).",
+        ],
+      },
+      {
         kind: "steps",
         id: "crewmark",
         kicker: "With Crewmark",

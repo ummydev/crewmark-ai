@@ -16,6 +16,7 @@ import { revokeCliLogin } from "@/lib/actions";
 import { authClient } from "@/lib/auth-client";
 import { track } from "@/lib/analytics";
 import { fullDate, timeAgo } from "@/lib/format";
+import { formatBytes, PLANS, type WorkFileStorage } from "@/lib/plans";
 import {
   canManageMembers,
   MEMBER_ROLES,
@@ -61,10 +62,12 @@ export function MembersView({
   members,
   invitations,
   cliLogins,
+  storage,
 }: {
   members: Member[];
   invitations: PendingInvitation[];
   cliLogins: CliLogin[];
+  storage: WorkFileStorage;
 }) {
   const { organization, role, currentUser } = useCrewStore();
   const manage = canManageMembers(role);
@@ -118,6 +121,8 @@ export function MembersView({
               </Table>
             </section>
           )}
+
+          <PlanSection storage={storage} />
 
           {cliLogins.length > 0 && (
             <section className="grid gap-2">
@@ -352,5 +357,37 @@ function RoleSelect({
         ))}
       </SelectContent>
     </Select>
+  );
+}
+
+/**
+ * The organization's plan (MC-359): on Pro, the pictures, videos and Markdown files agents send are kept in the
+ * cloud, up to an allowance a month, which shows how much of it is used.
+ */
+function PlanSection({ storage }: { storage: WorkFileStorage }) {
+  const plan = PLANS[storage.plan];
+  const resets = new Date(storage.resetsAt).toLocaleDateString(undefined, { month: "long", day: "numeric" });
+  const share = storage.limit > 0 ? Math.min(storage.used / storage.limit, 1) : 0;
+  return (
+    <section className="grid gap-2">
+      <div className="grid gap-0.5 px-2">
+        <h2 className="text-[13px] font-medium">Plan: {plan.name}</h2>
+        <p className="text-xs text-muted-foreground">
+          {storage.plan === "free"
+            ? `The pictures, videos and Markdown files agents send open from their computers, while those are on. On Pro they're kept in the cloud and open straight away, ${formatBytes(PLANS.pro.workFileBytes)} a month.`
+            : `The pictures, videos and Markdown files agents send are kept in the cloud and open straight away, up to ${formatBytes(storage.limit)} a month. Past that, they open from the agents' computers until ${resets}.`}
+        </p>
+      </div>
+      {storage.plan !== "free" && (
+        <div className="grid gap-1.5 px-2">
+          <div className="h-1.5 overflow-hidden rounded-full bg-muted">
+            <div className="h-full rounded-full bg-primary" style={{ width: `${share * 100}%` }} />
+          </div>
+          <p className="text-xs text-muted-foreground tabular-nums">
+            {formatBytes(storage.used)} of {formatBytes(storage.limit)} used this month · starts again {resets}
+          </p>
+        </div>
+      )}
+    </section>
   );
 }

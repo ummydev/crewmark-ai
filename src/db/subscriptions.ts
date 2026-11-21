@@ -1,6 +1,6 @@
 import "server-only";
 
-import { and, asc, desc, eq, inArray, isNotNull, ne, notInArray, sql } from "drizzle-orm";
+import { and, asc, desc, eq, inArray, isNull, isNotNull, ne, notInArray, sql } from "drizzle-orm";
 
 import { db } from "@/db";
 import type { IssueCreator } from "@/db/issues";
@@ -104,7 +104,7 @@ async function subscriberById(organizationId: string, value: unknown): Promise<S
     db
       .select({ id: employees.id })
       .from(employees)
-      .where(and(eq(employees.organizationId, organizationId), eq(employees.id, id))),
+      .where(and(eq(employees.organizationId, organizationId), eq(employees.id, id), isNull(employees.archivedAt))),
     db
       .select({ id: members.userId })
       .from(members)

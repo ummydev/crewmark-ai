@@ -367,7 +367,11 @@
       "signIn": "Anmelden",
       "runsOn": "Läuft mit",
       "language": "Sprache",
-      "trademarks": "Claude, Codex, DeepSeek und OpenCode sind Marken ihrer jeweiligen Inhaber."
+      "trademarks": "Claude, Codex, DeepSeek und OpenCode sind Marken ihrer jeweiligen Inhaber.",
+      "legal": "Rechtliches",
+      "privacy": "Datenschutz",
+      "terms": "Nutzungsbedingungen",
+      "contact": "Kontakt"
     }
   }
 }

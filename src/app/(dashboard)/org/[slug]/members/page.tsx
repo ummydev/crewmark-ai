@@ -3,6 +3,7 @@ import { Suspense } from "react";
 
 import { MembersView } from "@/components/organizations/members-view";
 import { Skeleton } from "@/components/ui/skeleton";
+import { getWorkFileStorage } from "@/db/attachments";
 import { getMembersAndInvitations } from "@/db/queries";
 import { getMembership } from "@/lib/auth";
 import { listCliKeys } from "@/lib/cli-auth";
@@ -19,16 +20,17 @@ async function Members({ params }: Pick<PageProps<"/org/[slug]/members">, "param
   // Checked here too: a page can render without its layout re-running, e.g. on a client-side navigation.
   const membership = await getMembership((await params).slug);
   if (!membership) notFound();
-  const [{ members, invitations }, cliKeys] = await Promise.all([
+  const [{ members, invitations }, cliKeys, storage] = await Promise.all([
     getMembersAndInvitations(membership.organization.id),
     listCliKeys(membership.userId, membership.organization.id),
+    getWorkFileStorage(membership.organization.id),
   ]);
   const cliLogins = cliKeys.map((k) => ({
     ...k,
     createdAt: k.createdAt.toISOString(),
     lastUsedAt: k.lastUsedAt?.toISOString() ?? null,
   }));
-  return <MembersView members={members} invitations={invitations} cliLogins={cliLogins} />;
+  return <MembersView members={members} invitations={invitations} cliLogins={cliLogins} storage={storage} />;
 }
 
 function MembersSkeleton() {

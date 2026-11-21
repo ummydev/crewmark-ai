@@ -1,6 +1,7 @@
 import { errorResponse, readJson } from "@/lib/agent-data";
 import type { CliLoginStartRequest, CliLoginStartResponse } from "@/lib/cli-api";
 import { startCliLogin } from "@/lib/cli-auth";
+import { machineIdOf } from "@/lib/device-records";
 import { text } from "@/lib/validate";
 
 // `crewmark login`: starts a login for this computer. The CLI shows the code and the page's address, where the person
@@ -12,6 +13,7 @@ export async function POST(request: Request) {
     const { code, secret, expiresAt } = await startCliLogin({
       hostname: machine(body.hostname, "hostname"),
       platform: machine(body.platform, "platform"),
+      machineId: machineIdOf(request),
     });
     return Response.json({
       code,

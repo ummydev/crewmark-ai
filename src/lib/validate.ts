@@ -1,5 +1,10 @@
 import {
+  AGENT_EFFORTS,
+  AGENT_MODELS,
+  AGENT_PERMISSION_MODES,
   AGENT_RUNTIMES,
+  MAX_ADD_DIRS,
+  type AgentSettings,
   EMPLOYEE_STATUSES,
   HEARTBEAT_LIMITS,
   ISSUE_PRIORITIES,
@@ -90,4 +95,29 @@ export function issueStatus(value: unknown, field = "status"): IssueStatus {
 }
 export const PRIORITY_VALUES = ISSUE_PRIORITIES.map((p) => p.value);
 export const RUNTIME_VALUES = AGENT_RUNTIMES.map((r) => r.value);
+/** An employee's agent settings (MC-313); null, or nothing set, for Claude Code's own. */
+export function agentSettings(value: unknown): AgentSettings | null {
+  if (value === null) return null;
+  if (typeof value !== "object" || Array.isArray(value)) throw new InputError("agentSettings must be an object");
+  const v = value as Record<string, unknown>;
+  const settings: AgentSettings = {};
+  if (v.model != null) settings.model = oneOf(v.model, Object.keys(AGENT_MODELS) as (keyof typeof AGENT_MODELS)[], "agentSettings.model");
+  if (v.effort != null) settings.effort = oneOf(v.effort, AGENT_EFFORTS, "agentSettings.effort");
+  if (v.permissionMode != null) {
+    const modes = Object.keys(AGENT_PERMISSION_MODES) as (keyof typeof AGENT_PERMISSION_MODES)[];
+    settings.permissionMode = oneOf(v.permissionMode, modes, "agentSettings.permissionMode");
+  }
+  if (v.addDirs != null) {
+    if (!Array.isArray(v.addDirs)) throw new InputError("agentSettings.addDirs must be a list of folders");
+    const dirs = [...new Set(v.addDirs.map((d) => text(d, "agentSettings.addDirs").trim().replace(/(.)\/+$/, "$1")))].filter(Boolean);
+    if (dirs.length > MAX_ADD_DIRS) throw new InputError(`At most ${MAX_ADD_DIRS} extra folders`);
+    for (const dir of dirs) {
+      // An absolute path on the employee's computer: macOS or Linux, or Windows.
+      if (!dir.startsWith("/") && !/^[A-Za-z]:[\\/]/.test(dir)) throw new InputError(`${dir} isn't a full path to a folder`);
+    }
+    if (dirs.length > 0) settings.addDirs = dirs;
+  }
+  return Object.keys(settings).length > 0 ? settings : null;
+}
+
 export const EMPLOYEE_STATUS_VALUES = Object.keys(EMPLOYEE_STATUSES) as EmployeeStatus[];

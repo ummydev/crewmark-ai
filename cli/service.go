@@ -90,6 +90,10 @@ func xmlText(s string) string {
 	return b.String()
 }
 
+// The daemon is a Standard process, not Background (MC-300). macOS gives a Background job's processes background
+// network priority, and the Claude Code conversations it starts are its children: behind a TUN-mode VPN (Clash Verge
+// here) every request of theirs to Anthropic was dropped with ECONNRESET, while the same conversation answered as a
+// Standard job. The daemon is idle nearly all the time, so it costs nothing.
 func launchAgentPlist(exe string, env map[string]string) string {
 	var vars strings.Builder
 	for key, value := range env {
@@ -115,7 +119,7 @@ func launchAgentPlist(exe string, env map[string]string) string {
 	<key>KeepAlive</key>
 	<true/>
 	<key>ProcessType</key>
-	<string>Background</string>
+	<string>Standard</string>
 	<key>StandardOutPath</key>
 	<string>` + xmlText(logPath()) + `</string>
 	<key>StandardErrorPath</key>

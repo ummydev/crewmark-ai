@@ -5,13 +5,13 @@ export const copy: RemoteClaudeCodeCopy = {
   meta: {
     title: "Claude Code Remote Control 휴대폰 사용법 | Crewmark AI",
     description:
-      "Claude Code Remote Control로 휴대폰에서 로컬 세션을 이어 가는 법, 한계, 자리를 비워도 계속 일하게 하는 법.",
+      "휴대폰에서 Claude Code Remote Control 쓰기: 데스크톱 앱에서 켜고, Mac mini나 Linux 서버로 24시간 연결해 두고, 팀까지 운영하세요.",
   },
   breadcrumb: "Claude Code 원격 사용",
   hero: {
     kicker: "Claude Code 원격 사용",
     title: "휴대폰으로 Claude Code를 제어하고, 나중엔 알아서 일하게 하세요",
-    lead: "Claude Code Remote Control은 컴퓨터에서 실행 중인 Claude Code 세션을 휴대폰, 태블릿, 브라우저에서 이어 갈 수 있게 해 주는 Anthropic의 기능이에요. 이 가이드에서는 설정 방법과 한계를 설명하고, Crewmark가 같은 Claude Code를 자기 일정에 맞춰 스스로 일하는 직원으로 바꾸는 방법을 보여 드려요.",
+    lead: "Claude Code Remote Control은 컴퓨터에서 실행 중인 Claude Code 세션을 휴대폰, 태블릿, 브라우저에서 이어 갈 수 있게 해 주는 Anthropic의 기능이에요. 이 가이드에서는 설정 방법과 한계, Mac mini나 Linux 서버에 두고 24시간 언제든 연결할 수 있게 하는 방법을 설명하고, Crewmark가 같은 Claude Code를 자기 일정에 맞춰 스스로 일하는 직원으로 바꾸는 방법을 보여 드려요.",
     cta: "시작하기",
     secondary: "Remote Control 설정하기",
   },
@@ -31,6 +31,10 @@ export const copy: RemoteClaudeCodeCopy = {
       {
         title: "요금제와 로그인 방식을 확인하세요",
         text: "Remote Control은 /login으로 claude.ai에 로그인한 Claude Pro, Max, Ultra, Team, Enterprise 요금제에서 작동해요. API 키, Amazon Bedrock, Google Cloud, Microsoft Foundry, 사용자 지정 ANTHROPIC_BASE_URL 게이트웨이는 지원하지 않아요. Team과 Enterprise에서는 먼저 Owner가 기능을 켜야 해요.",
+      },
+      {
+        title: "Claude 데스크톱 앱에서 켜세요",
+        text: "가장 간단한 방법이에요. MacBook처럼 제어하려는 컴퓨터에서 Claude 데스크톱 앱을 열고 Settings > Code(또는 Settings > Claude Code)에서 Connect new sessions to Remote Control을 켜세요. 이미 열려 있는 세션에서는 Code 탭에 /remote-control이나 /rc를 입력하세요.",
       },
       {
         title: "Remote Control을 켜고 세션을 시작하세요",
@@ -71,6 +75,8 @@ export const copy: RemoteClaudeCodeCopy = {
       ["누가 일을 시작하나요", "내가 메시지를 보내서", "근무 시간 중의 하트비트, 또는 누군가 배정한 이슈"],
       ["답장을 멈추면", "Claude가 다음 메시지를 기다림", "직원이 다음 이슈로 넘어가고, 막히면 물어봄"],
       ["진행 관리", "세션당 대화 하나", "상태, 프로젝트, 댓글, KPI가 있는 이슈 보드"],
+      ["에이전트 팀", "세션당 대화 하나. 에이전트가 여럿이면 세션 여러 개를 오가며 관리", "직무가 다른 여러 직원이 한 보드에서 서로 이슈를 배정하고 @멘션"],
+      ["목표", "대화 밖의 목표는 없음", "각 직원이 그에 맞춰 일을 계획하는 숫자 목표(KPI)"],
       ["실행 환경", "내 컴퓨터, 내 Claude 요금제", "내 컴퓨터, 내 Claude Code 또는 Codex 요금제"],
       ["만든 곳", "Anthropic", "Crewmark (Anthropic과 무관)"],
     ],
@@ -78,7 +84,7 @@ export const copy: RemoteClaudeCodeCopy = {
   crewmark: {
     kicker: "자리를 비웠을 때",
     title: "Claude Code에게 리모컨 말고 일자리를 주세요",
-    text: "Crewmark는 내 컴퓨터의 Claude Code를 직원으로 만들어요. 직무, 목표, 근무 시간, 이슈 보드가 있고, 내가 지켜보든 말든 계속 일해요.",
+    text: "Crewmark는 내 컴퓨터의 Claude Code를 직원으로 만들어요. 직무, 목표, 근무 시간, 이슈 보드가 있고, 내가 지켜보든 말든 계속 일해요. 휴대폰에서도 여전히 연락할 수 있고, 내가 조종하는 세션이라기보다는 자기 일과 목표가 있는 디지털 직원처럼 일해요.",
     steps: [
       {
         title: "직원을 채용하세요",
@@ -96,11 +102,59 @@ export const copy: RemoteClaudeCodeCopy = {
         title: "하트비트에 맞춰 일해요",
         text: "근무 시간 동안 직원은 정해진 주기로 깨어나 이슈를 가져가고, 상태를 업데이트하고, 진행 상황을 댓글로 남겨요. 결정이 필요하면 물어봐요.",
       },
+      {
+        title: "휴대폰에서 대화하세요",
+        text: "휴대폰 브라우저로 crewmark.ai를 열고 직원의 Work 로그에 메시지를 쓰세요. 메시지는 내 컴퓨터에 있는 그 직원의 Claude Code 대화로 전달되고, 직원은 거기서 답해요.",
+      },
+      {
+        title: "팀으로 키우세요",
+        text: "SEO 전문가와 소프트웨어 엔지니어처럼 직무가 다른 직원을 더 채용하세요. 직원들은 공유 보드에서 서로 이슈를 배정하고, 댓글을 달고, @멘션하며, 그때마다 해당 직원이 깨어나요. [AI 직원 직무](/ai-employees)를 참고하세요.",
+      },
+    ],
+  },
+  screens: {
+    title: "이런 화면이에요",
+    text: "샘플 데이터로 만든 예시 화면이에요. 팀의 보드, 새 직원의 목표·근무 시간·하트비트, 그리고 직원의 근무일을 보여 줘요.",
+    items: [
+      {
+        image: "/media/remote-claude-code/board.webp",
+        alt: "AI 직원 네 명에게 배정된 이슈가 Todo, In progress, In review, Done에 놓인 Crewmark 보드",
+        caption: "보드: 직원마다 이슈가 Todo에서 Done으로 옮겨 가고, 결정이 필요하면 직원이 그 이슈에서 물어봐요.",
+      },
+      {
+        image: "/media/remote-claude-code/new-employee.webp",
+        alt: "이름, 직무, 목표, 근무 시간, 하트비트, 실행할 에이전트를 입력하는 새 직원 양식",
+        caption: "직원 채용: 직무, 숫자로 된 목표, 근무 시간, 깨어나는 주기, 실행할 에이전트.",
+      },
+      {
+        image: "/media/remote-claude-code/schedule.webp",
+        alt: "직원의 하루: 근무 시간 중 깨어난 시점, 한 일의 기록, 설정",
+        caption: "직원의 근무일: 내가 정한 시간 사이에 깨어난 시점과 그때마다 한 일.",
+      },
     ],
   },
   both: {
     title: "둘 다 쓰세요",
     text: "Crewmark 직원은 평범한 Claude Code 대화라서, Remote Control을 켜고 휴대폰에서 바로 끼어들 수도 있어요. Remote Control은 어디서든 Claude Code와 대화하게 해 주고, Crewmark는 대화하지 않는 동안 할 일을 줘요.",
+  },
+  alwaysOn: {
+    title: "Claude Code에 24시간 연결해 두기: 두 가지 방법",
+    text: "Remote Control과 Crewmark는 둘 다 내가 가진 컴퓨터에서 Claude Code를 실행하기 때문에, 그 컴퓨터가 켜져 있을 때만 응답해요. 언제 어디서든 연결하려면 잠들지 않는 머신에 두세요. 좋은 방법이 두 가지 있어요.",
+    options: [
+      {
+        title: "집에 둔 Mac mini",
+        text: "System Settings > Energy에서 Prevent automatic sleeping when the display is off를 켠 Mac mini를 계속 켜 두고, 거기서 Remote Control을 켠 Claude Code를 실행해 휴대폰으로 조종하세요. Tailscale과 Screen Sharing을 더하면 노트북에서 그 데스크톱에 접속할 수 있어서 모든 파일이 Mac mini에 남아요. 컴퓨터 사용, Xcode, iOS Simulator를 돌릴 수 있는 것도 이 방식이에요.",
+        link: "Mac mini에 Claude Code 설정하기",
+        href: "/blog/claude-code-mac-mini",
+      },
+      {
+        title: "Linux 서버(VPS)",
+        text: "DigitalOcean이나 OVHcloud 같은 업체에서 Linux 서버를 빌리고, Claude CLI(Ubuntu나 Debian이라면 Claude Desktop도 가능)를 설치한 뒤 `claude remote-control`을 실행하세요. Chrome을 조작할 수 있고, 원격 데스크톱이 있으면 필요할 때 사이트에 직접 로그인할 수 있어요. 다만 Linux에서는 컴퓨터 사용을 쓸 수 없고, iOS 개발에는 Mac이 필요해요.",
+        link: "VPS에서 Claude Code 돌리기",
+        href: "/blog/claude-code-vps",
+      },
+    ],
+    note: "저희도 이렇게 써요. 저희 창업자는 늘 켜져 있는 Mac mini를 집에 두고, 휴대폰으로 거기서 Claude Code를 조종하며, MacBook Air에서 Tailscale과 원격 데스크톱으로 그 Mac mini에 접속해 작업해요. 그래서 모든 파일이 Mac mini에 남아요. 밤새 계속 돌리는 다른 방법은 [Claude Code를 24시간 돌리는 법](/blog/run-claude-code-24-7)에 있어요.",
   },
   faq: {
     title: "자주 묻는 질문",
@@ -134,6 +188,14 @@ export const copy: RemoteClaudeCodeCopy = {
         a: "아니요. Remote Control은 Claude Code가 api.anthropic.com과 통신할 때만 작동해요. ANTHROPIC_BASE_URL이 DeepSeek, 게이트웨이, 프록시를 가리키거나 Bedrock, Google Cloud, Foundry를 쓰고 있다면, 그 설정을 해제하고 claude.ai로 로그인해야 쓸 수 있어요.",
       },
       {
+        q: "Mac mini에서 Claude Code Remote Control을 돌릴 수 있나요?",
+        a: "네. Mac mini가 잠들지 않게 하고(System Settings > Energy > Prevent automatic sleeping when the display is off), Remote Control을 켠 채 Claude Code를 실행한 뒤, 휴대폰의 Claude 앱에서 연결하세요. Mac mini가 켜져 있고 온라인인 동안에는 24시간 응답해요.",
+      },
+      {
+        q: "Linux 서버에서 Remote Control을 쓸 수 있나요?",
+        a: "네. 어떤 Linux 배포판에든 Claude CLI를 설치하거나, Ubuntu 22.04 이상 또는 Debian 12 이상에는 Claude Desktop(베타)을 설치하고, Claude 요금제로 로그인한 뒤 claude remote-control을 실행하세요. 예를 들어 tmux 안에서 실행해 프로세스가 계속 돌아가게 두세요. Linux에서는 컴퓨터 사용을 쓸 수 없어요.",
+      },
+      {
         q: "노트북을 닫아도 Claude Code가 계속 일할 수 있나요?",
         a: "혼자서는 안 돼요. Remote Control 세션은 컴퓨터가 켜져 있고 claude 프로세스가 돌아가야 하며, 작업이 끝나면 다음 메시지를 기다려요. Crewmark 직원도 내 컴퓨터에서 실행되지만, 근무 시간 동안 하트비트가 직원을 깨워 이슈를 계속 처리하게 해요.",
       },
@@ -148,7 +210,7 @@ export const copy: RemoteClaudeCodeCopy = {
     text: "Google 계정으로 가입하고, 지금 쓰는 에이전트에서 첫 직원을 채용하세요.",
     button: "시작하기",
   },
-  checked: "Remote Control 관련 내용은 2026년 11월 7일에 Anthropic 문서와 대조해 확인했습니다.",
+  checked: "Remote Control 관련 내용은 2026년 11월 14일에 Anthropic 문서와 대조해 확인했습니다.",
   disclaimer:
     "Claude와 Claude Code는 Anthropic, PBC의 상표입니다. Crewmark는 독립 제품이며 Anthropic과 제휴하거나 Anthropic의 보증 또는 후원을 받지 않았습니다.",
 };

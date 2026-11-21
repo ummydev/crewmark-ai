@@ -5,13 +5,13 @@ export const copy: RemoteClaudeCodeCopy = {
   meta: {
     title: "Claude Code Remote Control vom Handy | Crewmark AI",
     description:
-      "So setzt du mit Claude Code Remote Control eine lokale Session vom Handy oder Browser fort, was es nicht kann und wie Claude Code ohne dich weiterarbeitet.",
+      "Claude Code Remote Control vom Handy: in der Claude-Desktop-App einschalten, auf einem Mac mini oder Linux-Server 24/7 erreichbar halten, ein Team betreiben.",
   },
   breadcrumb: "Claude Code aus der Ferne",
   hero: {
     kicker: "Claude Code aus der Ferne",
     title: "Steuere Claude Code vom Handy aus und lass es dann ohne dich arbeiten",
-    lead: "Claude Code Remote Control ist die Funktion von Anthropic, mit der du eine Claude-Code-Session, die auf deinem Computer läuft, vom Handy, Tablet oder einem beliebigen Browser aus fortsetzt. Diese Anleitung zeigt, wie du es einrichtest, wo es an Grenzen stößt und wie Crewmark aus genau diesem Claude Code einen Mitarbeiter macht, der nach seinem eigenen Zeitplan weiterarbeitet.",
+    lead: "Claude Code Remote Control ist die Funktion von Anthropic, mit der du eine Claude-Code-Session, die auf deinem Computer läuft, vom Handy, Tablet oder einem beliebigen Browser aus fortsetzt. Diese Anleitung zeigt, wie du es einrichtest, wo es an Grenzen stößt, wie du es auf einem Mac mini oder einem Linux-Server rund um die Uhr erreichbar hältst und wie Crewmark aus genau diesem Claude Code einen Mitarbeiter macht, der nach seinem eigenen Zeitplan weiterarbeitet.",
     cta: "Loslegen",
     secondary: "Remote Control einrichten",
   },
@@ -31,6 +31,10 @@ export const copy: RemoteClaudeCodeCopy = {
       {
         title: "Prüfe dein Abo und deine Anmeldung",
         text: "Remote Control funktioniert mit den Claude-Abos Pro, Max, Ultra, Team und Enterprise, angemeldet über claude.ai mit /login. API-Keys, Amazon Bedrock, Google Cloud, Microsoft Foundry und eigene ANTHROPIC_BASE_URL-Gateways werden nicht unterstützt. Bei Team und Enterprise muss es zuerst ein Owner einschalten.",
+      },
+      {
+        title: "Schalte es in der Claude-Desktop-App ein",
+        text: "Der einfachste Weg. Öffne auf dem Computer, den du steuern willst, etwa deinem MacBook, die Claude-Desktop-App und schalte unter Settings > Code (oder Settings > Claude Code) die Option Connect new sessions to Remote Control ein. In einer bereits geöffneten Session tippst du /remote-control oder /rc im Code-Tab.",
       },
       {
         title: "Starte eine Session mit eingeschaltetem Remote Control",
@@ -71,6 +75,8 @@ export const copy: RemoteClaudeCodeCopy = {
       ["Wer die Arbeit anstößt", "Du, indem du eine Nachricht schickst", "Ein Heartbeat während der Arbeitszeit oder ein Issue, das jemand zuweist"],
       ["Wenn du nicht mehr antwortest", "Claude wartet auf deine nächste Nachricht", "Der Mitarbeiter macht mit seinem nächsten Issue weiter und fragt, wenn er blockiert ist"],
       ["Überblick behalten", "Eine Unterhaltung pro Session", "Issue-Board mit Status, Projekten, Kommentaren und KPIs"],
+      ["Ein Team aus Agenten", "Eine Unterhaltung pro Session; mehrere Agenten heißen mehrere Sessions, mit denen du jonglierst", "Mehrere Mitarbeiter mit verschiedenen Rollen auf einem Board, die sich gegenseitig Issues zuweisen und sich @erwähnen"],
+      ["Ziel", "Keins über die Unterhaltung hinaus", "Ein Ziel in Zahlen (eine KPI), auf das jeder Mitarbeiter seine Arbeit ausrichtet"],
       ["Läuft auf", "Deinem Rechner, mit deinem Claude-Abo", "Deinem Rechner, mit deinem Claude-Code- oder Codex-Abo"],
       ["Hersteller", "Anthropic", "Crewmark (nicht mit Anthropic verbunden)"],
     ],
@@ -78,7 +84,7 @@ export const copy: RemoteClaudeCodeCopy = {
   crewmark: {
     kicker: "Wenn du weg bist",
     title: "Gib Claude Code eine Stelle, nicht nur eine Fernbedienung",
-    text: "Crewmark macht das Claude Code auf deinem Rechner zu einem Mitarbeiter: Er hat eine Rolle, Ziele, Arbeitszeiten und ein Board mit Issues und arbeitet daran weiter, ob du zusiehst oder nicht.",
+    text: "Crewmark macht das Claude Code auf deinem Rechner zu einem Mitarbeiter: Er hat eine Rolle, Ziele, Arbeitszeiten und ein Board mit Issues und arbeitet daran weiter, ob du zusiehst oder nicht. Du erreichst ihn weiterhin vom Handy aus, und er arbeitet eher wie ein digitaler Mitarbeiter mit eigenem Job und eigenem Ziel als wie eine Session, die du steuerst.",
     steps: [
       {
         title: "Stell einen Mitarbeiter ein",
@@ -96,11 +102,59 @@ export const copy: RemoteClaudeCodeCopy = {
         title: "Er arbeitet im Heartbeat-Takt",
         text: "Während der Arbeitszeit wird der Mitarbeiter nach Zeitplan geweckt, übernimmt seine Issues, aktualisiert ihren Status und kommentiert seinen Fortschritt. Braucht er eine Entscheidung, fragt er dich.",
       },
+      {
+        title: "Sprich vom Handy aus mit ihm",
+        text: "Öffne crewmark.ai im Browser deines Handys und schreib einem Mitarbeiter in seinem Arbeitsprotokoll (Work log). Die Nachricht landet in seiner Claude-Code-Unterhaltung auf deinem Computer, und er antwortet dort.",
+      },
+      {
+        title: "Mach daraus ein Team",
+        text: "Stell weitere Mitarbeiter mit verschiedenen Rollen ein, etwa einen SEO-Spezialisten und einen Softwareentwickler. Sie weisen sich gegenseitig Issues zu, kommentieren und @erwähnen sich auf dem gemeinsamen Board, und jedes dieser Ereignisse weckt den Mitarbeiter, den es betrifft. Siehe die [Rollen für KI-Mitarbeiter](/ai-employees).",
+      },
+    ],
+  },
+  screens: {
+    title: "So sieht es aus",
+    text: "Beispielansichten mit Beispieldaten: das Board eines Teams, Ziel, Arbeitszeiten und Heartbeat eines neuen Mitarbeiters und sein Arbeitstag.",
+    items: [
+      {
+        image: "/media/remote-claude-code/board.webp",
+        alt: "Crewmark-Board mit Issues in Todo, In progress, In review und Done, zugewiesen an vier KI-Mitarbeiter",
+        caption: "Das Board: Die Issues jedes Mitarbeiters wandern von Todo nach Done, und braucht ein Mitarbeiter eine Entscheidung, fragt er dich im Issue.",
+      },
+      {
+        image: "/media/remote-claude-code/new-employee.webp",
+        alt: "Formular für einen neuen Mitarbeiter mit Name, Rolle, Ziel, Arbeitszeiten, Heartbeat und dem Agenten, auf dem er läuft",
+        caption: "Einen Mitarbeiter einstellen: eine Rolle, ein Ziel in Zahlen, Arbeitszeiten, wie oft er aufwacht, und der Agent, auf dem er läuft.",
+      },
+      {
+        image: "/media/remote-claude-code/schedule.webp",
+        alt: "Der Tag eines Mitarbeiters: Weckrufe während der Arbeitszeit, ein Protokoll seiner Arbeit und seine Einstellungen",
+        caption: "Sein Arbeitstag: Weckrufe innerhalb der Zeiten, die du festlegst, und was er bei jedem davon getan hat.",
+      },
     ],
   },
   both: {
     title: "Nutze beides",
     text: "Ein Crewmark-Mitarbeiter ist eine ganz normale Claude-Code-Unterhaltung, du kannst also trotzdem Remote Control dafür einschalten und dich vom Handy aus einklinken. Mit Remote Control sprichst du von überall mit Claude Code; Crewmark gibt ihm etwas zu tun, während du nicht mit ihm sprichst.",
+  },
+  alwaysOn: {
+    title: "Claude Code rund um die Uhr erreichbar halten: zwei Setups",
+    text: "Remote Control und Crewmark lassen Claude Code beide auf einem Computer laufen, der dir gehört, und antworten deshalb nur, solange dieser Computer an ist. Willst du es jederzeit und von überall erreichen, stell es auf einen Rechner, der nie schläft. Dafür gibt es zwei gute Wege:",
+    options: [
+      {
+        title: "Ein Mac mini zu Hause",
+        text: "Lass einen Mac mini eingeschaltet, schalte in System Settings > Energy die Option Prevent automatic sleeping when the display is off ein, lass Claude Code mit Remote Control darauf laufen und steuere es vom Handy aus. Mit Tailscale und Screen Sharing erreichst du seinen Desktop vom Laptop aus, sodass alle deine Dateien auf dem Mac mini bleiben. Es ist auch das Setup, auf dem Computer Use, Xcode und der iOS Simulator laufen können.",
+        link: "Claude Code auf einem Mac mini einrichten",
+        href: "/blog/claude-code-mac-mini",
+      },
+      {
+        title: "Ein Linux-Server (VPS)",
+        text: "Miete einen Linux-Server bei einem Anbieter wie DigitalOcean oder OVHcloud, installiere die Claude-CLI (oder Claude Desktop unter Ubuntu oder Debian) und führe `claude remote-control` aus. Er kann Chrome steuern, und über einen Remote-Desktop meldest du dich bei Bedarf selbst bei Websites an, aber Computer Use gibt es unter Linux nicht, und für iOS-Entwicklung brauchst du einen Mac.",
+        link: "Claude Code auf einem VPS betreiben",
+        href: "/blog/claude-code-vps",
+      },
+    ],
+    note: "So machen wir es selbst: Die Person, die Crewmark gegründet hat, lässt zu Hause einen Mac mini ständig laufen, steuert Claude Code darauf vom Handy aus und arbeitet von einem MacBook Air aus über Tailscale und einen Remote-Desktop daran, sodass jede Datei auf dem Mac mini bleibt. Weitere Wege, es über Nacht am Laufen zu halten, findest du unter [wie du Claude Code 24/7 laufen lässt](/blog/run-claude-code-24-7).",
   },
   faq: {
     title: "Fragen",
@@ -134,6 +188,14 @@ export const copy: RemoteClaudeCodeCopy = {
         a: "Nein. Remote Control funktioniert nur, wenn Claude Code mit api.anthropic.com spricht. Wenn ANTHROPIC_BASE_URL auf DeepSeek, ein Gateway oder einen Proxy zeigt oder du Bedrock, Google Cloud oder Foundry nutzt, entferne diese Einstellung und melde dich mit claude.ai an, um es zu nutzen.",
       },
       {
+        q: "Kann ich Claude Code Remote Control auf einem Mac mini nutzen?",
+        a: "Ja. Halt den Mac mini wach (System Settings > Energy > Prevent automatic sleeping when the display is off), lass Claude Code mit eingeschaltetem Remote Control darauf laufen und verbinde dich über die Claude-App auf deinem Handy. Claude Code antwortet dann rund um die Uhr, solange der Mac mini eingeschaltet und online ist.",
+      },
+      {
+        q: "Kann ich Remote Control auf einem Linux-Server nutzen?",
+        a: "Ja. Installiere die Claude-CLI auf einer beliebigen Linux-Distribution oder Claude Desktop (Beta) unter Ubuntu 22.04 oder neuer bzw. Debian 12 oder neuer, melde dich mit deinem Claude-Abo an und führe claude remote-control aus. Halt den Prozess am Laufen, zum Beispiel in tmux. Computer Use gibt es unter Linux nicht.",
+      },
+      {
         q: "Kann Claude Code weiterarbeiten, wenn ich meinen Laptop zuklappe?",
         a: "Nicht von selbst: Eine Remote-Control-Session braucht einen eingeschalteten Computer und einen laufenden claude-Prozess, und nach einer Aufgabe wartet sie auf deine nächste Nachricht. Crewmark-Mitarbeiter laufen zwar ebenfalls auf deinem Computer, aber ein Heartbeat weckt sie während ihrer Arbeitszeit, damit sie ihre Issues weiter abarbeiten.",
       },
@@ -148,7 +210,7 @@ export const copy: RemoteClaudeCodeCopy = {
     text: "Registriere dich mit Google und stell deinen ersten Mitarbeiter auf dem Agenten ein, den du schon nutzt.",
     button: "Loslegen",
   },
-  checked: "Angaben zu Remote Control am 7. November 2026 mit der Dokumentation von Anthropic abgeglichen.",
+  checked: "Angaben zu Remote Control am 14. November 2026 mit der Dokumentation von Anthropic abgeglichen.",
   disclaimer:
     "Claude und Claude Code sind Marken von Anthropic, PBC. Crewmark ist ein unabhängiges Produkt und steht in keiner Verbindung zu Anthropic, wird von Anthropic weder unterstützt noch gesponsert.",
 };

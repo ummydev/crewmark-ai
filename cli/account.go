@@ -35,7 +35,7 @@ func interactive() bool {
 }
 
 func login(args []string) error {
-	p, err := parseArgs(args, []string{"url"}, []string{"wait", "status"})
+	p, err := parseArgs(args, []string{"url", "secret"}, []string{"wait", "status"})
 	if err != nil {
 		return err
 	}
@@ -54,6 +54,14 @@ func login(args []string) error {
 		baseURL = defaultURL
 	}
 	baseURL = strings.TrimRight(baseURL, "/")
+	// A login the person allowed already, from the install command Crewmark showed them (MC-421): just collect it.
+	if secret := strings.TrimSpace(p.strings["secret"]); secret != "" {
+		pending := pendingLogin{URL: baseURL, Secret: secret, ExpiresAt: time.Now().Add(time.Minute).UTC().Format(time.RFC3339), Interval: 1}
+		if err := writePrivate(pendingLoginPath(), pending); err != nil {
+			return err
+		}
+		return waitForLogin()
+	}
 	hostname, _ := os.Hostname()
 	var start cliLoginStart
 	err = request(baseURL, "/api/cli/login", "", "POST",
@@ -81,13 +89,15 @@ func waitForLogin() error {
 		return fail("No login is waiting. Run `crewmark login` first.")
 	}
 	interval := time.Duration(max(pending.Interval, 1)) * time.Second
+	hostname, _ := os.Hostname()
+	poll := map[string]string{"secret": pending.Secret, "hostname": hostname, "platform": runtime.GOOS + "-" + runtime.GOARCH}
 	deadline, err := time.Parse(time.RFC3339, pending.ExpiresAt)
 	if err != nil {
 		deadline = time.Now().Add(10 * time.Minute)
 	}
 	for {
 		var res cliLoginPoll
-		if err := request(pending.URL, "/api/cli/login/poll", "", "POST", map[string]string{"secret": pending.Secret}, &res); err != nil {
+		if err := request(pending.URL, "/api/cli/login/poll", "", "POST", poll, &res); err != nil {
 			return err
 		}
 		switch res.State {

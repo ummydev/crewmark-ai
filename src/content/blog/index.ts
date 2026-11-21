@@ -41,6 +41,20 @@ import { devinAlternatives } from "./devin-alternatives";
 import { opencodeAlternatives } from "./opencode-alternatives";
 import { aiderAlternatives } from "./aider-alternatives";
 import { claudeFable52 } from "./claude-fable-5-2";
+import { opusMotionGraphics } from "./opus-5-5-motion-graphics";
+import { codexMacMini } from "./codex-mac-mini";
+import { codexVps } from "./codex-vps";
+import { codexWindows } from "./codex-windows";
+import { codexLinux } from "./codex-linux";
+import { claudeCodeMacMini } from "./claude-code-mac-mini";
+import { claudeCodeVps } from "./claude-code-vps";
+import { openclawReviews } from "./openclaw-reviews";
+import { grokBotReviews } from "./grok-bot-reviews";
+import { aiCoworker } from "./ai-coworker";
+import { gemini4Hydrogen } from "./gemini-4-hydrogen";
+import { multiAgentHarness } from "./multi-agent-harness";
+import { claudeFable52Games } from "./claude-fable-5-2-games";
+import { claudeFable52Videos } from "./claude-fable-5-2-videos";
 import { multipleClaudeCodeAgents } from "./multiple-claude-code-agents";
 import { reduceClaudeCodeTokenUsage } from "./reduce-claude-code-token-usage";
 import { superagent } from "./superagent";
@@ -85,6 +99,20 @@ import {
   opencodeAlternativesTranslations,
   aiderAlternativesTranslations,
   claudeFable52Translations,
+  opusMotionGraphicsTranslations,
+  codexMacMiniTranslations,
+  codexVpsTranslations,
+  codexWindowsTranslations,
+  codexLinuxTranslations,
+  claudeCodeMacMiniTranslations,
+  claudeCodeVpsTranslations,
+  openclawReviewsTranslations,
+  grokBotReviewsTranslations,
+  aiCoworkerTranslations,
+  gemini4HydrogenTranslations,
+  multiAgentHarnessTranslations,
+  claudeFable52GamesTranslations,
+  claudeFable52VideosTranslations,
   multipleClaudeCodeAgentsTranslations,
   reduceClaudeCodeTokenUsageTranslations,
   superagentTranslations,
@@ -109,6 +137,20 @@ export const postCopy: Record<PostSlug, Partial<Record<Locale, GuideCopy>>> = {
   "opencode-alternatives": { ...opencodeAlternativesTranslations, ...opencodeAlternatives },
   "aider-alternatives": { ...aiderAlternativesTranslations, ...aiderAlternatives },
   "claude-fable-5-2": { ...claudeFable52Translations, ...claudeFable52 },
+  "opus-5-5-motion-graphics": { ...opusMotionGraphicsTranslations, ...opusMotionGraphics },
+  "codex-mac-mini": { ...codexMacMiniTranslations, ...codexMacMini },
+  "codex-vps": { ...codexVpsTranslations, ...codexVps },
+  "codex-windows": { ...codexWindowsTranslations, ...codexWindows },
+  "codex-linux": { ...codexLinuxTranslations, ...codexLinux },
+  "claude-code-mac-mini": { ...claudeCodeMacMiniTranslations, ...claudeCodeMacMini },
+  "claude-code-vps": { ...claudeCodeVpsTranslations, ...claudeCodeVps },
+  "openclaw-reviews": { ...openclawReviewsTranslations, ...openclawReviews },
+  "grok-bot-reviews": { ...grokBotReviewsTranslations, ...grokBotReviews },
+  "ai-coworker": { ...aiCoworkerTranslations, ...aiCoworker },
+  "gemini-4-hydrogen": { ...gemini4HydrogenTranslations, ...gemini4Hydrogen },
+  "multi-agent-harness": { ...multiAgentHarnessTranslations, ...multiAgentHarness },
+  "claude-fable-5-2-games": { ...claudeFable52GamesTranslations, ...claudeFable52Games },
+  "claude-fable-5-2-videos": { ...claudeFable52VideosTranslations, ...claudeFable52Videos },
   "ai-seo-agent": { ...aiSeoAgentTranslations, ...aiSeoAgent },
   "deepseek-v4-1-flash": { ...deepseekV41FlashTranslations, ...deepseekV41Flash },
   "claude-code-deepseek": { ...claudeCodeDeepseekTranslations, ...claudeCodeDeepseek },

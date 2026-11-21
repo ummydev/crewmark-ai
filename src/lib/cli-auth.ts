@@ -5,6 +5,7 @@ import { and, desc, eq, gt, isNull } from "drizzle-orm";
 
 import { db } from "@/db";
 import { cliKeys, cliLogins, members, organizations, users } from "@/db/schema";
+import { loginOnDevice } from "@/lib/device-records";
 import { hashSecret, newSecret } from "@/lib/secrets";
 import type { Organization } from "@/lib/types";
 
@@ -27,6 +28,8 @@ function newCode() {
 export interface MachineInfo {
   hostname: string;
   platform: string;
+  /** The CLI's id for the computer (MC-292); null from older CLIs. */
+  machineId: string | null;
 }
 
 export async function startCliLogin(machine: MachineInfo) {
@@ -35,6 +38,31 @@ export async function startCliLogin(machine: MachineInfo) {
   const expiresAt = new Date(Date.now() + CLI_LOGIN_TTL_MS);
   await db.insert(cliLogins).values({ code, secretHash: hashSecret(secret), ...machine, expiresAt });
   return { code, secret, expiresAt };
+}
+
+/** How long the command that installs the CLI already logged in works (MC-421). */
+export const INSTALL_LOGIN_TTL_MS = 60 * 60 * 1000;
+
+/**
+ * A login the person allowed before any computer asked (MC-421): its secret goes in the install command Crewmark shows
+ * them, so the CLI it installs is logged in for them at once, and its daemon connects the computer. It works once, for
+ * an hour; the computer it's used on is filled in then.
+ */
+export async function startInstallLogin(organizationId: string, userId: string) {
+  const secret = newSecret("cml");
+  const now = new Date();
+  await db.insert(cliLogins).values({
+    code: newCode(),
+    secretHash: hashSecret(secret),
+    hostname: "",
+    platform: "",
+    machineId: null,
+    expiresAt: new Date(now.getTime() + INSTALL_LOGIN_TTL_MS),
+    approvedAt: now,
+    userId,
+    organizationId,
+  });
+  return secret;
 }
 
 export type CliLoginState = "pending" | "approved" | "denied" | "expired";
@@ -90,7 +118,7 @@ export type CliLoginPoll =
   | { state: "approved"; apiKey: string; user: { name: string; email: string }; organization: Organization };
 
 /** What the CLI learns when it polls: still waiting, turned down, or allowed, with its key the first time. */
-export async function pollCliLogin(secret: string): Promise<CliLoginPoll | null> {
+export async function pollCliLogin(secret: string, machine?: MachineInfo): Promise<CliLoginPoll | null> {
   return db.transaction(async (tx) => {
     const [login] = await tx
       .select()
@@ -104,16 +132,34 @@ export async function pollCliLogin(secret: string): Promise<CliLoginPoll | null>
     }
     // The key was collected already: a second poll gets nothing new.
     if (login.usedAt) return { state: "expired" };
+    // One allowed ahead, for an install command, that nobody used in time (MC-421).
+    if (!login.machineId && !login.hostname && login.expiresAt < new Date()) return { state: "expired" };
+    // An install command's login learns its computer from the CLI that uses it.
+    if (machine) {
+      login.hostname ||= machine.hostname;
+      login.platform ||= machine.platform;
+      login.machineId ||= machine.machineId;
+    }
 
     const apiKey = newSecret("cmu");
     await tx.update(cliLogins).set({ usedAt: new Date() }).where(eq(cliLogins.id, login.id));
-    await tx.insert(cliKeys).values({
-      organizationId: login.organizationId,
-      userId: login.userId,
-      keyHash: hashSecret(apiKey),
-      hostname: login.hostname,
-      platform: login.platform,
-    });
+    const [key] = await tx
+      .insert(cliKeys)
+      .values({
+        organizationId: login.organizationId,
+        userId: login.userId,
+        keyHash: hashSecret(apiKey),
+        hostname: login.hostname,
+        platform: login.platform,
+      })
+      .returning({
+        id: cliKeys.id,
+        organizationId: cliKeys.organizationId,
+        userId: cliKeys.userId,
+        hostname: cliKeys.hostname,
+        platform: cliKeys.platform,
+      });
+    if (login.machineId) await loginOnDevice(tx, key, login.machineId);
     const [user] = await tx.select({ name: users.name, email: users.email }).from(users).where(eq(users.id, login.userId));
     const [organization] = await tx
       .select({ id: organizations.id, name: organizations.name, slug: organizations.slug })

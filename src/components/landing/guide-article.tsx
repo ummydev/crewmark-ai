@@ -15,10 +15,30 @@ import { guideStructuredData } from "@/lib/structured-data";
 
 export type GuideStep = { title: string; text: string; code?: string };
 
+/** One card in a gallery section: a still from someone else's work, credited and linked to where they shared it. */
+export type GuideGalleryItem = {
+  id: string;
+  title: string;
+  /** A pre-sized WebP in public/, 16:9. */
+  image: string;
+  alt: string;
+  /** The maker's original post. */
+  href: string;
+  /** "Maker (@handle) · 3.3K likes" and the like, already in the page's language. */
+  byline: string;
+  text: string;
+  /** The maker's prompt, verbatim (never translated), and the label of the toggle that shows it. */
+  prompt?: string;
+  promptLabel?: string;
+  /** Extra links under the text, e.g. a playable build. */
+  links?: { label: string; href: string }[];
+};
+
 export type GuideSection = { id?: string; kicker?: string; title: string; text?: string[] } & (
   | { kind: "text"; points?: string[] }
   | { kind: "steps"; steps: GuideStep[]; source?: { label: string; href: string } }
   | { kind: "table"; headers: string[]; rows: string[][] }
+  | { kind: "gallery"; items: GuideGalleryItem[]; watch: string }
 );
 
 export type GuideCopy = {
@@ -49,7 +69,8 @@ export function plainText(text: string) {
   return text.replace(TOKEN, (_, label, _href, code) => label ?? code);
 }
 
-function RichText({ text, locale }: { text: string; locale: Locale }) {
+/** Text with its [label](href) links and `code` marked up; also used by the legal pages (legal-page.tsx). */
+export function RichText({ text, locale }: { text: string; locale: Locale }) {
   const parts: ReactNode[] = [];
   let last = 0;
   for (const match of text.matchAll(TOKEN)) {
@@ -62,7 +83,7 @@ function RichText({ text, locale }: { text: string; locale: Locale }) {
           {label}
         </a>,
       );
-    else if (href.startsWith("#"))
+    else if (href.startsWith("#") || href.startsWith("mailto:"))
       parts.push(
         <a key={match.index} href={href}>
           {label}
@@ -217,6 +238,43 @@ export function GuideArticle({
                     </tbody>
                   </table>
                 </div>
+              )}
+              {section.kind === "gallery" && (
+                <ol className="guide-gallery">
+                  {section.items.map((item) => (
+                    <li key={item.id} id={item.id}>
+                      <a href={item.href} rel="noopener" target="_blank" className="guide-gallery-shot">
+                        {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP in public/, no resizing needed */}
+                        <img src={item.image} alt={item.alt} width={640} height={360} loading="lazy" decoding="async" />
+                      </a>
+                      <div>
+                        <h3>{item.title}</h3>
+                        <p className="guide-gallery-by">{item.byline}</p>
+                        <p>
+                          <RichText text={item.text} locale={locale} />
+                        </p>
+                        <p className="guide-gallery-links">
+                          <a href={item.href} rel="noopener" target="_blank">
+                            {section.watch}
+                          </a>
+                          {item.links?.map((link) => (
+                            <a key={`${link.label} ${link.href}`} href={link.href} rel="noopener" target="_blank">
+                              {link.label}
+                            </a>
+                          ))}
+                        </p>
+                        {item.prompt && (
+                          <details className="guide-gallery-prompt">
+                            <summary>{item.promptLabel}</summary>
+                            <pre>
+                              <code>{item.prompt}</code>
+                            </pre>
+                          </details>
+                        )}
+                      </div>
+                    </li>
+                  ))}
+                </ol>
               )}
             </section>
             {section === midAfter && <GuideMidCta name={name} c={c.mid} />}

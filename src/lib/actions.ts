@@ -3,6 +3,8 @@
 import { headers } from "next/headers";
 
 import {
+  archiveEmployee as saveArchived,
+  conversationFolders,
   deleteEmployee as removeEmployee,
   insertEmployee,
   saveEmployee,
@@ -12,6 +14,7 @@ import {
 import {
   assertInOrganization,
   deleteIssue as removeIssue,
+  getIssue as findIssue,
   insertIssue,
   updateIssue as saveIssue,
   type IssuePatch,
@@ -23,13 +26,16 @@ import { addComment, listActivity } from "@/db/issue-activity";
 import { insertProject, saveProject, type ProjectPatch } from "@/db/projects";
 import { inboxOf, listSubscribers, markInboxRead, markIssueRead, setSubscribed } from "@/db/subscriptions";
 import { employees } from "@/db/schema";
-import { markWorkRead, workRepliesOf } from "@/db/work-unread";
+import { markWorkRead, markWorkUnread, pinConversation, workRepliesOf } from "@/db/work-unread";
 import { createSetupToken, getConnection } from "@/lib/agent-auth";
 import { auth, freeOrganizationSlug, requireMember, requireUserId } from "@/lib/auth";
-import { answerCliLogin, revokeCliKey } from "@/lib/cli-auth";
-import { realtimeConnection } from "@/lib/realtime";
+import { answerCliLogin, revokeCliKey, startInstallLogin } from "@/lib/cli-auth";
+import { listDevices, ownsEmployeeComputer, startOnDevice } from "@/lib/devices";
+import { FILE_LINKS } from "@/lib/features";
+import { realtimeConnection, realtimeFiles, realtimePathAccess } from "@/lib/realtime";
 import type {
   AgentConnection,
+  Device,
   DirectMessage,
   DirectThread,
   Employee,
@@ -68,6 +74,18 @@ export async function updateEmployee(organizationId: string, id: string, patch: 
   await saveEmployee(organizationId, id, patch);
 }
 
+/** Where the employee's conversation runs, and the folders to offer it as extra ones (MC-313). */
+export async function getConversationFolders(organizationId: string, employeeId: string) {
+  await requireMember(organizationId);
+  return conversationFolders(organizationId, text(employeeId, "employeeId", { required: true }));
+}
+
+/** Archives the employee, or brings it back (MC-305). */
+export async function archiveEmployee(organizationId: string, id: string, archived: boolean): Promise<void> {
+  await requireMember(organizationId);
+  await saveArchived(organizationId, id, archived);
+}
+
 export async function deleteEmployee(organizationId: string, id: string): Promise<void> {
   await requireMember(organizationId);
   await removeEmployee(organizationId, id);
@@ -86,6 +104,12 @@ export async function updateIssue(organizationId: string, id: string, patch: Iss
 export async function deleteIssue(organizationId: string, id: string): Promise<void> {
   await requireMember(organizationId);
   await removeIssue(organizationId, id);
+}
+
+/** One issue, by its id or key, as it is now: for a tab that heard it changed or lacks it (MC-455). */
+export async function getIssue(organizationId: string, idOrKey: string): Promise<Issue | null> {
+  await requireMember(organizationId);
+  return findIssue(organizationId, text(idOrKey, "idOrKey", { required: true }));
 }
 
 /** The issue's comments and changes, oldest first. */
@@ -134,6 +158,24 @@ export async function getRealtimeConnection(organizationId: string) {
   return realtimeConnection(organizationId);
 }
 
+/** Where this tab opens the files employees send people in their work, or null without a Worker (MC-287). */
+export async function getWorkFiles(organizationId: string) {
+  await requireMember(organizationId);
+  return realtimeFiles(organizationId);
+}
+
+/**
+ * Where to read files the employee named from its computer, by path (MC-315): only for the person whose computer it
+ * is, and while FILE_LINKS is on. Null when they may not.
+ */
+export async function getFileLinkAccess(organizationId: string, employeeId: string) {
+  if (!FILE_LINKS) return null;
+  const userId = await requireMember(organizationId);
+  const id = text(employeeId, "employeeId", { required: true });
+  if (!(await ownsEmployeeComputer(organizationId, id, userId))) return null;
+  return realtimePathAccess(organizationId, id);
+}
+
 /** The signed-in person's direct conversations with employees, newest first. */
 export async function getDirectThreads(organizationId: string): Promise<DirectThread[]> {
   const userId = await requireMember(organizationId);
@@ -144,6 +186,18 @@ export async function getDirectThreads(organizationId: string): Promise<DirectTh
 export async function getWorkReplies(organizationId: string): Promise<WorkReplies> {
   const userId = await requireMember(organizationId);
   return workRepliesOf(organizationId, userId);
+}
+
+/** Marks the employee's work unread for the signed-in person (MC-310). */
+export async function unreadWork(organizationId: string, employeeId: string): Promise<void> {
+  const userId = await requireMember(organizationId);
+  await markWorkUnread(organizationId, userId, text(employeeId, "employeeId", { required: true }));
+}
+
+/** Pins the conversation to the top of the signed-in person's Messages list, or unpins it (MC-310). */
+export async function pinWork(organizationId: string, employeeId: string, pinned: boolean): Promise<void> {
+  const userId = await requireMember(organizationId);
+  await pinConversation(organizationId, userId, text(employeeId, "employeeId", { required: true }), pinned === true);
 }
 
 /** The signed-in person has seen the employee's work. */
@@ -211,6 +265,42 @@ export async function createAgentSetupToken(
   await assertInOrganization(employees, [text(employeeId, "employeeId", { required: true })], organizationId);
   const { token, expiresAt } = await createSetupToken(organizationId, employeeId, userId);
   return { token, expiresAt: expiresAt.toISOString() };
+}
+
+/**
+ * A one-time login for the command that installs the crewmark CLI on the person's computer (MC-421): the CLI comes up
+ * logged in as them, and its daemon connects the computer, so they can start employees there from here.
+ */
+export async function createInstallLogin(organizationId: string): Promise<{ secret: string }> {
+  const userId = await requireMember(organizationId);
+  return { secret: await startInstallLogin(organizationId, userId) };
+}
+
+/** The person's computers Crewmark can start an employee on, without a setup prompt (MC-292). */
+export async function getDevices(organizationId: string): Promise<Device[]> {
+  const userId = await requireMember(organizationId);
+  return listDevices(organizationId, userId);
+}
+
+/**
+ * Starts the employee on one of the person's computers, in a folder employees already work in there: its daemon
+ * connects it and starts a conversation as it. Says why when it can't.
+ */
+export async function startEmployeeOnDevice(
+  organizationId: string,
+  employeeId: string,
+  deviceId: string,
+  workdir: string,
+  agent = "claude-code",
+): Promise<{ ok: true } | { ok: false; error: string }> {
+  const userId = await requireMember(organizationId);
+  await assertInOrganization(employees, [text(employeeId, "employeeId", { required: true })], organizationId);
+  return startOnDevice(organizationId, userId, {
+    employeeId,
+    deviceId: text(deviceId, "deviceId", { required: true }),
+    workdir: text(workdir, "workdir", { required: true }),
+    agent: text(agent, "agent", { required: true }),
+  });
 }
 
 /** The employee's connected AI agent, or null; the dashboard polls it while waiting for a setup to finish. */

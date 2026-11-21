@@ -25,7 +25,10 @@ export interface OrganizationData {
   /** Which of the users are members now: the people issues can be assigned to. */
   memberIds: string[];
   projects: Project[];
+  /** Its employees, but the archived ones (MC-305). */
   employees: Employee[];
+  /** The employees it archived: shown only where they can be brought back. */
+  archivedEmployees: Employee[];
   issues: Issue[];
 }
 
@@ -66,10 +69,10 @@ export function toIssue({
 }
 
 export function toEmployee(
-  { createdAt, lastActiveAt, organizationId, ...row }: EmployeeRow,
+  { createdAt, lastActiveAt, archivedAt, organizationId, ...row }: EmployeeRow,
   projectIds: string[],
 ): Employee {
-  return { ...row, projectIds, lastActiveAt: lastActiveAt?.toISOString() ?? null };
+  return { ...row, projectIds, lastActiveAt: lastActiveAt?.toISOString() ?? null, archivedAt: archivedAt?.toISOString() ?? null };
 }
 
 export function toProject({ createdAt, organizationId, ...row }: typeof projects.$inferSelect): Project {
@@ -103,6 +106,7 @@ export async function getOrganizationData(organizationId: string): Promise<Organ
       .orderBy(asc(users.username)),
     memberIds,
     db.select().from(projects).where(eq(projects.organizationId, organizationId)).orderBy(asc(projects.createdAt)),
+    // Archived employees (MC-305) are as good as deleted: left out, but for the place that brings them back.
     db.select().from(employees).where(eq(employees.organizationId, organizationId)).orderBy(asc(employees.createdAt)),
     db
       .select({ employeeId: employeeProjects.employeeId, projectId: employeeProjects.projectId })
@@ -122,7 +126,10 @@ export async function getOrganizationData(organizationId: string): Promise<Organ
     users: userRows,
     memberIds: memberRows.map((m) => m.id),
     projects: projectRows.map(toProject),
-    employees: employeeRows.map((e) => toEmployee(e, projectIdsByEmployee.get(e.id) ?? [])),
+    employees: employeeRows.filter((e) => !e.archivedAt).map((e) => toEmployee(e, projectIdsByEmployee.get(e.id) ?? [])),
+    archivedEmployees: employeeRows
+      .filter((e) => e.archivedAt)
+      .map((e) => toEmployee(e, projectIdsByEmployee.get(e.id) ?? [])),
     issues: issueRows.map(toIssue),
   };
 }

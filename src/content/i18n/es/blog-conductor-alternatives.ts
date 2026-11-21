@@ -104,6 +104,14 @@ export const copy: GuideCopy = {
       ],
     },
     {
+      kind: "text",
+      id: "compare",
+      title: "Conductor comparado lado a lado",
+      text: [
+        "Dos de las herramientas a las que se pasa la gente, frente a Conductor dato por dato: [Vibe Kanban vs Conductor](/compare/vibe-kanban-vs-conductor) y [Claude Squad vs Conductor](/compare/claude-squad-vs-conductor). Más en [todas las comparativas](/compare).",
+      ],
+    },
+    {
       kind: "steps",
       id: "crewmark",
       kicker: "Con Crewmark",

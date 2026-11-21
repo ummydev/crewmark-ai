@@ -104,6 +104,14 @@ export const copy: GuideCopy = {
       ],
     },
     {
+      kind: "text",
+      id: "compare",
+      title: "Conductor와 대안 도구 비교",
+      text: [
+        "많이 옮겨 가는 두 도구를 Conductor와 항목별로 비교했어요: [Vibe Kanban vs Conductor](/compare/vibe-kanban-vs-conductor), [Claude Squad vs Conductor](/compare/claude-squad-vs-conductor). 다른 비교는 [전체 비교](/compare)에서 볼 수 있어요.",
+      ],
+    },
+    {
       kind: "steps",
       id: "crewmark",
       kicker: "Crewmark로",

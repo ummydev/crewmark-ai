@@ -1,6 +1,6 @@
 import "server-only";
 
-import { and, count, eq, inArray, ne, sql } from "drizzle-orm";
+import { and, count, eq, inArray, isNull, ne, sql } from "drizzle-orm";
 
 import { db } from "@/db";
 import { notifyAssigned, notifySubscribersOfChanges } from "@/db/agent-events";
@@ -53,7 +53,7 @@ async function assigneeColumns(organizationId: string, value: unknown) {
     db
       .select({ id: employees.id })
       .from(employees)
-      .where(and(eq(employees.organizationId, organizationId), eq(employees.id, id))),
+      .where(and(eq(employees.organizationId, organizationId), eq(employees.id, id), isNull(employees.archivedAt))),
     db
       .select({ id: members.userId })
       .from(members)
@@ -174,8 +174,9 @@ export async function insertIssue(organizationId: string, input: NewIssueInput, 
   // A person it's assigned to finds it in their Inbox.
   if (assignee.assigneeUserId && !("userId" in creator && creator.userId === assignee.assigneeUserId)) {
     await notifyPeople(organizationId, issue.id, creator);
-    pushActivity(organizationId, issue.id);
   }
+  // Open dashboards add it to their board (MC-455): an employee files issues without anyone reloading.
+  pushActivity(organizationId, issue.id);
   if (issue.recurrence) await reschedule(organizationId);
   return issue;
 }
@@ -270,4 +271,24 @@ export async function deleteIssue(organizationId: string, id: string): Promise<v
     .returning({ id: issues.id, status: issues.status, assigneeEmployeeId: issues.assigneeEmployeeId });
   found(deleted);
   if (deleted[0].status !== "done") recountOpenIssues(organizationId, [deleted[0].assigneeEmployeeId]);
+  // Open dashboards take it off their board (MC-455).
+  pushActivity(organizationId, deleted[0].id);
+}
+
+/**
+ * One issue as the dashboard shows it, by its id or its key ("MC-7"), for a tab that heard it changed or was sent a
+ * link to one it hasn't loaded (MC-455); null when there's no such issue in the organization.
+ */
+export async function getIssue(organizationId: string, idOrKey: string): Promise<Issue | null> {
+  const key = /^MC-(\d+)$/i.exec(idOrKey.trim());
+  const [row] = await db
+    .select()
+    .from(issues)
+    .where(
+      and(
+        eq(issues.organizationId, organizationId),
+        key ? eq(issues.number, Number(key[1])) : eq(issues.id, idOrKey.trim()),
+      ),
+    );
+  return row ? toIssue(row) : null;
 }

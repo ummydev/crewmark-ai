@@ -4,7 +4,7 @@ import * as React from "react";
 
 import { useCrewStore } from "@/components/crew-store";
 import { useRealtime } from "@/components/use-realtime";
-import { getDirectThreads, getWorkReplies, readWork } from "@/lib/actions";
+import { getDirectThreads, getWorkReplies, pinWork, readWork, unreadWork } from "@/lib/actions";
 import { DIRECT_MESSAGES } from "@/lib/features";
 import { cacheKey, peekCache, readCache, writeCache } from "@/lib/local-cache";
 import type { DirectThread, WorkReplies } from "@/lib/types";
@@ -26,6 +26,11 @@ interface Messages {
   repliedAt: Record<string, string>;
   /** The person has seen the employee's work. */
   readWorkOf: (employeeId: string) => void;
+  /** The conversations the person pinned to the top (MC-310): when each was pinned, by employee id. */
+  pinned: Record<string, string>;
+  pin: (employeeId: string, pinned: boolean) => void;
+  /** Marks the employee's work unread, as if a reply came the person hasn't seen (MC-310). */
+  unreadWorkOf: (employeeId: string) => void;
   refresh: () => Promise<void>;
 }
 
@@ -73,6 +78,29 @@ export function MessagesProvider({ children }: { children: React.ReactNode }) {
       console.error(error);
     }
   }, [organization.id, key, keepWork]);
+
+  // Shown at once, saved on Crewmark; a failure puts it back.
+  const pin = React.useCallback(
+    (employeeId: string, on: boolean) => {
+      const before = work.pinned ?? {};
+      const pinned = { ...before };
+      if (on) pinned[employeeId] = new Date().toISOString();
+      else delete pinned[employeeId];
+      keepWork((prev) => ({ ...prev, pinned }));
+      void pinWork(organization.id, employeeId, on).catch((error) => {
+        console.error(error);
+        keepWork((prev) => ({ ...prev, pinned: before }));
+      });
+    },
+    [organization.id, keepWork, work.pinned],
+  );
+  const unreadWorkOf = React.useCallback(
+    (employeeId: string) => {
+      keepWork((prev) => ({ ...prev, unread: { ...prev.unread, [employeeId]: Math.max(prev.unread[employeeId] ?? 0, 1) } }));
+      void unreadWork(organization.id, employeeId).catch((error) => console.error(error));
+    },
+    [organization.id, keepWork],
+  );
 
   // Called by the employee's open work while it has unread replies (MessagesView's WorkView).
   const readWorkOf = React.useCallback(
@@ -123,8 +151,18 @@ export function MessagesProvider({ children }: { children: React.ReactNode }) {
     Object.values(workUnread).reduce((sum, count) => sum + count, 0);
 
   const value = React.useMemo(
-    () => ({ threads, unread, workUnread, repliedAt: work.repliedAt, readWorkOf, refresh }),
-    [threads, unread, workUnread, work.repliedAt, readWorkOf, refresh],
+    () => ({
+      threads,
+      unread,
+      workUnread,
+      repliedAt: work.repliedAt,
+      readWorkOf,
+      pinned: work.pinned ?? {},
+      pin,
+      unreadWorkOf,
+      refresh,
+    }),
+    [threads, unread, workUnread, work.repliedAt, readWorkOf, work.pinned, pin, unreadWorkOf, refresh],
   );
   return <MessagesContext.Provider value={value}>{children}</MessagesContext.Provider>;
 }

@@ -50,7 +50,9 @@ type daemonState struct {
 	EventsCursor  *int64     `json:"eventsCursor"`
 	LastHeartbeat time.Time  `json:"lastHeartbeat"`
 	Heartbeat     *heartbeat `json:"heartbeat"`
-	CheckedAt     time.Time  `json:"checkedAt"`
+	// How to run the conversation when resuming it (MC-313), read with the heartbeat.
+	Settings  *agentSettings `json:"settings,omitempty"`
+	CheckedAt time.Time      `json:"checkedAt"`
 	// When events and heartbeat settings were last fetched on the daemon's own account, once an hour while
 	// Crewmark pushes, in case a push went missing.
 	SyncedAt     time.Time        `json:"syncedAt"`
@@ -120,6 +122,8 @@ func daemonRun() error {
 	log.SetFlags(log.LstdFlags)
 	log.Printf("crewmark %s daemon started", version)
 	pushes := newRealtime()
+	// The computer's own socket, with the person's login (MC-421).
+	computer := &computerListener{}
 	var profiles map[string]employeeProfile
 	ticker := time.NewTicker(daemonTick)
 	defer ticker.Stop()
@@ -130,6 +134,9 @@ func daemonRun() error {
 			pushes.sync(profiles)
 		} else {
 			log.Printf("%v", err)
+		}
+		if stored, err := readCredentials(); err == nil {
+			computer.sync(stored.Account)
 		}
 		for id, profile := range profiles {
 			daemonRound(id, profile, time.Now(), pushKind(pushes.isOpen(id), ""))
@@ -170,8 +177,12 @@ func daemonRound(employeeID string, profile employeeProfile, now time.Time, push
 	}
 	if (pushed == "" && now.Sub(state.CheckedAt) >= heartbeatRefresh) || pushed == "heartbeat" ||
 		pushed == "connected" || hourly {
-		if hb, err := fetchHeartbeat(profile); err == nil {
-			state.Heartbeat, state.CheckedAt = hb, now
+		if hb, settings, err := fetchHeartbeat(profile); err == nil {
+			state.Heartbeat, state.Settings, state.CheckedAt = hb, settings, now
+			// A conversation resumed this round already runs by the new settings (resumeClaude reads them saved).
+			if err := writeState(employeeID, state); err != nil {
+				log.Printf("%s: couldn't save the daemon state: %v", name, err)
+			}
 		} else {
 			log.Printf("%s: couldn't read the heartbeat settings: %v", name, err)
 		}
@@ -194,17 +205,17 @@ func daemonRound(employeeID string, profile employeeProfile, now time.Time, push
 
 // fetchHeartbeat reads the employee's heartbeat settings, from /api/agent/me on Crewmark servers older than
 // /api/agent/heartbeat.
-func fetchHeartbeat(profile employeeProfile) (*heartbeat, error) {
+func fetchHeartbeat(profile employeeProfile) (*heartbeat, *agentSettings, error) {
 	var res heartbeatResponse
 	err := api(profile, "GET", "/api/agent/heartbeat", nil, &res)
 	if err == nil {
-		return res.Heartbeat, nil
+		return res.Heartbeat, res.Settings, nil
 	}
 	var me meResponse
 	if api(profile, "GET", "/api/agent/me", nil, &me) == nil {
-		return me.Employee.Heartbeat, nil
+		return me.Employee.Heartbeat, nil, nil
 	}
-	return nil, err
+	return nil, nil, err
 }
 
 // logName tells employees with the same name apart in the daemon's log, e.g. "程序员 (9cf44e99)".

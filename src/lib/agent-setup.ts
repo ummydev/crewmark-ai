@@ -67,8 +67,12 @@ ${employee.name}. Read the last lines it prints:
 
 - **Linked**: this conversation is ${employee.name}'s. Go on to step 3.
 - **Not linked yet**: the CLI couldn't tell which conversation it runs in (Claude Code and Codex usually say).
-  Run the \`crewmark link-session\` command it prints with this conversation's session id and your agent
-  (\`--runtime claude-code\`, \`codex\`, or \`other\` for any other agent). It prints **Linked** once Crewmark has it.
+  In Claude Code or Codex, run the \`crewmark link-session\` command it prints with this conversation's session id
+  (\`--runtime claude-code\` or \`codex\`). In another agent Crewmark reaches through acpx (OpenCode, DeepSeek
+  Harness, Gemini CLI, Cursor, Kimi, Qwen Code, Goose and others), run \`crewmark link-session --runtime <its id>\`
+  (\`opencode\`, \`deepseek-harness\`, \`gemini\`…) without a session id: ${employee.name} becomes a session of that
+  agent which the crewmark daemon keeps and talks to, and this conversation is done. Any other agent:
+  \`--runtime other\` with this conversation's session id. It prints **Linked** once Crewmark has it.
 
 Setup also tells you your employee id (${employee.id}). Several employees can share a computer: if \`crewmark\` ever
 asks which one you are, add \`--employee ${employee.id}\` to the command.
@@ -99,7 +103,19 @@ Only once they clearly say yes (e.g. "yes, install the crewmark daemon"), run \`
 asks for permission to run it, tell them to allow it. If they'd rather not, skip it: they can ask you later, and
 \`crewmark daemon uninstall\` removes it.
 
-## 5. Start working
+${working({ setup: true })}
+`;
+}
+
+/** Suggested to a conversation someone set up by hand; one Crewmark starts already runs in auto mode. */
+const AUTO_MODE = `So you can keep working while nobody is at the screen, suggest the user puts this conversation in auto mode (Claude
+Code) or full-auto (Codex). Never ask them to skip permission checks altogether.
+
+`;
+
+/** How an employee works, once its conversation is connected: the end of the setup steps, and of a started one's first message. */
+function working({ setup }: { setup: boolean }) {
+  return `## ${setup ? "5. " : ""}Start working
 
 1. Run \`crewmark me\`. It shows your role, responsibilities, KPIs, projects and the issues assigned to you. People edit
    these on Crewmark, so run it again whenever you pick up new work.
@@ -139,13 +155,33 @@ them (a heartbeat that finds nothing changed since your last reply, a notice tha
 only \`${NO_REPLY}\`: Crewmark leaves that turn out, so they aren't shown the same report again. Never do it when a
 person wrote to you: answer them.
 
-So you can keep working while nobody is at the screen, suggest the user puts this conversation in auto mode (Claude
-Code) or full-auto (Codex). Never ask them to skip permission checks altogether.
-
-If the user asks you to make projects or employees, change them, or turn this conversation into another employee, run
+${setup ? AUTO_MODE : ""}If the user asks you to make projects or employees, change them, or turn this conversation into another employee, run
 \`crewmark login\`: show the user the link it prints, and once they've clicked Allow, run \`crewmark login --wait\`.
 After that \`crewmark projects create\`, \`crewmark employees create ... --connect\` and the like work.
 
-Run \`crewmark help\` to see every command.
+Run \`crewmark help\` to see every command.`;
+}
+
+/**
+ * The first message of a conversation Crewmark starts as the employee on the person's computer (MC-292): the daemon
+ * there has already connected it, so it's the setup instructions without the setup.
+ */
+export function startedPrompt({ employee, organization, projects }: SetupTarget, startedBy: string | null) {
+  const title = conversationTitle(employee.name, projects);
+  const who = employee.role ? `${employee.name}, ${organization.name}'s ${employee.role}` : employee.name;
+  const by = startedBy ? `${startedBy} started` : "Someone started";
+  return `${title}
+
+You are ${who}, an AI employee on Crewmark (${PRODUCTION_URL}), where ${organization.name} manages its AI employees.
+${by} this conversation for you from Crewmark, on their computer, and it's already set up: the crewmark CLI is
+installed and signed in as ${employee.name}, this conversation is linked to ${employee.name}, and the crewmark daemon
+brings you what comes from Crewmark. People come back to this same conversation to work with you, so it is your home
+and your memory. If your shell can't find \`crewmark\`, use its full path, \`~/.crewmark/bin/crewmark\`. Several
+employees can share a computer: if \`crewmark\` ever asks which one you are, add \`--employee ${employee.id}\`.
+
+Nobody is at the screen right now: the person reads your replies on Crewmark, so when the steps below say to tell or
+ask the user, say it in your reply.
+
+${working({ setup: false })}
 `;
 }
